@@ -1,0 +1,194 @@
+{
+  "nav": {
+    "services": "Servicios",
+    "portfolio": "Portafolio",
+    "technologies": "Tecnologías",
+    "process": "Proceso",
+    "contact": "Contacto",
+    "startProject": "Iniciar Proyecto"
+  },
+  "hero": {
+    "badge": "Desarrollo Web Premium",
+    "title": "Creamos",
+    "subtitle": "Somos especialistas en desarrollo web moderno. Desde landing pages de alta conversión hasta aplicaciones empresariales con IA integrada.",
+    "ctaPrimary": "Iniciar Proyecto",
+    "ctaSecondary": "Ver Portafolio",
+    "rotatingWords": {
+      "0": "Experiencias Digitales",
+      "1": "Apps Web Modernas",
+      "2": "Soluciones con IA",
+      "3": "Productos Escalables"
+    }
+  },
+  "services": {
+    "badge": "Nuestros Servicios",
+    "title": "Soluciones",
+    "titleHighlight": "Digitales Completas",
+    "subtitle": "Desde landing pages hasta aplicaciones empresariales con IA. Todo con las últimas tecnologías y mejores prácticas.",
+    "cta": "Solicitar Cotización",
+    "items": {
+      "landing": {
+        "title": "Landing Pages",
+        "description": "Páginas de alta conversión optimizadas para captar leads y generar ventas.",
+        "features": ["Diseño responsive", "Alta conversión", "SEO optimizado", "Hosting incluido"]
+      },
+      "website": {
+        "title": "Sitios Web",
+        "description": "Presencia digital profesional para tu marca o negocio con diseño moderno.",
+        "features": ["CMS integrado", "Multi-idioma", "Blog incorporado", "Analytics"]
+      },
+      "ecommerce": {
+        "title": "E-commerce",
+        "description": "Tiendas online modernas con gestión completa de productos y pagos.",
+        "features": ["Carrito avanzado", "Pagos seguros", "Inventario", "Dashboard"]
+      },
+      "webapp": {
+        "title": "Apps Web",
+        "description": "Aplicaciones web empresariales diseñadas para tu negocio.",
+        "features": ["PWA ready", "Tiempo real", "Multi-plataforma", "Offline mode"]
+      },
+      "ai": {
+        "title": "Integración IA",
+        "description": "Inteligencia artificial integrada para automatizar procesos.",
+        "features": ["Chatbots IA", "Automatización", "APIs LLM", "ML Models"]
+      },
+      "devops": {
+        "title": "DevOps & Cloud",
+        "description": "Infraestructura escalable y automatización de despliegues.",
+        "features": ["CI/CD", "Monitoreo 24/7", "Escalabilidad", "Backups"]
+      }
+    },
+    "learnMore": "Conocer más"
+  },
+  "stats": {
+    "projects": "Proyectos Completados",
+    "clients": "Clientes Satisfechos",
+    "experience": "Años de Experiencia",
+    "support": "Soporte Técnico"
+  },
+  "portfolio": {
+    "badge": "Nuestro Trabajo",
+    "title": "Proyectos",
+    "titleHighlight": "Destacados",
+    "subtitle": "Historias de éxito creadas con pasión y tecnología de vanguardia",
+    "viewProject": "Ver Proyecto",
+    "sourceCode": "Código Fuente"
+  },
+  "tech": {
+    "badge": "Tech Stack",
+    "title": "Tecnologías que",
+    "titleHighlight": "Dominamos",
+    "subtitle": "Utilizamos las herramientas más modernas y eficientes para crear productos digitales de alto rendimiento.",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "aiCloud": "IA & Cloud"
+    },
+    "badges": {
+      "responsive": "Diseño Responsive",
+      "seo": "SEO Optimizado",
+      "performance": "Performance First",
+      "accessibility": "Accesibilidad",
+      "cleanCode": "Código Limpio",
+      "security": "Seguridad"
+    }
+  },
+  "process": {
+    "badge": "Nuestro Proceso",
+    "title": "Cómo",
+    "titleHighlight": "Trabajamos",
+    "subtitle": "Una metodología probada para transformar tus ideas en productos digitales excepcionales.",
+    "steps": {
+      "consultation": {
+        "title": "Consulta Inicial",
+        "description": "Conversamos sobre tu proyecto, objetivos y requisitos. Entendemos tu visión para crear la solución perfecta.",
+        "duration": "1-2 días"
+      },
+      "analysis": {
+        "title": "Análisis & Propuesta",
+        "description": "Analizamos los requerimientos y preparamos una propuesta detallada con alcance, tiempos y presupuesto.",
+        "duration": "2-3 días"
+      },
+      "design": {
+        "title": "Diseño UI/UX",
+        "description": "Creamos wireframes y diseños de alta fidelidad. Iteramos hasta lograr la experiencia de usuario perfecta.",
+        "duration": "1-2 semanas"
+      },
+      "development": {
+        "title": "Desarrollo",
+        "description": "Desarrollamos tu proyecto con las mejores prácticas, código limpio y testing continuo.",
+        "duration": "2-6 semanas"
+      },
+      "qa": {
+        "title": "QA & Testing",
+        "description": "Realizamos pruebas exhaustivas para garantizar calidad, rendimiento y seguridad óptimos.",
+        "duration": "3-5 días"
+      },
+      "launch": {
+        "title": "Lanzamiento",
+        "description": "Desplegamos tu proyecto en producción con monitoreo, backups y soporte post-launch incluido.",
+        "duration": "1-2 días"
+      }
+    }
+  },
+  "contact": {
+    "badge": "Contáctanos",
+    "title": "Iniciemos Tu",
+    "titleHighlight": "Proyecto Digital",
+    "subtitle": "Estamos listos para transformar tus ideas en realidad. Cuéntanos sobre tu proyecto.",
+    "info": {
+      "email": {
+        "label": "Email",
+        "value": "contacto@gargurevich.digital"
+      },
+      "whatsapp": {
+        "label": "WhatsApp",
+        "value": "+51 999 999 999"
+      },
+      "location": {
+        "label": "Ubicación",
+        "value": "Lima, Perú"
+      }
+    },
+    "form": {
+      "name": "Nombre Completo",
+      "namePlaceholder": "Juan Pérez",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "juan@empresa.com",
+      "company": "Empresa",
+      "companyPlaceholder": "Tu Empresa (opcional)",
+      "projectType": "Tipo de Proyecto",
+      "projectTypePlaceholder": "Selecciona un tipo",
+      "budget": "Presupuesto (USD)",
+      "budgetPlaceholder": "Selecciona un rango",
+      "message": "Cuéntanos sobre tu proyecto",
+      "messagePlaceholder": "Describe tu idea, objetivos y requerimientos específicos...",
+      "submit": "Enviar Mensaje",
+      "sending": "Enviando...",
+      "success": "¡Mensaje enviado exitosamente!",
+      "budgetRanges": {
+        "1k-5k": "$1,000 - $5,000",
+        "5k-10k": "$5,000 - $10,000",
+        "10k-25k": "$10,000 - $25,000",
+        "25k+": "$25,000+"
+      }
+    }
+  },
+  "footer": {
+    "brand": {
+      "description": "Transformamos ideas en experiencias digitales excepcionales. Tu socio de confianza para desarrollo web de vanguardia."
+    },
+    "services": "Servicios",
+    "company": "Empresa",
+    "legal": "Legal",
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Suscríbete para recibir actualizaciones sobre tendencias en desarrollo web y ofertas exclusivas.",
+      "placeholder": "tu@email.com",
+      "button": "Suscribirse"
+    },
+    "rights": "Todos los derechos reservados.",
+    "madeWith": "Hecho con",
+    "madeBy": "por"
+  }
+}

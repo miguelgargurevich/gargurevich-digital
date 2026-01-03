@@ -1,0 +1,316 @@
+'use client';
+
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import { 
+  Mail, 
+  Phone, 
+  MapPin, 
+  Send, 
+  MessageSquare,
+  CheckCircle 
+} from 'lucide-react';
+import { LineReveal } from '../ui/TextReveal';
+
+export default function ContactSection() {
+  const t = useTranslations('contact');
+  
+  const contactInfo = [
+    {
+      icon: Mail,
+      label: t('info.email.label'),
+      value: t('info.email.value'),
+      href: `mailto:${t('info.email.value')}`,
+    },
+    {
+      icon: Phone,
+      label: t('info.whatsapp.label'),
+      value: t('info.whatsapp.value'),
+      href: `https://wa.me/${t('info.whatsapp.value').replace(/\D/g, '')}`,
+    },
+    {
+      icon: MapPin,
+      label: t('info.location.label'),
+      value: t('info.location.value'),
+      href: '#',
+    },
+  ];
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    projectType: '',
+    budget: '',
+    message: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+    
+    // Reset after 3 seconds
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setFormData({
+        name: '',
+        email: '',
+        company: '',
+        projectType: '',
+        budget: '',
+        message: '',
+      });
+    }, 3000);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  return (
+    <section id="contacto" className="relative py-20 sm:py-24 md:py-32 lg:py-40 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-[#0A0A0A]">
+        <div className="grid-pattern absolute inset-0" />
+        <div className="absolute top-1/3 right-0 w-[600px] h-[600px] bg-gradient-to-l from-[#00D4FF]/10 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-1/3 left-0 w-[600px] h-[600px] bg-gradient-to-r from-[#8B5CF6]/10 to-transparent rounded-full blur-3xl" />
+      </div>
+
+      <div className="relative max-w-[1400px] mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
+        {/* Section Header */}
+        <div className="text-center mb-16 md:mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-white/10 bg-white/5"
+          >
+            <MessageSquare className="w-4 h-4 text-[#00D4FF]" />
+            <span className="text-sm text-[#A1A1AA]">{t('badge')}</span>
+          </motion.div>
+
+          <LineReveal delay={0.1}>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+              <span className="text-white">{t('title')} </span>
+              <span className="gradient-text">{t('titleHighlight')}</span>
+            </h2>
+          </LineReveal>
+
+          <motion.p
+            className="text-[#A1A1AA] text-lg max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            {t('subtitle')}
+          </motion.p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+          {/* Contact Info */}
+          <motion.div
+            className="lg:col-span-2 space-y-8"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <div>
+              <h3 className="text-xl font-semibold text-white mb-6">
+                Información de Contacto
+              </h3>
+              
+              <div className="space-y-4">
+                {contactInfo.map((info) => (
+                  <a
+                    key={info.label}
+                    href={info.href}
+                    className="group flex items-center gap-4 p-4 rounded-xl bg-[#141414] border border-white/10 hover:border-[#00D4FF]/30 transition-all duration-300"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-[#00D4FF]/20 to-[#8B5CF6]/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <info.icon size={20} className="text-[#00D4FF]" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-[#71717A] mb-1">{info.label}</div>
+                      <div className="text-white group-hover:text-[#00D4FF] transition-colors duration-300">
+                        {info.value}
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick response time */}
+            <div className="p-6 rounded-xl bg-gradient-to-br from-[#00D4FF]/10 to-[#8B5CF6]/10 border border-white/10">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-3 h-3 rounded-full bg-[#10B981] animate-pulse" />
+                <span className="text-sm font-medium text-white">{t('badge')}</span>
+              </div>
+              <p className="text-sm text-[#A1A1AA]">
+                {t('subtitle')}
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Contact Form */}
+          <motion.div
+            className="lg:col-span-3"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Name */}
+                <div>
+                  <label className="block text-sm text-[#A1A1AA] mb-2">
+                    {t('form.name')} *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-xl bg-[#141414] border border-white/10 text-white placeholder-[#71717A] focus:outline-none focus:border-[#00D4FF]/50 transition-colors duration-300"
+                    placeholder={t('form.namePlaceholder')}
+                  />
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label className="block text-sm text-[#A1A1AA] mb-2">
+                    {t('form.email')} *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-xl bg-[#141414] border border-white/10 text-white placeholder-[#71717A] focus:outline-none focus:border-[#00D4FF]/50 transition-colors duration-300"
+                    placeholder={t('form.emailPlaceholder')}
+                  />
+                </div>
+
+                {/* Company */}
+                <div>
+                  <label className="block text-sm text-[#A1A1AA] mb-2">
+                    {t('form.company')}
+                  </label>
+                  <input
+                    type="text"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-xl bg-[#141414] border border-white/10 text-white placeholder-[#71717A] focus:outline-none focus:border-[#00D4FF]/50 transition-colors duration-300"
+                    placeholder={t('form.companyPlaceholder')}
+                  />
+                </div>
+
+                {/* Project Type */}
+                <div>
+                  <label className="block text-sm text-[#A1A1AA] mb-2">
+                    {t('form.projectType')} *
+                  </label>
+                  <select
+                    name="projectType"
+                    value={formData.projectType}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-xl bg-[#141414] border border-white/10 text-white focus:outline-none focus:border-[#00D4FF]/50 transition-colors duration-300 cursor-pointer"
+                  >
+                    <option value="" className="bg-[#141414]">{t('form.projectTypePlaceholder')}</option>
+                    {['Landing Page', 'Sitio Web', 'E-commerce', 'App Web', 'Integración IA', 'Otro'].map((type) => (
+                      <option key={type} value={type} className="bg-[#141414]">
+                        {type}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Budget */}
+              <div>
+                <label className="block text-sm text-[#A1A1AA] mb-2">
+                  {t('form.budget')}
+                </label>
+                <select
+                  name="budget"
+                  value={formData.budget}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 rounded-xl bg-[#141414] border border-white/10 text-white focus:outline-none focus:border-[#00D4FF]/50 transition-colors duration-300 cursor-pointer"
+                >
+                  <option value="" className="bg-[#141414]">{t('form.budgetPlaceholder')}</option>
+                  <option value="< $1,000" className="bg-[#141414]">{t('form.budgetRanges.1k-5k')}</option>
+                  <option value="$1,000 - $3,000" className="bg-[#141414]">{t('form.budgetRanges.5k-10k')}</option>
+                  <option value="$3,000 - $5,000" className="bg-[#141414]">{t('form.budgetRanges.10k-25k')}</option>
+                  <option value="$5,000 - $10,000" className="bg-[#141414]">{t('form.budgetRanges.25k+')}</option>
+                </select>
+              </div>
+
+              {/* Message */}
+              <div>
+                <label className="block text-sm text-[#A1A1AA] mb-2">
+                  {t('form.message')} *
+                </label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={5}
+                  className="w-full px-4 py-3 rounded-xl bg-[#141414] border border-white/10 text-white placeholder-[#71717A] focus:outline-none focus:border-[#00D4FF]/50 transition-colors duration-300 resize-none"
+                  placeholder={t('form.messagePlaceholder')}
+                />
+              </div>
+
+              {/* Submit Button */}
+              <motion.button
+                type="submit"
+                disabled={isSubmitting || isSubmitted}
+                className={`w-full py-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 ${
+                  isSubmitted
+                    ? 'bg-[#10B981] text-white'
+                    : 'bg-gradient-to-r from-[#00D4FF] to-[#8B5CF6] text-[#0A0A0A] hover:shadow-[0_0_40px_rgba(0,212,255,0.3)]'
+                }`}
+                whileHover={!isSubmitting && !isSubmitted ? { scale: 1.02 } : {}}
+                whileTap={!isSubmitting && !isSubmitted ? { scale: 0.98 } : {}}
+              >
+                {isSubmitted ? (
+                  <>
+                    <CheckCircle size={20} />
+                    {t('form.success')}
+                  </>
+                ) : isSubmitting ? (
+                  <motion.div
+                    className="w-6 h-6 border-2 border-[#0A0A0A] border-t-transparent rounded-full"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                  />
+                ) : (
+                  <>
+                    {t('form.submit')}
+                    <Send size={18} />
+                  </>
+                )}
+              </motion.button>
+            </form>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}

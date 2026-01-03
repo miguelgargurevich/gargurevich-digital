@@ -1,0 +1,194 @@
+{
+  "nav": {
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "technologies": "Technologies",
+    "process": "Process",
+    "contact": "Contact",
+    "startProject": "Start Project"
+  },
+  "hero": {
+    "badge": "Premium Web Development",
+    "title": "We Create",
+    "subtitle": "We are specialists in modern web development. From high-conversion landing pages to enterprise applications with integrated AI.",
+    "ctaPrimary": "Start Project",
+    "ctaSecondary": "View Portfolio",
+    "rotatingWords": {
+      "0": "Digital Experiences",
+      "1": "Modern Web Apps",
+      "2": "AI Solutions",
+      "3": "Scalable Products"
+    }
+  },
+  "services": {
+    "badge": "Our Services",
+    "title": "Complete",
+    "titleHighlight": "Digital Solutions",
+    "subtitle": "From landing pages to enterprise applications with AI. Everything with the latest technologies and best practices.",
+    "cta": "Request Quote",
+    "items": {
+      "landing": {
+        "title": "Landing Pages",
+        "description": "High-conversion pages optimized to capture leads and generate sales.",
+        "features": ["Responsive design", "High conversion", "SEO optimized", "Hosting included"]
+      },
+      "website": {
+        "title": "Websites",
+        "description": "Professional digital presence for your brand or business with modern design.",
+        "features": ["Integrated CMS", "Multi-language", "Built-in blog", "Analytics"]
+      },
+      "ecommerce": {
+        "title": "E-commerce",
+        "description": "Modern online stores with complete product and payment management.",
+        "features": ["Advanced cart", "Secure payments", "Inventory", "Dashboard"]
+      },
+      "webapp": {
+        "title": "Web Apps",
+        "description": "Enterprise web applications designed for your business.",
+        "features": ["PWA ready", "Real-time", "Multi-platform", "Offline mode"]
+      },
+      "ai": {
+        "title": "AI Integration",
+        "description": "Integrated artificial intelligence to automate processes.",
+        "features": ["AI Chatbots", "Automation", "LLM APIs", "ML Models"]
+      },
+      "devops": {
+        "title": "DevOps & Cloud",
+        "description": "Scalable infrastructure and deployment automation.",
+        "features": ["CI/CD", "24/7 Monitoring", "Scalability", "Backups"]
+      }
+    },
+    "learnMore": "Learn more"
+  },
+  "stats": {
+    "projects": "Projects Completed",
+    "clients": "Satisfied Clients",
+    "experience": "Years of Experience",
+    "support": "Technical Support"
+  },
+  "portfolio": {
+    "badge": "Our Work",
+    "title": "Featured",
+    "titleHighlight": "Projects",
+    "subtitle": "Success stories created with passion and cutting-edge technology",
+    "viewProject": "View Project",
+    "sourceCode": "Source Code"
+  },
+  "tech": {
+    "badge": "Tech Stack",
+    "title": "Technologies We",
+    "titleHighlight": "Master",
+    "subtitle": "We use the most modern and efficient tools to create high-performance digital products.",
+    "categories": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "aiCloud": "AI & Cloud"
+    },
+    "badges": {
+      "responsive": "Responsive Design",
+      "seo": "SEO Optimized",
+      "performance": "Performance First",
+      "accessibility": "Accessibility",
+      "cleanCode": "Clean Code",
+      "security": "Security"
+    }
+  },
+  "process": {
+    "badge": "Our Process",
+    "title": "How We",
+    "titleHighlight": "Work",
+    "subtitle": "A proven methodology to transform your ideas into exceptional digital products.",
+    "steps": {
+      "consultation": {
+        "title": "Initial Consultation",
+        "description": "We discuss your project, goals and requirements. We understand your vision to create the perfect solution.",
+        "duration": "1-2 days"
+      },
+      "analysis": {
+        "title": "Analysis & Proposal",
+        "description": "We analyze requirements and prepare a detailed proposal with scope, timelines and budget.",
+        "duration": "2-3 days"
+      },
+      "design": {
+        "title": "UI/UX Design",
+        "description": "We create wireframes and high-fidelity designs. We iterate until achieving the perfect user experience.",
+        "duration": "1-2 weeks"
+      },
+      "development": {
+        "title": "Development",
+        "description": "We develop your project with best practices, clean code and continuous testing.",
+        "duration": "2-6 weeks"
+      },
+      "qa": {
+        "title": "QA & Testing",
+        "description": "We conduct thorough testing to ensure optimal quality, performance and security.",
+        "duration": "3-5 days"
+      },
+      "launch": {
+        "title": "Launch",
+        "description": "We deploy your project to production with monitoring, backups and post-launch support included.",
+        "duration": "1-2 days"
+      }
+    }
+  },
+  "contact": {
+    "badge": "Get in Touch",
+    "title": "Let's Start Your",
+    "titleHighlight": "Digital Project",
+    "subtitle": "We're ready to transform your ideas into reality. Tell us about your project.",
+    "info": {
+      "email": {
+        "label": "Email",
+        "value": "contact@gargurevich.digital"
+      },
+      "whatsapp": {
+        "label": "WhatsApp",
+        "value": "+51 999 999 999"
+      },
+      "location": {
+        "label": "Location",
+        "value": "Lima, Peru"
+      }
+    },
+    "form": {
+      "name": "Full Name",
+      "namePlaceholder": "Juan Pérez",
+      "email": "Email",
+      "emailPlaceholder": "juan@company.com",
+      "company": "Company",
+      "companyPlaceholder": "Your Company (optional)",
+      "projectType": "Project Type",
+      "projectTypePlaceholder": "Select a type",
+      "budget": "Budget (USD)",
+      "budgetPlaceholder": "Select a range",
+      "message": "Tell us about your project",
+      "messagePlaceholder": "Describe your idea, goals, and specific requirements...",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent successfully!",
+      "budgetRanges": {
+        "1k-5k": "$1,000 - $5,000",
+        "5k-10k": "$5,000 - $10,000",
+        "10k-25k": "$10,000 - $25,000",
+        "25k+": "$25,000+"
+      }
+    }
+  },
+  "footer": {
+    "brand": {
+      "description": "We transform ideas into exceptional digital experiences. Your trusted partner for cutting-edge web development."
+    },
+    "services": "Services",
+    "company": "Company",
+    "legal": "Legal",
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Subscribe to receive updates on web development trends and exclusive offers.",
+      "placeholder": "your@email.com",
+      "button": "Subscribe"
+    },
+    "rights": "All rights reserved.",
+    "madeWith": "Made with",
+    "madeBy": "by"
+  }
+}
