@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import {NextIntlClientProvider} from 'next-intl';
-import {getMessages} from 'next-intl/server';
+import {getMessages, setRequestLocale, getTranslations} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import "./globals.css";
@@ -33,6 +33,7 @@ export async function generateMetadata({
   const isEnglish = locale === 'en';
   
   return {
+    metadataBase: new URL("https://gargurevich.digital"),
     title: isEnglish 
       ? "Gargurevich Digital | Premium Web Development"
       : "Gargurevich Digital | Desarrollo Web Premium",
@@ -98,23 +99,61 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  // Enable static rendering
+  setRequestLocale(locale);
+
   // Providing all messages to the client
   // side is the easiest way to get started
-  const messages = await getMessages();
+  const messages = await getMessages({locale});
+  
+  // Get translations for server components
+  const t = await getTranslations({locale, namespace: 'nav'});
+  const navTranslations = {
+    services: t('services'),
+    portfolio: t('portfolio'),
+    technologies: t('technologies'),
+    process: t('process'),
+    contact: t('contact'),
+    startProject: t('startProject'),
+  };
+
+  // Get footer translations
+  const footerT = await getTranslations({locale, namespace: 'footer'});
+  const footerMessages = (messages as Record<string, unknown>).footer as Record<string, unknown>;
+  const footerLinks = footerMessages.links as Record<string, Array<{ name: string; href: string }>>;
+  
+  const footerTranslations = {
+    description: footerT('description'),
+    sections: {
+      services: footerT('sections.services'),
+      company: footerT('sections.company'),
+    },
+    newsletter: {
+      title: footerT('newsletter.title'),
+      description: footerT('newsletter.description'),
+      placeholder: footerT('newsletter.placeholder'),
+      button: footerT('newsletter.button'),
+    },
+    copyright: footerT('copyright'),
+    madeIn: footerT('madeIn'),
+    links: {
+      services: footerLinks.services,
+      company: footerLinks.company,
+      legal: footerLinks.legal,
+    },
+  };
 
   return (
-    <html lang={locale} className="scroll-smooth">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#0A0A0A] text-white`}
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <div
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-white min-h-screen`}
       >
-        <NextIntlClientProvider messages={messages}>
-          <SmoothScrollProvider>
-            <Header />
-            <main className="relative">{children}</main>
-            <Footer />
-          </SmoothScrollProvider>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+        <Header translations={navTranslations} locale={locale} />
+        <SmoothScrollProvider>
+          <main className="relative">{children}</main>
+        </SmoothScrollProvider>
+        <Footer translations={footerTranslations} locale={locale} />
+      </div>
+    </NextIntlClientProvider>
   );
 }

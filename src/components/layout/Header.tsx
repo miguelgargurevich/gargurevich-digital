@@ -2,23 +2,41 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from '@/i18n/routing';
+import Link from 'next/link';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
-import { useTranslations } from 'next-intl';
 import MagneticButton from '../ui/MagneticButton';
 import LanguageSwitcher from '../ui/LanguageSwitcher';
 
-export default function Header() {
-  const t = useTranslations('nav');
+interface HeaderProps {
+  translations?: {
+    services: string;
+    portfolio: string;
+    technologies: string;
+    process: string;
+    contact: string;
+    startProject: string;
+  };
+  locale?: string;
+}
+
+export default function Header({ translations, locale }: HeaderProps) {
+  const t = translations || {
+    services: 'Services',
+    portfolio: 'Portfolio',
+    technologies: 'Technologies',
+    process: 'Process',
+    contact: 'Contact',
+    startProject: 'Start Project',
+  };
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: t('services'), href: '#servicios' },
-    { name: t('portfolio'), href: '#portafolio' },
-    { name: t('tech'), href: '#tech' },
-    { name: t('process'), href: '#proceso' },
-    { name: t('contact'), href: '#contacto' },
+    { name: t.services, href: '#servicios' },
+    { name: t.portfolio, href: '#portafolio' },
+    { name: t.technologies, href: '#tech' },
+    { name: t.process, href: '#proceso' },
+    { name: t.contact, href: '#contacto' },
   ];
 
   useEffect(() => {
@@ -73,20 +91,20 @@ export default function Header() {
 
           {/* CTA Button & Language Switcher */}
           <div className="hidden md:flex items-center gap-4">
-            <LanguageSwitcher />
+            <LanguageSwitcher locale={locale} />
             <MagneticButton
               href="#contacto"
               variant="primary"
               size="sm"
               icon={<ArrowUpRight size={16} />}
             >
-              {t('cta')}
+              {t.startProject}
             </MagneticButton>
           </div>
 
           {/* Mobile Menu Button & Language Switcher */}
           <div className="md:hidden flex items-center gap-2">
-            <LanguageSwitcher />
+            <LanguageSwitcher locale={locale} />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="relative z-10 p-2"
@@ -163,7 +181,7 @@ export default function Header() {
                   size="lg"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {t('cta')}
+                  {t.startProject}
                 </MagneticButton>
               </motion.div>
             </motion.nav>

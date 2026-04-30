@@ -11,13 +11,33 @@
     "badge": "Desarrollo Web Premium",
     "title": "Creamos",
     "subtitle": "Somos especialistas en desarrollo web moderno. Desde landing pages de alta conversión hasta aplicaciones empresariales con IA integrada.",
-    "ctaPrimary": "Iniciar Proyecto",
-    "ctaSecondary": "Ver Portafolio",
+    "cta": {
+      "primary": "Iniciar Proyecto",
+      "secondary": "Ver Portafolio"
+    },
     "rotatingWords": {
       "0": "Experiencias Digitales",
       "1": "Apps Web Modernas",
       "2": "Soluciones con IA",
       "3": "Productos Escalables"
+    },
+    "stats": {
+      "projects": {
+        "value": "50+",
+        "label": "Proyectos"
+      },
+      "satisfaction": {
+        "value": "100%",
+        "label": "Satisfacción"
+      },
+      "experience": {
+        "value": "5+",
+        "label": "Años"
+      },
+      "support": {
+        "value": "24/7",
+        "label": "Soporte"
+      }
     }
   },
   "services": {
@@ -175,20 +195,37 @@
     }
   },
   "footer": {
-    "brand": {
-      "description": "Transformamos ideas en experiencias digitales excepcionales. Tu socio de confianza para desarrollo web de vanguardia."
+    "description": "Transformamos ideas en experiencias digitales excepcionales. Tu socio de confianza para desarrollo web de vanguardia.",
+    "sections": {
+      "services": "Servicios",
+      "company": "Empresa"
     },
-    "services": "Servicios",
-    "company": "Empresa",
-    "legal": "Legal",
     "newsletter": {
       "title": "Newsletter",
       "description": "Suscríbete para recibir actualizaciones sobre tendencias en desarrollo web y ofertas exclusivas.",
       "placeholder": "tu@email.com",
       "button": "Suscribirse"
     },
-    "rights": "Todos los derechos reservados.",
-    "madeWith": "Hecho con",
-    "madeBy": "por"
+    "copyright": "Todos los derechos reservados.",
+    "madeIn": "Hecho con ❤️ en Lima, Perú",
+    "links": {
+      "services": [
+        { "name": "Landing Pages", "href": "#services" },
+        { "name": "Sitios Web", "href": "#services" },
+        { "name": "E-commerce", "href": "#services" },
+        { "name": "Aplicaciones Web", "href": "#services" },
+        { "name": "Integración de IA", "href": "#services" }
+      ],
+      "company": [
+        { "name": "Nosotros", "href": "#" },
+        { "name": "Portafolio", "href": "#portfolio" },
+        { "name": "Proceso", "href": "#process" },
+        { "name": "Contacto", "href": "#contact" }
+      ],
+      "legal": [
+        { "name": "Política de Privacidad", "href": "/privacy" },
+        { "name": "Términos de Servicio", "href": "/terms" }
+      ]
+    }
   }
 }

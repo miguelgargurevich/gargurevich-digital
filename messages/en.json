@@ -11,13 +11,33 @@
     "badge": "Premium Web Development",
     "title": "We Create",
     "subtitle": "We are specialists in modern web development. From high-conversion landing pages to enterprise applications with integrated AI.",
-    "ctaPrimary": "Start Project",
-    "ctaSecondary": "View Portfolio",
+    "cta": {
+      "primary": "Start Project",
+      "secondary": "View Portfolio"
+    },
     "rotatingWords": {
       "0": "Digital Experiences",
       "1": "Modern Web Apps",
       "2": "AI Solutions",
       "3": "Scalable Products"
+    },
+    "stats": {
+      "projects": {
+        "value": "50+",
+        "label": "Projects"
+      },
+      "satisfaction": {
+        "value": "100%",
+        "label": "Satisfaction"
+      },
+      "experience": {
+        "value": "5+",
+        "label": "Years"
+      },
+      "support": {
+        "value": "24/7",
+        "label": "Support"
+      }
     }
   },
   "services": {
@@ -175,20 +195,37 @@
     }
   },
   "footer": {
-    "brand": {
-      "description": "We transform ideas into exceptional digital experiences. Your trusted partner for cutting-edge web development."
+    "description": "We transform ideas into exceptional digital experiences. Your trusted partner for cutting-edge web development.",
+    "sections": {
+      "services": "Services",
+      "company": "Company"
     },
-    "services": "Services",
-    "company": "Company",
-    "legal": "Legal",
     "newsletter": {
       "title": "Newsletter",
       "description": "Subscribe to receive updates on web development trends and exclusive offers.",
       "placeholder": "your@email.com",
       "button": "Subscribe"
     },
-    "rights": "All rights reserved.",
-    "madeWith": "Made with",
-    "madeBy": "by"
+    "copyright": "All rights reserved.",
+    "madeIn": "Made with ❤️ in Lima, Peru",
+    "links": {
+      "services": [
+        { "name": "Landing Pages", "href": "#services" },
+        { "name": "Websites", "href": "#services" },
+        { "name": "E-commerce", "href": "#services" },
+        { "name": "Web Apps", "href": "#services" },
+        { "name": "AI Integration", "href": "#services" }
+      ],
+      "company": [
+        { "name": "About Us", "href": "#" },
+        { "name": "Portfolio", "href": "#portfolio" },
+        { "name": "Process", "href": "#process" },
+        { "name": "Contact", "href": "#contact" }
+      ],
+      "legal": [
+        { "name": "Privacy Policy", "href": "/privacy" },
+        { "name": "Terms of Service", "href": "/terms" }
+      ]
+    }
   }
 }

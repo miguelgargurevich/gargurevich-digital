@@ -1,9 +1,39 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Link } from '@/i18n/routing';
+import Link from 'next/link';
 import { Github, Linkedin, Twitter, Mail, ArrowUpRight, Heart } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+
+interface FooterLink {
+  name: string;
+  href: string;
+}
+
+interface FooterTranslations {
+  description: string;
+  sections: {
+    services: string;
+    company: string;
+  };
+  newsletter: {
+    title: string;
+    description: string;
+    placeholder: string;
+    button: string;
+  };
+  copyright: string;
+  madeIn: string;
+  links: {
+    services: FooterLink[];
+    company: FooterLink[];
+    legal: FooterLink[];
+  };
+}
+
+interface FooterProps {
+  translations: FooterTranslations;
+  locale: string;
+}
 
 const socialLinks = [
   { name: 'GitHub', icon: Github, href: 'https://github.com/miguelgargurevich' },
@@ -12,15 +42,8 @@ const socialLinks = [
   { name: 'Email', icon: Mail, href: 'mailto:contacto@gargurevich.digital' },
 ];
 
-export default function Footer() {
-  const t = useTranslations('footer');
+export default function Footer({ translations: t, locale }: FooterProps) {
   const currentYear = new Date().getFullYear();
-
-  const footerLinks = {
-    servicios: t.raw('links.services') as Array<{ name: string; href: string }>,
-    empresa: t.raw('links.company') as Array<{ name: string; href: string }>,
-    legal: t.raw('links.legal') as Array<{ name: string; href: string }>,
-  };
 
   return (
     <footer className="relative bg-[#0A0A0A] border-t border-white/10">
@@ -52,7 +75,7 @@ export default function Footer() {
             </Link>
             
             <p className="text-[#A1A1AA] text-sm mb-6 max-w-xs">
-              {t('description')}
+              {t.description}
             </p>
 
             {/* Social links */}
@@ -81,9 +104,9 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            <h4 className="text-white font-semibold mb-4">{t('sections.services')}</h4>
+            <h4 className="text-white font-semibold mb-4">{t.sections.services}</h4>
             <ul className="space-y-3">
-              {footerLinks.servicios.map((link) => (
+              {t.links.services.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
@@ -106,9 +129,9 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <h4 className="text-white font-semibold mb-4">{t('sections.company')}</h4>
+            <h4 className="text-white font-semibold mb-4">{t.sections.company}</h4>
             <ul className="space-y-3">
-              {footerLinks.empresa.map((link) => (
+              {t.links.company.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
@@ -132,14 +155,14 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
           >
-            <h4 className="text-white font-semibold mb-4">{t('newsletter.title')}</h4>
+            <h4 className="text-white font-semibold mb-4">{t.newsletter.title}</h4>
             <p className="text-[#A1A1AA] text-sm mb-4">
-              {t('newsletter.description')}
+              {t.newsletter.description}
             </p>
             <form className="flex gap-2">
               <input
                 type="email"
-                placeholder={t('newsletter.placeholder')}
+                placeholder={t.newsletter.placeholder}
                 className="flex-1 px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white placeholder-[#71717A] text-sm focus:outline-none focus:border-[#00D4FF]/50 transition-colors duration-300"
               />
               <motion.button
@@ -147,7 +170,7 @@ export default function Footer() {
                 className="px-4 py-2 bg-gradient-to-r from-[#00D4FF] to-[#8B5CF6] rounded-lg text-[#0A0A0A] font-medium text-sm"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                aria-label={t('newsletter.button')}
+                aria-label={t.newsletter.button}
               >
                 <ArrowUpRight size={18} />
               </motion.button>
@@ -163,13 +186,13 @@ export default function Footer() {
           viewport={{ once: true }}
         >
           <p className="text-[#71717A] text-sm flex items-center gap-1">
-            {t('copyright', { year: currentYear })}
+            {t.copyright.replace('{year}', String(currentYear))}
             <Heart size={14} className="text-[#EF4444] fill-current" /> 
-            {t('madeIn')}
+            {t.madeIn}
           </p>
           
           <div className="flex gap-6">
-            {footerLinks.legal.map((link) => (
+            {t.links.legal.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}

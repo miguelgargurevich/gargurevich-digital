@@ -1,16 +1,21 @@
 'use client';
 
-import { useLocale } from 'next-intl';
-import { usePathname, useRouter } from '@/i18n/routing';
+import { useRouter, usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useState, useTransition } from 'react';
 
-export default function LanguageSwitcher() {
-  const locale = useLocale();
+interface LanguageSwitcherProps {
+  locale?: string;
+}
+
+export default function LanguageSwitcher({ locale: propLocale }: LanguageSwitcherProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState(false);
+
+  // Extract locale from pathname if not provided as prop
+  const locale = propLocale || pathname.split('/')[1] || 'en';
 
   const languages = [
     { code: 'en', label: 'EN', flag: '🇺🇸' },
@@ -22,7 +27,11 @@ export default function LanguageSwitcher() {
 
   const handleLanguageChange = (newLocale: string) => {
     startTransition(() => {
-      router.replace(pathname, { locale: newLocale });
+      // Replace the locale segment in the pathname
+      const segments = pathname.split('/');
+      segments[1] = newLocale;
+      const newPath = segments.join('/');
+      router.push(newPath);
       setIsOpen(false);
     });
   };
