@@ -1,21 +1,10 @@
-import HeroSection from "@/components/sections/HeroSection";
-import ServicesSection from "@/components/sections/ServicesSection";
-import PortfolioSection from "@/components/sections/PortfolioSection";
-import TechStackSection from "@/components/sections/TechStackSection";
-import ProcessSection from "@/components/sections/ProcessSection";
-import StatsSection from "@/components/sections/StatsSection";
-import ContactSection from "@/components/sections/ContactSection";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  return (
-    <>
-      <HeroSection />
-      <ServicesSection />
-      <StatsSection />
-      <PortfolioSection />
-      <TechStackSection />
-      <ProcessSection />
-      <ContactSection />
-    </>
-  );
+export default async function Home() {
+  const requestHeaders = await headers();
+  const acceptLanguage = requestHeaders.get("accept-language") ?? "";
+  const locale = acceptLanguage.toLowerCase().includes("es") ? "es" : "en";
+
+  redirect(`/${locale}`);
 }
