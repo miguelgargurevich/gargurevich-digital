@@ -42,17 +42,17 @@ const socialLinks = [
   { name: 'Email', icon: Mail, href: 'mailto:contacto@gargurevich.digital' },
 ];
 
-export default function Footer({ translations: t, locale }: FooterProps) {
+export default function Footer({ translations: t }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[#0A0A0A] border-t border-white/10">
+    <footer className="relative bg-background border-t border-white/10">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-t from-[#00D4FF]/5 to-transparent blur-3xl" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-200 h-100 bg-linear-to-t from-[#00D4FF]/5 to-transparent blur-3xl" />
       </div>
 
-      <div className="relative max-w-[1400px] mx-auto px-6 sm:px-8 md:px-12 lg:px-16 py-16 md:py-20 lg:py-24">
+      <div className="relative max-w-350 mx-auto px-6 sm:px-8 md:px-12 lg:px-16 py-16 md:py-20 lg:py-24">
         {/* Main footer content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 mb-12 md:mb-16">
           {/* Brand column */}
@@ -64,8 +64,8 @@ export default function Footer({ translations: t, locale }: FooterProps) {
           >
             <Link href="/" className="inline-block mb-6">
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00D4FF] to-[#8B5CF6] flex items-center justify-center">
-                  <span className="text-[#0A0A0A] font-bold text-lg">G</span>
+                <div className="w-10 h-10 rounded-xl bg-linear-to-br from-[#00D4FF] to-[#8B5CF6] flex items-center justify-center">
+                  <span className="text-background font-bold text-lg">G</span>
                 </div>
                 <span className="text-xl font-semibold">
                   <span className="text-white">Gargurevich</span>
@@ -167,7 +167,7 @@ export default function Footer({ translations: t, locale }: FooterProps) {
               />
               <motion.button
                 type="submit"
-                className="px-4 py-2 bg-gradient-to-r from-[#00D4FF] to-[#8B5CF6] rounded-lg text-[#0A0A0A] font-medium text-sm"
+                className="px-4 py-2 bg-linear-to-r from-[#00D4FF] to-[#8B5CF6] rounded-lg text-background font-medium text-sm"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={t.newsletter.button}

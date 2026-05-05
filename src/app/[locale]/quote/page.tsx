@@ -162,7 +162,7 @@ ${exampleQuoteData.notes?.map(n => `• ${n}`).join('\n')}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-14 h-14 rounded-xl bg-linear-to-br from-[#00D4FF] to-[#8B5CF6] flex items-center justify-center">
-                <span className="text-[#0A0A0A] font-bold text-2xl">G</span>
+                <span className="text-background font-bold text-2xl">G</span>
               </div>
               <div>
                 <div className="text-3xl font-bold">
