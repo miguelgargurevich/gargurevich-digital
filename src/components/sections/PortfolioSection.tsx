@@ -6,83 +6,79 @@ import { ExternalLink, Github, Star } from 'lucide-react';
 import { BentoCard } from '../ui/AnimatedCard';
 import { LineReveal } from '../ui/TextReveal';
 
-const projects = [
+type ProjectId = 'dashboardia' | 'invoiceapp' | 'house' | 'jafernandez' | 'lumic' | 'portfolio';
+
+const projectMeta = [
   {
     id: 'dashboardia',
-    title: 'DashboardIA LLM',
-    description: 'Plataforma integral de soporte técnico y productividad con base de conocimiento, gestión de recursos y asistente IA contextual.',
     image: '/projects/dashboardia.png',
     tech: ['Next.js 14', 'React 18', 'Node.js', 'Prisma', 'PostgreSQL', 'Supabase', 'Gemini API'],
     github: 'https://github.com/miguelgargurevich/dashboardia-llm',
     live: '#',
     size: 'large' as const,
     color: '#00D4FF',
-    features: ['Datos por Usuario', 'Base de Conocimiento', 'IA con Adjuntos'],
   },
   {
     id: 'invoiceapp',
-    title: 'InvoiceApp',
-    description: 'Sistema profesional de facturas y propuestas para contratistas, con firmas digitales, CRM ligero y seguimiento de pagos.',
     image: '/projects/invoiceapp.png',
     tech: ['Next.js 14', 'Express', 'TypeScript', 'Prisma', 'PostgreSQL', 'Supabase', 'Resend'],
     github: 'https://github.com/miguelgargurevich/invoiceapp',
     live: 'https://invoiceapp.vercel.app',
     size: 'wide' as const,
     color: '#8B5CF6',
-    features: ['Facturas y Proformas', 'Firmas Digitales', 'Multi-idioma'],
   },
   {
     id: 'house',
-    title: 'House SaaS',
-    description: 'SaaS multi-tenant para administracion de propiedades con roles avanzados, API centralizada y chat IA Gemini.',
     image: '/projects/house.png',
     tech: ['React 18', 'Vite', 'Express', 'Prisma', 'PostgreSQL', 'JWT', 'Gemini API'],
     github: 'https://github.com/miguelgargurevich/house',
     live: '#',
     size: 'tall' as const,
     color: '#10B981',
-    features: ['Roles y Permisos', 'Swagger API', 'Chat IA Gemini'],
   },
   {
     id: 'jafernandez',
-    title: 'JA Fernandez Electric',
-    description: 'Sitio web profesional bilingue para servicios electricos con formulario validado, SEO y enfoque mobile-first.',
     image: '/projects/jafernandez.png',
     tech: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Zod'],
     github: 'https://github.com/miguelgargurevich/jafernandezelectric',
     live: '#',
     size: 'default' as const,
     color: '#F59E0B',
-    features: ['ES/EN i18n', 'Formulario Anti-spam', 'SEO y Accesibilidad'],
   },
   {
     id: 'lumic',
-    title: 'Lumic App',
-    description: 'Plataforma e-commerce full-stack con frontend en Next.js y backend en .NET por capas con autenticacion JWT.',
     image: '/projects/lumic.png',
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', '.NET 9', 'JWT'],
     github: 'https://github.com/miguelgargurevich/lumic',
     live: '#',
     size: 'default' as const,
     color: '#EC4899',
-    features: ['Monorepo', 'Arquitectura por Capas', 'Deploy en Azure SWA'],
   },
   {
     id: 'portfolio',
-    title: 'Portfolio Multilingüe',
-    description: 'Portfolio profesional multilingue con optimizacion SEO mediante IA y deteccion automatica de idioma.',
     image: '/projects/portfolio.png',
     tech: ['Next.js 15', 'TypeScript', 'Tailwind CSS', 'next-intl', 'Gemini AI'],
     github: 'https://github.com/miguelgargurevich/miguel-gargurevich-portfolio',
     live: '#',
     size: 'wide' as const,
     color: '#EF4444',
-    features: ['Keywords con IA', 'Auto-routing ES/EN', 'Lighthouse 100/100'],
   },
-];
+] as const;
 
 export default function PortfolioSection() {
   const t = useTranslations('portfolio');
+  const projects = projectMeta.map((project) => {
+    const content = t.raw(`items.${project.id}`) as {
+      title: string;
+      description: string;
+      features: string[];
+    };
+
+    return {
+      ...project,
+      ...content,
+    };
+  });
   
   return (
     <section id="portafolio" className="relative py-20 sm:py-24 md:py-32 lg:py-40 overflow-hidden">

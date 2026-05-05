@@ -92,7 +92,39 @@
     "titleHighlight": "Destacados",
     "subtitle": "Historias de éxito creadas con pasión y tecnología de vanguardia",
     "viewProject": "Ver Proyecto",
-    "sourceCode": "Código Fuente"
+    "sourceCode": "Código Fuente",
+    "items": {
+      "dashboardia": {
+        "title": "DashboardIA LLM",
+        "description": "Plataforma integral de soporte técnico y productividad con base de conocimiento, gestión de recursos y asistente IA contextual.",
+        "features": ["Datos por Usuario", "Base de Conocimiento", "IA con Adjuntos"]
+      },
+      "invoiceapp": {
+        "title": "InvoiceApp",
+        "description": "Sistema profesional de facturas y propuestas para contratistas, con firmas digitales, CRM ligero y seguimiento de pagos.",
+        "features": ["Facturas y Proformas", "Firmas Digitales", "Multi-idioma"]
+      },
+      "house": {
+        "title": "House SaaS",
+        "description": "SaaS multi-tenant para administración de propiedades con roles avanzados, API centralizada y chat IA Gemini.",
+        "features": ["Roles y Permisos", "Swagger API", "Chat IA Gemini"]
+      },
+      "jafernandez": {
+        "title": "JA Fernandez Electric",
+        "description": "Sitio web profesional bilingüe para servicios eléctricos con formulario validado, SEO y enfoque mobile-first.",
+        "features": ["ES/EN i18n", "Formulario Anti-spam", "SEO y Accesibilidad"]
+      },
+      "lumic": {
+        "title": "Lumic App",
+        "description": "Plataforma e-commerce full-stack con frontend en Next.js y backend en .NET por capas con autenticación JWT.",
+        "features": ["Monorepo", "Arquitectura por Capas", "Deploy en Azure SWA"]
+      },
+      "portfolio": {
+        "title": "Portfolio Multilingüe",
+        "description": "Portfolio profesional multilingüe con optimización SEO mediante IA y detección automática de idioma.",
+        "features": ["Keywords con IA", "Auto-routing ES/EN", "Lighthouse 100/100"]
+      }
+    }
   },
   "tech": {
     "badge": "Tech Stack",
@@ -163,7 +195,7 @@
       },
       "whatsapp": {
         "label": "WhatsApp",
-        "value": "+51 999 999 999"
+        "value": "+51 966 918 363"
       },
       "location": {
         "label": "Ubicación",
