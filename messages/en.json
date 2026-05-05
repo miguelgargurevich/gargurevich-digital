@@ -96,33 +96,33 @@
     "items": {
       "dashboardia": {
         "title": "DashboardIA LLM",
-        "description": "Comprehensive support and productivity platform with a personal knowledge base, resource management, and contextual AI assistant.",
-        "features": ["User-scoped Data", "Knowledge Base", "AI with Attachments"]
+        "description": "Support and productivity hub that centralizes knowledge, resources, and daily operations, with Supabase authentication, user-level data isolation, and a contextual AI assistant with attachments.",
+        "features": ["User-level Isolation", "Operational Knowledge Base", "AI Assistant with Files"]
       },
       "invoiceapp": {
         "title": "InvoiceApp",
-        "description": "Professional invoicing and proposals platform for contractors with digital signatures, lightweight CRM, and payment tracking.",
-        "features": ["Invoices & Proposals", "Digital Signatures", "Multilingual"]
+        "description": "Invoicing and proposal platform for contractors and service teams that speeds up collections through legal digital signatures, built-in CRM, and full payment traceability.",
+        "features": ["End-to-end Invoicing", "Legally Binding Signatures", "CRM and Analytics"]
       },
       "house": {
         "title": "House SaaS",
-        "description": "Multi-tenant property management SaaS with advanced roles, centralized API, and Gemini AI chat.",
-        "features": ["Roles & Permissions", "Swagger API", "Gemini AI Chat"]
+        "description": "Multi-tenant property and condominium management SaaS with robust role control, centralized documented API, and AI-assisted operations powered by Gemini.",
+        "features": ["Advanced RBAC", "Swagger-ready REST API", "Gemini AI Copilot"]
       },
       "jafernandez": {
         "title": "JA Fernandez Electric",
-        "description": "Professional bilingual electrical services website with validated contact forms, SEO, and a mobile-first UX.",
-        "features": ["ES/EN i18n", "Anti-spam Form", "SEO & Accessibility"]
+        "description": "Bilingual website for a licensed Long Island electrician, crafted for local conversion with trust-focused sections, validated lead forms, and technical SEO.",
+        "features": ["ES/EN i18n", "Anti-spam Lead Forms", "Local Technical SEO"]
       },
       "lumic": {
         "title": "Lumic App",
-        "description": "Full-stack e-commerce platform with a Next.js frontend and layered .NET backend secured with JWT.",
-        "features": ["Monorepo", "Layered Architecture", "Azure SWA Deployment"]
+        "description": "Full-stack e-commerce monorepo with a Next.js frontend and layered ASP.NET Core backend, built to scale with JWT security and enterprise-ready Azure deployment.",
+        "features": ["Production Monorepo", "Layered .NET Architecture", "Azure-ready Deployment"]
       },
       "portfolio": {
         "title": "Multilingual Portfolio",
-        "description": "Professional multilingual portfolio with AI-powered SEO optimization and automatic language detection.",
-        "features": ["AI Keywords", "ES/EN Auto-routing", "Lighthouse 100/100"]
+        "description": "High-performance multilingual portfolio built on Next.js 15, featuring Gemini-assisted SEO strategy, smart locale routing, and an optimization-first user experience.",
+        "features": ["AI-assisted SEO", "International Routing", "Performance 100/100"]
       }
     }
   },
