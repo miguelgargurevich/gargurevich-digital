@@ -77,6 +77,21 @@ const PORTFOLIO_SEED = [
     featuresEn: ['Next.js + .NET 9 Monorepo', 'Clean Layered Architecture', 'Azure Static Web Apps Ready'],
     imageUrl: '/projects/lumic.png',
   },
+  {
+    slug: 'portfolio',
+    order: 5,
+    color: '#EF4444',
+    github: 'https://github.com/miguelgargurevich/miguel-gargurevich-portfolio',
+    live: '#',
+    tech: ['Next.js 15', 'TypeScript', 'Tailwind CSS', 'next-intl', 'Gemini AI'],
+    titleEs: 'Gargurevich Digital Portfolio',
+    titleEn: 'Gargurevich Digital Portfolio',
+    descriptionEs: 'Mi portafolio personal construido con las últimas tecnologías web, enfocado en performance, SEO y una experiencia de usuario premium.',
+    descriptionEn: 'My personal portfolio built with the latest web technologies, focusing on performance, SEO, and a premium user experience.',
+    featuresEs: ['Next.js 15 + Turbopack', 'Internacionalización completa', 'Diseño Noir Premium'],
+    featuresEn: ['Next.js 15 + Turbopack', 'Full Internationalization', 'Premium Noir Design'],
+    imageUrl: '/projects/portfolio.png',
+  },
 
 ];
 
