@@ -24,6 +24,7 @@ export default function AdminPortfolioPage() {
       .then((r) => r.json())
       .then((data) => {
         setProjects(Array.isArray(data) ? data : []);
+        console.log(`CMS Portfolio Page: Found ${data.length} projects in DB:`, data.map((p: Project) => p.slug).join(', '));
         setLoading(false);
       });
   }, []);
