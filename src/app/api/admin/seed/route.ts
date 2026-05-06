@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 
 const PORTFOLIO_SEED = [
   {
@@ -213,6 +214,8 @@ export async function POST() {
         create: s,
       });
     }
+
+    revalidatePath('/', 'layout');
 
     return NextResponse.json({ ok: true, message: 'Database seeded successfully' });
   } catch (err) {

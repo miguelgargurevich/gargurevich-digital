@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 
 export const dynamic = 'force-dynamic';
 
@@ -42,6 +43,10 @@ export async function PUT(
         published: body.published,
       },
     });
+    
+    // Revalidar landing y rutas multilingües
+    revalidatePath('/', 'layout');
+    
     return NextResponse.json(project);
   } catch {
     return NextResponse.json({ error: 'Failed to update project' }, { status: 500 });
@@ -65,6 +70,8 @@ export async function PATCH(
       data: { imageUrl: body.imageUrl || null },
     });
 
+    revalidatePath('/', 'layout');
+
     return NextResponse.json(project);
   } catch {
     return NextResponse.json({ error: 'Failed to update project image' }, { status: 500 });
@@ -78,6 +85,9 @@ export async function DELETE(
   try {
     const { id } = await params;
     await db.portfolioProject.delete({ where: { id } });
+    
+    revalidatePath('/', 'layout');
+    
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: 'Failed to delete project' }, { status: 500 });

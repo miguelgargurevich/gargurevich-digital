@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 
 export const dynamic = 'force-dynamic';
 
@@ -36,6 +37,9 @@ export async function POST(request: Request) {
         published: body.published !== false,
       },
     });
+    
+    revalidatePath('/', 'layout');
+    
     return NextResponse.json(project, { status: 201 });
   } catch (err) {
     console.error(err);
