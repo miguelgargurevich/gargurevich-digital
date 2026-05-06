@@ -96,8 +96,8 @@
     "items": {
       "dashboardia": {
         "title": "DashboardIA LLM",
-        "description": "Operational technical-support hub that centralizes a personal knowledge base, file resources (PDF, Excel, video), calendar, notes, and an AI assistant with file attachments. All data is fully isolated per authenticated Supabase user, and includes a Windows agent for remote PowerShell script execution.",
-        "features": ["Full user-level isolation", "AI assistant with file attachments", "Windows PowerShell Agent"]
+        "description": "Intelligent operational hub merging productivity with advanced AI. Features RAG-based resource management, contextual assistant for document analysis (PDF, Excel, video), and local C#/.NET agents for task automation.",
+        "features": ["AI Assistant with Contextual RAG", "Semantic File Search", "C#/.NET Local Agents"]
       },
       "invoiceapp": {
         "title": "InvoiceApp",
