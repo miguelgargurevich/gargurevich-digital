@@ -49,7 +49,7 @@ export default function Typewriter({
     <span className={className}>
       {currentText}
       <motion.span
-        className="inline-block w-[3px] h-[1em] bg-gradient-to-b from-[#00D4FF] to-[#8B5CF6] ml-1"
+        className="inline-block w-0.75 h-[1em] bg-linear-to-b from-[#00D4FF] to-[#8B5CF6] ml-1"
         animate={{ opacity: [1, 0] }}
         transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
       />

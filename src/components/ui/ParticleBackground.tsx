@@ -164,7 +164,7 @@ export function GradientMesh() {
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Cyan blob */}
       <motion.div
-        className="absolute w-[600px] h-[600px] rounded-full"
+        className="absolute w-150 h-150 rounded-full"
         style={{
           background: 'radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%)',
           filter: 'blur(60px)',
@@ -185,7 +185,7 @@ export function GradientMesh() {
       
       {/* Purple blob */}
       <motion.div
-        className="absolute w-[500px] h-[500px] rounded-full"
+        className="absolute w-125 h-125 rounded-full"
         style={{
           background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)',
           filter: 'blur(60px)',
@@ -206,7 +206,7 @@ export function GradientMesh() {
       
       {/* Center glow */}
       <motion.div
-        className="absolute w-[800px] h-[800px] rounded-full"
+        className="absolute w-200 h-200 rounded-full"
         style={{
           background: 'radial-gradient(circle, rgba(0, 212, 255, 0.05) 0%, transparent 60%)',
           filter: 'blur(80px)',

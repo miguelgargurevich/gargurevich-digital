@@ -113,7 +113,7 @@ export function HoverCard({
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       {/* Glow behind */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#00D4FF]/20 to-[#8B5CF6]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-[#00D4FF]/20 to-[#8B5CF6]/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
       {/* Card */}
       <div className="relative h-full rounded-2xl bg-[#141414] border border-white/10 overflow-hidden transition-all duration-300 group-hover:border-[#00D4FF]/30">
@@ -150,7 +150,7 @@ export function BentoCard({
       whileHover={{ scale: 1.02 }}
     >
       {/* Gradient border */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-[#00D4FF]/30 to-[#8B5CF6]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+      <div className="absolute inset-0 rounded-2xl bg-linear-to-r from-[#00D4FF]/30 to-[#8B5CF6]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
       
       {/* Card background */}
       <div className="relative h-full rounded-2xl bg-[#141414]/80 backdrop-blur-sm border border-white/10 overflow-hidden group-hover:border-transparent transition-colors duration-300">
