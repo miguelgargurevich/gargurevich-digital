@@ -98,6 +98,8 @@ export default async function AdminDashboard() {
           <Link href="/admin/media" className="cms-btn">Subir imágenes</Link>
           <Link href="/admin/content" className="cms-btn">Editar contenido</Link>
           <Link href="/admin/settings" className="cms-btn">Ajustes del sitio</Link>
+          <div className="flex-1" />
+          <SeedButton />
         </div>
       </div>
     </div>
