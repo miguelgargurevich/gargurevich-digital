@@ -15,12 +15,12 @@
       "primary": "Start Project",
       "secondary": "View Portfolio"
     },
-    "rotatingWords": {
-      "0": "Digital Experiences",
-      "1": "Modern Web Apps",
-      "2": "AI Solutions",
-      "3": "Scalable Products"
-    },
+    "rotatingWords": [
+      "Digital Experiences",
+      "Modern Web Apps",
+      "AI Solutions",
+      "Scalable Products"
+    ],
     "stats": {
       "projects": {
         "value": "50+",

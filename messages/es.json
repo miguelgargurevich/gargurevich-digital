@@ -15,12 +15,12 @@
       "primary": "Iniciar Proyecto",
       "secondary": "Ver Portafolio"
     },
-    "rotatingWords": {
-      "0": "Experiencias Digitales",
-      "1": "Apps Web Modernas",
-      "2": "Soluciones con IA",
-      "3": "Productos Escalables"
-    },
+    "rotatingWords": [
+      "Experiencias Digitales",
+      "Apps Web Modernas",
+      "Soluciones con IA",
+      "Productos Escalables"
+    ],
     "stats": {
       "projects": {
         "value": "50+",
