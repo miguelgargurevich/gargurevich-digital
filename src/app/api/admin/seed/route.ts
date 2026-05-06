@@ -92,6 +92,21 @@ const PORTFOLIO_SEED = [
     featuresEn: ['Next.js 15 + Turbopack', 'Full Internationalization', 'Premium Noir Design'],
     imageUrl: '/projects/portfolio.png',
   },
+  {
+    slug: 'solucionesintegrales',
+    order: 6,
+    color: '#3B82F6',
+    github: 'https://github.com/miguelgargurevich/solucionesintegralesjs',
+    live: 'https://solucionesintegralesjs.vercel.app',
+    tech: ['Next.js 14', 'React 18', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Cloudflare R2', 'Resend'],
+    titleEs: 'Soluciones Integrales JS',
+    titleEn: 'Soluciones Integrales JS',
+    descriptionEs: 'Landing Page profesional con CMS integrado para una empresa industrial. Construida con Next.js 14, ofrece una gestión completa de servicios y proyectos, optimizada para SEO y conversiones.',
+    descriptionEn: 'Professional Landing Page with an integrated CMS for an industrial company. Built with Next.js 14, it offers full service and project management, optimized for SEO and conversions.',
+    featuresEs: ['CMS Personalizado', 'Optimización Industrial', 'Gestión de Proyectos R2'],
+    featuresEn: ['Custom CMS', 'Industrial Optimization', 'R2 Project Management'],
+    imageUrl: '/projects/solucionesintegrales.png',
+  },
 
 ];
 

@@ -2,7 +2,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import { db } from '@/lib/db';
 import PortfolioGrid, { type PortfolioProjectItem } from './PortfolioGrid';
 
-type ProjectId = 'dashboardia' | 'invoiceapp' | 'house' | 'jafernandez' | 'lumic' | 'portfolio';
+type ProjectId = 'dashboardia' | 'invoiceapp' | 'house' | 'jafernandez' | 'lumic' | 'portfolio' | 'solucionesintegrales';
 
 const projectMeta: Array<{
   id: ProjectId;
@@ -59,6 +59,14 @@ const projectMeta: Array<{
     live: '#',
     size: 'wide',
     color: '#EF4444',
+  },
+  {
+    id: 'solucionesintegrales',
+    tech: ['Next.js 14', 'React 18', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Cloudflare R2', 'Resend'],
+    github: 'https://github.com/miguelgargurevich/solucionesintegralesjs',
+    live: 'https://solucionesintegralesjs.vercel.app',
+    size: 'default',
+    color: '#3B82F6',
   },
 ] as const;
 
@@ -117,6 +125,7 @@ async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[]
       jafernandez: 'default',
       lumic: 'default',
       portfolio: 'wide',
+      solucionesintegrales: 'default',
     };
 
     return rows.map((row: DbProjectRow) => {
@@ -175,6 +184,7 @@ export default async function PortfolioSection() {
       jafernandez: ['/projects/jafernandez.png'],
       lumic: ['/projects/lumic.png'],
       portfolio: ['/projects/portfolio.png'],
+      solucionesintegrales: ['/projects/solucionesintegrales.png'],
     };
 
     return {
