@@ -20,6 +20,20 @@ async function isAuthenticated(request: NextRequest): Promise<boolean> {
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // ── Admin API routes ────────────────────────────────────────────────────
+  if (pathname.startsWith('/api/admin/')) {
+    // Login endpoint must stay public and return JSON (no locale redirects).
+    if (pathname === '/api/admin/auth/login') {
+      return NextResponse.next();
+    }
+
+    if (!(await isAuthenticated(request))) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    return NextResponse.next();
+  }
+
   // ── Admin UI routes ──────────────────────────────────────────────────────
   if (pathname === '/admin' || pathname.startsWith('/admin/')) {
     if (pathname === '/admin/login') {
@@ -30,17 +44,6 @@ export async function proxy(request: NextRequest) {
     }
     if (!(await isAuthenticated(request))) {
       return NextResponse.redirect(new URL('/admin/login', request.url));
-    }
-    return NextResponse.next();
-  }
-
-  // ── Admin API routes (except login) ─────────────────────────────────────
-  if (
-    pathname.startsWith('/api/admin/') &&
-    pathname !== '/api/admin/auth/login'
-  ) {
-    if (!(await isAuthenticated(request))) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
     return NextResponse.next();
   }
