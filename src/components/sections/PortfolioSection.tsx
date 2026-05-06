@@ -119,85 +119,177 @@ export default function PortfolioSection() {
         </div>
 
         {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[minmax(280px,auto)]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[minmax(360px,auto)]">
           {projects.map((project) => (
             <BentoCard key={project.id} size={project.size}>
-              <div className="h-full p-6 flex flex-col">
-                {/* Header */}
-                <div className="flex items-start justify-between mb-4">
+              <div className="h-full flex flex-col">
+
+                {/* ── Screenshot / Preview area ── */}
+                <div
+                  className="relative overflow-hidden shrink-0"
+                  style={{ height: project.size === 'large' ? '220px' : '160px' }}
+                >
+                  {/* Colored gradient background (always visible as base) */}
                   <div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center"
-                    style={{ backgroundColor: `${project.color}20` }}
-                  >
-                    <div
-                      className="w-2 h-2 rounded-full"
-                      style={{ backgroundColor: project.color }}
-                    />
+                    className="absolute inset-0"
+                    style={{
+                      background: `linear-gradient(145deg, ${project.color}22 0%, #0d0d0d 80%)`,
+                    }}
+                  />
+
+                  {/* Mock browser / UI skeleton */}
+                  <div className="absolute inset-0 p-3">
+                    {/* Fake browser chrome */}
+                    <div className="flex items-center gap-1.5 mb-2.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-400/50" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
+                      <div
+                        className="flex-1 h-3 rounded-full mx-2"
+                        style={{ backgroundColor: `${project.color}18` }}
+                      />
+                    </div>
+                    {/* Fake content rows */}
+                    <div className="space-y-2">
+                      <div
+                        className="h-3.5 rounded"
+                        style={{ backgroundColor: `${project.color}28`, width: '70%' }}
+                      />
+                      <div
+                        className="h-2.5 rounded"
+                        style={{ backgroundColor: `${project.color}18`, width: '90%' }}
+                      />
+                      <div
+                        className="h-2.5 rounded"
+                        style={{ backgroundColor: `${project.color}14`, width: '55%' }}
+                      />
+                      {/* Fake card row */}
+                      <div className="grid grid-cols-3 gap-1.5 pt-1">
+                        {[0, 1, 2].map((i) => (
+                          <div
+                            key={i}
+                            className="rounded"
+                            style={{
+                              height: project.size === 'large' ? '48px' : '36px',
+                              backgroundColor: `${project.color}12`,
+                              border: `1px solid ${project.color}20`,
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex gap-2">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors duration-300"
+
+                  {/* Real screenshot — shown when file exists in /public/projects/ */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={project.image}
+                    alt={`${project.title} screenshot`}
+                    className="absolute inset-0 w-full h-full object-cover object-top"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                    }}
+                  />
+
+                  {/* LIVE badge */}
+                  {project.live !== '#' && (
+                    <span
+                      className="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-semibold rounded-full"
+                      style={{
+                        backgroundColor: `${project.color}30`,
+                        color: project.color,
+                        border: `1px solid ${project.color}40`,
+                      }}
                     >
-                      <Github size={16} className="text-[#A1A1AA]" />
-                    </a>
-                    {project.live !== '#' && (
+                      LIVE
+                    </span>
+                  )}
+
+                  {/* Bottom fade into card */}
+                  <div className="absolute bottom-0 inset-x-0 h-14 bg-linear-to-t from-[#141414] to-transparent pointer-events-none" />
+                </div>
+
+                {/* ── Card content ── */}
+                <div className="flex-1 px-5 pb-5 pt-3 flex flex-col">
+                  {/* Header row */}
+                  <div className="flex items-center justify-between mb-3">
+                    <div
+                      className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                      style={{ backgroundColor: `${project.color}20` }}
+                    >
+                      <div
+                        className="w-2 h-2 rounded-full"
+                        style={{ backgroundColor: project.color }}
+                      />
+                    </div>
+                    <div className="flex gap-2">
                       <a
-                        href={project.live}
+                        href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors duration-300"
+                        aria-label="Código fuente"
                       >
-                        <ExternalLink size={16} className="text-[#A1A1AA]" />
+                        <Github size={14} className="text-[#A1A1AA]" />
                       </a>
+                      {project.live !== '#' && (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors duration-300"
+                          aria-label="Ver proyecto"
+                        >
+                          <ExternalLink size={14} className="text-[#A1A1AA]" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-lg font-semibold text-white mb-2 leading-snug">
+                    {project.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-[#A1A1AA] text-xs leading-relaxed mb-3 grow line-clamp-4">
+                    {project.description}
+                  </p>
+
+                  {/* Feature tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {project.features.map((feature) => (
+                      <span
+                        key={feature}
+                        className="px-2 py-0.5 text-[11px] rounded-md font-medium"
+                        style={{
+                          backgroundColor: `${project.color}15`,
+                          color: project.color,
+                        }}
+                      >
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Tech stack */}
+                  <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/10">
+                    {project.tech.slice(0, 4).map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2 py-0.5 text-[11px] rounded-md bg-white/5 text-[#71717A]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.tech.length > 4 && (
+                      <span className="px-2 py-0.5 text-[11px] rounded-md bg-white/5 text-[#71717A]">
+                        +{project.tech.length - 4}
+                      </span>
                     )}
                   </div>
                 </div>
 
-                {/* Title */}
-                <h3 className="text-xl font-semibold text-white mb-2">
-                  {project.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-[#A1A1AA] text-sm mb-4 flex-grow line-clamp-3">
-                  {project.description}
-                </p>
-
-                {/* Features Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.features.map((feature) => (
-                    <span
-                      key={feature}
-                      className="px-2 py-1 text-xs rounded-md"
-                      style={{ 
-                        backgroundColor: `${project.color}15`,
-                        color: project.color 
-                      }}
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 pt-4 border-t border-white/10">
-                  {project.tech.slice(0, 4).map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 text-xs rounded-md bg-white/5 text-[#71717A]"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.tech.length > 4 && (
-                    <span className="px-2 py-1 text-xs rounded-md bg-white/5 text-[#71717A]">
-                      +{project.tech.length - 4}
-                    </span>
-                  )}
-                </div>
               </div>
             </BentoCard>
           ))}

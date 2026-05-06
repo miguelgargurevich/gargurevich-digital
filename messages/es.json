@@ -96,33 +96,33 @@
     "items": {
       "dashboardia": {
         "title": "DashboardIA LLM",
-        "description": "Hub de soporte tecnico y productividad que unifica base de conocimiento, recursos y seguimiento operativo, con autenticacion Supabase, aislamiento por usuario y asistente IA con adjuntos.",
-        "features": ["Aislamiento por Usuario", "Knowledge Base Operativa", "Asistente IA con Archivos"]
+        "description": "Hub operativo de soporte técnico que centraliza knowledge base personal, gestión de recursos (PDF, Excel, video), calendario, notas y asistente IA con adjuntos. Todos los datos están aislados por usuario autenticado con Supabase, e incluye un agente Windows para ejecutar scripts PowerShell de forma remota.",
+        "features": ["Aislamiento total por usuario", "IA con adjuntos PDF/Excel/Video", "Agente Windows PowerShell"]
       },
       "invoiceapp": {
         "title": "InvoiceApp",
-        "description": "Plataforma de facturacion y proformas para contratistas y empresas de servicios que acelera cobros con firmas digitales, CRM integrado y trazabilidad completa de pagos.",
-        "features": ["Facturacion End-to-End", "Firma Digital Legal", "CRM y Reportes"]
+        "description": "Plataforma de facturación y proformas para contratistas y freelancers con firma digital jurídicamente válida (token único, IP y timestamp). Incluye CRM integrado, catálogo de productos, seguimiento de obra con fotos, multi-moneda, bilingüe y envío de documentos por email vía Resend.",
+        "features": ["Firma Digital con Token Seguro", "CRM + Catálogo de Productos", "Multi-moneda y Multi-idioma"]
       },
       "house": {
         "title": "House SaaS",
-        "description": "SaaS multi-tenant para administracion de propiedades y condominios con control de roles, API centralizada documentada y operaciones asistidas por IA Gemini.",
-        "features": ["RBAC Avanzado", "API REST con Swagger", "Copiloto IA Gemini"]
+        "description": "SaaS multi-tenant para administración de propiedades y condominios con 5 roles diferenciados (superadmin, admin, propietario, inquilino, mantenimiento), sidebars responsivos por rol, API REST centralizada documentada con Swagger en /api-docs, copiloto Gemini AI integrado y soporte para Docker Compose en local.",
+        "features": ["5 Roles con RBAC Avanzado", "REST API + Swagger Docs", "Copiloto IA Gemini"]
       },
       "jafernandez": {
         "title": "JA Fernandez Electric",
-        "description": "Sitio web bilingue para electricista licenciado en Long Island, disenado para conversion local con contenido de confianza, formulario validado y SEO tecnico.",
-        "features": ["i18n ES/EN", "Leads con Anti-spam", "SEO Local Tecnico"]
+        "description": "Sitio web profesional bilingüe (ES/EN) para electricista licenciado en Nassau y Suffolk County, Long Island NY. Formulario anti-spam con validación Zod y React Hook Form, sección FAQ, testimonios, animaciones con Framer Motion y SEO local optimizado para búsquedas en Long Island.",
+        "features": ["Bilingüe ES/EN con i18n custom", "Formulario anti-spam con Zod", "SEO Local Long Island NY"]
       },
       "lumic": {
         "title": "Lumic App",
-        "description": "E-commerce full-stack en monorepo con frontend Next.js y backend ASP.NET Core por capas, preparado para escalar con seguridad JWT y despliegue enterprise en Azure.",
-        "features": ["Monorepo Productivo", "Arquitectura Hexagonal .NET", "Despliegue Azure Ready"]
+        "description": "E-commerce full-stack en monorepo con frontend Next.js 15 / React 19 y backend ASP.NET Core .NET 9 en arquitectura de capas (Api, Application, Domain, Infrastructure). Autenticación JWT Bearer, OpenAPI en desarrollo y listo para despliegue en Azure Static Web Apps + App Service.",
+        "features": ["Monorepo Next.js + .NET 9", "Arquitectura Hexagonal Limpia", "Azure Static Web Apps Ready"]
       },
       "portfolio": {
         "title": "Portfolio Multilingüe",
-        "description": "Portfolio multilingue de alto rendimiento construido en Next.js 15, con estrategia SEO asistida por Gemini, enrutado inteligente por idioma y experiencia optimizada.",
-        "features": ["SEO Asistido por IA", "Routing Internacional", "Performance 100/100"]
+        "description": "Portfolio profesional multilingüe con Next.js 15, optimización de keywords asistida por Google Gemini AI en tiempo real, routing automático por idioma con next-intl y puntuación Lighthouse 100/100 en Performance, Accesibilidad, Buenas Prácticas y SEO.",
+        "features": ["Google Gemini AI Keywords", "Routing Automático por Idioma", "Lighthouse 100/100"]
       }
     }
   },
