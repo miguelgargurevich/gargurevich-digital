@@ -109,15 +109,15 @@
         "description": "Sistema robusto para la gestión de compromisos y cumplimiento normativo gubernamental. Implementa arquitectura CQRS con MediatR y autenticación avanzada para máxima seguridad y escalabilidad.",
         "features": ["Arquitectura CQRS con MediatR", "Gestión Centralizada de Compromisos", "Seguridad JWT + reCAPTCHA"]
       },
-      "solucionesjs": {
+      "solucionesintegrales": {
         "title": "Soluciones Integrales JS",
-        "description": "Portal corporativo y CMS a medida para el sector industrial. Incluye visualización interactiva de escenas 3D utilizando React Three Fiber y gestión integral de proyectos y servicios.",
-        "features": ["CMS con 10 Módulos Operativos", "Visualización 3D Interactiva", "Animaciones con Framer Motion"]
+        "description": "Portal corporativo y CMS industrial de alto rendimiento. Construido con Next.js 14, ofrece una gestión completa de proyectos, servicios y recursos multimedia con almacenamiento en Cloudflare R2 y envío de emails vía Resend.",
+        "features": ["CMS Industrial Personalizado", "Optimización SEO y Conversión", "Gestión de Proyectos con R2"]
       },
-      "gargurevichdev": {
-        "title": "Gargurevich.Dev",
-        "description": "Sitio web profesional de consultoría tecnológica enfocado en arquitectura de software y desarrollo web moderno. Desarrollado con Angular 17 y optimizado para máxima velocidad y SEO.",
-        "features": ["Arquitectura Clean y SOLID", "Lighthouse Score 100/100", "Angular 17 con SSR"]
+      "portfolio": {
+        "title": "Gargurevich Digital Portfolio",
+        "description": "Mi portafolio profesional diseñado con una estética Noir Premium. Utiliza Next.js 15, Turbopack para compilación ultra rápida, internacionalización completa y animaciones fluidas con Framer Motion.",
+        "features": ["Diseño Noir Premium", "Next.js 15 + Turbopack", "Full i18n (ES/EN)"]
       },
       "house": {
         "title": "House SaaS",
