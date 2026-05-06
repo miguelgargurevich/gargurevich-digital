@@ -118,6 +118,11 @@
         "title": "Lumic App",
         "description": "E-commerce full-stack en monorepo con frontend Next.js 15 / React 19 y backend ASP.NET Core .NET 9 en arquitectura de capas (Api, Application, Domain, Infrastructure). Autenticación JWT Bearer, OpenAPI en desarrollo y listo para despliegue en Azure Static Web Apps + App Service.",
         "features": ["Monorepo Next.js + .NET 9", "Arquitectura Hexagonal Limpia", "Azure Static Web Apps Ready"]
+      },
+      "portfolio": {
+        "title": "Portafolio Multilingüe",
+        "description": "Portafolio personal desarrollado con Next.js 15, Tailwind CSS y TypeScript. Soporta múltiples idiomas (ES/EN) con i18n custom, animaciones suaves con Framer Motion y optimización SEO avanzada para destacar en búsquedas globales.",
+        "features": ["Multilingüe ES/EN con i18n custom", "Animaciones con Framer Motion", "SEO Avanzado para Portafolios"]
       }
     }
   },
