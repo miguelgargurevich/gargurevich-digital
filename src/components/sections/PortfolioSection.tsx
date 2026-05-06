@@ -136,11 +136,17 @@ async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[]
   }
 }
 
+export const dynamic = 'force-dynamic';
+
 export default async function PortfolioSection() {
   const locale = await getLocale();
   const t = await getTranslations('portfolio');
 
   const dbProjects = await getProjectsFromDb(locale);
+  console.log('PortfolioSection: dbProjects count:', dbProjects?.length);
+  if (dbProjects) {
+    dbProjects.forEach(p => console.log(`Project ${p.id}: images: ${p.images.length}, imageUrl raw: ${p.images[0]}`));
+  }
 
   const fallbackProjects: PortfolioProjectItem[] = projectMeta.map((project) => {
     let content: { title: string; description: string; features: string[] };
