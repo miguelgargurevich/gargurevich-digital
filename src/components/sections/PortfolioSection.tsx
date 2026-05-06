@@ -6,7 +6,6 @@ type ProjectId = 'dashboardia' | 'invoiceapp' | 'house' | 'jafernandez' | 'lumic
 
 const projectMeta: Array<{
   id: ProjectId;
-  image: string;
   tech: string[];
   github: string;
   live: string;
@@ -15,7 +14,6 @@ const projectMeta: Array<{
 }> = [
   {
     id: 'dashboardia',
-    image: '/projects/dashboardia.png',
     tech: ['Next.js 14', 'React 18', 'Node.js', 'Prisma', 'PostgreSQL', 'Supabase', 'Gemini API'],
     github: 'https://github.com/miguelgargurevich/dashboardia-llm',
     live: '#',
@@ -24,7 +22,6 @@ const projectMeta: Array<{
   },
   {
     id: 'invoiceapp',
-    image: '/projects/invoiceapp.png',
     tech: ['Next.js 14', 'Express', 'TypeScript', 'Prisma', 'PostgreSQL', 'Supabase', 'Resend'],
     github: 'https://github.com/miguelgargurevich/invoiceapp',
     live: 'https://invoiceapp.vercel.app',
@@ -33,7 +30,6 @@ const projectMeta: Array<{
   },
   {
     id: 'house',
-    image: '/projects/house.png',
     tech: ['React 18', 'Vite', 'Express', 'Prisma', 'PostgreSQL', 'JWT', 'Gemini API'],
     github: 'https://github.com/miguelgargurevich/house',
     live: '#',
@@ -42,7 +38,6 @@ const projectMeta: Array<{
   },
   {
     id: 'jafernandez',
-    image: '/projects/jafernandez.png',
     tech: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Zod'],
     github: 'https://github.com/miguelgargurevich/jafernandezelectric',
     live: '#',
@@ -51,7 +46,6 @@ const projectMeta: Array<{
   },
   {
     id: 'lumic',
-    image: '/projects/lumic.png',
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', '.NET 9', 'JWT'],
     github: 'https://github.com/miguelgargurevich/lumic',
     live: '#',
@@ -60,7 +54,6 @@ const projectMeta: Array<{
   },
   {
     id: 'portfolio',
-    image: '/projects/portfolio.png',
     tech: ['Next.js 15', 'TypeScript', 'Tailwind CSS', 'next-intl', 'Gemini AI'],
     github: 'https://github.com/miguelgargurevich/miguel-gargurevich-portfolio',
     live: '#',
@@ -72,6 +65,33 @@ const projectMeta: Array<{
 type DbProjectRow = Awaited<
   ReturnType<typeof db.portfolioProject.findMany>
 >[number];
+
+const r2BaseUrl = (process.env.R2_PUBLIC_URL || '').replace(/\/+$/, '');
+
+function parseImageUrls(value: string | null | undefined): string[] {
+  if (!value) return [];
+
+  let candidates: string[] = [];
+
+  try {
+    const parsed = JSON.parse(value);
+    if (Array.isArray(parsed)) {
+      candidates = parsed.map((item) => String(item));
+    }
+  } catch {
+    candidates = value.split(/[\n,|;]/g);
+  }
+
+  const unique: string[] = [];
+  for (const candidate of candidates) {
+    const url = candidate.trim();
+    if (!url) continue;
+    if (!r2BaseUrl || !url.startsWith(`${r2BaseUrl}/`)) continue;
+    if (!unique.includes(url)) unique.push(url);
+  }
+
+  return unique;
+}
 
 async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[] | null> {
   try {
@@ -103,7 +123,7 @@ async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[]
       live: row.live,
       color: row.color,
       size: sizeBySlug[row.slug] ?? 'default',
-      image: row.imageUrl || `/projects/${row.slug}.png`,
+      images: parseImageUrls(row.imageUrl),
     }));
   } catch {
     return null;
@@ -117,11 +137,21 @@ export default async function PortfolioSection() {
   const dbProjects = await getProjectsFromDb(locale);
 
   const fallbackProjects: PortfolioProjectItem[] = projectMeta.map((project) => {
-    const content = t.raw(`items.${project.id}`) as {
-      title: string;
-      description: string;
-      features: string[];
-    };
+    let content: { title: string; description: string; features: string[] };
+
+    try {
+      content = t.raw(`items.${project.id}`) as {
+        title: string;
+        description: string;
+        features: string[];
+      };
+    } catch {
+      content = {
+        title: project.id,
+        description: '',
+        features: [],
+      };
+    }
 
     return {
       id: project.id,
@@ -133,7 +163,7 @@ export default async function PortfolioSection() {
       live: project.live,
       size: project.size,
       color: project.color,
-      image: project.image,
+      images: [],
     };
   });
 

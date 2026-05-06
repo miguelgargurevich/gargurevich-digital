@@ -72,20 +72,7 @@ const PORTFOLIO_SEED = [
     featuresEs: ['Monorepo Next.js + .NET 9', 'Arquitectura Hexagonal Limpia', 'Azure Static Web Apps Ready'],
     featuresEn: ['Next.js + .NET 9 Monorepo', 'Clean Layered Architecture', 'Azure Static Web Apps Ready'],
   },
-  {
-    slug: 'portfolio',
-    order: 5,
-    color: '#EF4444',
-    github: 'https://github.com/miguelgargurevich/miguel-gargurevich-portfolio',
-    live: '#',
-    tech: ['Next.js 15', 'TypeScript', 'Tailwind CSS', 'next-intl', 'Gemini AI'],
-    titleEs: 'Portfolio Multilingüe',
-    titleEn: 'Multilingual Portfolio',
-    descriptionEs: 'Portfolio profesional multilingüe con Next.js 15, optimización de keywords asistida por Google Gemini AI en tiempo real, routing automático por idioma con next-intl y puntuación Lighthouse 100/100 en Performance, Accesibilidad, Buenas Prácticas y SEO.',
-    descriptionEn: 'Multilingual professional portfolio built with Next.js 15, featuring real-time Google Gemini AI-powered keyword optimization, automatic language detection with next-intl routing, and a perfect Lighthouse score of 100/100 across Performance, Accessibility, Best Practices, and SEO.',
-    featuresEs: ['Google Gemini AI Keywords', 'Routing Automático por Idioma', 'Lighthouse 100/100'],
-    featuresEn: ['Google Gemini AI Keywords', 'Automatic Language Routing', 'Lighthouse 100/100'],
-  },
+
 ];
 
 const SERVICES_SEED = [

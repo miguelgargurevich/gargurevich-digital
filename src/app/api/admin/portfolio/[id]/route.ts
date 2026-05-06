@@ -48,6 +48,29 @@ export async function PUT(
   }
 }
 
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    const body = await request.json();
+
+    if (typeof body.imageUrl !== 'string' && body.imageUrl !== null) {
+      return NextResponse.json({ error: 'Invalid imageUrl' }, { status: 400 });
+    }
+
+    const project = await db.portfolioProject.update({
+      where: { id },
+      data: { imageUrl: body.imageUrl || null },
+    });
+
+    return NextResponse.json(project);
+  } catch {
+    return NextResponse.json({ error: 'Failed to update project image' }, { status: 500 });
+  }
+}
+
 export async function DELETE(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> }

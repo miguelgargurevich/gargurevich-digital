@@ -94,7 +94,7 @@ export default function EditProjectPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ filename: file.name, contentType: file.type, size: file.size }),
       });
-      const { uploadUrl, publicUrl } = await res.json();
+      const { uploadUrl, publicUrl, key } = await res.json();
       if (!uploadUrl) throw new Error('No se pudo obtener URL de subida');
 
       // 2. Upload directly to R2
@@ -105,7 +105,35 @@ export default function EditProjectPage() {
       });
       if (!uploadRes.ok) throw new Error('Error al subir el archivo a R2');
 
+      // 3. Register in media library after successful upload.
+      const finalizeRes = await fetch('/api/admin/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          finalize: true,
+          key,
+          filename: file.name,
+          contentType: file.type,
+          size: file.size,
+          publicUrl,
+        }),
+      });
+      if (!finalizeRes.ok) throw new Error('No se pudo registrar la imagen en CMS');
+
       set('imageUrl', publicUrl);
+
+      // 4. Persist image URL immediately for existing projects.
+      if (!isNew) {
+        const patchRes = await fetch(`/api/admin/portfolio/${id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ imageUrl: publicUrl }),
+        });
+        if (!patchRes.ok) throw new Error('La imagen se subio, pero no se pudo guardar en el proyecto');
+        setSuccess('Imagen subida y guardada en el proyecto');
+      } else {
+        setSuccess('Imagen subida. Guarda el proyecto para persistirla');
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al subir imagen');
     } finally {
