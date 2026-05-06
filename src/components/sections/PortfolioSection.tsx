@@ -114,7 +114,10 @@ async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[]
       orderBy: { order: 'asc' },
     });
 
+    console.log(`getProjectsFromDb: Found ${rows.length} published projects in DB`);
+
     if (rows.length === 0) {
+      console.log('getProjectsFromDb: No published projects found.');
       return null;
     }
 
@@ -129,7 +132,8 @@ async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[]
     };
 
     return rows.map((row: DbProjectRow) => {
-      console.log(`DB Project found: ${row.slug}, published: ${row.published}, hasImage: ${!!row.imageUrl}`);
+      const parsedImages = parseImageUrls(row.imageUrl);
+      console.log(`Mapping Project: ${row.slug} | Images Found: ${parsedImages.length} | First Image: ${parsedImages[0] || 'NONE'}`);
       return {
         id: row.slug,
         title: locale === 'es' ? row.titleEs : row.titleEn,
@@ -140,10 +144,11 @@ async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[]
         live: row.live,
         color: row.color,
         size: sizeBySlug[row.slug] ?? 'default',
-        images: parseImageUrls(row.imageUrl),
+        images: parsedImages,
       };
     });
-  } catch {
+  } catch (err) {
+    console.error('getProjectsFromDb ERROR:', err);
     return null;
   }
 }
