@@ -119,18 +119,21 @@ async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[]
       portfolio: 'wide',
     };
 
-    return rows.map((row: DbProjectRow) => ({
-      id: row.slug,
-      title: locale === 'es' ? row.titleEs : row.titleEn,
-      description: locale === 'es' ? row.descriptionEs : row.descriptionEn,
-      features: locale === 'es' ? row.featuresEs : row.featuresEn,
-      tech: row.tech,
-      github: row.github,
-      live: row.live,
-      color: row.color,
-      size: sizeBySlug[row.slug] ?? 'default',
-      images: parseImageUrls(row.imageUrl),
-    }));
+    return rows.map((row: DbProjectRow) => {
+      console.log(`DB Project found: ${row.slug}, published: ${row.published}, hasImage: ${!!row.imageUrl}`);
+      return {
+        id: row.slug,
+        title: locale === 'es' ? row.titleEs : row.titleEn,
+        description: locale === 'es' ? row.descriptionEs : row.descriptionEn,
+        features: locale === 'es' ? row.featuresEs : row.featuresEn,
+        tech: row.tech,
+        github: row.github,
+        live: row.live,
+        color: row.color,
+        size: sizeBySlug[row.slug] ?? 'default',
+        images: parseImageUrls(row.imageUrl),
+      };
+    });
   } catch {
     return null;
   }
