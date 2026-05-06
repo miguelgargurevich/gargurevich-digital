@@ -65,8 +65,8 @@ export default function Footer({ translations: t }: FooterProps) {
             <Link href="/" className="inline-block mb-6">
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10 rounded-xl bg-linear-to-br from-[#00D4FF] to-[#8B5CF6] flex items-center justify-center">
-                  <span className="text-background font-bold text-lg">G</span>
-                  <span className="text-[#14213D] font-bold text-lg">D</span>
+                  <span className="text-white">G</span>
+                <span className="gradient-text">D</span>
                 </div>
                 <span className="text-xl font-semibold">
                   <span className="text-white">Gargurevich</span>

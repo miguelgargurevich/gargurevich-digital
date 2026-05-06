@@ -399,7 +399,7 @@ export default function PortfolioGrid({ projects, labels }: PortfolioGridProps) 
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-white text-sm transition-all"
                     >
                       <Github size={15} />
-                      Ver proyectos en GitHub
+                      Ver proyecto
                     </a>
 
                     {activeProject.live !== '#' && (
