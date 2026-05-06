@@ -2,7 +2,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import { db } from '@/lib/db';
 import PortfolioGrid, { type PortfolioProjectItem } from './PortfolioGrid';
 
-type ProjectId = 'dashboardia' | 'invoiceapp' | 'house' | 'jafernandez' | 'lumic' | 'portfolio' | 'solucionesintegrales';
+type ProjectId = 'dashboardia' | 'invoiceapp' | 'house' | 'jafernandez' | 'lumic' | 'portfolio' | 'solucionesintegrales' | 'pcm';
 
 const projectMeta: Array<{
   id: ProjectId;
@@ -68,6 +68,14 @@ const projectMeta: Array<{
     size: 'default',
     color: '#3B82F6',
   },
+  {
+    id: 'pcm',
+    tech: ['.NET 9', 'React 19', 'PostgreSQL', 'CQRS', 'MediatR', 'Docker', 'reCAPTCHA'],
+    github: 'https://github.com/miguelgargurevich/pcm',
+    live: 'https://pcm-eight.vercel.app',
+    size: 'default',
+    color: '#6366F1',
+  },
 ] as const;
 
 type DbProjectRow = Awaited<
@@ -129,6 +137,7 @@ async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[]
       lumic: 'default',
       portfolio: 'wide',
       solucionesintegrales: 'default',
+      pcm: 'default',
     };
 
     return rows.map((row: DbProjectRow) => {
@@ -190,6 +199,7 @@ export default async function PortfolioSection() {
       lumic: ['/projects/lumic.png'],
       portfolio: ['/projects/portfolio.png'],
       solucionesintegrales: ['/projects/solucionesintegrales.png'],
+      pcm: ['/projects/pcm.png'],
     };
 
     return {

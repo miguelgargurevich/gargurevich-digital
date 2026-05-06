@@ -106,12 +106,12 @@
       },
       "pcm": {
         "title": "Plataforma de Cumplimiento (PCM)",
-        "description": "Sistema robusto para la gestión de compromisos y cumplimiento normativo gubernamental. Implementa arquitectura CQRS con MediatR y autenticación avanzada para máxima seguridad y escalabilidad.",
-        "features": ["Arquitectura CQRS con MediatR", "Gestión Centralizada de Compromisos", "Seguridad JWT + reCAPTCHA"]
+        "description": "Sistema robusto para la gestión de compromisos y cumplimiento normativo gubernamental. Implementa arquitectura CQRS con MediatR para máxima seguridad y escalabilidad.",
+        "features": ["Arquitectura CQRS con MediatR", "Gestión Gubernamental", "Seguridad JWT + reCAPTCHA"]
       },
       "solucionesintegrales": {
         "title": "Soluciones Integrales JS",
-        "description": "Portal corporativo y CMS industrial de alto rendimiento. Construido con Next.js 14, ofrece una gestión completa de proyectos, servicios y recursos multimedia con almacenamiento en Cloudflare R2 y envío de emails vía Resend.",
+        "description": "Portal corporativo y CMS industrial de alto rendimiento. Construido con Next.js 14, ofrece una gestión completa de proyectos, servicios y recursos multimedia con Cloudflare R2 y Resend.",
         "features": ["CMS Industrial Personalizado", "Optimización SEO y Conversión", "Gestión de Proyectos con R2"]
       },
       "portfolio": {

@@ -107,6 +107,21 @@ const PORTFOLIO_SEED = [
     featuresEn: ['Custom CMS', 'Industrial Optimization', 'R2 Project Management'],
     imageUrl: '/projects/solucionesintegrales.png',
   },
+  {
+    slug: 'pcm',
+    order: 7,
+    color: '#6366F1',
+    github: 'https://github.com/miguelgargurevich/pcm',
+    live: 'https://pcm-eight.vercel.app',
+    tech: ['.NET 9', 'React 19', 'PostgreSQL', 'CQRS', 'MediatR', 'Docker', 'reCAPTCHA'],
+    titleEs: 'Plataforma de Cumplimiento (PCM)',
+    titleEn: 'Compliance Platform (PCM)',
+    descriptionEs: 'Sistema web robusto para la gestión de compromisos y cumplimiento normativo en entidades del Estado. Implementa arquitectura CQRS con MediatR para máxima seguridad y escalabilidad.',
+    descriptionEn: 'Robust web system for managing commitments and regulatory compliance in government entities. Implements CQRS architecture with MediatR for maximum security and scalability.',
+    featuresEs: ['Arquitectura CQRS con MediatR', 'Gestión Gubernamental', 'Seguridad JWT + reCAPTCHA'],
+    featuresEn: ['CQRS Architecture with MediatR', 'Government Management', 'JWT + reCAPTCHA Security'],
+    imageUrl: '/projects/pcm.png',
+  },
 
 ];
 

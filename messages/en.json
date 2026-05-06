@@ -106,12 +106,12 @@
       },
       "pcm": {
         "title": "Compliance Platform (PCM)",
-        "description": "Robust system for managing commitments and government regulatory compliance. Implements CQRS architecture with MediatR and advanced authentication for maximum security and scalability.",
-        "features": ["CQRS Architecture with MediatR", "Centralized Commitment Management", "JWT + reCAPTCHA Security"]
+        "description": "Robust web system for managing commitments and regulatory compliance in government entities. Implements CQRS architecture with MediatR for maximum security and scalability.",
+        "features": ["CQRS Architecture with MediatR", "Government Management", "JWT + reCAPTCHA Security"]
       },
       "solucionesintegrales": {
         "title": "Soluciones Integrales JS",
-        "description": "High-performance corporate portal and industrial CMS. Built with Next.js 14, it features comprehensive management for projects, services, and multimedia resources with Cloudflare R2 storage and Resend email delivery.",
+        "description": "High-performance corporate portal and industrial CMS. Built with Next.js 14, it offers full management of projects, services, and multimedia resources with Cloudflare R2 and Resend.",
         "features": ["Custom Industrial CMS", "SEO & Conversion Optimized", "R2 Project Management"]
       },
       "portfolio": {
