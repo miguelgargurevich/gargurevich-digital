@@ -1,6 +1,5 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 import { db } from '@/lib/db';
-import type { PortfolioProject } from '@prisma/client';
 import PortfolioGrid, { type PortfolioProjectItem } from './PortfolioGrid';
 
 type ProjectId = 'dashboardia' | 'invoiceapp' | 'house' | 'jafernandez' | 'lumic' | 'portfolio';
@@ -70,9 +69,13 @@ const projectMeta: Array<{
   },
 ] as const;
 
+type DbProjectRow = Awaited<
+  ReturnType<typeof db.portfolioProject.findMany>
+>[number];
+
 async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[] | null> {
   try {
-    const rows: PortfolioProject[] = await db.portfolioProject.findMany({
+    const rows = await db.portfolioProject.findMany({
       where: { published: true },
       orderBy: { order: 'asc' },
     });
@@ -90,7 +93,7 @@ async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[]
       portfolio: 'wide',
     };
 
-    return rows.map((row) => ({
+    return rows.map((row: DbProjectRow) => ({
       id: row.slug,
       title: locale === 'es' ? row.titleEs : row.titleEn,
       description: locale === 'es' ? row.descriptionEs : row.descriptionEn,
