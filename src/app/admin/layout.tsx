@@ -29,11 +29,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
+  const isLogin = pathname === '/admin/login';
+
   const handleLogout = async () => {
     await fetch('/api/admin/auth/logout', { method: 'POST' });
     router.push('/admin/login');
     router.refresh();
   };
+
+  if (isLogin) {
+    return <>{children}</>;
+  }
 
   return (
     <div className="min-h-screen bg-background text-white flex">
