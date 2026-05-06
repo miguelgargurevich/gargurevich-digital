@@ -101,28 +101,33 @@
       },
       "invoiceapp": {
         "title": "InvoiceApp",
-        "description": "Plataforma de facturación y proformas para contratistas y freelancers con firma digital jurídicamente válida (token único, IP y timestamp). Incluye CRM integrado, catálogo de productos, seguimiento de obra con fotos, multi-moneda, bilingüe y envío de documentos por email vía Resend.",
-        "features": ["Firma Digital con Token Seguro", "CRM + Catálogo de Productos", "Multi-moneda y Multi-idioma"]
+        "description": "Sistema integral de facturación y gestión de cobros para contratistas y freelancers con firma digital legalmente válida, seguimiento detallado de estados y asistente de configuración rápida (onboarding).",
+        "features": ["Firma Digital Jurídicamente Válida", "Línea de Tiempo de Facturación", "Onboarding en menos de 2 min"]
+      },
+      "pcm": {
+        "title": "Plataforma de Cumplimiento (PCM)",
+        "description": "Sistema robusto para la gestión de compromisos y cumplimiento normativo gubernamental. Implementa arquitectura CQRS con MediatR y autenticación avanzada para máxima seguridad y escalabilidad.",
+        "features": ["Arquitectura CQRS con MediatR", "Gestión Centralizada de Compromisos", "Seguridad JWT + reCAPTCHA"]
+      },
+      "solucionesjs": {
+        "title": "Soluciones Integrales JS",
+        "description": "Portal corporativo y CMS a medida para el sector industrial. Incluye visualización interactiva de escenas 3D utilizando React Three Fiber y gestión integral de proyectos y servicios.",
+        "features": ["CMS con 10 Módulos Operativos", "Visualización 3D Interactiva", "Animaciones con Framer Motion"]
+      },
+      "gargurevichdev": {
+        "title": "Gargurevich.Dev",
+        "description": "Sitio web profesional de consultoría tecnológica enfocado en arquitectura de software y desarrollo web moderno. Desarrollado con Angular 17 y optimizado para máxima velocidad y SEO.",
+        "features": ["Arquitectura Clean y SOLID", "Lighthouse Score 100/100", "Angular 17 con SSR"]
       },
       "house": {
         "title": "House SaaS",
-        "description": "SaaS multi-tenant para administración de propiedades y condominios con 5 roles diferenciados (superadmin, admin, propietario, inquilino, mantenimiento), sidebars responsivos por rol, API REST centralizada documentada con Swagger en /api-docs, copiloto Gemini AI integrado y soporte para Docker Compose en local.",
+        "description": "SaaS multi-tenant para administración de propiedades y condominios con 5 roles diferenciados (superadmin, admin, propietario, inquilino, mantenimiento), sidebars responsivos por rol y API REST centralizada.",
         "features": ["5 Roles con RBAC Avanzado", "REST API + Swagger Docs", "Copiloto IA Gemini"]
-      },
-      "jafernandez": {
-        "title": "JA Fernandez Electric",
-        "description": "Sitio web profesional bilingüe (ES/EN) para electricista licenciado en Nassau y Suffolk County, Long Island NY. Formulario anti-spam con validación Zod y React Hook Form, sección FAQ, testimonios, animaciones con Framer Motion y SEO local optimizado para búsquedas en Long Island.",
-        "features": ["Bilingüe ES/EN con i18n custom", "Formulario anti-spam con Zod", "SEO Local Long Island NY"]
       },
       "lumic": {
         "title": "Lumic App",
-        "description": "E-commerce full-stack en monorepo con frontend Next.js 15 / React 19 y backend ASP.NET Core .NET 9 en arquitectura de capas (Api, Application, Domain, Infrastructure). Autenticación JWT Bearer, OpenAPI en desarrollo y listo para despliegue en Azure Static Web Apps + App Service.",
+        "description": "E-commerce full-stack en monorepo con frontend Next.js 15 / React 19 y backend ASP.NET Core .NET 9 en arquitectura de capas. Autenticación JWT Bearer y listo para despliegue en Azure.",
         "features": ["Monorepo Next.js + .NET 9", "Arquitectura Hexagonal Limpia", "Azure Static Web Apps Ready"]
-      },
-      "portfolio": {
-        "title": "Portafolio Multilingüe",
-        "description": "Portafolio personal desarrollado con Next.js 15, Tailwind CSS y TypeScript. Soporta múltiples idiomas (ES/EN) con i18n custom, animaciones suaves con Framer Motion y optimización SEO avanzada para destacar en búsquedas globales.",
-        "features": ["Multilingüe ES/EN con i18n custom", "Animaciones con Framer Motion", "SEO Avanzado para Portafolios"]
       }
     }
   },

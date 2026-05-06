@@ -101,28 +101,33 @@
       },
       "invoiceapp": {
         "title": "InvoiceApp",
-        "description": "Invoicing and proposal platform for contractors and freelancers with legally binding digital signatures (unique token, IP, and timestamp). Includes an integrated CRM, product catalog, job-site photo tracking, multi-currency, bilingual support, and document delivery via Resend.",
-        "features": ["Legally Binding Token Signatures", "CRM + Product Catalog", "Multi-currency & Bilingual"]
+        "description": "Comprehensive billing and collection management system for contractors and freelancers with legally valid digital signature, detailed status tracking, and a quick onboarding setup assistant.",
+        "features": ["Legally Binding Digital Signature", "Billing Timeline Tracking", "Onboarding in under 2 min"]
+      },
+      "pcm": {
+        "title": "Compliance Platform (PCM)",
+        "description": "Robust system for managing commitments and government regulatory compliance. Implements CQRS architecture with MediatR and advanced authentication for maximum security and scalability.",
+        "features": ["CQRS Architecture with MediatR", "Centralized Commitment Management", "JWT + reCAPTCHA Security"]
+      },
+      "solucionesjs": {
+        "title": "Soluciones Integrales JS",
+        "description": "Custom corporate portal and CMS for the industrial sector. Includes interactive 3D scene visualization using React Three Fiber and comprehensive management of projects and services.",
+        "features": ["CMS with 10 Operating Modules", "Interactive 3D Visualization", "Framer Motion Animations"]
+      },
+      "gargurevichdev": {
+        "title": "Gargurevich.Dev",
+        "description": "Professional technology consulting website focused on software architecture and modern web development. Developed with Angular 17 and optimized for maximum speed and SEO.",
+        "features": ["Clean and SOLID Architecture", "Lighthouse Score 100/100", "Angular 17 with SSR"]
       },
       "house": {
         "title": "House SaaS",
-        "description": "Multi-tenant SaaS for property and condominium management with 5 distinct roles (superadmin, admin, owner, tenant, maintenance), responsive role-based sidebars, a centralized REST API documented with Swagger at /api-docs, an integrated Gemini AI copilot, and Docker Compose support for local development.",
+        "description": "Multi-tenant SaaS for property and condominium management with 5 distinct roles (superadmin, admin, owner, tenant, maintenance), role-based responsive sidebars, and centralized REST API.",
         "features": ["5 Roles with Advanced RBAC", "REST API + Swagger Docs", "Gemini AI Copilot"]
-      },
-      "jafernandez": {
-        "title": "JA Fernandez Electric",
-        "description": "Bilingual professional website (ES/EN) for a licensed electrician in Nassau and Suffolk County, Long Island NY. Anti-spam contact form with Zod and React Hook Form validation, FAQ section, testimonials, Framer Motion animations, and local SEO optimized for Long Island searches.",
-        "features": ["Bilingual ES/EN with custom i18n", "Anti-spam form with Zod", "Local SEO for Long Island NY"]
       },
       "lumic": {
         "title": "Lumic App",
-        "description": "Full-stack e-commerce monorepo with a Next.js 15 / React 19 frontend and a layered ASP.NET Core .NET 9 backend (Api, Application, Domain, Infrastructure). JWT Bearer authentication, OpenAPI in development, and ready for deployment on Azure Static Web Apps + App Service.",
-        "features": ["Next.js + .NET 9 Monorepo", "Clean Layered Architecture", "Azure Static Web Apps Ready"]
-      },
-      "portfolio": {
-        "title": "Multilingual Portfolio",
-        "description": "Multilingual professional portfolio built with Next.js 15, featuring real-time Google Gemini AI-powered keyword optimization, automatic language detection with next-intl routing, and a perfect Lighthouse score of 100/100 across Performance, Accessibility, Best Practices, and SEO.",
-        "features": ["Google Gemini AI Keywords", "Automatic Language Routing", "Lighthouse 100/100"]
+        "description": "Full-stack e-commerce monorepo with Next.js 15 / React 19 frontend and ASP.NET Core .NET 9 backend in layered architecture. JWT Bearer authentication and ready for Azure deployment.",
+        "features": ["Next.js + .NET 9 Monorepo", "Clean Hexagonal Architecture", "Azure Static Web Apps Ready"]
       }
     }
   },
