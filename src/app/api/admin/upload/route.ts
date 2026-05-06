@@ -14,6 +14,8 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'No file provided' }, { status: 400 });
       }
 
+      const slug = formData.get('slug') as string | null;
+      
       const ext = file.name.split('.').pop()?.toLowerCase().replace(/[^a-z0-9]/g, '') ?? 'bin';
       const originalName = file.name
         .split('.')
@@ -22,7 +24,9 @@ export async function POST(request: NextRequest) {
         .toLowerCase()
         .replace(/[^a-z0-9]/g, '-');
       
-      const safeName = `${originalName}-${Date.now()}.${ext}`;
+      // Use slug if provided, otherwise fallback to original name
+      const baseName = slug ? slug.toLowerCase().replace(/[^a-z0-9]/g, '-') : originalName;
+      const safeName = `${baseName}-${Date.now()}.${ext}`;
       const key = `projects/${safeName}`;
 
       const buffer = Buffer.from(await file.arrayBuffer());

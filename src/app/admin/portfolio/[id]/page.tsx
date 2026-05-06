@@ -90,6 +90,9 @@ export default function EditProjectPage() {
     try {
       const formData = new FormData();
       formData.append('file', file);
+      if (form.slug) {
+        formData.append('slug', form.slug);
+      }
 
       const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
       if (!res.ok) throw new Error('No se pudo subir la imagen');
