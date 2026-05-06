@@ -1,11 +1,18 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
   try {
-    const { name, email, company, projectType, message } = await req.json();
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.error('RESEND_API_KEY is missing');
+      return NextResponse.json({ error: 'Configuración del servidor incompleta' }, { status: 500 });
+    }
+
+    const resend = new Resend(apiKey);
+    const body = await req.json();
+    console.log('Contact form body:', body);
+    const { name, email, company, projectType, message } = body;
 
     if (!name || !email || !projectType || !message) {
       return NextResponse.json(
@@ -14,6 +21,12 @@ export async function POST(req: Request) {
       );
     }
 
+    if (!process.env.RESEND_API_KEY) {
+      console.error('RESEND_API_KEY is missing');
+      return NextResponse.json({ error: 'Configuración del servidor incompleta' }, { status: 500 });
+    }
+
+    console.log('Sending email via Resend...');
     const { data, error } = await resend.emails.send({
       from: 'Gargurevich Digital <onboarding@resend.dev>',
       to: ['contacto@gargurevich.dev'],
@@ -33,15 +46,16 @@ export async function POST(req: Request) {
     });
 
     if (error) {
-      console.error('Resend Error:', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      console.error('Resend Error Details:', JSON.stringify(error, null, 2));
+      return NextResponse.json({ error: error.message || 'Error de Resend' }, { status: 500 });
     }
 
+    console.log('Email sent successfully:', data);
     return NextResponse.json({ success: true, data });
-  } catch (error) {
-    console.error('Contact API Error:', error);
+  } catch (error: any) {
+    console.error('Contact API Unexpected Error:', error);
     return NextResponse.json(
-      { error: 'Error interno al enviar el mensaje' },
+      { error: error.message || 'Error interno al enviar el mensaje' },
       { status: 500 }
     );
   }
