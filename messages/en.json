@@ -211,19 +211,11 @@
       "companyPlaceholder": "Your Company (optional)",
       "projectType": "Project Type",
       "projectTypePlaceholder": "Select a type",
-      "budget": "Budget (USD)",
-      "budgetPlaceholder": "Select a range",
       "message": "Tell us about your project",
       "messagePlaceholder": "Describe your idea, goals, and specific requirements...",
       "submit": "Send Message",
       "sending": "Sending...",
-      "success": "Message sent successfully!",
-      "budgetRanges": {
-        "1k-5k": "$1,000 - $5,000",
-        "5k-10k": "$5,000 - $10,000",
-        "10k-25k": "$10,000 - $25,000",
-        "25k+": "$25,000+"
-      }
+      "success": "Message sent successfully!"
     }
   },
   "footer": {

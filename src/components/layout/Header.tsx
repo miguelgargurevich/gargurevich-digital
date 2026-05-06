@@ -68,8 +68,7 @@ export default function Header({ translations, locale }: HeaderProps) {
             >
               <div className="w-10 h-10 rounded-xl bg-linear-to-br from-[#00D4FF] to-[#8B5CF6] flex items-center justify-center">
                 <span className="bg-linear-to-r from-[#00D4FF] to-[#8B5CF6] bg-clip-text font-bold">G</span>
-                <span className="text-[#00D4FF] font-bold">D</span>
-
+                <span className="text-[#14213D] font-bold">D</span>
               </div>
               <span className="text-xl font-semibold hidden sm:block">
                 <span className="text-white">Gargurevich</span>

@@ -50,7 +50,6 @@ export default function ContactSection({ overrides }: { overrides?: ContactOverr
     email: '',
     company: '',
     projectType: '',
-    budget: '',
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -60,24 +59,38 @@ export default function ContactSection({ overrides }: { overrides?: ContactOverr
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Reset after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        projectType: '',
-        budget: '',
-        message: '',
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-    }, 3000);
+
+      if (!response.ok) {
+        throw new Error('Error al enviar el mensaje');
+      }
+
+      setIsSubmitted(true);
+      
+      // Reset after 3 seconds
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          projectType: '',
+          message: '',
+        });
+      }, 3000);
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -251,24 +264,6 @@ export default function ContactSection({ overrides }: { overrides?: ContactOverr
                 </div>
               </div>
 
-              {/* Budget */}
-              <div>
-                <label className="block text-sm text-[#A1A1AA] mb-2">
-                  {t('form.budget')}
-                </label>
-                <select
-                  name="budget"
-                  value={formData.budget}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-xl bg-[#141414] border border-white/10 text-white focus:outline-none focus:border-[#00D4FF]/50 transition-colors duration-300 cursor-pointer"
-                >
-                  <option value="" className="bg-[#141414]">{t('form.budgetPlaceholder')}</option>
-                  <option value="< $1,000" className="bg-[#141414]">{t('form.budgetRanges.1k-5k')}</option>
-                  <option value="$1,000 - $3,000" className="bg-[#141414]">{t('form.budgetRanges.5k-10k')}</option>
-                  <option value="$3,000 - $5,000" className="bg-[#141414]">{t('form.budgetRanges.10k-25k')}</option>
-                  <option value="$5,000 - $10,000" className="bg-[#141414]">{t('form.budgetRanges.25k+')}</option>
-                </select>
-              </div>
 
               {/* Message */}
               <div>

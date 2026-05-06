@@ -51,6 +51,7 @@ export default function AdminLoginPage() {
         <div className="text-center mb-8">
           <div className="w-14 h-14 rounded-2xl bg-linear-to-br from-[#00D4FF] to-[#8B5CF6] flex items-center justify-center mx-auto mb-4">
             <span className="text-background font-bold text-2xl">G</span>
+            <span className="text-[#14213D] font-bold text-2xl">D</span>
           </div>
           <h1 className="text-2xl font-bold text-white">Panel CMS</h1>
           <p className="text-[#71717A] text-sm mt-1">Gargurevich Digital</p>

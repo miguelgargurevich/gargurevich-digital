@@ -53,6 +53,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link href="/admin/dashboard" className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-linear-to-br from-[#00D4FF] to-[#8B5CF6] flex items-center justify-center shrink-0">
               <span className="text-background font-bold text-sm">G</span>
+              <span className="text-[#14213D] font-bold text-sm">D</span>
             </div>
             <div className="min-w-0">
               <div className="text-sm font-semibold text-white truncate">Gargurevich CMS</div>
