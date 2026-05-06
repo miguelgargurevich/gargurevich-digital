@@ -36,8 +36,33 @@ const statsConfig = [
   },
 ];
 
-export default function StatsSection() {
+interface StatsOverrides {
+  projects?: string;
+  clients?: string;
+  experience?: string;
+}
+
+function parseStatValue(input: string | undefined, fallback: { value: number; suffix: string }) {
+  if (!input) return fallback;
+  const match = input.match(/(\d+(?:\.\d+)?)(.*)/);
+  if (!match) return fallback;
+
+  const parsedValue = Number(match[1]);
+  if (Number.isNaN(parsedValue)) return fallback;
+
+  const suffix = match[2]?.trim() || '';
+  return { value: parsedValue, suffix };
+}
+
+export default function StatsSection({ overrides }: { overrides?: StatsOverrides }) {
   const t = useTranslations('stats');
+  const valuesByKey = {
+    projects: parseStatValue(overrides?.projects, { value: 50, suffix: '+' }),
+    clients: parseStatValue(overrides?.clients, { value: 100, suffix: '%' }),
+    experience: parseStatValue(overrides?.experience, { value: 3, suffix: '+' }),
+    support: { value: 24, suffix: '/7' },
+  };
+
   return (
     <section className="relative py-16 sm:py-20 md:py-28 lg:py-32 overflow-hidden">
       {/* Background gradient */}
@@ -67,8 +92,8 @@ export default function StatsSection() {
                 {/* Number */}
                 <div className="text-3xl md:text-4xl font-bold mb-2">
                   <AnimatedCounter
-                    to={stat.value}
-                    suffix={stat.suffix}
+                    to={valuesByKey[stat.key as keyof typeof valuesByKey].value}
+                    suffix={valuesByKey[stat.key as keyof typeof valuesByKey].suffix}
                     className="gradient-text"
                   />
                 </div>

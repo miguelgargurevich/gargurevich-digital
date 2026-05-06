@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model PortfolioProject {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  titleEs       String
+  titleEn       String
+  descriptionEs String   @db.Text
+  descriptionEn String   @db.Text
+  featuresEs    String[]
+  featuresEn    String[]
+  tech          String[]
+  github        String
+  live          String   @default("#")
+  color         String   @default("#00D4FF")
+  imageUrl      String?
+  order         Int      @default(0)
+  published     Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Service {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  icon          String   @default("code")
+  titleEs       String
+  titleEn       String
+  descriptionEs String   @db.Text
+  descriptionEn String   @db.Text
+  featuresEs    String[]
+  featuresEn    String[]
+  order         Int      @default(0)
+  published     Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
+}
+
+model MediaFile {
+  id        String   @id @default(cuid())
+  filename  String
+  key       String   @unique
+  url       String
+  size      Int
+  mimeType  String
+  createdAt DateTime @default(now())
+}

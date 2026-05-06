@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Settings } from 'lucide-react';
 import MagneticButton from '../ui/MagneticButton';
 import LanguageSwitcher from '../ui/LanguageSwitcher';
 
@@ -58,7 +58,7 @@ export default function Header({ translations, locale }: HeaderProps) {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
       >
-        <div className="max-w-[1400px] mx-auto px-8 sm:px-10 md:px-12 lg:px-16 flex items-center justify-between">
+        <div className="max-w-350 mx-auto px-8 sm:px-10 md:px-12 lg:px-16 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="relative z-10">
             <motion.div
@@ -66,8 +66,8 @@ export default function Header({ translations, locale }: HeaderProps) {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00D4FF] to-[#8B5CF6] flex items-center justify-center">
-                <span className="text-[#0A0A0A] font-bold text-lg">G</span>
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-[#00D4FF] to-[#8B5CF6] flex items-center justify-center">
+                <span className="text-background font-bold text-lg">G</span>
               </div>
               <span className="text-xl font-semibold hidden sm:block">
                 <span className="text-white">Gargurevich</span>
@@ -87,6 +87,14 @@ export default function Header({ translations, locale }: HeaderProps) {
                 {link.name}
               </Link>
             ))}
+            <Link
+              href="/admin"
+              className="text-[#71717A] hover:text-white transition-colors duration-300"
+              aria-label="CMS"
+              title="CMS"
+            >
+              <Settings size={16} />
+            </Link>
           </nav>
 
           {/* CTA Button & Language Switcher */}
@@ -135,7 +143,7 @@ export default function Header({ translations, locale }: HeaderProps) {
           >
             {/* Backdrop */}
             <motion.div
-              className="absolute inset-0 bg-[#0A0A0A]/95 backdrop-blur-xl"
+              className="absolute inset-0 bg-background/95 backdrop-blur-xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

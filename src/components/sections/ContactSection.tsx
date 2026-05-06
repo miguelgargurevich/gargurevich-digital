@@ -13,26 +13,35 @@ import {
 } from 'lucide-react';
 import { LineReveal } from '../ui/TextReveal';
 
-export default function ContactSection() {
+interface ContactOverrides {
+  email?: string;
+  whatsapp?: string;
+  location?: string;
+}
+
+export default function ContactSection({ overrides }: { overrides?: ContactOverrides }) {
   const t = useTranslations('contact');
+  const emailValue = overrides?.email || t('info.email.value');
+  const whatsappValue = overrides?.whatsapp || t('info.whatsapp.value');
+  const locationValue = overrides?.location || t('info.location.value');
   
   const contactInfo = [
     {
       icon: Mail,
       label: t('info.email.label'),
-      value: t('info.email.value'),
-      href: `mailto:${t('info.email.value')}`,
+      value: emailValue,
+      href: `mailto:${emailValue}`,
     },
     {
       icon: Phone,
       label: t('info.whatsapp.label'),
-      value: t('info.whatsapp.value'),
-      href: `https://wa.me/${t('info.whatsapp.value').replace(/\D/g, '')}`,
+      value: whatsappValue,
+      href: `https://wa.me/${whatsappValue.replace(/\D/g, '')}`,
     },
     {
       icon: MapPin,
       label: t('info.location.label'),
-      value: t('info.location.value'),
+      value: locationValue,
       href: '#',
     },
   ];

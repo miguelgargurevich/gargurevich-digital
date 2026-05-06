@@ -147,7 +147,7 @@ export default function ParticleBackground() {
       window.removeEventListener('resize', resizeCanvas);
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [frameInterval]);
 
   return (
     <canvas

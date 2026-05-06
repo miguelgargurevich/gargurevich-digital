@@ -5,17 +5,55 @@ import TechStackSection from "@/components/sections/TechStackSection";
 import ProcessSection from "@/components/sections/ProcessSection";
 import StatsSection from "@/components/sections/StatsSection";
 import ContactSection from "@/components/sections/ContactSection";
+import { db } from '@/lib/db';
 
-export default function Home() {
+async function getSiteSettings() {
+  try {
+    const rows = await db.siteSetting.findMany();
+    return rows.reduce<Record<string, string>>((acc, row) => {
+      acc[row.key] = row.value;
+      return acc;
+    }, {});
+  } catch {
+    return {};
+  }
+}
+
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: 'es' | 'en' }>;
+}) {
+  const { locale } = await params;
+  const settings = await getSiteSettings();
+
+  const heroOverrides = {
+    badge: locale === 'es' ? settings['hero.badgeEs'] : settings['hero.badgeEn'],
+    title: locale === 'es' ? settings['hero.titleEs'] : settings['hero.titleEn'],
+    subtitle: locale === 'es' ? settings['hero.subtitleEs'] : settings['hero.subtitleEn'],
+  };
+
+  const contactOverrides = {
+    email: settings['contact.email'],
+    whatsapp: settings['contact.whatsapp'],
+    location: settings['contact.location'],
+  };
+
+  const statsOverrides = {
+    projects: settings['stats.projects'],
+    clients: settings['stats.clients'],
+    experience: settings['stats.experience'],
+  };
+
   return (
     <>
-      <HeroSection />
+      <HeroSection overrides={heroOverrides} />
       <ServicesSection />
-      <StatsSection />
+      <StatsSection overrides={statsOverrides} />
       <PortfolioSection />
       <TechStackSection />
       <ProcessSection />
-      <ContactSection />
+      <ContactSection overrides={contactOverrides} />
     </>
   );
 }

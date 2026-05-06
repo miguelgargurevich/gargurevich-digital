@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { QuoteData } from '@/types/quote';
-import { ArrowLeft, Download, FileText, CheckCircle, Printer, Copy } from 'lucide-react';
+import { ArrowLeft, FileText, CheckCircle, Printer, Copy } from 'lucide-react';
 
 export default function QuoteGeneratorPage() {
   const [copied, setCopied] = useState(false);
@@ -173,7 +173,7 @@ ${exampleQuoteData.notes?.map(n => `• ${n}`).join('\n')}
               </div>
             </div>
             <div className="text-right text-sm text-gray-600">
-              <p>contacto@gargurevich.digital</p>
+              <p>contacto@gargurevich.dev</p>
               <p>Lima, Perú</p>
               <p className="font-semibold mt-1">
                 {new Date().toLocaleDateString('es-PE', { 

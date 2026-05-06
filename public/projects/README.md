@@ -4,6 +4,7 @@ Drop your app screenshots here. Each file name must match exactly:
 
 | File | Project |
 |------|---------|
+
 | `dashboardia.png` | DashboardIA LLM |
 | `invoiceapp.png` | InvoiceApp |
 | `house.png` | House SaaS |
@@ -12,6 +13,7 @@ Drop your app screenshots here. Each file name must match exactly:
 | `portfolio.png` | Portfolio Multilingüe |
 
 ## Tips for best results
+
 - **Aspect ratio**: 16:9 or wider (landscape)
 - **Recommended size**: 1280×720 px minimum
 - **Format**: PNG or WebP (JPG also works — just rename the `image` field in `PortfolioSection.tsx`)

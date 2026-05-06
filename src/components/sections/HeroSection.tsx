@@ -8,7 +8,13 @@ import { WordRotate } from '../ui/Typewriter';
 import MagneticButton from '../ui/MagneticButton';
 import TextReveal from '../ui/TextReveal';
 
-export default function HeroSection() {
+interface HeroSectionOverrides {
+  badge?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+export default function HeroSection({ overrides }: { overrides?: HeroSectionOverrides }) {
   const t = useTranslations('hero');
   const rotatingWords = t.raw('rotatingWords') as string[];
 
@@ -47,7 +53,7 @@ export default function HeroSection() {
             transition={{ delay: 0.2, duration: 0.6 }}
           >
             <Sparkles className="w-4 h-4 text-[#00D4FF]" />
-            <span className="text-sm text-[#A1A1AA]">{t('badge')}</span>
+            <span className="text-sm text-[#A1A1AA]">{overrides?.badge || t('badge')}</span>
           </motion.div>
 
           {/* Main Heading */}
@@ -58,7 +64,7 @@ export default function HeroSection() {
             transition={{ delay: 0.3, duration: 0.8 }}
           >
             <TextReveal className="text-white">
-              {t('title')}
+              {overrides?.title || t('title')}
             </TextReveal>
             <br />
             <span className="gradient-text">
@@ -73,7 +79,7 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            {t('subtitle')}
+            {overrides?.subtitle || t('subtitle')}
           </motion.p>
 
           {/* CTA Buttons */}
