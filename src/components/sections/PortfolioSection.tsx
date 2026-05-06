@@ -66,7 +66,6 @@ type DbProjectRow = Awaited<
   ReturnType<typeof db.portfolioProject.findMany>
 >[number];
 
-const r2BaseUrl = (process.env.R2_PUBLIC_URL || '').replace(/\/+$/, '');
 
 function parseImageUrls(value: string | null | undefined): string[] {
   if (!value) return [];
@@ -86,8 +85,15 @@ function parseImageUrls(value: string | null | undefined): string[] {
   for (const candidate of candidates) {
     const url = candidate.trim();
     if (!url) continue;
-    if (!r2BaseUrl || !url.startsWith(`${r2BaseUrl}/`)) continue;
-    if (!unique.includes(url)) unique.push(url);
+    
+    // Permitir rutas locales (empiezan con /)
+    // Permitir URLs externas (empiezan con http)
+    const isLocal = url.startsWith('/');
+    const isExternal = url.startsWith('http');
+    
+    if (isLocal || isExternal) {
+      if (!unique.includes(url)) unique.push(url);
+    }
   }
 
   return unique;
@@ -153,6 +159,15 @@ export default async function PortfolioSection() {
       };
     }
 
+    const imagesBySlug: Record<string, string[]> = {
+      dashboardia: ['/projects/dashboardia.png'],
+      invoiceapp: ['/projects/invoiceapp.png'],
+      house: ['/projects/house.png'],
+      jafernandez: ['/projects/jafernandez.png'],
+      lumic: ['/projects/lumic.png'],
+      portfolio: ['/projects/portfolio.png'],
+    };
+
     return {
       id: project.id,
       title: content.title,
@@ -163,7 +178,7 @@ export default async function PortfolioSection() {
       live: project.live,
       size: project.size,
       color: project.color,
-      images: [],
+      images: imagesBySlug[project.id] ?? [],
     };
   });
 

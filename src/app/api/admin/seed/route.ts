@@ -15,6 +15,7 @@ const PORTFOLIO_SEED = [
     descriptionEn: 'Operational technical-support hub that centralizes a personal knowledge base, file resources (PDF, Excel, video), calendar, notes, and an AI assistant with file attachments. All data is fully isolated per authenticated Supabase user, and includes a Windows agent for remote PowerShell script execution.',
     featuresEs: ['Aislamiento total por usuario', 'IA con adjuntos PDF/Excel/Video', 'Agente Windows PowerShell'],
     featuresEn: ['Full user-level isolation', 'AI assistant with file attachments', 'Windows PowerShell Agent'],
+    imageUrl: '/projects/dashboardia.png',
   },
   {
     slug: 'invoiceapp',
@@ -29,6 +30,7 @@ const PORTFOLIO_SEED = [
     descriptionEn: 'Invoicing and proposal platform for contractors and freelancers with legally binding digital signatures (unique token, IP, and timestamp). Includes an integrated CRM, product catalog, job-site photo tracking, multi-currency, bilingual support, and document delivery via Resend.',
     featuresEs: ['Firma Digital con Token Seguro', 'CRM + Catálogo de Productos', 'Multi-moneda y Multi-idioma'],
     featuresEn: ['Legally Binding Token Signatures', 'CRM + Product Catalog', 'Multi-currency & Bilingual'],
+    imageUrl: '/projects/invoiceapp.png',
   },
   {
     slug: 'house',
@@ -43,6 +45,7 @@ const PORTFOLIO_SEED = [
     descriptionEn: 'Multi-tenant SaaS for property and condominium management with 5 distinct roles (superadmin, admin, owner, tenant, maintenance), responsive role-based sidebars, a centralized REST API documented with Swagger at /api-docs, an integrated Gemini AI copilot, and Docker Compose support for local development.',
     featuresEs: ['5 Roles con RBAC Avanzado', 'REST API + Swagger Docs', 'Copiloto IA Gemini'],
     featuresEn: ['5 Roles with Advanced RBAC', 'REST API + Swagger Docs', 'Gemini AI Copilot'],
+    imageUrl: '/projects/house.png',
   },
   {
     slug: 'jafernandez',
@@ -57,6 +60,7 @@ const PORTFOLIO_SEED = [
     descriptionEn: 'Bilingual professional website (ES/EN) for a licensed electrician in Nassau and Suffolk County, Long Island NY. Anti-spam contact form with Zod and React Hook Form validation, FAQ section, testimonials, Framer Motion animations, and local SEO optimized for Long Island searches.',
     featuresEs: ['Bilingüe ES/EN con i18n custom', 'Formulario anti-spam con Zod', 'SEO Local Long Island NY'],
     featuresEn: ['Bilingual ES/EN with custom i18n', 'Anti-spam form with Zod', 'Local SEO for Long Island NY'],
+    imageUrl: '/projects/jafernandez.png',
   },
   {
     slug: 'lumic',
@@ -71,6 +75,7 @@ const PORTFOLIO_SEED = [
     descriptionEn: 'Full-stack e-commerce monorepo with a Next.js 15 / React 19 frontend and a layered ASP.NET Core .NET 9 backend (Api, Application, Domain, Infrastructure). JWT Bearer authentication, OpenAPI in development, and ready for deployment on Azure Static Web Apps + App Service.',
     featuresEs: ['Monorepo Next.js + .NET 9', 'Arquitectura Hexagonal Limpia', 'Azure Static Web Apps Ready'],
     featuresEn: ['Next.js + .NET 9 Monorepo', 'Clean Layered Architecture', 'Azure Static Web Apps Ready'],
+    imageUrl: '/projects/lumic.png',
   },
 
 ];

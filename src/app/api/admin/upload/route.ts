@@ -14,8 +14,15 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'No file provided' }, { status: 400 });
       }
 
-      const ext = file.name.split('.').pop()?.replace(/[^a-zA-Z0-9]/g, '') ?? 'bin';
-      const safeName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const ext = file.name.split('.').pop()?.toLowerCase().replace(/[^a-z0-9]/g, '') ?? 'bin';
+      const originalName = file.name
+        .split('.')
+        .slice(0, -1)
+        .join('.')
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '-');
+      
+      const safeName = `${originalName}-${Date.now()}.${ext}`;
       const key = `projects/${safeName}`;
 
       const buffer = Buffer.from(await file.arrayBuffer());
