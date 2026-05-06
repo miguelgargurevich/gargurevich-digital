@@ -88,41 +88,16 @@ export default function EditProjectPage() {
     setError('');
 
     try {
-      // 1. Get presigned URL
-      const res = await fetch('/api/admin/upload', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ filename: file.name, contentType: file.type, size: file.size }),
-      });
-      const { uploadUrl, publicUrl, key } = await res.json();
-      if (!uploadUrl) throw new Error('No se pudo obtener URL de subida');
+      const formData = new FormData();
+      formData.append('file', file);
 
-      // 2. Upload directly to R2
-      const uploadRes = await fetch(uploadUrl, {
-        method: 'PUT',
-        headers: { 'Content-Type': file.type },
-        body: file,
-      });
-      if (!uploadRes.ok) throw new Error('Error al subir el archivo a R2');
-
-      // 3. Register in media library after successful upload.
-      const finalizeRes = await fetch('/api/admin/upload', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          finalize: true,
-          key,
-          filename: file.name,
-          contentType: file.type,
-          size: file.size,
-          publicUrl,
-        }),
-      });
-      if (!finalizeRes.ok) throw new Error('No se pudo registrar la imagen en CMS');
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
+      if (!res.ok) throw new Error('No se pudo subir la imagen');
+      const { publicUrl } = await res.json();
 
       set('imageUrl', publicUrl);
 
-      // 4. Persist image URL immediately for existing projects.
+      // Persist image URL immediately for existing projects.
       if (!isNew) {
         const patchRes = await fetch(`/api/admin/portfolio/${id}`, {
           method: 'PATCH',

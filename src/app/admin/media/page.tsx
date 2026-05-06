@@ -39,31 +39,11 @@ export default function AdminMediaPage() {
     if (!file) return;
     setUploading(true); setError('');
     try {
-      const res = await fetch('/api/admin/upload', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ filename: file.name, contentType: file.type, size: file.size }),
-      });
-      const { uploadUrl, key, publicUrl } = await res.json();
-      if (!uploadUrl) throw new Error('No presigned URL');
+      const formData = new FormData();
+      formData.append('file', file);
 
-      const putRes = await fetch(uploadUrl, { method: 'PUT', headers: { 'Content-Type': file.type }, body: file });
-      if (!putRes.ok) throw new Error('Error al subir el archivo a R2');
-
-      const finalizeRes = await fetch('/api/admin/upload', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          finalize: true,
-          key,
-          filename: file.name,
-          contentType: file.type,
-          size: file.size,
-          publicUrl,
-        }),
-      });
-
-      if (!finalizeRes.ok) throw new Error('No se pudo registrar el archivo en CMS');
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
+      if (!res.ok) throw new Error('Error al subir el archivo');
       await load();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al subir');

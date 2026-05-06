@@ -4,7 +4,6 @@ import {
   ListObjectsV2Command,
   DeleteObjectCommand,
 } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 function getClient() {
   return new S3Client({
@@ -17,16 +16,16 @@ function getClient() {
   });
 }
 
-export async function getUploadPresignedUrl(key: string, contentType: string) {
+export async function uploadToR2(key: string, contentType: string, body: Buffer) {
   const s3 = getClient();
-  const command = new PutObjectCommand({
+  await s3.send(new PutObjectCommand({
     Bucket: process.env.R2_BUCKET!,
     Key: key,
     ContentType: contentType,
-  });
-  const uploadUrl = await getSignedUrl(s3, command, { expiresIn: 300 });
+    Body: body,
+  }));
   const publicUrl = `${process.env.R2_PUBLIC_URL}/${key}`;
-  return { uploadUrl, publicUrl };
+  return { publicUrl };
 }
 
 export async function listR2Files(prefix?: string) {
