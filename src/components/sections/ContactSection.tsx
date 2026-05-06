@@ -90,13 +90,13 @@ export default function ContactSection({ overrides }: { overrides?: ContactOverr
   return (
     <section id="contacto" className="relative py-20 sm:py-24 md:py-32 lg:py-40 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-[#0A0A0A]">
+      <div className="absolute inset-0 bg-background">
         <div className="grid-pattern absolute inset-0" />
-        <div className="absolute top-1/3 right-0 w-[600px] h-[600px] bg-gradient-to-l from-[#00D4FF]/10 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-1/3 left-0 w-[600px] h-[600px] bg-gradient-to-r from-[#8B5CF6]/10 to-transparent rounded-full blur-3xl" />
+        <div className="absolute top-1/3 right-0 w-150 h-150 bg-linear-to-l from-[#00D4FF]/10 to-transparent rounded-full blur-3xl" />
+        <div className="absolute bottom-1/3 left-0 w-150 h-150 bg-linear-to-r from-[#8B5CF6]/10 to-transparent rounded-full blur-3xl" />
       </div>
 
-      <div className="relative max-w-[1400px] mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
+      <div className="relative max-w-350 mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
         {/* Section Header */}
         <div className="text-center mb-16 md:mb-20">
           <motion.div
@@ -147,7 +147,7 @@ export default function ContactSection({ overrides }: { overrides?: ContactOverr
                     href={info.href}
                     className="group flex items-center gap-4 p-4 rounded-xl bg-[#141414] border border-white/10 hover:border-[#00D4FF]/30 transition-all duration-300"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-[#00D4FF]/20 to-[#8B5CF6]/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-12 h-12 rounded-xl bg-linear-to-r from-[#00D4FF]/20 to-[#8B5CF6]/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <info.icon size={20} className="text-[#00D4FF]" />
                     </div>
                     <div>
@@ -162,7 +162,7 @@ export default function ContactSection({ overrides }: { overrides?: ContactOverr
             </div>
 
             {/* Quick response time */}
-            <div className="p-6 rounded-xl bg-gradient-to-br from-[#00D4FF]/10 to-[#8B5CF6]/10 border border-white/10">
+            <div className="p-6 rounded-xl bg-linear-to-br from-[#00D4FF]/10 to-[#8B5CF6]/10 border border-white/10">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-3 h-3 rounded-full bg-[#10B981] animate-pulse" />
                 <span className="text-sm font-medium text-white">{t('badge')}</span>
@@ -293,7 +293,7 @@ export default function ContactSection({ overrides }: { overrides?: ContactOverr
                 className={`w-full py-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 ${
                   isSubmitted
                     ? 'bg-[#10B981] text-white'
-                    : 'bg-gradient-to-r from-[#00D4FF] to-[#8B5CF6] text-[#0A0A0A] hover:shadow-[0_0_40px_rgba(0,212,255,0.3)]'
+                    : 'bg-linear-to-r from-[#00D4FF] to-[#8B5CF6] text-background hover:shadow-[0_0_40px_rgba(0,212,255,0.3)]'
                 }`}
                 whileHover={!isSubmitting && !isSubmitted ? { scale: 1.02 } : {}}
                 whileTap={!isSubmitting && !isSubmitted ? { scale: 0.98 } : {}}
@@ -305,7 +305,7 @@ export default function ContactSection({ overrides }: { overrides?: ContactOverr
                   </>
                 ) : isSubmitting ? (
                   <motion.div
-                    className="w-6 h-6 border-2 border-[#0A0A0A] border-t-transparent rounded-full"
+                    className="w-6 h-6 border-2 border-background border-t-transparent rounded-full"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                   />

@@ -28,7 +28,7 @@ export default function HeroSection({ overrides }: { overrides?: HeroSectionOver
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background effects */}
-      <div className="absolute inset-0 bg-[#0A0A0A]">
+      <div className="absolute inset-0 bg-background">
         <GradientMesh />
         <ParticleBackground />
         <div className="grid-pattern absolute inset-0" />
@@ -38,7 +38,7 @@ export default function HeroSection({ overrides }: { overrides?: HeroSectionOver
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,#0A0A0A_70%)]" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-8 md:px-12 lg:px-16 pt-32 pb-24 md:pt-40 md:pb-32">
+      <div className="relative z-10 max-w-350 mx-auto px-6 sm:px-8 md:px-12 lg:px-16 pt-32 pb-24 md:pt-40 md:pb-32">
         <motion.div
           className="text-center max-w-4xl mx-auto"
           initial={{ opacity: 0 }}
@@ -143,7 +143,7 @@ export default function HeroSection({ overrides }: { overrides?: HeroSectionOver
           transition={{ duration: 2, repeat: Infinity }}
         >
           <motion.div
-            className="w-1.5 h-1.5 rounded-full bg-gradient-to-b from-[#00D4FF] to-[#8B5CF6]"
+            className="w-1.5 h-1.5 rounded-full bg-linear-to-b from-[#00D4FF] to-[#8B5CF6]"
             animate={{ y: [0, 12, 0], opacity: [1, 0.5, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           />

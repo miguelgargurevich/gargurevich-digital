@@ -66,9 +66,9 @@ export default function StatsSection({ overrides }: { overrides?: StatsOverrides
   return (
     <section className="relative py-16 sm:py-20 md:py-28 lg:py-32 overflow-hidden">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#111111] via-[#0A0A0A] to-[#111111]" />
+      <div className="absolute inset-0 bg-linear-to-b from-[#111111] via-background to-[#111111]" />
 
-      <div className="relative max-w-[1400px] mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
+      <div className="relative max-w-350 mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
           {statsConfig.map((stat, index) => (
             <motion.div
