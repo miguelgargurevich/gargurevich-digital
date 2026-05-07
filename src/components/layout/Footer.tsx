@@ -42,7 +42,19 @@ const socialLinks = [
   { name: 'Email', icon: Mail, href: 'mailto:contacto@gargurevich.dev' },
 ];
 
-export default function Footer({ translations: t }: FooterProps) {
+function resolveLocalizedHref(href: string, locale: string) {
+  if (!href.startsWith('/')) {
+    return href;
+  }
+
+  if (href === '/') {
+    return `/${locale}`;
+  }
+
+  return `/${locale}${href}`;
+}
+
+export default function Footer({ translations: t, locale }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -196,7 +208,7 @@ export default function Footer({ translations: t }: FooterProps) {
             {t.links.legal.map((link) => (
               <Link
                 key={link.name}
-                href={link.href}
+                  href={resolveLocalizedHref(link.href, locale)}
                 className="text-[#71717A] hover:text-white text-sm transition-colors duration-300"
               >
                 {link.name}
