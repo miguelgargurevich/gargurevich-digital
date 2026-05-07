@@ -174,7 +174,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
   setRequestLocale(locale);
 
   return (
-    <section className="relative overflow-hidden bg-[#0A0A0A] pt-32 pb-24 md:pt-40 md:pb-32">
+    <section className="relative overflow-hidden bg-background pt-32 pb-24 md:pt-40 md:pb-32">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,212,255,0.16),transparent_38%),radial-gradient(circle_at_80%_20%,rgba(139,92,246,0.14),transparent_28%),linear-gradient(180deg,#090909_0%,#101010_100%)]" />
         <div className="dot-pattern absolute inset-0 opacity-20" />
@@ -202,7 +202,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
           {page.highlights.map((item) => {
             const Icon = item.icon;
             return (
-              <article key={item.title} className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm">
+              <article key={item.title} className="rounded-3xl border border-white/10 bg-white/4 p-6 backdrop-blur-sm">
                 <div className="w-12 h-12 rounded-2xl bg-linear-to-br from-[#00D4FF]/20 to-[#8B5CF6]/20 border border-white/10 flex items-center justify-center mb-5">
                   <Icon className="w-5 h-5 text-[#D9F4FF]" />
                 </div>
@@ -215,7 +215,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
 
         <div className="grid gap-6">
           {page.sections.map((section) => (
-            <article key={section.title} className="rounded-[2rem] border border-white/10 bg-[#111111]/90 p-7 md:p-9 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+            <article key={section.title} className="rounded-4xl border border-white/10 bg-[#111111]/90 p-7 md:p-9 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
               <h2 className="text-2xl md:text-3xl text-white font-semibold mb-5">{section.title}</h2>
               <div className="grid gap-4">
                 {section.paragraphs.map((paragraph) => (
@@ -228,7 +228,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
           ))}
         </div>
 
-        <div className="mt-12 rounded-[2rem] border border-[#00D4FF]/20 bg-linear-to-br from-[#00D4FF]/10 via-white/[0.03] to-[#8B5CF6]/10 p-8 md:p-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div className="mt-12 rounded-4xl border border-[#00D4FF]/20 bg-linear-to-br from-[#00D4FF]/10 via-white/3 to-[#8B5CF6]/10 p-8 md:p-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <h2 className="text-2xl md:text-3xl font-semibold text-white mb-3">{page.contactTitle}</h2>
             <p className="text-[#C7C7CC] leading-8">{page.contactBody}</p>
@@ -242,7 +242,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
             </Link>
             <Link
               href="mailto:contacto@gargurevich.dev"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white text-[#0A0A0A] px-5 py-3 font-medium hover:bg-[#EAEAEA] transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white text-background px-5 py-3 font-medium hover:bg-[#EAEAEA] transition-colors"
             >
               {page.contactCta}
               <ArrowUpRight size={18} />
