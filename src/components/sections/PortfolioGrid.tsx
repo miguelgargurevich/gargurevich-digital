@@ -34,10 +34,6 @@ export default function PortfolioGrid({ projects, labels }: PortfolioGridProps) 
   const [activeProjectId, setActiveProjectId] = useState<string | null>(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  useMemo(() => {
-    console.log('PortfolioGrid (Client): Received projects:', projects.map(p => p.id).join(', '));
-  }, [projects]);
-
   const activeProject = useMemo(
     () => projects.find((project) => project.id === activeProjectId) ?? null,
     [projects, activeProjectId]

@@ -122,10 +122,7 @@ async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[]
       orderBy: { order: 'asc' },
     });
 
-    console.log(`getProjectsFromDb: Found ${rows.length} published projects in DB`);
-
     if (rows.length === 0) {
-      console.log('getProjectsFromDb: No published projects found.');
       return null;
     }
 
@@ -142,7 +139,6 @@ async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[]
 
     return rows.map((row: DbProjectRow) => {
       const parsedImages = parseImageUrls(row.imageUrl);
-      console.log(`Mapping Project: ${row.slug} | Images Found: ${parsedImages.length} | First Image: ${parsedImages[0] || 'NONE'}`);
       return {
         id: row.slug,
         title: locale === 'es' ? row.titleEs : row.titleEn,
@@ -169,10 +165,6 @@ export default async function PortfolioSection() {
   const t = await getTranslations('portfolio');
 
   const dbProjects = await getProjectsFromDb(locale);
-  console.log('PortfolioSection: dbProjects count:', dbProjects?.length);
-  if (dbProjects) {
-    dbProjects.forEach(p => console.log(`Project ${p.id}: images: ${p.images.length}, imageUrl raw: ${p.images[0]}`));
-  }
 
   const fallbackProjects: PortfolioProjectItem[] = projectMeta.map((project) => {
     let content: { title: string; description: string; features: string[] };
