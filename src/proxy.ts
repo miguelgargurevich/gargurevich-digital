@@ -54,9 +54,7 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/',
-    '/(en|es)/:path*',
-    '/admin',
+    '/((?!api|_next|_vercel|.*\\..*).*)',
     '/admin/:path*',
     '/api/admin/:path*',
   ],
