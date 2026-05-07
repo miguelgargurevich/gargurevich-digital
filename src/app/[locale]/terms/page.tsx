@@ -188,7 +188,7 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
   setRequestLocale(locale);
 
   return (
-    <section className="relative overflow-hidden bg-[#0A0A0A] pt-32 pb-24 md:pt-40 md:pb-32">
+    <section className="relative overflow-hidden bg-background pt-32 pb-24 md:pt-40 md:pb-32">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,212,255,0.14),transparent_34%),radial-gradient(circle_at_80%_0%,rgba(239,68,68,0.12),transparent_24%),linear-gradient(180deg,#090909_0%,#101010_100%)]" />
         <div className="dot-pattern absolute inset-0 opacity-20" />
@@ -216,7 +216,7 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
           {page.principles.map((item) => {
             const Icon = item.icon;
             return (
-              <article key={item.title} className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-sm">
+              <article key={item.title} className="rounded-3xl border border-white/10 bg-white/4 p-6 backdrop-blur-sm">
                 <div className="w-12 h-12 rounded-2xl bg-linear-to-br from-[#EF4444]/20 to-[#00D4FF]/20 border border-white/10 flex items-center justify-center mb-5">
                   <Icon className="w-5 h-5 text-[#F4F4F5]" />
                 </div>
@@ -229,7 +229,7 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
 
         <div className="grid gap-6">
           {page.sections.map((section) => (
-            <article key={section.title} className="rounded-[2rem] border border-white/10 bg-[#111111]/90 p-7 md:p-9 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+            <article key={section.title} className="rounded-4xl border border-white/10 bg-[#111111]/90 p-7 md:p-9 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
               <h2 className="text-2xl md:text-3xl text-white font-semibold mb-5">{section.title}</h2>
               <div className="grid gap-4">
                 {section.paragraphs.map((paragraph) => (
@@ -242,7 +242,7 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
           ))}
         </div>
 
-        <div className="mt-12 rounded-[2rem] border border-white/10 bg-linear-to-br from-white/[0.06] via-[#EF4444]/[0.08] to-[#00D4FF]/[0.08] p-8 md:p-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div className="mt-12 rounded-4xl border border-white/10 bg-linear-to-br from-white/6 via-[#EF4444]/8 to-[#00D4FF]/8 p-8 md:p-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl">
             <h2 className="text-2xl md:text-3xl font-semibold text-white mb-3">{page.ctaTitle}</h2>
             <p className="text-[#C7C7CC] leading-8">{page.ctaBody}</p>
@@ -256,7 +256,7 @@ export default async function TermsPage({ params }: { params: Promise<{ locale: 
             </Link>
             <Link
               href={`/${locale}#contacto`}
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white text-[#0A0A0A] px-5 py-3 font-medium hover:bg-[#EAEAEA] transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white text-background px-5 py-3 font-medium hover:bg-[#EAEAEA] transition-colors"
             >
               {page.ctaPrimary}
               <ArrowUpRight size={18} />
