@@ -9,6 +9,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Configuración del servidor incompleta' }, { status: 500 });
     }
 
+    const fromEmail = process.env.RESEND_FROM_EMAIL;
+    const toEmail = process.env.RESEND_TO_EMAIL;
+    if (!fromEmail || !toEmail) {
+      console.error('RESEND_FROM_EMAIL or RESEND_TO_EMAIL is missing');
+      return NextResponse.json({ error: 'Configuración del servidor incompleta' }, { status: 500 });
+    }
+
     const resend = new Resend(apiKey);
     const body = await req.json();
     console.log('Contact form body:', body);
@@ -21,15 +28,10 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!process.env.RESEND_API_KEY) {
-      console.error('RESEND_API_KEY is missing');
-      return NextResponse.json({ error: 'Configuración del servidor incompleta' }, { status: 500 });
-    }
-
     console.log('Sending email via Resend...');
     const { data, error } = await resend.emails.send({
-      from: 'Gargurevich Digital <onboarding@resend.dev>',
-      to: ['contacto@gargurevich.dev'],
+      from: `Gargurevich Digital <${fromEmail}>`,
+      to: [toEmail],
       subject: `Nuevo mensaje de contacto: ${projectType}`,
       replyTo: email,
       html: `

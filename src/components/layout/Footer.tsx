@@ -66,7 +66,7 @@ export default function Footer({ translations: t }: FooterProps) {
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10 rounded-xl bg-linear-to-br from-[#00D4FF] to-[#8B5CF6] flex items-center justify-center">
                   <span className="text-white">G</span>
-                <span className="gradient-text">D</span>
+                  <span className="text-white">D</span>
                 </div>
                 <span className="text-xl font-semibold">
                   <span className="text-white">Gargurevich</span>
@@ -74,7 +74,7 @@ export default function Footer({ translations: t }: FooterProps) {
                 </span>
               </div>
             </Link>
-            
+
             <p className="text-[#A1A1AA] text-sm mb-6 max-w-xs">
               {t.description}
             </p>
@@ -114,9 +114,9 @@ export default function Footer({ translations: t }: FooterProps) {
                     className="text-[#A1A1AA] hover:text-white text-sm transition-colors duration-300 flex items-center gap-1 group"
                   >
                     {link.name}
-                    <ArrowUpRight 
-                      size={12} 
-                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
+                    <ArrowUpRight
+                      size={12}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     />
                   </Link>
                 </li>
@@ -139,9 +139,9 @@ export default function Footer({ translations: t }: FooterProps) {
                     className="text-[#A1A1AA] hover:text-white text-sm transition-colors duration-300 flex items-center gap-1 group"
                   >
                     {link.name}
-                    <ArrowUpRight 
-                      size={12} 
-                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
+                    <ArrowUpRight
+                      size={12}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                     />
                   </Link>
                 </li>
@@ -188,10 +188,10 @@ export default function Footer({ translations: t }: FooterProps) {
         >
           <p className="text-[#71717A] text-sm flex items-center gap-1">
             {t.copyright.replace('{year}', String(currentYear))}
-            <Heart size={14} className="text-[#EF4444] fill-current" /> 
+            <Heart size={14} className="text-[#EF4444] fill-current" />
             {t.madeIn}
           </p>
-          
+
           <div className="flex gap-6">
             {t.links.legal.map((link) => (
               <Link

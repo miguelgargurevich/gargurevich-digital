@@ -124,6 +124,11 @@
         "description": "SaaS multi-tenant para administración de propiedades y condominios con 5 roles diferenciados (superadmin, admin, propietario, inquilino, mantenimiento), sidebars responsivos por rol y API REST centralizada.",
         "features": ["5 Roles con RBAC Avanzado", "REST API + Swagger Docs", "Copiloto IA Gemini"]
       },
+      "jafernandez": {
+        "title": "JA Fernandez Electric",
+        "description": "Sitio web profesional bilingüe (ES/EN) para electricista licenciado en Nassau y Suffolk County, Long Island NY. Formulario anti-spam con validación Zod y React Hook Form, sección FAQ, testimonios, animaciones con Framer Motion y SEO local optimizado para búsquedas en Long Island.",
+        "features": ["Bilingüe ES/EN con i18n custom", "Formulario anti-spam con Zod", "SEO Local Long Island NY"]
+      },
       "lumic": {
         "title": "Lumic App",
         "description": "E-commerce full-stack en monorepo con frontend Next.js 15 / React 19 y backend ASP.NET Core .NET 9 en arquitectura de capas. Autenticación JWT Bearer y listo para despliegue en Azure.",

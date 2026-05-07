@@ -51,9 +51,8 @@ export default function Header({ translations, locale }: HeaderProps) {
   return (
     <>
       <motion.header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'glass py-4' : 'py-6'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass py-4' : 'py-6'
+          }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -68,7 +67,7 @@ export default function Header({ translations, locale }: HeaderProps) {
             >
               <div className="w-10 h-10 rounded-xl bg-linear-to-br from-[#00D4FF] to-[#8B5CF6] flex items-center justify-center">
                 <span className="text-white">G</span>
-                <span className="gradient-text">D</span>
+                <span className="text-white">D</span>
               </div>
               <span className="text-xl font-semibold hidden sm:block">
                 <span className="text-white">Gargurevich</span>
@@ -176,7 +175,7 @@ export default function Header({ translations, locale }: HeaderProps) {
                   </Link>
                 </motion.div>
               ))}
-              
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
