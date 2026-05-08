@@ -375,7 +375,7 @@ const OFFERS_SEED = [
     descriptionEn: 'You already have a website on another platform (Wix, WordPress, etc.). Get your own domain and professional email with your brand.',
     itemsEs: [
       'Dominio .pe o .com.pe (el que tú elijas)',
-      '2 correos corporativos (@tudominio) con Gmail integrado',
+      'Redirección de correos: lo que llegue a @tudominio se reenvía a tu Gmail personal',
       'Gestión completa del dominio por nosotros',
       'Renovación anual del dominio incluida en el precio',
       'Soporte técnico para configuración de correos',
@@ -383,7 +383,7 @@ const OFFERS_SEED = [
     ],
     itemsEn: [
       '.pe or .com.pe domain (your choice)',
-      '2 corporate emails (@yourdomain) with Gmail integration',
+      'Email forwarding: anything sent to @yourdomain gets forwarded to your personal Gmail',
       'Full domain management by us',
       'Annual domain renewal included in the price',
       'Technical support for email setup',

@@ -22,6 +22,7 @@ const UI_LABELS = {
     packagesTitle: 'Elige tu plan',
     popularBadge: 'Más popular',
     ctaSecondary: 'Volver al inicio',
+    guarantee: '✅ Garantía de 15 días: si no estás satisfecho, te devolvemos el 80% de tu pago. Sin preguntas incómodas.',
     note: 'El dominio es tuyo desde el día 1. Yo solo te ayudo a registrarlo y renovarlo si lo necesitas.',
     summaryTitle: 'Lo que pagarías después del primer año, por plan',
     summaryOwnerNote: 'El dominio es tuyo desde el día 1. Si en el futuro quieres llevarte tu web a otro proveedor, no hay problema: te entrego todo.',
@@ -29,12 +30,12 @@ const UI_LABELS = {
     summaryColAnnual: 'Costo anual recurrente',
     summaryColIncludes: 'Qué incluye',
     summaryRows: [
-      { plan: 'Mi Negocio en Google',   annual: 'Dominio: S/ 60–95/año', includes: 'Solo renovación de dominio (.com, .pe o .com.pe) · sin mensualidad' },
-      { plan: 'Landing WhatsApp',       annual: 'Dominio: S/ 60–95/año', includes: 'Solo renovación de dominio (.com, .pe o .com.pe) · sin mensualidad' },
-      { plan: 'Web que yo mismo edito', annual: 'Dominio: S/ 60–95 + S/ 19/mes', includes: 'El dominio es tuyo para siempre · la mensualidad es opcional y puedes cancelar cuando quieras · hosting incluido' },
-      { plan: 'Sueño Digital Completo', annual: 'Dominio: S/ 60–95 + S/ 39/mes', includes: 'El dominio es tuyo para siempre · la mensualidad es opcional y puedes cancelar cuando quieras · hosting, soporte y backups incluidos' },
-      { plan: 'Mantenimiento Web Perú', annual: 'Dominio + S/ 79–149/mes', includes: 'Aplica a una web que ya tienes · la mensualidad es flexible según tus necesidades' },
-      { plan: 'Solo dominio + correos', annual: 'S/ 150/año', includes: 'Dominio .pe o .com.pe · 2 correos corporativos con Gmail integrado · gestión de dominio incluida · sin mensualidad' },
+      { plan: 'Mi Negocio en Google',   annual: 'Dominio: según extensión (.com a .pe)', includes: 'Solo renovación de dominio · desde S/50/año (.com) hasta S/130/año (.pe) · sin mensualidad' },
+      { plan: 'Landing WhatsApp',       annual: 'Dominio: según extensión (.com a .pe)', includes: 'Solo renovación de dominio · desde S/50/año (.com) hasta S/130/año (.pe) · sin mensualidad' },
+      { plan: 'Web que yo mismo edito', annual: 'Dominio: según extensión + S/ 19/mes', includes: 'El dominio es tuyo para siempre · desde S/50 a S/130/año según extensión · mensualidad es opcional y puedes cancelar cuando quieras · hosting incluido' },
+      { plan: 'Sueño Digital Completo', annual: 'Dominio: según extensión + S/ 39/mes', includes: 'El dominio es tuyo para siempre · desde S/50 a S/130/año según extensión · mensualidad es opcional y puedes cancelar cuando quieras · hosting, soporte y backups incluidos' },
+      { plan: 'Mantenimiento Web Perú', annual: 'Dominio: según extensión + S/ 79–149/mes', includes: 'Aplica a una web que ya tienes · desde S/50 a S/130/año según extensión · mensualidad es flexible según tus necesidades' },
+      { plan: 'Solo dominio + correos', annual: 'S/ 150/año', includes: 'Dominio .pe o .com.pe · Redirección de correos: lo que llegue a @tudominio.pe se reenvía a tu Gmail · gestión de dominio incluida · sin mensualidad' },
     ] as const,
     domainTableTitle: 'Referencia: costo de renovación anual según extensión',
     domainColExt: 'Extensión',
@@ -45,7 +46,7 @@ const UI_LABELS = {
       { ext: '.pe',     cost: 'S/ 110 – 130',  use: 'Marca local fuerte' },
       { ext: '.com.pe', cost: 'S/ 90 – 130',   use: 'Empresas en Perú' },
     ] as const,
-    domainNote: 'El dominio queda registrado a tu nombre. Puedo gestionarte la renovación anual o hacerlo tú directo con cualquier proveedor.',
+    domainNote: 'El dominio queda registrado a tu nombre. Puedo gestionarte la renovación anual o hacerlo tú directo con cualquier proveedor. Los costos mostrados son rangos reales: .com (S/50–80), .pe (S/110–130), .com.pe (S/90–130).',
     empty: 'No hay planes disponibles en este momento.'
   },
   en: {
@@ -57,6 +58,7 @@ const UI_LABELS = {
     packagesTitle: 'Choose your plan',
     popularBadge: 'Most popular',
     ctaSecondary: 'Back to home',
+    guarantee: '✅ 15-day guarantee: if you\'re not satisfied, we refund 80% of your payment. No awkward questions.',
     note: 'The domain is yours from day one. I only help register and renew it if you need it.',
     summaryTitle: 'What you would pay after year one, per plan',
     summaryOwnerNote: 'The domain is yours from day one. If you ever want to move your site to another provider, no problem: I deliver everything.',
@@ -64,12 +66,12 @@ const UI_LABELS = {
     summaryColAnnual: 'Annual recurring cost',
     summaryColIncludes: 'What it covers',
     summaryRows: [
-      { plan: 'My Business on Google',   annual: 'Domain: S/ 60–95/yr', includes: 'Domain renewal only (.com, .pe or .com.pe) · no monthly fee' },
-      { plan: 'WhatsApp Sales Landing',  annual: 'Domain: S/ 60–95/yr', includes: 'Domain renewal only (.com, .pe or .com.pe) · no monthly fee' },
-      { plan: 'Website I Can Edit',      annual: 'Domain: S/ 60–95 + S/ 19/mo', includes: 'The domain is yours forever · monthly fee is optional and you can cancel anytime · hosting included' },
-      { plan: 'Complete Digital Dream',  annual: 'Domain: S/ 60–95 + S/ 39/mo', includes: 'The domain is yours forever · monthly fee is optional and you can cancel anytime · hosting, support and backups included' },
-      { plan: 'Website Maintenance Peru', annual: 'Domain + S/ 79–149/mo', includes: 'Applies to a website you already have · monthly fee is flexible based on your needs' },
-      { plan: 'Domain + Corporate Email', annual: 'S/ 150/yr', includes: 'Domain .pe or .com.pe · 2 corporate email addresses with Gmail integration · domain management included · no monthly fee' },
+      { plan: 'My Business on Google',   annual: 'Domain: by extension (.com to .pe)', includes: 'Domain renewal only · from S/50/yr (.com) to S/130/yr (.pe) · no monthly fee' },
+      { plan: 'WhatsApp Sales Landing',  annual: 'Domain: by extension (.com to .pe)', includes: 'Domain renewal only · from S/50/yr (.com) to S/130/yr (.pe) · no monthly fee' },
+      { plan: 'Website I Can Edit',      annual: 'Domain: by extension + S/ 19/mo', includes: 'The domain is yours forever · from S/50 to S/130/yr by extension · monthly fee is optional and you can cancel anytime · hosting included' },
+      { plan: 'Complete Digital Dream',  annual: 'Domain: by extension + S/ 39/mo', includes: 'The domain is yours forever · from S/50 to S/130/yr by extension · monthly fee is optional and you can cancel anytime · hosting, support and backups included' },
+      { plan: 'Website Maintenance Peru', annual: 'Domain: by extension + S/ 79–149/mo', includes: 'Applies to a website you already have · from S/50 to S/130/yr by extension · monthly fee is flexible based on your needs' },
+      { plan: 'Domain + Corporate Email', annual: 'S/ 150/yr', includes: 'Domain .pe or .com.pe · Email forwarding: anything sent to @yourdomain.pe gets forwarded to your Gmail · domain management included · no monthly fee' },
     ] as const,
     domainTableTitle: 'Reference: annual renewal cost by extension',
     domainColExt: 'Extension',
@@ -80,7 +82,7 @@ const UI_LABELS = {
       { ext: '.pe',     cost: 'S/ 110 – 130',  use: 'Strong local brand' },
       { ext: '.com.pe', cost: 'S/ 90 – 130',   use: 'Companies in Peru' },
     ] as const,
-    domainNote: 'The domain is registered in your name. I can manage the yearly renewal for you, or you can do it yourself with any registrar.',
+    domainNote: 'The domain is registered in your name. I can manage the yearly renewal for you, or you can do it yourself with any registrar. Real costs shown are ranges: .com (S/50–80), .pe (S/110–130), .com.pe (S/90–130).',
     empty: 'No plans available at the moment.'
   },
 };
@@ -124,6 +126,12 @@ export default async function OffersPage({ params }: { params: Promise<{ locale:
             {ui.title}
           </h1>
           <p className="mt-5 text-lg text-[#A1A1AA] leading-8">{ui.subtitle}</p>
+        </div>
+
+        {/* Guarantee */}
+        <div className="rounded-2xl border border-green-500/30 bg-green-500/5 px-6 py-4 mb-14 flex items-center gap-3">
+          <span className="text-lg">✅</span>
+          <p className="text-sm text-[#A1A1AA]">{ui.guarantee}</p>
         </div>
 
         {/* Packages */}
