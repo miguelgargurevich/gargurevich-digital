@@ -20,13 +20,32 @@ async function getSiteSettings() {
   }
 }
 
+async function getPublishedOffers() {
+  try {
+    return await db.offer.findMany({
+      where: { published: true },
+      orderBy: { order: 'asc' },
+      select: {
+        planKey: true,
+        nameEs: true,
+        nameEn: true,
+        price: true,
+        descriptionEs: true,
+        descriptionEn: true,
+      },
+    });
+  } catch {
+    return [];
+  }
+}
+
 export default async function Home({
   params,
 }: {
   params: Promise<{ locale: 'es' | 'en' }>;
 }) {
   const { locale } = await params;
-  const settings = await getSiteSettings();
+  const [settings, offers] = await Promise.all([getSiteSettings(), getPublishedOffers()]);
 
   const heroOverrides = {
     badge: locale === 'es' ? settings['hero.badgeEs'] : settings['hero.badgeEn'],
@@ -55,7 +74,7 @@ export default async function Home({
       <TechStackSection />
       <ProcessSection />
         <OffersSection locale={locale} />
-      <ContactSection overrides={contactOverrides} />
+      <ContactSection overrides={contactOverrides} offers={offers} />
     </>
   );
 }

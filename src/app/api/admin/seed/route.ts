@@ -318,6 +318,21 @@ const OFFERS_SEED = [
   },
 ];
 
+const SITE_SETTINGS_SEED = [
+  { key: 'hero.badgeEs', value: 'Desarrollo Web Premium' },
+  { key: 'hero.badgeEn', value: 'Premium Web Development' },
+  { key: 'hero.titleEs', value: 'Construyo software que vende y escala' },
+  { key: 'hero.titleEn', value: 'I build software that sells and scales' },
+  { key: 'hero.subtitleEs', value: 'Landing pages, sitios corporativos y sistemas a medida orientados a conversiones.' },
+  { key: 'hero.subtitleEn', value: 'Landing pages, corporate websites, and custom systems focused on conversions.' },
+  { key: 'contact.email', value: 'contacto@gargurevich.dev' },
+  { key: 'contact.whatsapp', value: '+51 966 918 363' },
+  { key: 'contact.location', value: 'Lima, Peru' },
+  { key: 'stats.projects', value: '50+' },
+  { key: 'stats.clients', value: '100%' },
+  { key: 'stats.experience', value: '3+' },
+];
+
 export async function POST() {
   try {
     // Upsert portfolio projects
@@ -344,6 +359,15 @@ export async function POST() {
         where: { planKey: o.planKey },
         update: {},
         create: o,
+      });
+    }
+
+    // Upsert site settings
+    for (const s of SITE_SETTINGS_SEED) {
+      await db.siteSetting.upsert({
+        where: { key: s.key },
+        update: {},
+        create: s,
       });
     }
 

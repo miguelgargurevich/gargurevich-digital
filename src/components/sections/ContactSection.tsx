@@ -20,28 +20,39 @@ interface ContactOverrides {
   location?: string;
 }
 
-export default function ContactSection({ overrides }: { overrides?: ContactOverrides }) {
+interface ContactOfferOption {
+  planKey: string;
+  nameEs: string;
+  nameEn: string;
+  price: string;
+  descriptionEs: string;
+  descriptionEn: string;
+}
+
+export default function ContactSection({
+  overrides,
+  offers = [],
+}: {
+  overrides?: ContactOverrides;
+  offers?: ContactOfferOption[];
+}) {
   const t = useTranslations('contact');
   const locale = useLocale();
   const emailValue = overrides?.email || t('info.email.value');
   const whatsappValue = overrides?.whatsapp || t('info.whatsapp.value');
   const locationValue = overrides?.location || t('info.location.value');
 
-  const projectTypes = locale === 'es'
-    ? [
-        { value: 'starter-digital',           label: 'Starter Digital',              price: 'S/ 500',        description: 'Landing page para captar leads' },
-        { value: 'web-corporativa',            label: 'Web Corporativa',              price: 'S/ 700 – 900',  description: 'Presencia digital profesional' },
-        { value: 'web-corporativa-pro',        label: 'Web Corporativa PRO + CMS',    price: 'S/ 900 – 1200', description: 'Con panel autoadministrable' },
-        { value: 'negocio-digital-completo',   label: 'Negocio Digital Completo',     price: 'S/ 1200+',      description: 'Paquete integral completo' },
-        { value: 'otro',                       label: 'Otro / No lo tengo claro aún', price: null,            description: '' },
-      ]
-    : [
-        { value: 'starter-digital',           label: 'Starter Digital',         price: 'S/ 500',        description: 'Landing page to capture leads' },
-        { value: 'web-corporativa',            label: 'Corporate Website',        price: 'S/ 700 – 900',  description: 'Professional digital presence' },
-        { value: 'web-corporativa-pro',        label: 'PRO Corporate + CMS',      price: 'S/ 900 – 1200', description: 'With self-managed panel' },
-        { value: 'negocio-digital-completo',   label: 'Complete Digital Business', price: 'S/ 1200+',      description: 'Full all-in-one package' },
-        { value: 'otro',                       label: 'Other / Not sure yet',     price: null,            description: '' },
-      ];
+  const projectTypes = [
+    ...offers.map((offer) => ({
+      value: offer.planKey,
+      label: locale === 'es' ? offer.nameEs : offer.nameEn,
+      price: offer.price,
+      description: locale === 'es' ? offer.descriptionEs : offer.descriptionEn,
+    })),
+    locale === 'es'
+      ? { value: 'otro', label: 'Otro / No lo tengo claro aún', price: null, description: '' }
+      : { value: 'other', label: 'Other / Not sure yet', price: null, description: '' },
+  ];
   
   const contactInfo = [
     {

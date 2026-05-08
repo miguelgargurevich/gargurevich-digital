@@ -2,82 +2,6 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import { db } from '@/lib/db';
 import PortfolioGrid, { type PortfolioProjectItem } from './PortfolioGrid';
 
-type ProjectId = 'dashboardia' | 'invoiceapp' | 'house' | 'jafernandez' | 'lumic' | 'portfolio' | 'solucionesintegrales' | 'pcm';
-
-const projectMeta: Array<{
-  id: ProjectId;
-  tech: string[];
-  github: string;
-  live: string;
-  size: 'default' | 'wide' | 'tall' | 'large';
-  color: string;
-}> = [
-  {
-    id: 'dashboardia',
-    tech: ['Next.js 14', 'React 18', 'Node.js', 'Prisma', 'PostgreSQL', 'Supabase', 'Gemini API'],
-    github: 'https://github.com/miguelgargurevich/dashboardia-llm',
-    live: '#',
-    size: 'large',
-    color: '#00D4FF',
-  },
-  {
-    id: 'invoiceapp',
-    tech: ['Next.js 14', 'Express', 'TypeScript', 'Prisma', 'PostgreSQL', 'Supabase', 'Resend'],
-    github: 'https://github.com/miguelgargurevich/invoiceapp',
-    live: 'https://invoiceapp.vercel.app',
-    size: 'wide',
-    color: '#8B5CF6',
-  },
-  {
-    id: 'house',
-    tech: ['React 18', 'Vite', 'Express', 'Prisma', 'PostgreSQL', 'JWT', 'Gemini API'],
-    github: 'https://github.com/miguelgargurevich/house',
-    live: '#',
-    size: 'tall',
-    color: '#10B981',
-  },
-  {
-    id: 'jafernandez',
-    tech: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Framer Motion', 'Zod'],
-    github: 'https://github.com/miguelgargurevich/jafernandezelectric',
-    live: '#',
-    size: 'default',
-    color: '#F59E0B',
-  },
-  {
-    id: 'lumic',
-    tech: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', '.NET 9', 'JWT'],
-    github: 'https://github.com/miguelgargurevich/lumic',
-    live: '#',
-    size: 'default',
-    color: '#EC4899',
-  },
-  {
-    id: 'portfolio',
-    tech: ['Next.js 15', 'TypeScript', 'Tailwind CSS', 'next-intl', 'Gemini AI'],
-    github: 'https://github.com/miguelgargurevich/miguel-gargurevich-portfolio',
-    live: '#',
-    size: 'wide',
-    color: '#EF4444',
-  },
-  {
-    id: 'solucionesintegrales',
-    tech: ['Next.js 14', 'React 18', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Cloudflare R2', 'Resend'],
-    github: 'https://github.com/miguelgargurevich/solucionesintegralesjs',
-    live: 'https://solucionesintegralesjs.vercel.app',
-    size: 'default',
-    color: '#3B82F6',
-  },
-  {
-    id: 'pcm',
-    tech: ['.NET 9', 'React 19', 'PostgreSQL', 'CQRS', 'MediatR', 'Docker', 'reCAPTCHA'],
-    github: 'https://github.com/miguelgargurevich/pcm',
-    live: 'https://pcm-eight.vercel.app',
-    size: 'default',
-    color: '#6366F1',
-  },
-] as const;
-
 type DbProjectRow = Awaited<
   ReturnType<typeof db.portfolioProject.findMany>
 >[number];
@@ -166,51 +90,13 @@ export default async function PortfolioSection() {
 
   const dbProjects = await getProjectsFromDb(locale);
 
-  const fallbackProjects: PortfolioProjectItem[] = projectMeta.map((project) => {
-    let content: { title: string; description: string; features: string[] };
-
-    try {
-      content = t.raw(`items.${project.id}`) as {
-        title: string;
-        description: string;
-        features: string[];
-      };
-    } catch {
-      content = {
-        title: project.id,
-        description: '',
-        features: [],
-      };
-    }
-
-    const imagesBySlug: Record<string, string[]> = {
-      dashboardia: ['/projects/dashboardia.png'],
-      invoiceapp: ['/projects/invoiceapp.png'],
-      house: ['/projects/house.png'],
-      jafernandez: ['/projects/jafernandez.png'],
-      lumic: ['/projects/lumic.png'],
-      portfolio: ['/projects/portfolio.png'],
-      solucionesintegrales: ['/projects/solucionesintegrales.png'],
-      pcm: ['/projects/pcm.png'],
-    };
-
-    return {
-      id: project.id,
-      title: content.title,
-      description: content.description,
-      features: content.features,
-      tech: project.tech,
-      github: project.github,
-      live: project.live,
-      size: project.size,
-      color: project.color,
-      images: imagesBySlug[project.id] ?? [],
-    };
-  });
+  if (!dbProjects || dbProjects.length === 0) {
+    return null;
+  }
 
   return (
     <PortfolioGrid
-      projects={dbProjects ?? fallbackProjects}
+      projects={dbProjects}
       labels={{
         badge: t('badge'),
         title: t('title'),
