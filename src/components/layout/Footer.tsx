@@ -39,7 +39,7 @@ const socialLinks = [
   { name: 'GitHub', icon: Github, href: 'https://github.com/miguelgargurevich' },
   { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/in/miguelgargurevich' },
   { name: 'Twitter', icon: Twitter, href: 'https://twitter.com/miguelgargurev' },
-  { name: 'Email', icon: Mail, href: 'mailto:contacto@gargurevich.dev' },
+  { name: 'Email', icon: Mail, href: 'mailto:contacto@gargurevichdigital.com' },
 ];
 
 function resolveLocalizedHref(href: string, locale: string) {

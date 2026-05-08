@@ -27,7 +27,7 @@ const content = {
       {
         icon: Mail,
         title: 'Control del usuario',
-        description: 'Puedes solicitar acceso, corrección o eliminación de tus datos escribiendo a contacto@gargurevich.dev.'
+        description: 'Puedes solicitar acceso, corrección o eliminación de tus datos escribiendo a contacto@gargurevichdigital.com.'
       }
     ],
     sections: [
@@ -70,7 +70,7 @@ const content = {
         title: '6. Tus derechos',
         paragraphs: [
           'Puedes solicitar acceso, actualización, corrección, oposición o eliminación de tus datos personales, sujeto a las limitaciones legales aplicables.',
-          'Para ejercer cualquiera de estos derechos, escríbenos a contacto@gargurevich.dev e indica claramente tu solicitud y un medio de contacto para responderte.'
+          'Para ejercer cualquiera de estos derechos, escríbenos a contacto@gargurevichdigital.com e indica claramente tu solicitud y un medio de contacto para responderte.'
         ]
       }
     ],
@@ -103,7 +103,7 @@ const content = {
       {
         icon: Mail,
         title: 'User control',
-        description: 'You can request access, correction or deletion of your data by writing to contacto@gargurevich.dev.'
+        description: 'You can request access, correction or deletion of your data by writing to contacto@gargurevichdigital.com.'
       }
     ],
     sections: [
@@ -146,7 +146,7 @@ const content = {
         title: '6. Your rights',
         paragraphs: [
           'You may request access to, updating, correction of, objection to or deletion of your personal data, subject to applicable legal limitations.',
-          'To exercise any of these rights, write to contacto@gargurevich.dev and clearly indicate your request together with a contact method for our reply.'
+          'To exercise any of these rights, write to contacto@gargurevichdigital.com and clearly indicate your request together with a contact method for our reply.'
         ]
       }
     ],
@@ -241,7 +241,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ locale
               {page.backHome}
             </Link>
             <Link
-              href="mailto:contacto@gargurevich.dev"
+              href="mailto:contacto@gargurevichdigital.com"
               className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white text-background px-5 py-3 font-medium hover:bg-[#EAEAEA] transition-colors"
             >
               {page.contactCta}

@@ -356,7 +356,7 @@ const SITE_SETTINGS_SEED = [
   { key: 'hero.titleEn', value: 'I build software that sells and scales' },
   { key: 'hero.subtitleEs', value: 'Landing pages, sitios corporativos y sistemas a medida orientados a conversiones.' },
   { key: 'hero.subtitleEn', value: 'Landing pages, corporate websites, and custom systems focused on conversions.' },
-  { key: 'contact.email', value: 'contacto@gargurevich.dev' },
+  { key: 'contact.email', value: 'contacto@gargurevichdigital.com' },
   { key: 'contact.whatsapp', value: '+51 966 918 363' },
   { key: 'contact.location', value: 'Lima, Peru' },
   { key: 'stats.projects', value: '50+' },

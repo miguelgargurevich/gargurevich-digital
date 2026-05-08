@@ -77,7 +77,7 @@ const content = {
         title: '7. Suspensión, terminación y contacto',
         paragraphs: [
           'Podemos suspender o terminar una relación comercial ante incumplimientos materiales, uso indebido del trabajo, falta de pago o riesgos legales u operativos relevantes.',
-          'Si tienes dudas sobre estos términos o necesitas una versión contractual más específica, puedes escribir a contacto@gargurevich.dev.'
+          'Si tienes dudas sobre estos términos o necesitas una versión contractual más específica, puedes escribir a contacto@gargurevichdigital.com.'
         ]
       }
     ],
@@ -160,7 +160,7 @@ const content = {
         title: '7. Suspension, termination and contact',
         paragraphs: [
           'We may suspend or terminate a business relationship in the event of material breaches, misuse of the work, non-payment or significant legal or operational risk.',
-          'If you have questions about these terms or need a more specific contractual version, you can write to contacto@gargurevich.dev.'
+          'If you have questions about these terms or need a more specific contractual version, you can write to contacto@gargurevichdigital.com.'
         ]
       }
     ],

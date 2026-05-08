@@ -174,7 +174,7 @@ ${exampleQuoteData.notes?.map(n => `• ${n}`).join('\n')}
               </div>
             </div>
             <div className="text-right text-sm text-gray-600">
-              <p>contacto@gargurevich.dev</p>
+              <p>contacto@gargurevichdigital.com</p>
               <p>Lima, Perú</p>
               <p className="font-semibold mt-1">
                 {new Date().toLocaleDateString('es-PE', { 

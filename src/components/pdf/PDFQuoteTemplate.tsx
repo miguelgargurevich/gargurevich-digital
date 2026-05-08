@@ -257,7 +257,7 @@ export const PDFQuoteTemplate = ({ data }: PDFQuoteTemplateProps) => {
             Gargurevich.Dev - Soluciones Web Profesionales
           </Text>
           <Text style={styles.footerText}>
-            contacto@gargurevich.dev | +51 966 918 363
+            contacto@gargurevichdigital.com | +51 966 918 363
           </Text>
         </View>
       </Page>
