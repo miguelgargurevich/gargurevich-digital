@@ -25,7 +25,7 @@ const UI_LABELS = {
       },
     ],
     ctaText: 'Ver planes desde S/ 150',
-    ctaHref: '/ofertas',
+    ctaHref: '#ofertas',
   },
   en: {
     badge: 'Built for Peru',
@@ -50,7 +50,7 @@ const UI_LABELS = {
       },
     ],
     ctaText: 'See plans from S/ 150',
-    ctaHref: '/ofertas',
+    ctaHref: '#ofertas',
   },
 };
 
