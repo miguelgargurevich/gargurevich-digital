@@ -54,7 +54,7 @@ export default async function Home({
       ? 'Tu negocio merece una web que traiga clientes, no solo visitas'
       : (settings['hero.titleEn'] || settings['hero.titleEs']),
     subtitle: locale === 'es'
-      ? 'Landing pages, sitios corporativos y presencia digital completa para negocios peruanos. Con dominio propio, correos profesionales y soporte real en WhatsApp. Desde S/299. Yape y Plin. Garantia de 15 dias.'
+      ? 'Landing pages, webs corporativas y dominio con correos profesionales. Todo enfocado en que tu cliente te encuentre y te escriba. Desde S/299. Yape y Plin. Garantia de 15 dias.'
       : (settings['hero.subtitleEn'] || settings['hero.subtitleEs']),
   };
 

@@ -233,10 +233,14 @@ export default function ContactSection({
             <div className="p-6 rounded-xl bg-linear-to-br from-[#00D4FF]/10 to-[#8B5CF6]/10 border border-white/10">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-3 h-3 rounded-full bg-[#10B981] animate-pulse" />
-                <span className="text-sm font-medium text-white">{t('badge')}</span>
+                <span className="text-sm font-medium text-white">
+                  {locale === 'es' ? 'Respuesta rápida por WhatsApp' : 'Fast WhatsApp response'}
+                </span>
               </div>
               <p className="text-sm text-[#A1A1AA]">
-                {t('subtitle')}
+                {locale === 'es'
+                  ? 'Te orientamos sobre el mejor plan para tu negocio en pocos minutos.'
+                  : 'We help you choose the best plan for your business in minutes.'}
               </p>
             </div>
           </motion.div>
