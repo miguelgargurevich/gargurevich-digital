@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -15,6 +15,7 @@ import {
   FileText,
   Inbox,
   Tag,
+  Bell,
 } from 'lucide-react';
 
 const NAV = [
@@ -32,8 +33,39 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [newLeadCount, setNewLeadCount] = useState(0);
 
   const isLogin = pathname === '/admin/login';
+
+  useEffect(() => {
+    if (isLogin) return;
+
+    let cancelled = false;
+
+    const fetchNewLeadCount = async () => {
+      try {
+        const response = await fetch('/api/admin/leads?status=NEW&page=1', { cache: 'no-store' });
+        if (!response.ok) return;
+
+        const data = await response.json();
+        if (!cancelled) {
+          setNewLeadCount(typeof data.total === 'number' ? data.total : 0);
+        }
+      } catch {
+        if (!cancelled) {
+          setNewLeadCount(0);
+        }
+      }
+    };
+
+    fetchNewLeadCount();
+    const intervalId = window.setInterval(fetchNewLeadCount, 30000);
+
+    return () => {
+      cancelled = true;
+      window.clearInterval(intervalId);
+    };
+  }, [isLogin, pathname]);
 
   const handleLogout = async () => {
     await fetch('/api/admin/auth/logout', { method: 'POST' });
@@ -70,6 +102,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <nav className="flex-1 p-3 space-y-0.5 overflow-y-auto">
           {NAV.map(({ href, label, icon: Icon }) => {
             const active = pathname === href || pathname.startsWith(`${href}/`);
+            const showLeadBadge = href === '/admin/leads' && newLeadCount > 0;
             return (
               <Link
                 key={href}
@@ -82,7 +115,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 }`}
               >
                 <Icon size={17} />
-                {label}
+                <span>{label}</span>
+                {showLeadBadge && (
+                  <span className="ml-auto inline-flex min-w-5 h-5 items-center justify-center rounded-full bg-[#F59E0B]/15 border border-[#F59E0B]/25 px-1.5 text-[10px] font-semibold text-[#F59E0B]">
+                    {newLeadCount > 99 ? '99+' : newLeadCount}
+                  </span>
+                )}
               </Link>
             );
           })}
@@ -130,6 +168,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             {NAV.find((n) => pathname === n.href || pathname.startsWith(`${n.href}/`))?.label ?? 'Admin'}
           </span>
           <div className="flex-1" />
+          <Link
+            href="/admin/leads"
+            className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-[#A1A1AA] transition-all hover:border-white/20 hover:text-white"
+            aria-label="Notificaciones de leads"
+            title={newLeadCount > 0 ? `${newLeadCount} lead${newLeadCount > 1 ? 's' : ''} nuevo${newLeadCount > 1 ? 's' : ''}` : 'Sin nuevos leads'}
+          >
+            <Bell size={17} className={newLeadCount > 0 ? 'text-[#F59E0B]' : undefined} />
+            {newLeadCount > 0 && (
+              <>
+                <span className="absolute -right-1 -top-1 inline-flex min-w-5 h-5 items-center justify-center rounded-full bg-[#F59E0B] px-1 text-[10px] font-bold text-[#111111]">
+                  {newLeadCount > 99 ? '99+' : newLeadCount}
+                </span>
+                <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[#F59E0B] animate-pulse" />
+              </>
+            )}
+          </Link>
           <div className="flex items-center gap-2.5">
             <div className="w-7 h-7 rounded-full bg-[#00D4FF]/20 border border-[#00D4FF]/30 flex items-center justify-center text-[11px] font-bold text-[#00D4FF]">
               A
