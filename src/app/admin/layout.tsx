@@ -55,7 +55,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
     const fetchNewLeadCount = async () => {
       try {
-        const response = await fetch('/api/admin/leads?status=NEW&page=1', { cache: 'no-store' });
+        const response = await fetch('/api/admin/leads?status=NEW&limit=5', { cache: 'no-store' });
         if (!response.ok) return;
 
         const data = await response.json();

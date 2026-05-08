@@ -55,8 +55,11 @@ const ALL_STATUSES = Object.keys(STATUS_META) as LeadStatus[];
 export default function LeadsPage() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [total, setTotal] = useState(0);
-  const [page, setPage] = useState(1);
-  const [pages, setPages] = useState(1);
+  const [pageIndex, setPageIndex] = useState(0);
+  const [cursorHistory, setCursorHistory] = useState<Array<string | null>>([null]);
+  const [pageSize, setPageSize] = useState(20);
+  const [hasMore, setHasMore] = useState(false);
+  const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [filterStatus, setFilterStatus] = useState<LeadStatus | ''>('');
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
@@ -67,11 +70,14 @@ export default function LeadsPage() {
   const [notes, setNotes] = useState('');
   const [saving, setSaving] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  const currentCursor = cursorHistory[pageIndex] ?? null;
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
       setSearch(searchInput.trim());
-      setPage(1);
+      setPageIndex(0);
+      setCursorHistory([null]);
     }, 250);
 
     return () => window.clearTimeout(timeoutId);
@@ -79,18 +85,21 @@ export default function LeadsPage() {
 
   const fetchLeads = useCallback(async () => {
     setLoading(true);
-    const qs = new URLSearchParams({ page: String(page) });
+    const qs = new URLSearchParams({ limit: String(pageSize) });
     if (filterStatus) qs.set('status', filterStatus);
     if (search) qs.set('q', search);
     qs.set('sort', sortField);
     qs.set('order', sortOrder);
+    if (currentCursor) qs.set('cursor', currentCursor);
     const res = await fetch(`/api/admin/leads?${qs}`);
     const data = await res.json();
     setLeads(data.leads ?? []);
     setTotal(data.total ?? 0);
-    setPages(data.pages ?? 1);
+    setPageSize(data.limit ?? 20);
+    setHasMore(Boolean(data.hasMore));
+    setNextCursor(data.nextCursor ?? null);
     setLoading(false);
-  }, [page, filterStatus, search, sortField, sortOrder]);
+  }, [currentCursor, filterStatus, pageSize, search, sortField, sortOrder]);
 
   useEffect(() => { fetchLeads(); }, [fetchLeads]);
 
@@ -156,7 +165,11 @@ export default function LeadsPage() {
           <div className="relative">
             <select
               value={filterStatus}
-              onChange={e => { setFilterStatus(e.target.value as LeadStatus | ''); setPage(1); }}
+              onChange={e => {
+                setFilterStatus(e.target.value as LeadStatus | '');
+                setPageIndex(0);
+                setCursorHistory([null]);
+              }}
               className="appearance-none bg-[#111111] border border-white/10 rounded-lg px-3 py-2 pr-8 text-sm text-white focus:outline-none focus:border-[#00D4FF]/50"
             >
               <option value="">Todos los estados</option>
@@ -174,7 +187,8 @@ export default function LeadsPage() {
                 const [field, order] = e.target.value.split(':') as [SortField, SortOrder];
                 setSortField(field);
                 setSortOrder(order);
-                setPage(1);
+                setPageIndex(0);
+                setCursorHistory([null]);
               }}
               className="appearance-none bg-[#111111] border border-white/10 rounded-lg px-3 py-2 pl-9 pr-8 text-sm text-white focus:outline-none focus:border-[#00D4FF]/50"
             >
@@ -268,20 +282,28 @@ export default function LeadsPage() {
           </div>
 
           {/* Pagination */}
-          {pages > 1 && (
+          {total > pageSize && (
             <div className="flex items-center justify-between mt-3 text-sm text-[#71717A]">
-              <span>Página {page} de {pages}</span>
+              <span>Página {pageIndex + 1} de {totalPages}</span>
               <div className="flex gap-2">
                 <button
-                  disabled={page <= 1}
-                  onClick={() => setPage(p => p - 1)}
+                  disabled={pageIndex <= 0}
+                  onClick={() => setPageIndex((value) => Math.max(0, value - 1))}
                   className="px-3 py-1.5 bg-[#111111] border border-white/10 rounded-lg disabled:opacity-40 hover:border-white/20 transition-colors"
                 >
                   Anterior
                 </button>
                 <button
-                  disabled={page >= pages}
-                  onClick={() => setPage(p => p + 1)}
+                  disabled={!hasMore || !nextCursor}
+                  onClick={() => {
+                    if (!nextCursor) return;
+                    setCursorHistory((history) => {
+                      const nextHistory = history.slice(0, pageIndex + 1);
+                      nextHistory.push(nextCursor);
+                      return nextHistory;
+                    });
+                    setPageIndex((value) => value + 1);
+                  }}
                   className="px-3 py-1.5 bg-[#111111] border border-white/10 rounded-lg disabled:opacity-40 hover:border-white/20 transition-colors"
                 >
                   Siguiente

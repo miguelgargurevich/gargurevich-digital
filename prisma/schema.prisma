@@ -72,6 +72,11 @@ model Lead {
   notes       String?   @db.Text
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@index([createdAt, id])
+  @@index([status, createdAt, id])
+  @@index([name, id])
+  @@index([email])
 }
 
 enum LeadStatus {
