@@ -8,6 +8,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import SmoothScrollProvider from "@/components/providers/SmoothScrollProvider";
+import { WhatsAppFloat } from "@/components/ui/WhatsAppFloat";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -155,6 +156,7 @@ export default async function LocaleLayout({
           <main className="relative">{children}</main>
         </SmoothScrollProvider>
         <Footer translations={footerTranslations} locale={locale} />
+        <WhatsAppFloat />
       </div>
     </NextIntlClientProvider>
   );
