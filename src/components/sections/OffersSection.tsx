@@ -16,7 +16,7 @@ const UI_LABELS = {
     title: 'Soluciones claras',
     titleHighlight: 'para tu negocio',
     subtitle: 'Paquetes pensados para arrancar rápido, vender mejor y mantener tu presencia digital sin enredos.',
-    viewAll: 'Ver todos los planes',
+    viewAll: '¿No sabes qué plan elegir? Escríbeme por WhatsApp y te ayudo en 10 minutos',
     popularBadge: 'Más popular',
     note: '*El dominio es tuyo desde el día 1. Renovación anual aparte según el plan. Puedo gestionarlo por ti.',
   },
@@ -25,7 +25,7 @@ const UI_LABELS = {
     title: 'Clear solutions',
     titleHighlight: 'for your business',
     subtitle: 'Packages designed to launch fast, sell better, and keep your digital presence running smoothly.',
-    viewAll: 'View all plans',
+    viewAll: 'Not sure which plan to choose? Message me on WhatsApp and I will help in 10 minutes',
     popularBadge: 'Most popular',
     note: '*The domain is yours from day one. Annual renewal is separate depending on the plan. I can manage it for you.',
   },
@@ -124,7 +124,7 @@ export default async function OffersSection({ locale }: Props) {
                 <p className="text-[#A1A1AA] text-xs leading-6">{description}</p>
 
                 <ul className="space-y-2 flex-1">
-                  {items.slice(0, 3).map((item) => (
+                  {items.map((item) => (
                     <li key={item} className="flex items-start gap-2 text-[#D4D4D8] text-xs">
                       <CheckCircle2
                         size={13}
@@ -133,9 +133,6 @@ export default async function OffersSection({ locale }: Props) {
                       <span>{item}</span>
                     </li>
                   ))}
-                  {items.length > 3 && (
-                    <li className="text-[#52525B] text-xs pl-5">+{items.length - 3} más...</li>
-                  )}
                 </ul>
 
                 <p className="text-[10px] text-[#52525B] border-t border-white/6 pt-3">{forWho}</p>
@@ -160,7 +157,9 @@ export default async function OffersSection({ locale }: Props) {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-[#52525B]">{ui.note}</p>
           <Link
-            href={`/${locale}/ofertas`}
+            href="https://wa.me/51966918363?text=Hola%2C%20no%20se%20que%20plan%20elegir.%20Me%20ayudas%20en%2010%20minutos%3F"
+            target="_blank"
+            rel="noreferrer"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/15 text-sm text-white hover:bg-white/5 hover:border-white/25 transition-all group"
           >
             {ui.viewAll}

@@ -3,7 +3,6 @@ import ServicesSection from "@/components/sections/ServicesSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
 import TechStackSection from "@/components/sections/TechStackSection";
 import ProcessSection from "@/components/sections/ProcessSection";
-import StatsSection from "@/components/sections/StatsSection";
 import { Suspense } from 'react';
 import ContactSection from "@/components/sections/ContactSection";
 import OffersSection from "@/components/sections/OffersSection";
@@ -50,9 +49,13 @@ export default async function Home({
   const [settings, offers] = await Promise.all([getSiteSettings(), getPublishedOffers()]);
 
   const heroOverrides = {
-    badge: locale === 'es' ? settings['hero.badgeEs'] : settings['hero.badgeEn'],
-    title: locale === 'es' ? settings['hero.titleEs'] : settings['hero.titleEn'],
-    subtitle: locale === 'es' ? settings['hero.subtitleEs'] : settings['hero.subtitleEn'],
+    badge: locale === 'es' ? 'Presencia Digital para Negocios Peruanos' : (settings['hero.badgeEn'] || settings['hero.badgeEs']),
+    title: locale === 'es'
+      ? 'Tu negocio merece una web que traiga clientes, no solo visitas'
+      : (settings['hero.titleEn'] || settings['hero.titleEs']),
+    subtitle: locale === 'es'
+      ? 'Landing pages, sitios corporativos y presencia digital completa para negocios peruanos. Con dominio propio, correos profesionales y soporte real en WhatsApp. Desde S/299. Yape y Plin. Garantia de 15 dias.'
+      : (settings['hero.subtitleEn'] || settings['hero.subtitleEs']),
   };
 
   const contactOverrides = {
@@ -61,17 +64,10 @@ export default async function Home({
     location: settings['contact.location'],
   };
 
-  const statsOverrides = {
-    projects: settings['stats.projects'],
-    clients: settings['stats.clients'],
-    experience: settings['stats.experience'],
-  };
-
   return (
     <>
       <HeroSection overrides={heroOverrides} />
       <ServicesSection />
-      <StatsSection overrides={statsOverrides} />
       <PortfolioSection />
       <TechStackSection />
       <ProcessSection />

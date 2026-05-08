@@ -66,10 +66,14 @@ export default function HeroSection({ overrides }: { overrides?: HeroSectionOver
             <TextReveal className="text-white">
               {overrides?.title || t('title')}
             </TextReveal>
-            <br />
-            <span className="gradient-text">
-              <WordRotate words={rotatingWords} duration={3000} />
-            </span>
+            {!overrides?.title && (
+              <>
+                <br />
+                <span className="gradient-text">
+                  <WordRotate words={rotatingWords} duration={3000} />
+                </span>
+              </>
+            )}
           </motion.h1>
 
           {/* Subtitle */}

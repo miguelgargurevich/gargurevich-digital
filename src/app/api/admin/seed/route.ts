@@ -389,11 +389,11 @@ const OFFERS_SEED = [
 ];
 
 const SITE_SETTINGS_SEED = [
-  { key: 'hero.badgeEs', value: 'Desarrollo Web Premium' },
+  { key: 'hero.badgeEs', value: 'Presencia Digital para Negocios Peruanos' },
   { key: 'hero.badgeEn', value: 'Premium Web Development' },
-  { key: 'hero.titleEs', value: 'Construyo software que vende y escala' },
+  { key: 'hero.titleEs', value: 'Tu negocio merece una web que traiga clientes, no solo visitas' },
   { key: 'hero.titleEn', value: 'I build software that sells and scales' },
-  { key: 'hero.subtitleEs', value: 'Landing pages, sitios corporativos y sistemas a medida orientados a conversiones.' },
+  { key: 'hero.subtitleEs', value: 'Landing pages, sitios corporativos y presencia digital completa para negocios peruanos. Con dominio propio, correos profesionales y soporte real en WhatsApp. Desde S/299. Yape y Plin. Garantia de 15 dias.' },
   { key: 'hero.subtitleEn', value: 'Landing pages, corporate websites, and custom systems focused on conversions.' },
   { key: 'contact.email', value: 'contacto@gargurevichdigital.com' },
   { key: 'contact.whatsapp', value: '+51 966 918 363' },
@@ -433,7 +433,7 @@ export async function POST() {
     for (const s of SITE_SETTINGS_SEED) {
       await db.siteSetting.upsert({
         where: { key: s.key },
-        update: {},
+        update: { value: s.value },
         create: s,
       });
     }
