@@ -162,7 +162,7 @@ export const PDFQuoteTemplate = ({ data }: PDFQuoteTemplateProps) => {
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.title}>🚀 {data.projectTitle}</Text>
-          <Text style={styles.subtitle}>Soluciones Integrales JS - Gargurevich.Dev</Text>
+          <Text style={styles.subtitle}>Soluciones Integrales JS - GargurevichDigital</Text>
           <Text style={styles.subtitle}>Fecha: {formattedDate}</Text>
           {data.clientName && (
             <Text style={styles.subtitle}>Para: {data.clientName}{data.clientCompany ? ` - ${data.clientCompany}` : ''}</Text>
@@ -254,7 +254,7 @@ export const PDFQuoteTemplate = ({ data }: PDFQuoteTemplateProps) => {
             La idea es que este proyecto sea el inicio de más trabajos juntos 💪
           </Text>
           <Text style={[styles.footerText, { marginTop: 15, fontWeight: 'bold' }]}>
-            Gargurevich.Dev - Soluciones Web Profesionales
+            GargurevichDigital - Soluciones Web Profesionales
           </Text>
           <Text style={styles.footerText}>
             contacto@gargurevichdigital.com | +51 966 918 363
