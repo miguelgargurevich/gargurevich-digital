@@ -23,14 +23,29 @@ const UI_LABELS = {
     popularBadge: 'Más popular',
     ctaSecondary: 'Volver al inicio',
     note: 'El dominio es tuyo desde el día 1. Yo solo te ayudo a registrarlo y renovarlo si lo necesitas.',
-    summaryTitle: 'Resumen de costos después del primer año',
-    summaryDomainLabel: 'Renovación de dominio .pe o .com.pe',
-    summaryDomainValue: 'S/ 95 por año',
-    summaryHostLabel: 'Hosting si no tienes mensualidad activa',
-    summaryHostValue: 'S/ 20 - 30/mes',
-    summarySupportLabel: 'Mensualidad de soporte y mantenimiento',
+    summaryTitle: 'Lo que pagarías después del primer año, por plan',
     summaryOwnerNote: 'El dominio es tuyo desde el día 1. Si en el futuro quieres llevarte tu web a otro proveedor, no hay problema: te entrego todo.',
-    empty: 'No hay planes disponibles en este momento.',
+    summaryColPlan: 'Plan',
+    summaryColAnnual: 'Costo anual recurrente',
+    summaryColIncludes: 'Qué incluye',
+    summaryRows: [
+      { plan: 'Mi Negocio en Google',   annual: 'S/ 50 – 130/año',   includes: 'Solo renovación de dominio · sin mensualidad · el costo exacto depende de la extensión (.com, .pe o .com.pe)' },
+      { plan: 'Landing WhatsApp',       annual: 'S/ 50 – 130/año',   includes: 'Solo renovación de dominio · sin mensualidad · el costo exacto depende de la extensión (.com, .pe o .com.pe)' },
+      { plan: 'Web que yo mismo edito', annual: 'S/ 278 – 358/año',  includes: 'Dominio S/ 50–130 + mensualidad S/ 19/mes × 12 = S/ 228 · hosting incluido en la mensualidad' },
+      { plan: 'Sueño Digital Completo', annual: 'S/ 518 – 598/año',  includes: 'Dominio S/ 50–130 + mensualidad S/ 39/mes × 12 = S/ 468 · hosting, soporte y backups incluidos' },
+      { plan: 'Mantenimiento Web Perú', annual: 'S/ 998 – 1,918/año', includes: 'Dominio S/ 50–130 + S/ 79–149/mes × 12 · aplica a una web que ya tienes' },
+    ] as const,
+    domainTableTitle: 'Referencia: costo de renovación anual según extensión',
+    domainColExt: 'Extensión',
+    domainColCost: 'Renovación/año',
+    domainColUse: 'Uso recomendado',
+    domainRows: [
+      { ext: '.com',    cost: 'S/ 50 – 80',   use: 'Negocios globales / tech' },
+      { ext: '.pe',     cost: 'S/ 35 – 120',  use: 'Marca local fuerte' },
+      { ext: '.com.pe', cost: 'S/ 90 – 130',  use: 'Empresas en Perú' },
+    ] as const,
+    domainNote: 'El dominio queda registrado a tu nombre. Puedo gestionarte la renovación anual o hacerlo tú directo con cualquier proveedor.',
+    empty: 'No hay planes disponibles en este momento.'
   },
   en: {
     metaTitle: 'My Services | Gargurevich Digital',
@@ -42,14 +57,29 @@ const UI_LABELS = {
     popularBadge: 'Most popular',
     ctaSecondary: 'Back to home',
     note: 'The domain is yours from day one. I only help register and renew it if you need it.',
-    summaryTitle: 'Cost summary after the first year',
-    summaryDomainLabel: '.pe or .com.pe domain renewal',
-    summaryDomainValue: 'S/ 95 per year',
-    summaryHostLabel: 'Hosting if you do not have an active monthly plan',
-    summaryHostValue: 'S/ 20 - 30/mo',
-    summarySupportLabel: 'Support and maintenance monthly fee',
+    summaryTitle: 'What you would pay after year one, per plan',
     summaryOwnerNote: 'The domain is yours from day one. If you ever want to move your site to another provider, no problem: I deliver everything.',
-    empty: 'No plans available at the moment.',
+    summaryColPlan: 'Plan',
+    summaryColAnnual: 'Annual recurring cost',
+    summaryColIncludes: 'What it covers',
+    summaryRows: [
+      { plan: 'My Business on Google',   annual: 'S/ 50 – 130/yr',   includes: 'Domain renewal only · no monthly fee · exact cost depends on extension (.com, .pe or .com.pe)' },
+      { plan: 'WhatsApp Sales Landing',  annual: 'S/ 50 – 130/yr',   includes: 'Domain renewal only · no monthly fee · exact cost depends on extension (.com, .pe or .com.pe)' },
+      { plan: 'Website I Can Edit',      annual: 'S/ 278 – 358/yr',  includes: 'Domain S/ 50–130 + S/ 19/mo × 12 = S/ 228 · hosting included in the monthly fee' },
+      { plan: 'Complete Digital Dream',  annual: 'S/ 518 – 598/yr',  includes: 'Domain S/ 50–130 + S/ 39/mo × 12 = S/ 468 · hosting, support and backups included' },
+      { plan: 'Website Maintenance Peru', annual: 'S/ 998 – 1,918/yr', includes: 'Domain S/ 50–130 + S/ 79–149/mo × 12 · applies to a website you already have' },
+    ] as const,
+    domainTableTitle: 'Reference: annual renewal cost by extension',
+    domainColExt: 'Extension',
+    domainColCost: 'Renewal/year',
+    domainColUse: 'Recommended use',
+    domainRows: [
+      { ext: '.com',    cost: 'S/ 50 – 80',   use: 'Global / tech businesses' },
+      { ext: '.pe',     cost: 'S/ 35 – 120',  use: 'Strong local brand' },
+      { ext: '.com.pe', cost: 'S/ 90 – 130',  use: 'Companies in Peru' },
+    ] as const,
+    domainNote: 'The domain is registered in your name. I can manage the yearly renewal for you, or you can do it yourself with any registrar.',
+    empty: 'No plans available at the moment.'
   },
 };
 
@@ -196,46 +226,54 @@ export default async function OffersPage({ params }: { params: Promise<{ locale:
         <div className="rounded-3xl border border-white/10 bg-[#121212]/90 p-6 mb-10 overflow-hidden">
           <div className="max-w-2xl">
             <h3 className="text-xl font-semibold text-white">{ui.summaryTitle}</h3>
-            <p className="mt-2 text-sm text-[#A1A1AA]">
-              {ui.summaryOwnerNote}
-            </p>
+            <p className="mt-2 text-sm text-[#A1A1AA]">{ui.summaryOwnerNote}</p>
           </div>
 
           <div className="mt-6 overflow-x-auto">
-            <table className="w-full min-w-[780px] border-separate border-spacing-0 text-left">
+            <table className="w-full min-w-[640px] border-separate border-spacing-0 text-left">
               <thead>
                 <tr>
-                  <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{locale === 'es' ? 'Concepto' : 'Concept'}</th>
-                  <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{locale === 'es' ? 'Costo' : 'Cost'}</th>
-                  <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{locale === 'es' ? 'Quién paga' : 'Who pays'}</th>
+                  <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{ui.summaryColPlan}</th>
+                  <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{ui.summaryColAnnual}</th>
+                  <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{ui.summaryColIncludes}</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="align-top">
-                  <td className="border-b border-white/5 px-4 py-4 text-sm text-white">{ui.summaryDomainLabel}</td>
-                  <td className="border-b border-white/5 px-4 py-4 text-sm text-white font-medium">{ui.summaryDomainValue}</td>
-                  <td className="border-b border-white/5 px-4 py-4 text-sm text-[#D4D4D8]">{locale === 'es' ? 'Tú (puedo gestionarlo yo)' : 'You (I can manage it for you)'}</td>
-                </tr>
-                <tr className="align-top">
-                  <td className="border-b border-white/5 px-4 py-4 text-sm text-white">{ui.summaryHostLabel}</td>
-                  <td className="border-b border-white/5 px-4 py-4 text-sm text-white font-medium">{ui.summaryHostValue}</td>
-                  <td className="border-b border-white/5 px-4 py-4 text-sm text-[#D4D4D8]">{locale === 'es' ? 'Tú' : 'You'}</td>
-                </tr>
-                <tr className="align-top">
-                  <td className="px-4 py-4 text-sm text-white">{ui.summarySupportLabel}</td>
-                  <td className="px-4 py-4 text-sm text-white font-medium">
-                    {locale === 'es'
-                      ? 'Web que yo mismo edito: S/ 19/mes · Sueño Digital Completo: S/ 39/mes · Mantenimiento Web Perú: S/ 79 - 149/mes'
-                      : 'Website I Can Edit: S/ 19/mo · Complete Digital Dream: S/ 39/mo · Website Maintenance Peru: S/ 79 - 149/mo'}
-                  </td>
-                  <td className="px-4 py-4 text-sm text-[#D4D4D8]">
-                    {locale === 'es'
-                      ? 'Según el plan elegido'
-                      : 'Depending on the plan you choose'}
-                  </td>
-                </tr>
+                {ui.summaryRows.map((row, i) => (
+                  <tr key={row.plan} className="align-top">
+                    <td className={`${i < ui.summaryRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-4 text-sm text-white font-medium`}>{row.plan}</td>
+                    <td className={`${i < ui.summaryRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-4 text-sm font-semibold text-[#00D4FF] whitespace-nowrap`}>{row.annual}</td>
+                    <td className={`${i < ui.summaryRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-4 text-sm text-[#A1A1AA]`}>{row.includes}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Domain reference table */}
+          <div className="mt-8 pt-6 border-t border-white/8">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#71717A] mb-4">{ui.domainTableTitle}</p>
+            <div className="overflow-x-auto">
+              <table className="min-w-[480px] border-separate border-spacing-0 text-left">
+                <thead>
+                  <tr>
+                    <th className="border-b border-white/8 px-4 py-2 text-xs font-semibold text-[#52525B]">{ui.domainColExt}</th>
+                    <th className="border-b border-white/8 px-4 py-2 text-xs font-semibold text-[#52525B]">{ui.domainColCost}</th>
+                    <th className="border-b border-white/8 px-4 py-2 text-xs font-semibold text-[#52525B]">{ui.domainColUse}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ui.domainRows.map((row, i) => (
+                    <tr key={row.ext} className="align-middle">
+                      <td className={`${i < ui.domainRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-3 text-sm font-mono font-medium text-[#D4D4D8]`}>{row.ext}</td>
+                      <td className={`${i < ui.domainRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-3 text-sm text-white whitespace-nowrap`}>{row.cost}</td>
+                      <td className={`${i < ui.domainRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-3 text-sm text-[#71717A]`}>{row.use}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-4 text-xs text-[#52525B]">{ui.domainNote}</p>
           </div>
         </div>
 
