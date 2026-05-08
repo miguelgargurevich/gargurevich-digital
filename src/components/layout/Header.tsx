@@ -40,7 +40,7 @@ export default function Header({ translations, locale }: HeaderProps) {
     { name: t.portfolio, href: `${localizedHome}#portafolio` },
     { name: t.technologies, href: `${localizedHome}#tech` },
     { name: t.process, href: `${localizedHome}#proceso` },
-    { name: t.offers, href: `${localizedHome}/ofertas` },
+    { name: t.offers, href: `${localizedHome}#ofertas` },
     { name: t.contact, href: `${localizedHome}#contacto` },
   ];
 
