@@ -14,9 +14,13 @@ import {
   Check,
   Loader2,
   RefreshCw,
+  Search,
+  ArrowUpDown,
 } from 'lucide-react';
 
 type LeadStatus = 'NEW' | 'CONTACTED' | 'IN_PROGRESS' | 'CLOSED_WON' | 'CLOSED_LOST';
+type SortField = 'createdAt' | 'name' | 'status';
+type SortOrder = 'asc' | 'desc';
 
 interface Lead {
   id: string;
@@ -54,23 +58,39 @@ export default function LeadsPage() {
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(1);
   const [filterStatus, setFilterStatus] = useState<LeadStatus | ''>('');
+  const [search, setSearch] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [sortField, setSortField] = useState<SortField>('createdAt');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Lead | null>(null);
   const [notes, setNotes] = useState('');
   const [saving, setSaving] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setSearch(searchInput.trim());
+      setPage(1);
+    }, 250);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [searchInput]);
+
   const fetchLeads = useCallback(async () => {
     setLoading(true);
     const qs = new URLSearchParams({ page: String(page) });
     if (filterStatus) qs.set('status', filterStatus);
+    if (search) qs.set('q', search);
+    qs.set('sort', sortField);
+    qs.set('order', sortOrder);
     const res = await fetch(`/api/admin/leads?${qs}`);
     const data = await res.json();
     setLeads(data.leads ?? []);
     setTotal(data.total ?? 0);
     setPages(data.pages ?? 1);
     setLoading(false);
-  }, [page, filterStatus]);
+  }, [page, filterStatus, search, sortField, sortOrder]);
 
   useEffect(() => { fetchLeads(); }, [fetchLeads]);
 
@@ -121,7 +141,17 @@ export default function LeadsPage() {
           </h1>
           <p className="text-[#71717A] text-sm mt-1">{total} contacto{total !== 1 ? 's' : ''} recibido{total !== 1 ? 's' : ''}</p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+          <div className="relative min-w-0 sm:w-72">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#71717A] pointer-events-none" />
+            <input
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              placeholder="Buscar por nombre, email, empresa o mensaje"
+              className="w-full bg-[#111111] border border-white/10 rounded-lg pl-9 pr-3 py-2 text-sm text-white placeholder-[#71717A] focus:outline-none focus:border-[#00D4FF]/50"
+            />
+          </div>
+
           {/* Status filter */}
           <div className="relative">
             <select
@@ -136,6 +166,29 @@ export default function LeadsPage() {
             </select>
             <ChevronDown size={14} className="absolute right-2 top-1/2 -translate-y-1/2 text-[#71717A] pointer-events-none" />
           </div>
+
+          <div className="relative">
+            <select
+              value={`${sortField}:${sortOrder}`}
+              onChange={(e) => {
+                const [field, order] = e.target.value.split(':') as [SortField, SortOrder];
+                setSortField(field);
+                setSortOrder(order);
+                setPage(1);
+              }}
+              className="appearance-none bg-[#111111] border border-white/10 rounded-lg px-3 py-2 pl-9 pr-8 text-sm text-white focus:outline-none focus:border-[#00D4FF]/50"
+            >
+              <option value="createdAt:desc">Fecha: más recientes</option>
+              <option value="createdAt:asc">Fecha: más antiguos</option>
+              <option value="name:asc">Nombre: A-Z</option>
+              <option value="name:desc">Nombre: Z-A</option>
+              <option value="status:asc">Estado: A-Z</option>
+              <option value="status:desc">Estado: Z-A</option>
+            </select>
+            <ArrowUpDown size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#71717A] pointer-events-none" />
+            <ChevronDown size={14} className="absolute right-2 top-1/2 -translate-y-1/2 text-[#71717A] pointer-events-none" />
+          </div>
+
           <button
             onClick={fetchLeads}
             className="p-2 bg-[#111111] border border-white/10 rounded-lg hover:border-white/20 transition-colors text-[#71717A] hover:text-white"
