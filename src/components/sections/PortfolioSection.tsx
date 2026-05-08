@@ -6,6 +6,26 @@ type DbProjectRow = Awaited<
   ReturnType<typeof db.portfolioProject.findMany>
 >[number];
 
+const AVAILABLE_LOCAL_PROJECT_IMAGES = new Set(['/projects/dashboardia.png']);
+
+function projectPlaceholderDataUri(title: string, color: string) {
+  const safeTitle = title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B0B0B" />
+      <stop offset="100%" stop-color="#151515" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)" />
+  <rect x="100" y="100" width="1400" height="700" rx="36" fill="${color}22" stroke="${color}66" stroke-width="2"/>
+  <text x="800" y="430" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="64" font-weight="700">${safeTitle}</text>
+  <text x="800" y="500" text-anchor="middle" fill="#A1A1AA" font-family="Arial, sans-serif" font-size="28">Image pending upload</text>
+</svg>`;
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+}
+
 
 function parseImageUrls(value: string | null | undefined): string[] {
   if (!value) return [];
@@ -39,6 +59,21 @@ function parseImageUrls(value: string | null | undefined): string[] {
   return unique;
 }
 
+function resolveProjectImages(row: DbProjectRow, locale: string): string[] {
+  const parsedImages = parseImageUrls(row.imageUrl);
+  const validImages = parsedImages.filter((url) => {
+    if (!url.startsWith('/projects/')) return true;
+    return AVAILABLE_LOCAL_PROJECT_IMAGES.has(url);
+  });
+
+  if (validImages.length > 0) {
+    return validImages;
+  }
+
+  const title = locale === 'es' ? row.titleEs : row.titleEn;
+  return [projectPlaceholderDataUri(title, row.color || '#00D4FF')];
+}
+
 async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[] | null> {
   try {
     const rows = await db.portfolioProject.findMany({
@@ -62,7 +97,6 @@ async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[]
     };
 
     return rows.map((row: DbProjectRow) => {
-      const parsedImages = parseImageUrls(row.imageUrl);
       return {
         id: row.slug,
         title: locale === 'es' ? row.titleEs : row.titleEn,
@@ -73,7 +107,7 @@ async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[]
         live: row.live,
         color: row.color,
         size: sizeBySlug[row.slug] ?? 'default',
-        images: parsedImages,
+        images: resolveProjectImages(row, locale),
       };
     });
   } catch (err) {
