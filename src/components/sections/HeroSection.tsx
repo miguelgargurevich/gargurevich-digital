@@ -12,11 +12,12 @@ interface HeroSectionOverrides {
   badge?: string;
   title?: string;
   subtitle?: string;
+  rotatingWords?: string[];
 }
 
 export default function HeroSection({ overrides }: { overrides?: HeroSectionOverrides }) {
   const t = useTranslations('hero');
-  const rotatingWords = t.raw('rotatingWords') as string[];
+  const rotatingWords = overrides?.rotatingWords ?? (t.raw('rotatingWords') as string[]);
 
   const stats = [
     { value: t('stats.projects.value'), label: t('stats.projects.label') },
@@ -66,14 +67,10 @@ export default function HeroSection({ overrides }: { overrides?: HeroSectionOver
             <TextReveal className="text-white">
               {overrides?.title || t('title')}
             </TextReveal>
-            {!overrides?.title && (
-              <>
-                <br />
-                <span className="gradient-text">
-                  <WordRotate words={rotatingWords} duration={3000} />
-                </span>
-              </>
-            )}
+            <br />
+            <span className="gradient-text">
+              <WordRotate words={rotatingWords} duration={3000} />
+            </span>
           </motion.h1>
 
           {/* Subtitle */}

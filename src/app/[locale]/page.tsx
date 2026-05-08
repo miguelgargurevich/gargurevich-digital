@@ -51,11 +51,14 @@ export default async function Home({
   const heroOverrides = {
     badge: locale === 'es' ? 'Presencia Digital para Negocios Peruanos' : (settings['hero.badgeEn'] || settings['hero.badgeEs']),
     title: locale === 'es'
-      ? 'Tu negocio merece una web que traiga clientes, no solo visitas'
+      ? 'Tu negocio merece una web que traiga'
       : (settings['hero.titleEn'] || settings['hero.titleEs']),
     subtitle: locale === 'es'
       ? 'Landing pages, webs corporativas y dominio con correos profesionales. Todo enfocado en que tu cliente te encuentre y te escriba. Desde S/299. Yape y Plin. Garantia de 15 dias.'
       : (settings['hero.subtitleEn'] || settings['hero.subtitleEs']),
+    rotatingWords: locale === 'es'
+      ? ['clientes reales', 'mas mensajes por WhatsApp', 'ventas constantes', 'autoridad digital']
+      : undefined,
   };
 
   const contactOverrides = {
