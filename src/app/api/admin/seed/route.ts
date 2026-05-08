@@ -195,6 +195,129 @@ const SERVICES_SEED = [
   },
 ];
 
+const OFFERS_SEED = [
+  {
+    planKey: 'starter-digital',
+    icon: 'zap',
+    order: 0,
+    popular: false,
+    nameEs: 'Starter Digital',
+    nameEn: 'Starter Digital',
+    price: 'S/ 500',
+    priceNoteEs: 'Pago único',
+    priceNoteEn: 'One-time payment',
+    descriptionEs: 'Para lanzar rápido y empezar a captar leads desde el primer día.',
+    descriptionEn: 'Launch fast and start capturing leads from day one.',
+    itemsEs: [
+      'Landing page profesional y responsive',
+      'Estructura optimizada para conversión',
+      'Botón de WhatsApp y formulario de contacto',
+      'Entrega en 5-7 días hábiles',
+    ],
+    itemsEn: [
+      'Professional responsive landing page',
+      'Conversion-optimized structure',
+      'WhatsApp button and contact form',
+      'Delivered in 5-7 business days',
+    ],
+    ctaEs: 'Quiero este plan',
+    ctaEn: 'I want this plan',
+    forWhoEs: 'Ideal para: lanzar un producto o servicio puntual.',
+    forWhoEn: 'Best for: launching a specific product or service offer.',
+  },
+  {
+    planKey: 'web-corporativa',
+    icon: 'star',
+    order: 1,
+    popular: false,
+    nameEs: 'Web Corporativa',
+    nameEn: 'Corporate Website',
+    price: 'S/ 700 – 900',
+    priceNoteEs: 'Pago único',
+    priceNoteEn: 'One-time payment',
+    descriptionEs: 'Presencia digital profesional para tu empresa, con diseño y estructura de marca.',
+    descriptionEn: 'Professional digital presence for your company, with brand-aligned design and structure.',
+    itemsEs: [
+      'Sitio completo: Inicio, Nosotros, Servicios, Contacto',
+      'Diseño profesional alineado a tu marca',
+      'Optimización SEO base',
+      'Entrega en 2-3 semanas',
+    ],
+    itemsEn: [
+      'Full site: Home, About, Services, Contact',
+      'Professional design aligned to your brand',
+      'Baseline SEO optimization',
+      'Delivered in 2-3 weeks',
+    ],
+    ctaEs: 'Quiero este plan',
+    ctaEn: 'I want this plan',
+    forWhoEs: 'Ideal para: empresas que necesitan una imagen sólida en internet.',
+    forWhoEn: 'Best for: companies that need a solid online presence.',
+  },
+  {
+    planKey: 'web-corporativa-pro',
+    icon: 'star',
+    order: 2,
+    popular: true,
+    nameEs: 'Web Corporativa PRO + CMS',
+    nameEn: 'PRO Corporate + CMS',
+    price: 'S/ 900 – 1200',
+    priceNoteEs: 'Pago único',
+    priceNoteEn: 'One-time payment',
+    descriptionEs: 'Todo lo anterior, más un panel para que administres tu web sin depender de nadie.',
+    descriptionEn: 'Everything above, plus a panel so you manage your website without depending on anyone.',
+    itemsEs: [
+      'Todo lo del plan Corporativo',
+      'CMS configurado (WordPress u otro)',
+      'Puedes editar textos e imágenes tú mismo',
+      'Capacitación básica incluida',
+      'Base escalable para crecer',
+    ],
+    itemsEn: [
+      'Everything from Corporate plan',
+      'Configured CMS (WordPress or other)',
+      'Edit text and images yourself',
+      'Basic training included',
+      'Scalable foundation for growth',
+    ],
+    ctaEs: 'Quiero este plan',
+    ctaEn: 'I want this plan',
+    forWhoEs: 'Ideal para: empresas que actualizan contenido con frecuencia.',
+    forWhoEn: 'Best for: businesses that update content frequently.',
+  },
+  {
+    planKey: 'negocio-digital-completo',
+    icon: 'sparkles',
+    order: 3,
+    popular: false,
+    nameEs: 'Negocio Digital Completo',
+    nameEn: 'Complete Digital Business',
+    price: 'S/ 1200+',
+    priceNoteEs: 'Según alcance',
+    priceNoteEn: 'Based on scope',
+    descriptionEs: 'Paquete integral para tener todo listo: web, dominio, correos y CMS desde el día 1.',
+    descriptionEn: 'All-in-one package: website, domain, emails and CMS ready from day one.',
+    itemsEs: [
+      'Web corporativa + Landing page',
+      'Dominio y correos corporativos',
+      'CMS configurado y entregado',
+      'Soporte de lanzamiento incluido',
+      'Base sólida para escalar con marketing digital',
+    ],
+    itemsEn: [
+      'Corporate website + Landing page',
+      'Domain and corporate email setup',
+      'Configured and delivered CMS',
+      'Launch support included',
+      'Solid foundation to scale with digital marketing',
+    ],
+    ctaEs: 'Solicitar cotización',
+    ctaEn: 'Request a quote',
+    forWhoEs: 'Ideal para: negocios que quieren lanzar todo junto y bien hecho.',
+    forWhoEn: 'Best for: businesses launching everything together, done right.',
+  },
+];
+
 export async function POST() {
   try {
     // Upsert portfolio projects
@@ -212,6 +335,15 @@ export async function POST() {
         where: { slug: s.slug },
         update: {},
         create: s,
+      });
+    }
+
+    // Upsert offers
+    for (const o of OFFERS_SEED) {
+      await db.offer.upsert({
+        where: { planKey: o.planKey },
+        update: {},
+        create: o,
       });
     }
 

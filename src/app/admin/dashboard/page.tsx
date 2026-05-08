@@ -1,15 +1,18 @@
 import { db } from '@/lib/db';
 import Link from 'next/link';
-import { FolderOpen, Wrench, Image, ArrowRight, Zap } from 'lucide-react';
+import { FolderOpen, Wrench, Image, ArrowRight, Zap, Inbox, Tag } from 'lucide-react';
 import SeedButton from './_components/SeedButton';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboard() {
-  const [projectCount, serviceCount, mediaCount, projects] = await Promise.all([
+  const [projectCount, serviceCount, mediaCount, leadCount, newLeadCount, offerCount, projects] = await Promise.all([
     db.portfolioProject.count(),
     db.service.count(),
     db.mediaFile.count(),
+    db.lead.count(),
+    db.lead.count({ where: { status: 'NEW' } }),
+      db.offer.count({ where: { published: true } }),
     db.portfolioProject.findMany({ orderBy: { order: 'asc' }, take: 4 }),
   ]);
 
@@ -17,6 +20,15 @@ export default async function AdminDashboard() {
     { label: 'Proyectos', value: projectCount, icon: FolderOpen, href: '/admin/portfolio', color: '#00D4FF' },
     { label: 'Servicios', value: serviceCount, icon: Wrench, href: '/admin/services', color: '#8B5CF6' },
     { label: 'Archivos', value: mediaCount, icon: Image, href: '/admin/media', color: '#10B981' },
+    {
+      label: 'Leads',
+      value: leadCount,
+      badge: newLeadCount > 0 ? `${newLeadCount} nuevo${newLeadCount > 1 ? 's' : ''}` : null,
+      icon: Inbox,
+      href: '/admin/leads',
+      color: '#F59E0B',
+    },
+    { label: 'Ofertas', value: offerCount, icon: Tag, href: '/admin/offers', color: '#8B5CF6', badge: null },
   ];
 
   return (
@@ -32,26 +44,34 @@ export default async function AdminDashboard() {
       )}
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {stats.map(({ label, value, icon: Icon, href, color }) => (
-          <Link
-            key={label}
-            href={href}
-            className="group bg-[#111111] border border-white/10 rounded-xl p-5 flex items-center gap-4 hover:border-white/20 transition-all"
-          >
-            <div
-              className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-              style={{ backgroundColor: `${color}18`, border: `1px solid ${color}30` }}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+        {stats.map(({ label, value, icon: Icon, href, color, ...rest }) => {
+          const badge = (rest as { badge?: string | null }).badge;
+          return (
+            <Link
+              key={label}
+              href={href}
+              className="group bg-[#111111] border border-white/10 rounded-xl p-5 flex items-center gap-4 hover:border-white/20 transition-all relative overflow-hidden"
             >
-              <Icon size={20} style={{ color }} />
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-white">{value}</div>
-              <div className="text-xs text-[#71717A]">{label}</div>
-            </div>
-            <ArrowRight size={16} className="ml-auto text-[#52525B] group-hover:text-[#A1A1AA] transition-colors" />
-          </Link>
-        ))}
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
+                style={{ backgroundColor: `${color}18`, border: `1px solid ${color}30` }}
+              >
+                <Icon size={20} style={{ color }} />
+              </div>
+              <div className="min-w-0">
+                <div className="text-2xl font-bold text-white">{value}</div>
+                <div className="text-xs text-[#71717A]">{label}</div>
+                {badge && (
+                  <span className="inline-block mt-1 px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-[#F59E0B18] text-[#F59E0B]">
+                    {badge}
+                  </span>
+                )}
+              </div>
+              <ArrowRight size={16} className="ml-auto text-[#52525B] group-hover:text-[#A1A1AA] transition-colors shrink-0" />
+            </Link>
+          );
+        })}
       </div>
 
       {/* Recent projects */}

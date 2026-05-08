@@ -1,15 +1,16 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations, useLocale } from 'next-intl';
 import { 
   Mail, 
   Phone, 
   MapPin, 
   Send, 
   MessageSquare,
-  CheckCircle 
+  CheckCircle,
+  ChevronDown,
 } from 'lucide-react';
 import { LineReveal } from '../ui/TextReveal';
 
@@ -21,9 +22,26 @@ interface ContactOverrides {
 
 export default function ContactSection({ overrides }: { overrides?: ContactOverrides }) {
   const t = useTranslations('contact');
+  const locale = useLocale();
   const emailValue = overrides?.email || t('info.email.value');
   const whatsappValue = overrides?.whatsapp || t('info.whatsapp.value');
   const locationValue = overrides?.location || t('info.location.value');
+
+  const projectTypes = locale === 'es'
+    ? [
+        { value: 'starter-digital',           label: 'Starter Digital',              price: 'S/ 500',        description: 'Landing page para captar leads' },
+        { value: 'web-corporativa',            label: 'Web Corporativa',              price: 'S/ 700 – 900',  description: 'Presencia digital profesional' },
+        { value: 'web-corporativa-pro',        label: 'Web Corporativa PRO + CMS',    price: 'S/ 900 – 1200', description: 'Con panel autoadministrable' },
+        { value: 'negocio-digital-completo',   label: 'Negocio Digital Completo',     price: 'S/ 1200+',      description: 'Paquete integral completo' },
+        { value: 'otro',                       label: 'Otro / No lo tengo claro aún', price: null,            description: '' },
+      ]
+    : [
+        { value: 'starter-digital',           label: 'Starter Digital',         price: 'S/ 500',        description: 'Landing page to capture leads' },
+        { value: 'web-corporativa',            label: 'Corporate Website',        price: 'S/ 700 – 900',  description: 'Professional digital presence' },
+        { value: 'web-corporativa-pro',        label: 'PRO Corporate + CMS',      price: 'S/ 900 – 1200', description: 'With self-managed panel' },
+        { value: 'negocio-digital-completo',   label: 'Complete Digital Business', price: 'S/ 1200+',      description: 'Full all-in-one package' },
+        { value: 'otro',                       label: 'Other / Not sure yet',     price: null,            description: '' },
+      ];
   
   const contactInfo = [
     {
@@ -54,6 +72,31 @@ export default function ContactSection({ overrides }: { overrides?: ContactOverr
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const selectRef = useRef<HTMLDivElement>(null);
+
+  // Pre-fill plan from URL query param (e.g. ?plan=starter-digital)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get('plan');
+    if (plan) setFormData(prev => ({ ...prev, projectType: plan }));
+  }, []);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (selectRef.current && !selectRef.current.contains(e.target as Node)) {
+        setIsSelectOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  const handleSelectOption = useCallback((value: string) => {
+    setFormData(prev => ({ ...prev, projectType: value }));
+    setIsSelectOpen(false);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -242,25 +285,103 @@ export default function ContactSection({ overrides }: { overrides?: ContactOverr
                   />
                 </div>
 
-                {/* Project Type */}
+                {/* Project Type — Custom Dropdown */}
                 <div>
                   <label className="block text-sm text-[#A1A1AA] mb-2">
                     {t('form.projectType')} *
                   </label>
-                  <select
-                    name="projectType"
-                    value={formData.projectType}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 rounded-xl bg-[#141414] border border-white/10 text-white focus:outline-none focus:border-[#00D4FF]/50 transition-colors duration-300 cursor-pointer"
-                  >
-                    <option value="" className="bg-[#141414]">{t('form.projectTypePlaceholder')}</option>
-                    {['Landing Page', 'Sitio Web', 'E-commerce', 'App Web', 'Integración IA', 'Otro'].map((type) => (
-                      <option key={type} value={type} className="bg-[#141414]">
-                        {type}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative" ref={selectRef}>
+                    {/* Hidden native input for form validation */}
+                    <input type="hidden" name="projectType" value={formData.projectType} required />
+
+                    {/* Trigger */}
+                    <button
+                      type="button"
+                      onClick={() => setIsSelectOpen(prev => !prev)}
+                      className={`w-full px-4 py-3 rounded-xl bg-[#141414] border text-left flex items-center justify-between gap-2 transition-all duration-200 focus:outline-none ${
+                        isSelectOpen
+                          ? 'border-[#00D4FF]/60 shadow-[0_0_0_3px_rgba(0,212,255,0.08)]'
+                          : 'border-white/10 hover:border-white/20'
+                      }`}
+                    >
+                      {formData.projectType ? (
+                        <div className="flex items-center justify-between flex-1 gap-2 min-w-0">
+                          <span className="text-white text-sm truncate">
+                            {projectTypes.find(p => p.value === formData.projectType)?.label}
+                          </span>
+                          {projectTypes.find(p => p.value === formData.projectType)?.price && (
+                            <span className="text-[#00D4FF] text-xs font-medium shrink-0">
+                              {projectTypes.find(p => p.value === formData.projectType)?.price}
+                            </span>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-[#71717A] text-sm">{t('form.projectTypePlaceholder')}</span>
+                      )}
+                      <motion.span
+                        animate={{ rotate: isSelectOpen ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="shrink-0"
+                      >
+                        <ChevronDown size={16} className="text-[#71717A]" />
+                      </motion.span>
+                    </button>
+
+                    {/* Dropdown */}
+                    <AnimatePresence>
+                      {isSelectOpen && (
+                        <motion.ul
+                          initial={{ opacity: 0, y: -6, scale: 0.98 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -6, scale: 0.98 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute z-30 top-full mt-2 w-full rounded-xl bg-[#1C1C1C] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden"
+                        >
+                          {projectTypes.map((option, i) => {
+                            const isSelected = formData.projectType === option.value;
+                            return (
+                              <li key={option.value}>
+                                <button
+                                  type="button"
+                                  onClick={() => handleSelectOption(option.value)}
+                                  className={`w-full px-4 py-3 flex items-center justify-between gap-3 text-left transition-colors duration-150 ${
+                                    i !== 0 ? 'border-t border-white/6' : ''
+                                  } ${
+                                    isSelected
+                                      ? 'bg-[#00D4FF]/10'
+                                      : 'hover:bg-white/5'
+                                  }`}
+                                >
+                                  <div className="min-w-0">
+                                    <p className={`text-sm font-medium leading-tight ${
+                                      isSelected ? 'text-[#00D4FF]' : 'text-white'
+                                    }`}>
+                                      {option.label}
+                                    </p>
+                                    {option.description && (
+                                      <p className="text-xs text-[#71717A] mt-0.5">{option.description}</p>
+                                    )}
+                                  </div>
+                                  <div className="flex items-center gap-2 shrink-0">
+                                    {option.price && (
+                                      <span className={`text-xs font-semibold ${
+                                        isSelected ? 'text-[#00D4FF]' : 'text-[#A1A1AA]'
+                                      }`}>
+                                        {option.price}
+                                      </span>
+                                    )}
+                                    {isSelected && (
+                                      <CheckCircle size={14} className="text-[#00D4FF]" />
+                                    )}
+                                  </div>
+                                </button>
+                              </li>
+                            );
+                          })}
+                        </motion.ul>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </div>
               </div>
 

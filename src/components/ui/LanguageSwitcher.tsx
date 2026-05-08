@@ -45,7 +45,7 @@ export default function LanguageSwitcher({ locale: propLocale }: LanguageSwitche
         whileTap={{ scale: 0.95 }}
         disabled={isPending}
       >
-        <span className="text-lg">{currentLanguage?.flag}</span>
+        {/* <span className="text-lg">{currentLanguage?.flag}</span> */}
         <span className="text-sm font-medium text-white/80">{currentLanguage?.label}</span>
         <motion.svg
           xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@ export default function LanguageSwitcher({ locale: propLocale }: LanguageSwitche
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute top-full right-0 mt-2 w-32 rounded-lg bg-[#0A0A0A] border border-white/10 shadow-xl z-50 overflow-hidden"
+            className="absolute top-full right-0 mt-2 w-14 rounded-lg bg-background border border-white/10 shadow-xl z-50 overflow-hidden"
           >
             {otherLanguages.map((lang) => (
               <button
@@ -83,7 +83,7 @@ export default function LanguageSwitcher({ locale: propLocale }: LanguageSwitche
                 className="w-full flex items-center gap-2 px-4 py-3 hover:bg-white/5 transition-colors text-left"
                 disabled={isPending}
               >
-                <span className="text-lg">{lang.flag}</span>
+                {/* <span className="text-lg">{lang.flag}</span> */}
                 <span className="text-sm font-medium text-white/80">{lang.label}</span>
               </button>
             ))}

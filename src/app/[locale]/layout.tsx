@@ -115,6 +115,7 @@ export default async function LocaleLayout({
     technologies: t('technologies'),
     process: t('process'),
     contact: t('contact'),
+    offers: t('offers'),
     startProject: t('startProject'),
   };
 

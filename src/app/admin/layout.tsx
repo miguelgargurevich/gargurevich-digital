@@ -13,10 +13,14 @@ import {
   Menu,
   Globe,
   FileText,
+  Inbox,
+  Tag,
 } from 'lucide-react';
 
 const NAV = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/leads', label: 'Leads', icon: Inbox },
+    { href: '/admin/offers', label: 'Ofertas', icon: Tag },
   { href: '/admin/portfolio', label: 'Portfolio', icon: FolderOpen },
   { href: '/admin/services', label: 'Servicios', icon: Wrench },
   { href: '/admin/content', label: 'Contenido', icon: FileText },

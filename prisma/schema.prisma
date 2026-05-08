@@ -60,3 +60,48 @@ model MediaFile {
   mimeType  String
   createdAt DateTime @default(now())
 }
+
+model Lead {
+  id          String    @id @default(cuid())
+  name        String
+  email       String
+  company     String?
+  projectType String
+  message     String    @db.Text
+  status      LeadStatus @default(NEW)
+  notes       String?   @db.Text
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  IN_PROGRESS
+  CLOSED_WON
+  CLOSED_LOST
+}
+
+model Offer {
+  id            String   @id @default(cuid())
+  planKey       String   @unique
+  icon          String   @default("zap")
+  nameEs        String
+  nameEn        String
+  price         String
+  priceNoteEs   String
+  priceNoteEn   String
+  descriptionEs String   @db.Text
+  descriptionEn String   @db.Text
+  itemsEs       String[]
+  itemsEn       String[]
+  ctaEs         String   @default("Quiero este plan")
+  ctaEn         String   @default("I want this plan")
+  forWhoEs      String
+  forWhoEn      String
+  popular       Boolean  @default(false)
+  order         Int      @default(0)
+  published     Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}

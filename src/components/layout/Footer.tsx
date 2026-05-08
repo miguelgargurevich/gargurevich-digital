@@ -74,7 +74,7 @@ export default function Footer({ translations: t, locale }: FooterProps) {
             viewport={{ once: true }}
             className="lg:col-span-1"
           >
-            <Link href="/" className="inline-block mb-6">
+            <Link href={`/${locale}`} className="inline-block mb-6">
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10 rounded-xl bg-linear-to-br from-[#00D4FF] to-[#8B5CF6] flex items-center justify-center">
                   <span className="text-white">G</span>

@@ -14,6 +14,7 @@ interface HeaderProps {
     technologies: string;
     process: string;
     contact: string;
+    offers: string;
     startProject: string;
   };
   locale?: string;
@@ -26,17 +27,21 @@ export default function Header({ translations, locale }: HeaderProps) {
     technologies: 'Technologies',
     process: 'Process',
     contact: 'Contact',
+    offers: 'Offers',
     startProject: 'Start Project',
   };
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const currentLocale = locale || 'en';
+  const localizedHome = `/${currentLocale}`;
 
   const navLinks = [
-    { name: t.services, href: '#servicios' },
-    { name: t.portfolio, href: '#portafolio' },
-    { name: t.technologies, href: '#tech' },
-    { name: t.process, href: '#proceso' },
-    { name: t.contact, href: '#contacto' },
+    { name: t.services, href: `${localizedHome}#servicios` },
+    { name: t.portfolio, href: `${localizedHome}#portafolio` },
+    { name: t.technologies, href: `${localizedHome}#tech` },
+    { name: t.process, href: `${localizedHome}#proceso` },
+    { name: t.offers, href: `${localizedHome}/ofertas` },
+    { name: t.contact, href: `${localizedHome}#contacto` },
   ];
 
   useEffect(() => {
@@ -59,7 +64,7 @@ export default function Header({ translations, locale }: HeaderProps) {
       >
         <div className="max-w-350 mx-auto px-8 sm:px-10 md:px-12 lg:px-16 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="relative z-10">
+          <Link href={localizedHome} className="relative z-10">
             <motion.div
               className="flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
@@ -101,7 +106,7 @@ export default function Header({ translations, locale }: HeaderProps) {
           <div className="hidden md:flex items-center gap-4">
             <LanguageSwitcher locale={locale} />
             <MagneticButton
-              href="#contacto"
+              href={`${localizedHome}#contacto`}
               variant="primary"
               size="sm"
               icon={<ArrowUpRight size={16} />}
@@ -184,7 +189,7 @@ export default function Header({ translations, locale }: HeaderProps) {
                 className="mt-8"
               >
                 <MagneticButton
-                  href="#contacto"
+                  href={`${localizedHome}#contacto`}
                   variant="primary"
                   size="lg"
                   onClick={() => setIsMobileMenuOpen(false)}
