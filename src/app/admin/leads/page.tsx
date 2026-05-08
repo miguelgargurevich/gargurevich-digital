@@ -55,8 +55,6 @@ const ALL_STATUSES = Object.keys(STATUS_META) as LeadStatus[];
 export default function LeadsPage() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [total, setTotal] = useState(0);
-  const [pageIndex, setPageIndex] = useState(0);
-  const [cursorHistory, setCursorHistory] = useState<Array<string | null>>([null]);
   const [pageSize, setPageSize] = useState(20);
   const [hasMore, setHasMore] = useState(false);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
@@ -66,42 +64,49 @@ export default function LeadsPage() {
   const [sortField, setSortField] = useState<SortField>('createdAt');
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [selected, setSelected] = useState<Lead | null>(null);
   const [notes, setNotes] = useState('');
   const [saving, setSaving] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
-  const currentCursor = cursorHistory[pageIndex] ?? null;
-  const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
       setSearch(searchInput.trim());
-      setPageIndex(0);
-      setCursorHistory([null]);
     }, 250);
 
     return () => window.clearTimeout(timeoutId);
   }, [searchInput]);
 
-  const fetchLeads = useCallback(async () => {
-    setLoading(true);
+  const fetchLeads = useCallback(async (cursor?: string | null, append = false) => {
+    if (append) {
+      setLoadingMore(true);
+    } else {
+      setLoading(true);
+    }
+
     const qs = new URLSearchParams({ limit: String(pageSize) });
     if (filterStatus) qs.set('status', filterStatus);
     if (search) qs.set('q', search);
     qs.set('sort', sortField);
     qs.set('order', sortOrder);
-    if (currentCursor) qs.set('cursor', currentCursor);
+    if (cursor) qs.set('cursor', cursor);
+
     const res = await fetch(`/api/admin/leads?${qs}`);
     const data = await res.json();
-    setLeads(data.leads ?? []);
+    setLeads((prev) => (append ? [...prev, ...(data.leads ?? [])] : (data.leads ?? [])));
     setTotal(data.total ?? 0);
     setPageSize(data.limit ?? 20);
     setHasMore(Boolean(data.hasMore));
     setNextCursor(data.nextCursor ?? null);
     setLoading(false);
-  }, [currentCursor, filterStatus, pageSize, search, sortField, sortOrder]);
+    setLoadingMore(false);
+  }, [filterStatus, pageSize, search, sortField, sortOrder]);
 
-  useEffect(() => { fetchLeads(); }, [fetchLeads]);
+  useEffect(() => {
+    setNextCursor(null);
+    fetchLeads(null, false);
+  }, [fetchLeads]);
 
   const updateStatus = async (id: string, status: LeadStatus) => {
     await fetch(`/api/admin/leads/${id}`, {
@@ -167,8 +172,6 @@ export default function LeadsPage() {
               value={filterStatus}
               onChange={e => {
                 setFilterStatus(e.target.value as LeadStatus | '');
-                setPageIndex(0);
-                setCursorHistory([null]);
               }}
               className="appearance-none bg-[#111111] border border-white/10 rounded-lg px-3 py-2 pr-8 text-sm text-white focus:outline-none focus:border-[#00D4FF]/50"
             >
@@ -187,8 +190,6 @@ export default function LeadsPage() {
                 const [field, order] = e.target.value.split(':') as [SortField, SortOrder];
                 setSortField(field);
                 setSortOrder(order);
-                setPageIndex(0);
-                setCursorHistory([null]);
               }}
               className="appearance-none bg-[#111111] border border-white/10 rounded-lg px-3 py-2 pl-9 pr-8 text-sm text-white focus:outline-none focus:border-[#00D4FF]/50"
             >
@@ -204,7 +205,7 @@ export default function LeadsPage() {
           </div>
 
           <button
-            onClick={fetchLeads}
+            onClick={() => fetchLeads(null, false)}
             className="p-2 bg-[#111111] border border-white/10 rounded-lg hover:border-white/20 transition-colors text-[#71717A] hover:text-white"
           >
             <RefreshCw size={15} />
@@ -281,36 +282,19 @@ export default function LeadsPage() {
             )}
           </div>
 
-          {/* Pagination */}
-          {total > pageSize && (
-            <div className="flex items-center justify-between mt-3 text-sm text-[#71717A]">
-              <span>Página {pageIndex + 1} de {totalPages}</span>
-              <div className="flex gap-2">
-                <button
-                  disabled={pageIndex <= 0}
-                  onClick={() => setPageIndex((value) => Math.max(0, value - 1))}
-                  className="px-3 py-1.5 bg-[#111111] border border-white/10 rounded-lg disabled:opacity-40 hover:border-white/20 transition-colors"
-                >
-                  Anterior
-                </button>
-                <button
-                  disabled={!hasMore || !nextCursor}
-                  onClick={() => {
-                    if (!nextCursor) return;
-                    setCursorHistory((history) => {
-                      const nextHistory = history.slice(0, pageIndex + 1);
-                      nextHistory.push(nextCursor);
-                      return nextHistory;
-                    });
-                    setPageIndex((value) => value + 1);
-                  }}
-                  className="px-3 py-1.5 bg-[#111111] border border-white/10 rounded-lg disabled:opacity-40 hover:border-white/20 transition-colors"
-                >
-                  Siguiente
-                </button>
-              </div>
-            </div>
-          )}
+          <div className="mt-3 flex flex-col items-center gap-3 text-sm text-[#71717A]">
+            <span>Mostrando {leads.length} de {total} leads</span>
+            {hasMore && nextCursor && (
+              <button
+                onClick={() => fetchLeads(nextCursor, true)}
+                disabled={loadingMore}
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-[#111111] px-4 py-2 text-sm text-white hover:border-white/20 transition-colors disabled:opacity-50"
+              >
+                {loadingMore ? <Loader2 size={15} className="animate-spin" /> : null}
+                {loadingMore ? 'Cargando...' : 'Cargar más'}
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Detail panel */}
