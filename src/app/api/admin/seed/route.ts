@@ -391,7 +391,7 @@ const OFFERS_SEED = [
     ],
     ctaEs: 'Agenda una llamada',
     ctaEn: 'Schedule a call',
-    forWhoEs: 'Ideal para: negocios que ya tienen web pero quieren profesionalismo con dominio y correos propios.'
+    forWhoEs: 'Ideal para: negocios que ya tienen web pero quieren profesionalismo con dominio y correos propios.',
     forWhoEn: 'Best for: businesses that already have a website but want professionalism with their own domain and emails.',
   },
 ];
