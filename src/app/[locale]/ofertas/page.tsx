@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowUpRight, CheckCircle2, MessageCircle, Sparkles, Star, Zap } from 'lucide-react';
+import { ArrowUpRight, CheckCircle2, Sparkles, Star, Zap } from 'lucide-react';
 import { db } from '@/lib/db';
 import { setRequestLocale } from 'next-intl/server';
 
@@ -182,18 +182,9 @@ export default async function OffersPage({ params }: { params: Promise<{ locale:
 
         {/* Bottom CTAs */}
         <div className="flex flex-col sm:flex-row gap-3">
-          <a
-            href="https://wa.me/51966918363"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#22C55E] text-white px-5 py-3 font-medium hover:bg-[#16A34A] transition-colors"
-          >
-            <MessageCircle size={18} />
-            {ui.ctaPrimary}
-          </a>
           <Link
             href={`/${locale}`}
-            className="inline-flex items-center justify-center rounded-2xl border border-white/10 px-5 py-3 text-white hover:bg-white/5 transition-colors"
+            className="inline-flex items-center justify-center rounded-2xl border border-white/10 px-5 py-3 text-white hover:bg-white/5 transition-colors w-full sm:w-auto"
           >
             {ui.ctaSecondary}
           </Link>
