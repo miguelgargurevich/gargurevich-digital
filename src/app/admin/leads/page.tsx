@@ -16,6 +16,8 @@ import {
   RefreshCw,
   Search,
   ArrowUpDown,
+  ArrowUp,
+  ArrowDown,
 } from 'lucide-react';
 
 type LeadStatus = 'NEW' | 'CONTACTED' | 'IN_PROGRESS' | 'CLOSED_WON' | 'CLOSED_LOST';
@@ -144,6 +146,26 @@ export default function LeadsPage() {
     setNotes(lead.notes ?? '');
   };
 
+  const handleSort = (field: SortField) => {
+    if (sortField === field) {
+      setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+      return;
+    }
+
+    setSortField(field);
+    setSortOrder(field === 'createdAt' ? 'desc' : 'asc');
+  };
+
+  const SortIndicator = ({ field }: { field: SortField }) => {
+    if (sortField !== field) {
+      return <ArrowUpDown size={13} className="text-[#52525B]" />;
+    }
+
+    return sortOrder === 'asc'
+      ? <ArrowUp size={13} className="text-[#00D4FF]" />
+      : <ArrowDown size={13} className="text-[#00D4FF]" />;
+  };
+
   return (
     <div className="space-y-6 max-w-6xl">
       {/* Header */}
@@ -183,27 +205,6 @@ export default function LeadsPage() {
             <ChevronDown size={14} className="absolute right-2 top-1/2 -translate-y-1/2 text-[#71717A] pointer-events-none" />
           </div>
 
-          <div className="relative">
-            <select
-              value={`${sortField}:${sortOrder}`}
-              onChange={(e) => {
-                const [field, order] = e.target.value.split(':') as [SortField, SortOrder];
-                setSortField(field);
-                setSortOrder(order);
-              }}
-              className="appearance-none bg-[#111111] border border-white/10 rounded-lg px-3 py-2 pl-9 pr-8 text-sm text-white focus:outline-none focus:border-[#00D4FF]/50"
-            >
-              <option value="createdAt:desc">Fecha: más recientes</option>
-              <option value="createdAt:asc">Fecha: más antiguos</option>
-              <option value="name:asc">Nombre: A-Z</option>
-              <option value="name:desc">Nombre: Z-A</option>
-              <option value="status:asc">Estado: A-Z</option>
-              <option value="status:desc">Estado: Z-A</option>
-            </select>
-            <ArrowUpDown size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#71717A] pointer-events-none" />
-            <ChevronDown size={14} className="absolute right-2 top-1/2 -translate-y-1/2 text-[#71717A] pointer-events-none" />
-          </div>
-
           <button
             onClick={() => fetchLeads(null, false)}
             className="p-2 bg-[#111111] border border-white/10 rounded-lg hover:border-white/20 transition-colors text-[#71717A] hover:text-white"
@@ -231,10 +232,37 @@ export default function LeadsPage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-white/10 text-left">
-                    <th className="px-4 py-3 text-[#71717A] font-medium">Contacto</th>
+                    <th className="px-4 py-3 text-[#71717A] font-medium">
+                      <button
+                        type="button"
+                        onClick={() => handleSort('name')}
+                        className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
+                      >
+                        Contacto
+                        <SortIndicator field="name" />
+                      </button>
+                    </th>
                     <th className="px-4 py-3 text-[#71717A] font-medium hidden md:table-cell">Plan</th>
-                    <th className="px-4 py-3 text-[#71717A] font-medium hidden lg:table-cell">Fecha</th>
-                    <th className="px-4 py-3 text-[#71717A] font-medium">Estado</th>
+                    <th className="px-4 py-3 text-[#71717A] font-medium hidden lg:table-cell">
+                      <button
+                        type="button"
+                        onClick={() => handleSort('createdAt')}
+                        className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
+                      >
+                        Fecha
+                        <SortIndicator field="createdAt" />
+                      </button>
+                    </th>
+                    <th className="px-4 py-3 text-[#71717A] font-medium">
+                      <button
+                        type="button"
+                        onClick={() => handleSort('status')}
+                        className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
+                      >
+                        Estado
+                        <SortIndicator field="status" />
+                      </button>
+                    </th>
                     <th className="px-4 py-3"></th>
                   </tr>
                 </thead>
