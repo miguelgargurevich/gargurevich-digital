@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { ArrowUpRight, CheckCircle2, Sparkles, Star, Zap, ArrowRight } from 'lucide-react';
 import { db } from '@/lib/db';
-import type { Offer } from '@prisma/client';
+
+type OfferRow = Awaited<ReturnType<typeof db.offer.findMany>>[number];
 
 const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   zap: Zap,
@@ -34,7 +35,7 @@ interface Props {
   locale: string;
 }
 
-async function getPublishedOffers(): Promise<Offer[]> {
+async function getPublishedOffers(): Promise<OfferRow[]> {
   try {
     return await db.offer.findMany({
       where: { published: true },
