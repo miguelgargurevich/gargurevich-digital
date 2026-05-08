@@ -12,22 +12,22 @@ const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: 
 
 const UI_LABELS = {
   es: {
-    badge: 'Planes y Precios',
-    title: 'Planes claros',
+    badge: 'Mis Servicios',
+    title: 'Soluciones claras',
     titleHighlight: 'para tu negocio',
-    subtitle: 'Sin letra chica ni costos ocultos. Elige el plan que mejor encaja con lo que necesitas.',
+    subtitle: 'Paquetes pensados para arrancar rápido, vender mejor y mantener tu presencia digital sin enredos.',
     viewAll: 'Ver todos los planes',
     popularBadge: 'Más popular',
-    note: '*Precios referenciales. El costo final puede variar según alcance y funcionalidades.',
+    note: '*El dominio es tuyo desde el día 1. Renovación anual aparte según el plan. Puedo gestionarlo por ti.',
   },
   en: {
-    badge: 'Plans & Pricing',
-    title: 'Clear plans',
+    badge: 'My Services',
+    title: 'Clear solutions',
     titleHighlight: 'for your business',
-    subtitle: 'No fine print, no hidden costs. Pick the plan that fits your needs best.',
+    subtitle: 'Packages designed to launch fast, sell better, and keep your digital presence running smoothly.',
     viewAll: 'View all plans',
     popularBadge: 'Most popular',
-    note: '*Reference pricing. Final cost may vary based on scope and features.',
+    note: '*The domain is yours from day one. Annual renewal is separate depending on the plan. I can manage it for you.',
   },
 };
 

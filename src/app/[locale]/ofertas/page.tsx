@@ -14,29 +14,43 @@ const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: 
 
 const UI_LABELS = {
   es: {
-    metaTitle: 'Ofertas | Gargurevich Digital',
-    metaDescription: 'Planes web claros y vendibles: Landing, Web Corporativa y CMS para negocios que quieren vender mejor y crecer.',
-    badge: 'Paquetes disponibles',
+    metaTitle: 'Mis Servicios | Gargurevich Digital',
+    metaDescription: 'Planes claros para negocios que quieren vender mejor: Google Business, landing WhatsApp, web editable, web corporativa y mantenimiento.',
+    badge: 'Mis Servicios',
     title: 'Una web que te genera clientes, no solo visitas',
-    subtitle: 'Elige el plan que mejor encaja con tu negocio. Sin letra chica, sin costos ocultos.',
+    subtitle: 'Elige el plan que mejor encaja con tu negocio. Sin letra chica, con costos claros desde el inicio.',
     packagesTitle: 'Elige tu plan',
     popularBadge: 'Más popular',
-    ctaPrimary: 'Hablar por WhatsApp',
     ctaSecondary: 'Volver al inicio',
-    note: '*Precios referenciales en soles. El costo final puede variar según alcance, tiempos y funcionalidades.',
+    note: 'El dominio es tuyo desde el día 1. Yo solo te ayudo a registrarlo y renovarlo si lo necesitas.',
+    summaryTitle: 'Resumen de costos después del primer año',
+    summaryDomainLabel: 'Renovación de dominio .pe o .com.pe',
+    summaryDomainValue: 'S/ 95 por año',
+    summaryHostLabel: 'Hosting si no tienes mensualidad activa',
+    summaryHostValue: 'S/ 20 - 30/mes',
+    summarySupportLabel: 'Mensualidad de soporte y mantenimiento',
+    summarySupportValue: 'S/ 19, 39, 79 o 149',
+    summaryOwnerNote: 'El dominio es tuyo desde el día 1. Si en el futuro quieres llevarte tu web a otro proveedor, no hay problema: te entrego todo.',
     empty: 'No hay planes disponibles en este momento.',
   },
   en: {
-    metaTitle: 'Offers | Gargurevich Digital',
-    metaDescription: 'Clear and sellable web packages: Landing, Corporate Website and CMS options built for growth and conversions.',
-    badge: 'Available packages',
+    metaTitle: 'My Services | Gargurevich Digital',
+    metaDescription: 'Clear plans for businesses that want to sell better: Google Business, WhatsApp landing page, editable website, corporate website and maintenance.',
+    badge: 'My Services',
     title: 'A website that brings clients, not just traffic',
-    subtitle: 'Pick the plan that fits your business best. No fine print, no hidden costs.',
+    subtitle: 'Pick the plan that fits your business best. No fine print, with clear costs from the start.',
     packagesTitle: 'Choose your plan',
     popularBadge: 'Most popular',
-    ctaPrimary: 'Chat on WhatsApp',
     ctaSecondary: 'Back to home',
-    note: '*Reference pricing in PEN. Final cost may vary based on scope, timeline and required features.',
+    note: 'The domain is yours from day one. I only help register and renew it if you need it.',
+    summaryTitle: 'Cost summary after the first year',
+    summaryDomainLabel: '.pe or .com.pe domain renewal',
+    summaryDomainValue: 'S/ 95 per year',
+    summaryHostLabel: 'Hosting if you do not have an active monthly plan',
+    summaryHostValue: 'S/ 20 - 30/mo',
+    summarySupportLabel: 'Support and maintenance monthly fee',
+    summarySupportValue: 'S/ 19, 39, 79 or 149',
+    summaryOwnerNote: 'The domain is yours from day one. If you ever want to move your site to another provider, no problem: I deliver everything.',
     empty: 'No plans available at the moment.',
   },
 };
@@ -178,6 +192,33 @@ export default async function OffersPage({ params }: { params: Promise<{ locale:
         {/* Note */}
         <div className="rounded-3xl border border-white/8 bg-white/3 px-6 py-5 text-sm text-[#71717A] mb-10">
           {ui.note}
+        </div>
+
+        {/* Yearly summary */}
+        <div className="rounded-3xl border border-white/10 bg-[#121212]/90 p-6 mb-10">
+          <div className="flex items-start justify-between gap-4 flex-col md:flex-row">
+            <div className="max-w-2xl">
+              <h3 className="text-xl font-semibold text-white">{ui.summaryTitle}</h3>
+              <p className="mt-2 text-sm text-[#A1A1AA]">
+                {ui.summaryOwnerNote}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-5 grid gap-3 md:grid-cols-3">
+            <div className="rounded-2xl border border-white/10 bg-white/3 p-4">
+              <p className="text-xs text-[#71717A]">{ui.summaryDomainLabel}</p>
+              <p className="mt-1 text-sm font-semibold text-white">{ui.summaryDomainValue}</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/3 p-4">
+              <p className="text-xs text-[#71717A]">{ui.summaryHostLabel}</p>
+              <p className="mt-1 text-sm font-semibold text-white">{ui.summaryHostValue}</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/3 p-4">
+              <p className="text-xs text-[#71717A]">{ui.summarySupportLabel}</p>
+              <p className="mt-1 text-sm font-semibold text-white">{ui.summarySupportValue}</p>
+            </div>
+          </div>
         </div>
 
         {/* Bottom CTAs */}
