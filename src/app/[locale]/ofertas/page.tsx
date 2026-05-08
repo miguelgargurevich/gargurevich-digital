@@ -230,7 +230,7 @@ export default async function OffersPage({ params }: { params: Promise<{ locale:
           </div>
 
           <div className="mt-6 overflow-x-auto">
-            <table className="w-full min-w-[640px] border-separate border-spacing-0 text-left">
+            <table className="w-full min-w-160 border-separate border-spacing-0 text-left">
               <thead>
                 <tr>
                   <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{ui.summaryColPlan}</th>
@@ -254,7 +254,7 @@ export default async function OffersPage({ params }: { params: Promise<{ locale:
           <div className="mt-8 pt-6 border-t border-white/8">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#71717A] mb-4">{ui.domainTableTitle}</p>
             <div className="overflow-x-auto">
-              <table className="min-w-[480px] border-separate border-spacing-0 text-left">
+              <table className="min-w-120 border-separate border-spacing-0 text-left">
                 <thead>
                   <tr>
                     <th className="border-b border-white/8 px-4 py-2 text-xs font-semibold text-[#52525B]">{ui.domainColExt}</th>
