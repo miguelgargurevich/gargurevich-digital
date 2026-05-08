@@ -29,7 +29,6 @@ const UI_LABELS = {
     summaryHostLabel: 'Hosting si no tienes mensualidad activa',
     summaryHostValue: 'S/ 20 - 30/mes',
     summarySupportLabel: 'Mensualidad de soporte y mantenimiento',
-    summarySupportValue: 'S/ 19, 39, 79 o 149',
     summaryOwnerNote: 'El dominio es tuyo desde el día 1. Si en el futuro quieres llevarte tu web a otro proveedor, no hay problema: te entrego todo.',
     empty: 'No hay planes disponibles en este momento.',
   },
@@ -49,7 +48,6 @@ const UI_LABELS = {
     summaryHostLabel: 'Hosting if you do not have an active monthly plan',
     summaryHostValue: 'S/ 20 - 30/mo',
     summarySupportLabel: 'Support and maintenance monthly fee',
-    summarySupportValue: 'S/ 19, 39, 79 or 149',
     summaryOwnerNote: 'The domain is yours from day one. If you ever want to move your site to another provider, no problem: I deliver everything.',
     empty: 'No plans available at the moment.',
   },
@@ -195,29 +193,49 @@ export default async function OffersPage({ params }: { params: Promise<{ locale:
         </div>
 
         {/* Yearly summary */}
-        <div className="rounded-3xl border border-white/10 bg-[#121212]/90 p-6 mb-10">
-          <div className="flex items-start justify-between gap-4 flex-col md:flex-row">
-            <div className="max-w-2xl">
-              <h3 className="text-xl font-semibold text-white">{ui.summaryTitle}</h3>
-              <p className="mt-2 text-sm text-[#A1A1AA]">
-                {ui.summaryOwnerNote}
-              </p>
-            </div>
+        <div className="rounded-3xl border border-white/10 bg-[#121212]/90 p-6 mb-10 overflow-hidden">
+          <div className="max-w-2xl">
+            <h3 className="text-xl font-semibold text-white">{ui.summaryTitle}</h3>
+            <p className="mt-2 text-sm text-[#A1A1AA]">
+              {ui.summaryOwnerNote}
+            </p>
           </div>
 
-          <div className="mt-5 grid gap-3 md:grid-cols-3">
-            <div className="rounded-2xl border border-white/10 bg-white/3 p-4">
-              <p className="text-xs text-[#71717A]">{ui.summaryDomainLabel}</p>
-              <p className="mt-1 text-sm font-semibold text-white">{ui.summaryDomainValue}</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/3 p-4">
-              <p className="text-xs text-[#71717A]">{ui.summaryHostLabel}</p>
-              <p className="mt-1 text-sm font-semibold text-white">{ui.summaryHostValue}</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/3 p-4">
-              <p className="text-xs text-[#71717A]">{ui.summarySupportLabel}</p>
-              <p className="mt-1 text-sm font-semibold text-white">{ui.summarySupportValue}</p>
-            </div>
+          <div className="mt-6 overflow-x-auto">
+            <table className="w-full min-w-[780px] border-separate border-spacing-0 text-left">
+              <thead>
+                <tr>
+                  <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{locale === 'es' ? 'Concepto' : 'Concept'}</th>
+                  <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{locale === 'es' ? 'Costo' : 'Cost'}</th>
+                  <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{locale === 'es' ? 'Quién paga' : 'Who pays'}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="align-top">
+                  <td className="border-b border-white/5 px-4 py-4 text-sm text-white">{ui.summaryDomainLabel}</td>
+                  <td className="border-b border-white/5 px-4 py-4 text-sm text-white font-medium">{ui.summaryDomainValue}</td>
+                  <td className="border-b border-white/5 px-4 py-4 text-sm text-[#D4D4D8]">{locale === 'es' ? 'Tú (puedo gestionarlo yo)' : 'You (I can manage it for you)'}</td>
+                </tr>
+                <tr className="align-top">
+                  <td className="border-b border-white/5 px-4 py-4 text-sm text-white">{ui.summaryHostLabel}</td>
+                  <td className="border-b border-white/5 px-4 py-4 text-sm text-white font-medium">{ui.summaryHostValue}</td>
+                  <td className="border-b border-white/5 px-4 py-4 text-sm text-[#D4D4D8]">{locale === 'es' ? 'Tú' : 'You'}</td>
+                </tr>
+                <tr className="align-top">
+                  <td className="px-4 py-4 text-sm text-white">{ui.summarySupportLabel}</td>
+                  <td className="px-4 py-4 text-sm text-white font-medium">
+                    {locale === 'es'
+                      ? 'Web que yo mismo edito: S/ 19/mes · Sueño Digital Completo: S/ 39/mes · Mantenimiento Web Perú: S/ 79 - 149/mes'
+                      : 'Website I Can Edit: S/ 19/mo · Complete Digital Dream: S/ 39/mo · Website Maintenance Peru: S/ 79 - 149/mo'}
+                  </td>
+                  <td className="px-4 py-4 text-sm text-[#D4D4D8]">
+                    {locale === 'es'
+                      ? 'Según el plan elegido'
+                      : 'Depending on the plan you choose'}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
