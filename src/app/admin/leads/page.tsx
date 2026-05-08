@@ -61,7 +61,6 @@ export default function LeadsPage() {
   const [hasMore, setHasMore] = useState(false);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [filterStatus, setFilterStatus] = useState<LeadStatus | ''>('');
-  const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
   const [sortField, setSortField] = useState<SortField>('createdAt');
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
@@ -72,13 +71,22 @@ export default function LeadsPage() {
   const [saving, setSaving] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
 
-  useEffect(() => {
-    const timeoutId = window.setTimeout(() => {
-      setSearch(searchInput.trim());
-    }, 250);
+  const normalizedSearch = searchInput.trim().toLowerCase();
+  const filteredLeads = normalizedSearch
+    ? leads.filter((lead) => {
+        const searchable = [
+          lead.name,
+          lead.email,
+          lead.company ?? '',
+          PLAN_LABELS[lead.projectType] ?? lead.projectType,
+          lead.message,
+        ]
+          .join(' ')
+          .toLowerCase();
 
-    return () => window.clearTimeout(timeoutId);
-  }, [searchInput]);
+        return searchable.includes(normalizedSearch);
+      })
+    : leads;
 
   const fetchLeads = useCallback(async (cursor?: string | null, append = false) => {
     if (append) {
@@ -89,7 +97,6 @@ export default function LeadsPage() {
 
     const qs = new URLSearchParams({ limit: String(pageSize) });
     if (filterStatus) qs.set('status', filterStatus);
-    if (search) qs.set('q', search);
     qs.set('sort', sortField);
     qs.set('order', sortOrder);
     if (cursor) qs.set('cursor', cursor);
@@ -103,7 +110,7 @@ export default function LeadsPage() {
     setNextCursor(data.nextCursor ?? null);
     setLoading(false);
     setLoadingMore(false);
-  }, [filterStatus, pageSize, search, sortField, sortOrder]);
+  }, [filterStatus, pageSize, sortField, sortOrder]);
 
   useEffect(() => {
     setNextCursor(null);
@@ -223,10 +230,12 @@ export default function LeadsPage() {
                 <Loader2 size={20} className="animate-spin mr-2" />
                 Cargando...
               </div>
-            ) : leads.length === 0 ? (
+            ) : filteredLeads.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 text-[#52525B]">
                 <Inbox size={40} className="mb-3 opacity-40" />
-                <p className="text-sm">No hay leads todavía</p>
+                <p className="text-sm">
+                  {leads.length === 0 ? 'No hay leads todavía' : 'No se encontraron resultados en los leads cargados'}
+                </p>
               </div>
             ) : (
               <table className="w-full text-sm">
@@ -267,7 +276,7 @@ export default function LeadsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {leads.map(lead => {
+                  {filteredLeads.map(lead => {
                     const sm = STATUS_META[lead.status];
                     const isActive = selected?.id === lead.id;
                     return (
@@ -311,7 +320,7 @@ export default function LeadsPage() {
           </div>
 
           <div className="mt-3 flex flex-col items-center gap-3 text-sm text-[#71717A]">
-            <span>Mostrando {leads.length} de {total} leads</span>
+            <span>Mostrando {filteredLeads.length} de {leads.length} cargados ({total} totales)</span>
             {hasMore && nextCursor && (
               <button
                 onClick={() => fetchLeads(nextCursor, true)}
