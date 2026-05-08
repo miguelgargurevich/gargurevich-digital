@@ -133,7 +133,7 @@ export default async function OffersPage({ params }: { params: Promise<{ locale:
           {offers.length === 0 ? (
             <p className="text-[#71717A]">{ui.empty}</p>
           ) : (
-            <div className="grid gap-5 md:grid-cols-2">
+            <div className="grid gap-5 md:grid-cols-3">
               {offers.map((offer) => {
                 const name = locale === 'es' ? offer.nameEs : offer.nameEn;
                 const description = locale === 'es' ? offer.descriptionEs : offer.descriptionEn;
