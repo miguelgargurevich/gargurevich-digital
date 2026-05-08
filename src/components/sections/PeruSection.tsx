@@ -24,8 +24,9 @@ const UI_LABELS = {
         description: 'Tu negocio con dirección peruana. Desde S/ 150/año con el plan Solo dominio + correos.',
       },
     ],
-    ctaText: 'Ver planes desde S/ 150',
-    ctaHref: '#ofertas',
+    ctaText: 'No sabes que plan elegir? Te ayudo por WhatsApp en 10 min',
+    ctaHref: 'https://wa.me/51966918363?text=Hola%2C%20no%20se%20que%20plan%20elegir.%20Me%20ayudas%20en%2010%20minutos%3F',
+    ctaExternal: true,
   },
   en: {
     badge: 'Built for Peru',
@@ -49,8 +50,9 @@ const UI_LABELS = {
         description: 'Give your business a Peruvian address. Starting from S/ 150/year with our Domain + Corporate Email plan.',
       },
     ],
-    ctaText: 'See plans from S/ 150',
-    ctaHref: '#ofertas',
+    ctaText: 'Not sure which plan to choose? I can help on WhatsApp in 10 min',
+    ctaHref: 'https://wa.me/51966918363?text=Hi%2C%20I%20am%20not%20sure%20which%20plan%20to%20choose.%20Can%20you%20help%20me%20in%2010%20minutes%3F',
+    ctaExternal: true,
   },
 };
 
@@ -118,7 +120,9 @@ export default function PeruSection({ locale }: Props) {
         {/* CTA */}
         <div className="flex justify-center">
           <Link
-            href={`/${locale}${ui.ctaHref}`}
+            href={ui.ctaHref}
+            target={ui.ctaExternal ? '_blank' : undefined}
+            rel={ui.ctaExternal ? 'noopener noreferrer' : undefined}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-linear-to-r from-[#8B5CF6] to-[#00D4FF] text-background font-semibold text-sm hover:shadow-[0_0_24px_rgba(139,92,246,0.35)] transition-all duration-200 group"
           >
             {ui.ctaText}
