@@ -331,7 +331,7 @@ const OFFERS_SEED = [
     popular: false,
     nameEs: 'Blindaje Digital',
     nameEn: 'Digital Shield',
-    price: 'S/ 79 – S/ 149',
+    price: 'Desde S/ 79',
     priceNoteEs: 'Mensual',
     priceNoteEn: 'Monthly',
     descriptionEs: 'Olvídate de tu web. La mantenemos viva, segura y optimizada 24/7.',
