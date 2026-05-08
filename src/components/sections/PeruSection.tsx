@@ -20,11 +20,11 @@ const UI_LABELS = {
       },
       {
         icon: 'globe',
-        title: 'Dominio .pe incluido en planes seleccionados',
-        description: 'Tu negocio con dirección peruana. Genera más confianza en clientes locales.',
+        title: 'Dominio .pe o .com.pe en todos nuestros planes',
+        description: 'Tu negocio con dirección peruana. Desde S/ 150/año con el plan Solo dominio + correos.',
       },
     ],
-    ctaText: 'Ver planes desde S/ 199',
+    ctaText: 'Ver planes desde S/ 150',
     ctaHref: '/ofertas',
   },
   en: {
@@ -45,11 +45,11 @@ const UI_LABELS = {
       },
       {
         icon: 'globe',
-        title: '.pe domain included in selected plans',
-        description: 'Give your business a Peruvian address. Build more trust with local customers.',
+        title: '.pe or .com.pe domain in all our plans',
+        description: 'Give your business a Peruvian address. Starting from S/ 150/year with our Domain + Corporate Email plan.',
       },
     ],
-    ctaText: 'See plans from S/ 199',
+    ctaText: 'See plans from S/ 150',
     ctaHref: '/offers',
   },
 };
