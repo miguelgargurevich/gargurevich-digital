@@ -9,6 +9,17 @@ import OffersSection from "@/components/sections/OffersSection";
 import PeruSection from "@/components/sections/PeruSection";
 import { db } from '@/lib/db';
 
+type HeroWordsVariant = 'aggressive' | 'premium' | 'balanced';
+
+const HERO_WORDS_ES: Record<HeroWordsVariant, string[]> = {
+  aggressive: ['clientes hoy', 'mas leads por WhatsApp', 'ventas cada semana', 'resultados medibles'],
+  premium: ['presencia premium', 'marca que inspira confianza', 'autoridad digital', 'crecimiento sostenible'],
+  balanced: ['clientes reales', 'mas mensajes por WhatsApp', 'ventas constantes', 'autoridad digital'],
+};
+
+// Switch here for quick A/B tests without touching the hero component.
+const HERO_WORDS_VARIANT_ES: HeroWordsVariant = 'balanced';
+
 async function getSiteSettings() {
   try {
     const rows = await db.siteSetting.findMany();
@@ -57,7 +68,7 @@ export default async function Home({
       ? 'Landing pages, webs corporativas y dominio con correos profesionales. Todo enfocado en que tu cliente te encuentre y te escriba. Desde S/299. Yape y Plin. Garantia de 15 dias.'
       : (settings['hero.subtitleEn'] || settings['hero.subtitleEs']),
     rotatingWords: locale === 'es'
-      ? ['clientes reales', 'mas mensajes por WhatsApp', 'ventas constantes', 'autoridad digital']
+      ? HERO_WORDS_ES[HERO_WORDS_VARIANT_ES]
       : undefined,
   };
 
