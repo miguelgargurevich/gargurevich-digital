@@ -6,6 +6,7 @@ import ProcessSection from "@/components/sections/ProcessSection";
 import StatsSection from "@/components/sections/StatsSection";
 import ContactSection from "@/components/sections/ContactSection";
 import OffersSection from "@/components/sections/OffersSection";
+import PeruSection from "@/components/sections/PeruSection";
 import { db } from '@/lib/db';
 
 async function getSiteSettings() {
@@ -74,6 +75,7 @@ export default async function Home({
       <TechStackSection />
       <ProcessSection />
         <OffersSection locale={locale} />
+        <PeruSection locale={locale} />
       <ContactSection overrides={contactOverrides} offers={offers} />
     </>
   );
