@@ -4,6 +4,7 @@ import PortfolioSection from "@/components/sections/PortfolioSection";
 import TechStackSection from "@/components/sections/TechStackSection";
 import ProcessSection from "@/components/sections/ProcessSection";
 import StatsSection from "@/components/sections/StatsSection";
+import { Suspense } from 'react';
 import ContactSection from "@/components/sections/ContactSection";
 import OffersSection from "@/components/sections/OffersSection";
 import PeruSection from "@/components/sections/PeruSection";
@@ -76,7 +77,9 @@ export default async function Home({
       <ProcessSection />
         <OffersSection locale={locale} />
         <PeruSection locale={locale} />
-      <ContactSection overrides={contactOverrides} offers={offers} />
+      <Suspense fallback={null}>
+        <ContactSection overrides={contactOverrides} offers={offers} />
+      </Suspense>
     </>
   );
 }

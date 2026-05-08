@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
 import { 
@@ -85,13 +86,13 @@ export default function ContactSection({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
 
-  // Pre-fill plan from URL query param (e.g. ?plan=starter-digital)
+  // Pre-fill plan from URL query param — reactive to URL changes within same page
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const plan = params.get('plan');
+    const plan = searchParams.get('plan');
     if (plan) setFormData(prev => ({ ...prev, projectType: plan }));
-  }, []);
+  }, [searchParams]);
 
   // Close dropdown on outside click
   useEffect(() => {
