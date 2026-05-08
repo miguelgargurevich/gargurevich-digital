@@ -90,11 +90,11 @@ export function StatCard({
       transition={{ duration: 0.3 }}
     >
       {/* Background glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#00D4FF]/5 to-[#8B5CF6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute inset-0 bg-linear-to-br from-[#00D4FF]/5 to-[#8B5CF6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       
       <div className="relative z-10">
         {icon && (
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-[#00D4FF]/20 to-[#8B5CF6]/20 flex items-center justify-center mb-4">
+          <div className="w-12 h-12 rounded-xl bg-linear-to-r from-[#00D4FF]/20 to-[#8B5CF6]/20 flex items-center justify-center mb-4">
             {icon}
           </div>
         )}
