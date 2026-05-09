@@ -391,7 +391,7 @@ const OFFERS_SEED = [
 const SITE_SETTINGS_SEED = [
   { key: 'hero.badgeEs', value: 'Presencia Digital para Negocios' },
   { key: 'hero.badgeEn', value: 'Premium Web Development' },
-  { key: 'hero.titleEs', value: 'Ayudo a negocios a convertir su presencia digital en.' },
+  { key: 'hero.titleEs', value: 'Ayudo a negocios a convertir su presencia digital en' },
   { key: 'hero.titleEn', value: 'I help Peruvian businesses convert their digital presence into real clients.' },
   { key: 'hero.subtitleEs', value: 'Landing pages, webs corporativas y automatización de leads. Todo enfocado en que tu cliente te encuentre, te escriba y te compre. Desde S/299. Yape y Plin. Garantía 15 días.' },
   { key: 'hero.subtitleEn', value: 'Landing pages, corporate websites, and lead automation. Focused on making your client find you, message you, and buy from you.' },
