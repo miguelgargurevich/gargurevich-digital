@@ -6,28 +6,14 @@ import { CheckCircle2, AlertCircle, Plus, RotateCcw } from 'lucide-react';
 import { SubscriptionStatus, RenewalPlan } from '@prisma/client';
 import { useAdminAlert } from '@/components/providers/AdminAlertProvider';
 
-const SERVICE_OPTIONS = [
-  'Landing Page',
-  'Sitio Web Corporativo',
-  'E-commerce',
-  'App Web',
-  'Integración IA',
-  'DevOps & Cloud',
-  'Mantenimiento 24/7',
-  'Dominio + Correos',
-  'Proyecto a medida',
-] as const;
-
-const TIER_OPTIONS = [
-  'Starter',
-  'Growth',
-  'Pro',
-  'Business',
-  'Enterprise',
-  'Mantenimiento',
-] as const;
-
 const CURRENCY_OPTIONS = ['PEN', 'USD', 'EUR'] as const;
+
+interface OfferOption {
+  id: string;
+  nameEs: string;
+  price: string;
+  renewalPrice: string | number | null;
+}
 
 interface SubscriptionDetail {
   id: string;
@@ -69,6 +55,8 @@ export default function SubscriptionDetail() {
   const [action, setAction] = useState('');
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
+  const [offers, setOffers] = useState<OfferOption[]>([]);
+  const [selectedOfferId, setSelectedOfferId] = useState('');
 
   const [businessName, setBusinessName] = useState('');
   const [slug, setSlug] = useState('');
@@ -81,6 +69,36 @@ export default function SubscriptionDetail() {
   const [billingContactName, setBillingContactName] = useState('');
   const [billingContactPhone, setBillingContactPhone] = useState('');
   const [notes, setNotes] = useState('');
+
+  const extractPrice = (priceStr: string): number => {
+    const match = priceStr.match(/\d+/);
+    return match ? parseInt(match[0], 10) : 0;
+  };
+
+  const loadOffers = async () => {
+    try {
+      const response = await fetch('/api/admin/offers', { cache: 'no-store' });
+      const data = await response.json();
+      setOffers(Array.isArray(data) ? data : []);
+    } catch (e) {
+      console.error(e);
+      push({ kind: 'error', title: 'No se pudieron cargar las ofertas', message: 'Revisa el catálogo de ofertas' });
+    }
+  };
+
+  const applyOfferDefaults = (offerId: string) => {
+    setSelectedOfferId(offerId);
+    const offer = offers.find((item) => item.id === offerId);
+    if (!offer) return;
+
+    const fallbackPrice = offer.price ? extractPrice(offer.price) : 0;
+    const renewal = offer.renewalPrice != null ? Number(offer.renewalPrice) : fallbackPrice;
+
+    setContractedService(offer.nameEs);
+    setServiceTier('Oferta');
+    setRecurringAmount(String(renewal));
+    setCurrency('PEN');
+  };
 
   const loadSubscription = async () => {
     setError('');
@@ -109,8 +127,17 @@ export default function SubscriptionDetail() {
   };
 
   useEffect(() => {
+    loadOffers();
     loadSubscription();
   }, [id]);
+
+  useEffect(() => {
+    if (!offers.length || !contractedService) return;
+    const matched = offers.find((offer) => offer.nameEs === contractedService);
+    if (matched) {
+      setSelectedOfferId(matched.id);
+    }
+  }, [offers, contractedService]);
 
   const handleSaveCommercialData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -296,28 +323,25 @@ export default function SubscriptionDetail() {
           <div>
             <label className="block text-xs text-[#71717A] mb-1">Servicio contratado</label>
             <select
-              value={contractedService}
-              onChange={(e) => setContractedService(e.target.value)}
+              value={selectedOfferId}
+              onChange={(e) => applyOfferDefaults(e.target.value)}
               className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00D4FF]/40"
             >
-              <option value="">Selecciona un servicio</option>
-              {SERVICE_OPTIONS.map((option) => (
-                <option key={option} value={option}>{option}</option>
+              <option value="">Selecciona una oferta</option>
+              {offers.map((offer) => (
+                <option key={offer.id} value={offer.id}>
+                  {offer.nameEs} ({offer.price})
+                </option>
               ))}
             </select>
           </div>
           <div>
             <label className="block text-xs text-[#71717A] mb-1">Plan / Tier</label>
-            <select
+            <input
               value={serviceTier}
-              onChange={(e) => setServiceTier(e.target.value)}
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/40"
-            >
-              <option value="">Selecciona un plan</option>
-              {TIER_OPTIONS.map((option) => (
-                <option key={option} value={option}>{option}</option>
-              ))}
-            </select>
+              readOnly
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white/70"
+            />
           </div>
           <div>
             <label className="block text-xs text-[#71717A] mb-1">Setup fee ({currency})</label>
@@ -332,7 +356,7 @@ export default function SubscriptionDetail() {
             />
           </div>
           <div>
-            <label className="block text-xs text-[#71717A] mb-1">Monto recurrente ({currency})</label>
+            <label className="block text-xs text-[#71717A] mb-1">Precio renovación (PEN)</label>
             <input
               type="number"
               min="0"
@@ -342,6 +366,7 @@ export default function SubscriptionDetail() {
               className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#10B981]/40"
               placeholder="0.00"
             />
+            <p className="text-[11px] text-[#71717A] mt-1">Se toma del campo renewalPrice de la oferta seleccionada.</p>
           </div>
           <div>
             <label className="block text-xs text-[#71717A] mb-1">Moneda</label>
