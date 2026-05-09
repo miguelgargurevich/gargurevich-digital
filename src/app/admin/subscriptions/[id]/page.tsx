@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { CheckCircle2, AlertCircle, Plus, RotateCcw } from 'lucide-react';
 import { SubscriptionStatus, RenewalPlan } from '@prisma/client';
@@ -75,7 +75,7 @@ export default function SubscriptionDetail() {
     return match ? parseInt(match[0], 10) : 0;
   };
 
-  const loadOffers = async () => {
+  const loadOffers = useCallback(async () => {
     try {
       const response = await fetch('/api/admin/offers', { cache: 'no-store' });
       const data = await response.json();
@@ -84,7 +84,7 @@ export default function SubscriptionDetail() {
       console.error(e);
       push({ kind: 'error', title: 'No se pudieron cargar las ofertas', message: 'Revisa el catálogo de ofertas' });
     }
-  };
+  }, [push]);
 
   const applyOfferDefaults = (offerId: string) => {
     setSelectedOfferId(offerId);
@@ -100,7 +100,7 @@ export default function SubscriptionDetail() {
     setCurrency('PEN');
   };
 
-  const loadSubscription = async () => {
+  const loadSubscription = useCallback(async () => {
     setError('');
     try {
       const r = await fetch(`/api/admin/subscriptions/${id}`, { cache: 'no-store' });
@@ -124,12 +124,12 @@ export default function SubscriptionDetail() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, push]);
 
   useEffect(() => {
     loadOffers();
     loadSubscription();
-  }, [id]);
+  }, [loadOffers, loadSubscription]);
 
   useEffect(() => {
     if (!offers.length || !contractedService) return;
