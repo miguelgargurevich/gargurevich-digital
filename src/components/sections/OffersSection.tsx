@@ -14,7 +14,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: 
 const UI_LABELS = {
   es: {
     badge: 'Mis Servicios',
-    authority: 'Ayudo a negocios a convertir su presencia digital en clientes.',
+    authority: 'Convierte tu presencia digital en clientes.',
     title: 'Convierte tu presencia digital en clientes',
     subtitle: 'No te vendemos "desarrollo web". Te ofrecemos sistemas para generar clientes online. Elige el plan que encaja con tu negocio.',
     packagesTitle: 'Elige tu plan',
@@ -52,7 +52,7 @@ const UI_LABELS = {
   },
   en: {
     badge: 'My Services',
-    authority: 'I help businesses convert their digital presence into real clients.',
+    authority: 'Convert your digital presence into real clients.',
     title: 'Convert your digital presence into real clients',
     subtitle: 'We don\'t sell you "web development". We offer systems to generate clients online. Pick the plan that fits your business.',
     packagesTitle: 'Choose your plan',
