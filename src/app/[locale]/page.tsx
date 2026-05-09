@@ -1,6 +1,5 @@
 import HeroSection from "@/components/sections/HeroSection";
 import AuthoritySection from "@/components/sections/AuthoritySection";
-import ServicesSection from "@/components/sections/ServicesSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
 import TechStackSection from "@/components/sections/TechStackSection";
 import ProcessSection from "@/components/sections/ProcessSection";
@@ -86,7 +85,6 @@ export default async function Home({
     <>
       <HeroSection overrides={heroOverrides} />
       <AuthoritySection />
-      <ServicesSection />
       <PortfolioSection />
       <TechStackSection />
       <ProcessSection />
