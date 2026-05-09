@@ -61,9 +61,9 @@ export default async function Home({
   const [settings, offers] = await Promise.all([getSiteSettings(), getPublishedOffers()]);
 
   const heroOverrides = {
-    badge: locale === 'es' ? 'Presencia Digital para Negocios Peruanos' : (settings['hero.badgeEn'] || settings['hero.badgeEs']),
+    badge: locale === 'es' ? 'Presencia Digital para Negocios' : (settings['hero.badgeEn'] || settings['hero.badgeEs']),
     title: locale === 'es'
-      ? 'Ayudo a negocios peruanos a convertir su presencia digital en clientes reales.'
+      ? 'Ayudo a negocios a convertir su presencia digital en clientes reales.'
       : (settings['hero.titleEn'] || settings['hero.titleEs']),
     subtitle: locale === 'es'
       ? 'Landing pages, webs corporativas y automatización de leads. Todo enfocado en que tu cliente te encuentre, te escriba y te compre. Desde S/299. Yape y Plin. Garantía 15 días.'

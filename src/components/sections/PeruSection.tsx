@@ -6,7 +6,7 @@ const UI_LABELS = {
     badge: 'Hecho para Perú',
     title: 'Para negocios',
     titleHighlight: 'de Perú',
-    subtitle: 'Entendemos cómo funciona el mercado peruano. Por eso trabajamos con las herramientas y los canales que tu cliente ya usa.',
+    subtitle: 'Entendemos cómo funciona el mercado. Por eso trabajamos con las herramientas y los canales que tu cliente ya usa.',
     features: [
       {
         icon: 'credit-card',
@@ -15,13 +15,13 @@ const UI_LABELS = {
       },
       {
         icon: 'message-circle',
-        title: 'Soporte por WhatsApp en horario peruano',
+        title: 'Soporte por WhatsApp',
         description: 'Respondemos de lunes a sábado de 9am a 7pm (hora Lima). Siempre hay alguien.',
       },
       {
         icon: 'globe',
         title: 'Dominio .pe o .com.pe en todos nuestros planes',
-        description: 'Tu negocio con dirección peruana. Desde S/ 150/año con el plan Solo dominio + correos.',
+        description: 'Tu negocio con dirección digital. Desde S/ 150/año con el plan Solo dominio + correos.',
       },
     ],
     ctaText: 'No sabes que plan elegir? Te ayudo por WhatsApp en 10 min',
