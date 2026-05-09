@@ -9,6 +9,8 @@ import OffersSection from "@/components/sections/OffersSection";
 import PeruSection from "@/components/sections/PeruSection";
 import { db } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 type HeroWordsVariant = 'aggressive' | 'premium' | 'balanced';
 
 const HERO_WORDS_ES: Record<HeroWordsVariant, string[]> = {
