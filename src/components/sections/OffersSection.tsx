@@ -17,6 +17,10 @@ const UI_LABELS = {
     title: 'Convierte tu presencia digital en clientes reales',
     subtitle: 'No te vendemos "desarrollo web". Te ofrecemos sistemas para generar clientes online. Elige el plan que encaja con tu negocio.',
     packagesTitle: 'Elige tu plan',
+    categoriesHeading: 'Agrupadas por necesidad',
+    categoryArrangements: { title: 'Arranque', description: 'Para negocios que están comenzando' },
+    categoryControl: { title: 'Control', description: 'Para negocios que ya venden y quieren escalar' },
+    categoryPeace: { title: 'Tranquilidad', description: 'Para negocios con web que necesitan protección' },
     popularBadge: 'Más popular',
     guarantee: 'Garantía de 15 días: si no estás satisfecho, te devolvemos el 100% de tu pago. Sin preguntas incómodas.',
     note: 'El dominio es tuyo desde el día 1. Yo solo te ayudo a registrarlo y renovarlo si lo necesitas.',
@@ -26,12 +30,12 @@ const UI_LABELS = {
     summaryColAnnual: 'Costo anual recurrente',
     summaryColIncludes: 'Qué incluye',
     summaryRows: [
-      { plan: 'Startup Digital', annual: 'Dominio: según extensión (.com a .pe)', includes: 'Solo renovación de dominio · desde S/50/año (.com) hasta S/130/año (.pe) · sin mensualidad' },
-      { plan: 'Captador de Clientes', annual: 'Dominio: según extensión (.com a .pe)', includes: 'Solo renovación de dominio · desde S/50/año (.com) hasta S/130/año (.pe) · sin mensualidad' },
-      { plan: 'Independencia Digital', annual: 'Dominio: según extensión + S/ 19/mes', includes: 'El dominio es tuyo para siempre · desde S/50 a S/130/año según extensión · mensualidad es opcional y puedes cancelar cuando quieras · hosting incluido' },
-      { plan: 'Sistema Completo', annual: 'Dominio: según extensión + S/ 39/mes', includes: 'El dominio es tuyo para siempre · desde S/50 a S/130/año según extensión · mensualidad es opcional y puedes cancelar cuando quieras · hosting, soporte y backups incluidos' },
-      { plan: 'Blindaje Digital', annual: 'Dominio: según extensión + desde S/ 79/mes', includes: 'Aplica a una web que ya tienes · desde S/50 a S/130/año según extensión · mensualidad es flexible según tus necesidades' },
-      { plan: 'Presencia Online Rápida', annual: 'S/ 150/año', includes: 'Dominio .pe o .com.pe · Correos profesionales con tu marca · gestión de dominio incluida · sin mensualidad' },
+      { plan: 'Cliente Nuevo en 48h' as const, annual: 'Dominio: según extensión (.com a .pe)', includes: 'Solo renovación de dominio · desde S/50/año (.com) hasta S/130/año (.pe) · sin mensualidad' },
+      { plan: 'Máquina de Leads por WhatsApp' as const, annual: 'Dominio: según extensión (.com a .pe)', includes: 'Solo renovación de dominio · desde S/50/año (.com) hasta S/130/año (.pe) · sin mensualidad' },
+      { plan: 'Control Total (editable por ti)' as const, annual: 'Dominio: según extensión + S/ 19/mes', includes: 'El dominio es tuyo para siempre · desde S/50 a S/130/año según extensión · mensualidad es opcional y puedes cancelar cuando quieras · hosting incluido' },
+      { plan: 'Negocio Digital Automatizado' as const, annual: 'Dominio: según extensión + S/ 39/mes', includes: 'El dominio es tuyo para siempre · desde S/50 a S/130/año según extensión · mensualidad es opcional y puedes cancelar cuando quieras · hosting, soporte y backups incluidos' },
+      { plan: 'Paz Mental (mantenimiento 24/7)' as const, annual: 'Dominio: según extensión + desde S/ 79/mes', includes: 'Aplica a una web que ya tienes · desde S/50 a S/130/año según extensión · mensualidad es flexible según tus necesidades' },
+      { plan: 'Solo Marca (dominio + correos)' as const, annual: 'S/ 150/año', includes: 'Dominio .pe o .com.pe · Correos profesionales con tu marca · gestión de dominio incluida · sin mensualidad' },
     ] as const,
     domainTableTitle: 'Referencia: costo de renovación anual según extensión',
     domainColExt: 'Extensión',
@@ -50,6 +54,10 @@ const UI_LABELS = {
     title: 'Convert your digital presence into real clients',
     subtitle: 'We don\'t sell you "web development". We offer systems to generate clients online. Pick the plan that fits your business.',
     packagesTitle: 'Choose your plan',
+    categoriesHeading: 'Grouped by need',
+    categoryArrangements: { title: 'Startup', description: 'For businesses just starting out' },
+    categoryControl: { title: 'Scale', description: 'For businesses already selling who want to grow' },
+    categoryPeace: { title: 'Peace', description: 'For businesses with existing websites needing protection' },
     popularBadge: 'Most popular',
     guarantee: '15-day guarantee: if you\'re not satisfied, we refund 100% of your payment. No awkward questions.',
     note: 'The domain is yours from day one. I only help register and renew it if you need it.',
@@ -59,12 +67,12 @@ const UI_LABELS = {
     summaryColAnnual: 'Annual recurring cost',
     summaryColIncludes: 'What it covers',
     summaryRows: [
-      { plan: 'Digital Startup', annual: 'Domain: by extension (.com to .pe)', includes: 'Domain renewal only · from S/50/yr (.com) to S/130/yr (.pe) · no monthly fee' },
-      { plan: 'Customer Converter', annual: 'Domain: by extension (.com to .pe)', includes: 'Domain renewal only · from S/50/yr (.com) to S/130/yr (.pe) · no monthly fee' },
-      { plan: 'Digital Independence', annual: 'Domain: by extension + S/ 19/mo', includes: 'The domain is yours forever · from S/50 to S/130/yr by extension · monthly fee is optional and you can cancel anytime · hosting included' },
-      { plan: 'Complete System', annual: 'Domain: by extension + S/ 39/mo', includes: 'The domain is yours forever · from S/50 to S/130/yr by extension · monthly fee is optional and you can cancel anytime · hosting, support and backups included' },
-      { plan: 'Digital Shield', annual: 'Domain: by extension + from S/ 79/mo', includes: 'Applies to a website you already have · from S/50 to S/130/yr by extension · monthly fee is flexible based on your needs' },
-      { plan: 'Quick Online Presence', annual: 'S/ 150/yr', includes: 'Domain .pe or .com.pe · Professional emails with your brand · domain management included · no monthly fee' },
+      { plan: 'New Client in 48h' as const, annual: 'Domain: by extension (.com to .pe)', includes: 'Domain renewal only · from S/50/yr (.com) to S/130/yr (.pe) · no monthly fee' },
+      { plan: 'WhatsApp Lead Machine' as const, annual: 'Domain: by extension (.com to .pe)', includes: 'Domain renewal only · from S/50/yr (.com) to S/130/yr (.pe) · no monthly fee' },
+      { plan: 'Full Control (editable by you)' as const, annual: 'Domain: by extension + S/ 19/mo', includes: 'The domain is yours forever · from S/50 to S/130/yr by extension · monthly fee is optional and you can cancel anytime · hosting included' },
+      { plan: 'Automated Digital Business' as const, annual: 'Domain: by extension + S/ 39/mo', includes: 'The domain is yours forever · from S/50 to S/130/yr by extension · monthly fee is optional and you can cancel anytime · hosting, support and backups included' },
+      { plan: 'Peace of Mind (24/7 maintenance)' as const, annual: 'Domain: by extension + from S/ 79/mo', includes: 'Applies to a website you already have · from S/50 to S/130/yr by extension · monthly fee is flexible based on your needs' },
+      { plan: 'Just Brand (domain + emails)' as const, annual: 'S/ 150/yr', includes: 'Domain .pe or .com.pe · Professional emails with your brand · domain management included · no monthly fee' },
     ] as const,
     domainTableTitle: 'Reference: annual renewal cost by extension',
     domainColExt: 'Extension',
@@ -92,6 +100,88 @@ async function getPublishedOffers(): Promise<OfferRow[]> {
   } catch {
     return [];
   }
+}
+
+function renderOfferCard(
+  offer: OfferRow,
+  locale: string,
+  ui: any,
+  ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>>
+) {
+  const name = locale === 'es' ? offer.nameEs : offer.nameEn;
+  const description = locale === 'es' ? offer.descriptionEs : offer.descriptionEn;
+  const items = locale === 'es' ? offer.itemsEs : offer.itemsEn;
+  const cta = locale === 'es' ? offer.ctaEs : offer.ctaEn;
+  const forWho = locale === 'es' ? offer.forWhoEs : offer.forWhoEn;
+  const priceNote = locale === 'es' ? offer.priceNoteEs : offer.priceNoteEn;
+  const Icon = ICON_MAP[offer.icon] ?? Zap;
+
+  return (
+    <article
+      key={offer.id}
+      className={`relative rounded-3xl p-7 flex flex-col gap-5 transition-all duration-300 ${
+        offer.popular
+          ? 'border border-[#00D4FF]/50 bg-linear-to-br from-[#00D4FF]/8 via-[#8B5CF6]/6 to-[#121212] shadow-[0_0_40px_rgba(0,212,255,0.10)]'
+          : 'border border-white/10 bg-[#121212]/90 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]'
+      }`}
+    >
+      {offer.popular && (
+        <div className="absolute -top-3.5 left-7">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-linear-to-r from-[#00D4FF] to-[#8B5CF6] text-background text-xs font-semibold shadow-[0_0_16px_rgba(0,212,255,0.5)]">
+            <Star size={11} className="fill-current" />
+            {ui.popularBadge}
+          </span>
+        </div>
+      )}
+
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <div className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-3 ${
+            offer.popular
+              ? 'bg-linear-to-br from-[#00D4FF]/30 to-[#8B5CF6]/30 border border-[#00D4FF]/30'
+              : 'bg-white/5 border border-white/10'
+          }`}>
+            <Icon size={18} className={offer.popular ? 'text-[#00D4FF]' : 'text-[#A1A1AA]'} />
+          </div>
+          <h4 className="text-xl font-semibold text-white">{name}</h4>
+        </div>
+        <div className="text-right shrink-0">
+          <p className={`text-2xl font-bold ${offer.popular ? 'text-[#00D4FF]' : 'text-white'}`}>
+            {offer.price}
+          </p>
+          <p className="text-xs text-[#71717A] mt-0.5">{priceNote}</p>
+        </div>
+      </div>
+
+      <p className="text-[#A1A1AA] leading-7 text-sm">{description}</p>
+
+      <ul className="space-y-2 flex-1">
+        {items.map((item) => (
+          <li key={item} className="flex items-start gap-2.5 text-[#D4D4D8] text-sm">
+            <CheckCircle2
+              size={16}
+              className={`mt-0.5 shrink-0 ${offer.popular ? 'text-[#00D4FF]' : 'text-[#52525B]'}`}
+            />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <p className="text-xs text-[#71717A] border-t border-white/6 pt-4">{forWho}</p>
+
+      <Link
+        href={`/${locale}?plan=${offer.planKey}#contacto`}
+        className={`inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 font-medium text-sm transition-all duration-200 ${
+          offer.popular
+            ? 'bg-linear-to-r from-[#00D4FF] to-[#8B5CF6] text-background hover:shadow-[0_0_24px_rgba(0,212,255,0.35)]'
+            : 'border border-white/10 text-white hover:bg-white/5'
+        }`}
+      >
+        {cta}
+        <ArrowUpRight size={15} />
+      </Link>
+    </article>
+  );
 }
 
 export default async function OffersSection({ locale }: Props) {
@@ -126,84 +216,40 @@ export default async function OffersSection({ locale }: Props) {
         </div>
 
         <div className="mb-14">
-          <h3 className="text-2xl md:text-3xl font-semibold text-white mb-8">{ui.packagesTitle}</h3>
-          <div className="grid gap-5 md:grid-cols-3">
-          {offers.map((offer) => {
-            const name = locale === 'es' ? offer.nameEs : offer.nameEn;
-            const description = locale === 'es' ? offer.descriptionEs : offer.descriptionEn;
-            const items = locale === 'es' ? offer.itemsEs : offer.itemsEn;
-            const cta = locale === 'es' ? offer.ctaEs : offer.ctaEn;
-            const forWho = locale === 'es' ? offer.forWhoEs : offer.forWhoEn;
-            const priceNote = locale === 'es' ? offer.priceNoteEs : offer.priceNoteEn;
-            const Icon = ICON_MAP[offer.icon] ?? Zap;
+          <h3 className="text-2xl md:text-3xl font-semibold text-white mb-3">{ui.packagesTitle}</h3>
+          <p className="text-sm text-[#71717A] mb-8">{ui.categoriesHeading}</p>
 
-            return (
-              <article
-                key={offer.id}
-                className={`relative rounded-3xl p-7 flex flex-col gap-5 transition-all duration-300 ${
-                  offer.popular
-                    ? 'border border-[#00D4FF]/50 bg-linear-to-br from-[#00D4FF]/8 via-[#8B5CF6]/6 to-[#121212] shadow-[0_0_40px_rgba(0,212,255,0.10)]'
-                    : 'border border-white/10 bg-[#121212]/90 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]'
-                }`}
-              >
-                {offer.popular && (
-                  <div className="absolute -top-3.5 left-7">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-linear-to-r from-[#00D4FF] to-[#8B5CF6] text-background text-xs font-semibold shadow-[0_0_16px_rgba(0,212,255,0.5)]">
-                      <Star size={11} className="fill-current" />
-                      {ui.popularBadge}
-                    </span>
-                  </div>
-                )}
+          {/* Arranque Category */}
+          <div className="mb-14">
+            <div className="mb-6">
+              <h4 className="text-xl font-semibold text-[#10B981] mb-1">{ui.categoryArrangements.title}</h4>
+              <p className="text-sm text-[#A1A1AA]">{ui.categoryArrangements.description}</p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2">
+              {offers.slice(0, 2).map((offer) => renderOfferCard(offer, locale, ui, ICON_MAP))}
+            </div>
+          </div>
 
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <div className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-3 ${
-                      offer.popular
-                        ? 'bg-linear-to-br from-[#00D4FF]/30 to-[#8B5CF6]/30 border border-[#00D4FF]/30'
-                        : 'bg-white/5 border border-white/10'
-                    }`}>
-                      <Icon size={18} className={offer.popular ? 'text-[#00D4FF]' : 'text-[#A1A1AA]'} />
-                    </div>
-                    <h4 className="text-xl font-semibold text-white">{name}</h4>
-                  </div>
-                  <div className="text-right shrink-0">
-                    <p className={`text-2xl font-bold ${offer.popular ? 'text-[#00D4FF]' : 'text-white'}`}>
-                      {offer.price}
-                    </p>
-                    <p className="text-xs text-[#71717A] mt-0.5">{priceNote}</p>
-                  </div>
-                </div>
+          {/* Control Category */}
+          <div className="mb-14">
+            <div className="mb-6">
+              <h4 className="text-xl font-semibold text-[#00D4FF] mb-1">{ui.categoryControl.title}</h4>
+              <p className="text-sm text-[#A1A1AA]">{ui.categoryControl.description}</p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2">
+              {offers.slice(2, 4).map((offer) => renderOfferCard(offer, locale, ui, ICON_MAP))}
+            </div>
+          </div>
 
-                <p className="text-[#A1A1AA] leading-7 text-sm">{description}</p>
-
-                <ul className="space-y-2 flex-1">
-                  {items.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-[#D4D4D8] text-sm">
-                      <CheckCircle2
-                        size={16}
-                        className={`mt-0.5 shrink-0 ${offer.popular ? 'text-[#00D4FF]' : 'text-[#52525B]'}`}
-                      />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <p className="text-xs text-[#71717A] border-t border-white/6 pt-4">{forWho}</p>
-
-                <Link
-                  href={`/${locale}?plan=${offer.planKey}#contacto`}
-                  className={`inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 font-medium text-sm transition-all duration-200 ${
-                    offer.popular
-                      ? 'bg-linear-to-r from-[#00D4FF] to-[#8B5CF6] text-background hover:shadow-[0_0_24px_rgba(0,212,255,0.35)]'
-                      : 'border border-white/10 text-white hover:bg-white/5'
-                  }`}
-                >
-                  {cta}
-                  <ArrowUpRight size={15} />
-                </Link>
-              </article>
-            );
-          })}
+          {/* Tranquilidad Category */}
+          <div className="mb-14">
+            <div className="mb-6">
+              <h4 className="text-xl font-semibold text-[#8B5CF6] mb-1">{ui.categoryPeace.title}</h4>
+              <p className="text-sm text-[#A1A1AA]">{ui.categoryPeace.description}</p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2">
+              {offers.slice(4).map((offer) => renderOfferCard(offer, locale, ui, ICON_MAP))}
+            </div>
           </div>
         </div>
 

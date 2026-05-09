@@ -1,4 +1,5 @@
 import HeroSection from "@/components/sections/HeroSection";
+import AuthoritySection from "@/components/sections/AuthoritySection";
 import ServicesSection from "@/components/sections/ServicesSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
 import TechStackSection from "@/components/sections/TechStackSection";
@@ -62,11 +63,14 @@ export default async function Home({
   const heroOverrides = {
     badge: locale === 'es' ? 'Presencia Digital para Negocios Peruanos' : (settings['hero.badgeEn'] || settings['hero.badgeEs']),
     title: locale === 'es'
-      ? 'Tu negocio merece una web que traiga'
+      ? 'Ayudo a negocios peruanos a convertir su presencia digital en clientes reales.'
       : (settings['hero.titleEn'] || settings['hero.titleEs']),
     subtitle: locale === 'es'
-      ? 'Landing pages, webs corporativas y dominio con correos profesionales. Todo enfocado en que tu cliente te encuentre y te escriba. Desde S/299. Yape y Plin. Garantia de 15 dias.'
+      ? 'Landing pages, webs corporativas y automatización de leads. Todo enfocado en que tu cliente te encuentre, te escriba y te compre. Desde S/299. Yape y Plin. Garantía 15 días.'
       : (settings['hero.subtitleEn'] || settings['hero.subtitleEs']),
+    painHook: locale === 'es'
+      ? 'Si tu negocio no aparece en Google, no tiene forma de recibir pedidos por WhatsApp o tu web no convierte… estás perdiendo clientes hoy. Yo resuelvo eso en menos de 48 horas.'
+      : undefined,
     rotatingWords: locale === 'es'
       ? HERO_WORDS_ES[HERO_WORDS_VARIANT_ES]
       : undefined,
@@ -81,6 +85,7 @@ export default async function Home({
   return (
     <>
       <HeroSection overrides={heroOverrides} />
+      <AuthoritySection />
       <ServicesSection />
       <PortfolioSection />
       <TechStackSection />

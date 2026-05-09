@@ -13,6 +13,7 @@ interface HeroSectionOverrides {
   title?: string;
   subtitle?: string;
   rotatingWords?: string[];
+  painHook?: string;
 }
 
 export default function HeroSection({ overrides }: { overrides?: HeroSectionOverrides }) {
@@ -82,6 +83,18 @@ export default function HeroSection({ overrides }: { overrides?: HeroSectionOver
           >
             {overrides?.subtitle || t('subtitle')}
           </motion.p>
+
+          {/* Pain Hook */}
+          {overrides?.painHook && (
+            <motion.p
+              className="text-sm md:text-base text-[#F59E0B] max-w-2xl mx-auto mb-12 px-4 py-3 border border-[#F59E0B]/30 rounded-lg bg-[#F59E0B]/5"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.6 }}
+            >
+              {overrides.painHook}
+            </motion.p>
+          )}
 
           {/* CTA Buttons */}
           <motion.div
