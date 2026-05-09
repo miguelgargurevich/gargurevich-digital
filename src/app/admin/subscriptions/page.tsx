@@ -24,23 +24,22 @@ interface ClientSiteRow {
   renewals?: Array<{ plan: string; createdAt: string }>;
 }
 
-interface ServiceOption {
+interface OfferOption {
   id: string;
-  titleEs: string;
-  serviceTier: string | null;
-  recurringAmount: string | number | null;
-  currency: string;
+  nameEs: string;
+  price: string;
+  priceNoteEs: string;
 }
 
 export default function AdminSubscriptions() {
   const { push, confirm } = useAdminAlert();
   const [sites, setSites] = useState<ClientSiteRow[]>([]);
-  const [services, setServices] = useState<ServiceOption[]>([]);
+  const [offers, setOffers] = useState<OfferOption[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [businessName, setBusinessName] = useState('');
   const [slug, setSlug] = useState('');
-  const [selectedServiceId, setSelectedServiceId] = useState('');
+  const [selectedOfferId, setSelectedOfferId] = useState('');
   const [contractedService, setContractedService] = useState('');
   const [serviceTier, setServiceTier] = useState('');
   const [recurringAmount, setRecurringAmount] = useState('');
@@ -67,33 +66,38 @@ export default function AdminSubscriptions() {
     }
   };
 
-  const loadServices = async () => {
+  const loadOffers = async () => {
     try {
-      const response = await fetch('/api/admin/services', { cache: 'no-store' });
+      const response = await fetch('/api/admin/offers', { cache: 'no-store' });
       const data = await response.json();
-      setServices(Array.isArray(data) ? data : []);
+      setOffers(Array.isArray(data) ? data : []);
     } catch (e) {
       console.error(e);
-      push({ kind: 'error', title: 'No se pudieron cargar los servicios', message: 'Revisa el catálogo de servicios' });
+      push({ kind: 'error', title: 'No se pudieron cargar las ofertas', message: 'Revisa el catálogo de ofertas' });
     }
   };
 
   useEffect(() => {
     loadSites();
-    loadServices();
+    loadOffers();
   }, []);
 
   useEffect(() => {
     setCurrentPage(1);
   }, [query, pageSize]);
 
-  const applyServiceDefaults = (serviceId: string) => {
-    setSelectedServiceId(serviceId);
-    const service = services.find((item) => item.id === serviceId);
-    setContractedService(service?.titleEs ?? '');
-    setServiceTier(service?.serviceTier ?? '');
-    setRecurringAmount(service?.recurringAmount != null ? String(service.recurringAmount) : '');
-    setCurrency(service?.currency ?? 'PEN');
+  const extractPrice = (priceStr: string): number => {
+    const match = priceStr.match(/\d+/);
+    return match ? parseInt(match[0], 10) : 0;
+  };
+
+  const applyOfferDefaults = (offerId: string) => {
+    setSelectedOfferId(offerId);
+    const offer = offers.find((item) => item.id === offerId);
+    setContractedService(offer?.nameEs ?? '');
+    setServiceTier('Oferta');
+    setRecurringAmount(offer?.price ? String(extractPrice(offer.price)) : '');
+    setCurrency('PEN');
   };
 
   const filteredSites = sites.filter((site) => {
@@ -124,9 +128,9 @@ export default function AdminSubscriptions() {
 
   const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!businessName.trim() || !slug.trim() || !selectedServiceId) {
-      setCreateError('Ingresa razón social, slug y selecciona un servicio');
-      push({ kind: 'warning', title: 'Campos obligatorios', message: 'Ingresa razón social, slug y selecciona un servicio' });
+    if (!businessName.trim() || !slug.trim() || !selectedOfferId) {
+      setCreateError('Ingresa razón social, slug y selecciona una oferta');
+      push({ kind: 'warning', title: 'Campos obligatorios', message: 'Ingresa razón social, slug y selecciona una oferta' });
       return;
     }
 
@@ -155,7 +159,7 @@ export default function AdminSubscriptions() {
 
       setBusinessName('');
       setSlug('');
-      setSelectedServiceId('');
+      setSelectedOfferId('');
       setContractedService('');
       setServiceTier('');
       setRecurringAmount('');
@@ -245,14 +249,14 @@ export default function AdminSubscriptions() {
           <div className="md:col-span-2">
             <label className="block text-xs text-[#71717A] mb-1">Servicio contratado</label>
             <select
-              value={selectedServiceId}
-              onChange={(e) => applyServiceDefaults(e.target.value)}
+              value={selectedOfferId}
+              onChange={(e) => applyOfferDefaults(e.target.value)}
               className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00D4FF]/40"
             >
-              <option value="">Selecciona un servicio del catálogo</option>
-              {services.map((service) => (
-                <option key={service.id} value={service.id}>
-                  {service.titleEs}
+              <option value="">Selecciona una oferta del catálogo</option>
+              {offers.map((offer) => (
+                <option key={offer.id} value={offer.id}>
+                  {offer.nameEs} ({offer.price})
                 </option>
               ))}
             </select>
