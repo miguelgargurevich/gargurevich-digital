@@ -3,6 +3,7 @@ import { ArrowUpRight, CheckCircle2, Sparkles, Star, Zap } from 'lucide-react';
 import { db } from '@/lib/db';
 
 type OfferRow = Awaited<ReturnType<typeof db.offer.findMany>>[number];
+type UILabels = typeof UI_LABELS[keyof typeof UI_LABELS];
 
 const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   zap: Zap,
@@ -105,7 +106,7 @@ async function getPublishedOffers(): Promise<OfferRow[]> {
 function renderOfferCard(
   offer: OfferRow,
   locale: string,
-  ui: any,
+  ui: UILabels,
   ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>>
 ) {
   const name = locale === 'es' ? offer.nameEs : offer.nameEn;

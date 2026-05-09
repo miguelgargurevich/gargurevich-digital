@@ -11,7 +11,7 @@ export default function AuthoritySection() {
   ];
 
   return (
-    <section className="relative py-20 md:py-32 px-6 sm:px-8 md:px-12 lg:px-16 bg-gradient-to-b from-background to-[#0A0A0A]">
+    <section className="relative py-20 md:py-32 px-6 sm:px-8 md:px-12 lg:px-16 bg-linear-to-b from-background to-background">
       <div className="max-w-4xl mx-auto">
         <motion.div
           className="text-center mb-16"
@@ -29,7 +29,7 @@ export default function AuthoritySection() {
         </motion.div>
 
         <motion.div
-          className="bg-gradient-to-br from-[#00D4FF]/10 to-[#8B5CF6]/10 border border-[#00D4FF]/20 rounded-lg p-8 md:p-12 mb-12"
+          className="bg-linear-to-br from-[#00D4FF]/10 to-[#8B5CF6]/10 border border-[#00D4FF]/20 rounded-lg p-8 md:p-12 mb-12"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
