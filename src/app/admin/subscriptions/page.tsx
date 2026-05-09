@@ -20,20 +20,64 @@ export default function AdminSubscriptions() {
   const [sites, setSites] = useState<ClientSiteRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [businessName, setBusinessName] = useState('');
+  const [slug, setSlug] = useState('');
+  const [creating, setCreating] = useState(false);
+  const [createError, setCreateError] = useState('');
+
+  const loadSites = async () => {
+    try {
+      setError('');
+      const response = await fetch('/api/admin/subscriptions', { cache: 'no-store' });
+      const data = await response.json();
+      setSites(Array.isArray(data) ? data : []);
+    } catch (e) {
+      console.error(e);
+      setError('Error cargando suscripciones');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    fetch('/api/admin/subscriptions')
-      .then((r) => r.json())
-      .then((data) => {
-        setSites(Array.isArray(data) ? data : []);
-        setLoading(false);
-      })
-      .catch((e) => {
-        console.error(e);
-        setError('Error cargando suscripciones');
-        setLoading(false);
-      });
+    loadSites();
   }, []);
+
+  const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!businessName.trim() || !slug.trim()) {
+      setCreateError('Ingresa razón social y slug');
+      return;
+    }
+
+    setCreating(true);
+    setCreateError('');
+
+    try {
+      const response = await fetch('/api/admin/subscriptions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          businessName: businessName.trim(),
+          slug: slug.trim().toLowerCase(),
+        }),
+      });
+
+      if (!response.ok) {
+        const body = await response.json().catch(() => ({}));
+        throw new Error(body.error || 'No se pudo crear la suscripción');
+      }
+
+      setBusinessName('');
+      setSlug('');
+      await loadSites();
+    } catch (err) {
+      console.error(err);
+      setCreateError(err instanceof Error ? err.message : 'Error creando suscripción');
+    } finally {
+      setCreating(false);
+    }
+  };
 
   const handleExpire = async () => {
     if (!confirm('¿Expirar suscripciones vencidas?')) return;
@@ -64,6 +108,50 @@ export default function AdminSubscriptions() {
         </button>
       </div>
 
+      <div className="bg-[#111111] border border-white/10 rounded-lg p-5">
+        <div className="flex items-center gap-2 mb-4">
+          <Plus size={16} className="text-[#00D4FF]" />
+          <h2 className="text-white font-semibold">Nueva suscripción</h2>
+        </div>
+
+        <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div className="md:col-span-1">
+            <label className="block text-xs text-[#71717A] mb-1">Razón social</label>
+            <input
+              value={businessName}
+              onChange={(e) => setBusinessName(e.target.value)}
+              placeholder="Ej: Talleres Andinos SAC"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#00D4FF]/40"
+            />
+          </div>
+
+          <div className="md:col-span-1">
+            <label className="block text-xs text-[#71717A] mb-1">Slug</label>
+            <input
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
+              placeholder="Ej: talleres-andinos"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/40"
+            />
+          </div>
+
+          <div className="md:col-span-1 flex items-end">
+            <button
+              type="submit"
+              disabled={creating}
+              className="w-full inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 bg-[#00D4FF18] text-[#00D4FF] hover:bg-[#00D4FF25] transition-colors text-sm font-medium disabled:opacity-50"
+            >
+              <Plus size={16} />
+              {creating ? 'Creando...' : 'Crear suscripción'}
+            </button>
+          </div>
+        </form>
+
+        {createError && (
+          <p className="mt-3 text-xs text-red-400">{createError}</p>
+        )}
+      </div>
+
       {error && (
         <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 text-red-400 text-sm">
           {error}
@@ -75,7 +163,7 @@ export default function AdminSubscriptions() {
       ) : sites.length === 0 ? (
         <div className="text-center py-12 border border-dashed border-white/10 rounded-lg">
           <p className="text-[#71717A]">No hay suscripciones aún</p>
-          <p className="text-xs text-[#52525B] mt-1">Crear una nueva suscripción desde la API</p>
+          <p className="text-xs text-[#52525B] mt-1">Crea la primera suscripción con el formulario superior</p>
         </div>
       ) : (
         <div className="grid gap-4">
