@@ -6,6 +6,31 @@ import { AlertCircle, CheckCircle2, Clock, Plus, RefreshCw } from 'lucide-react'
 import { SubscriptionStatus } from '@prisma/client';
 import { useAdminAlert } from '@/components/providers/AdminAlertProvider';
 
+const SERVICE_OPTIONS = [
+  'Landing Page',
+  'Sitio Web Corporativo',
+  'E-commerce',
+  'App Web',
+  'Integración IA',
+  'DevOps & Cloud',
+  'Mantenimiento 24/7',
+  'Dominio + Correos',
+  'Proyecto a medida',
+] as const;
+
+const TIER_OPTIONS = [
+  'Starter',
+  'Growth',
+  'Pro',
+  'Business',
+  'Enterprise',
+  'Mantenimiento',
+] as const;
+
+const CURRENCY_OPTIONS = ['PEN', 'USD', 'EUR'] as const;
+
+const PAGE_SIZE_OPTIONS = [6, 9, 12, 24] as const;
+
 interface ClientSiteRow {
   id: string;
   slug: string;
@@ -34,6 +59,9 @@ export default function AdminSubscriptions() {
   const [recurringAmount, setRecurringAmount] = useState('');
   const [currency, setCurrency] = useState('PEN');
   const [billingEmail, setBillingEmail] = useState('');
+  const [query, setQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(9);
   const [creating, setCreating] = useState(false);
   const [createError, setCreateError] = useState('');
 
@@ -55,6 +83,36 @@ export default function AdminSubscriptions() {
   useEffect(() => {
     loadSites();
   }, []);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [query, pageSize]);
+
+  const filteredSites = sites.filter((site) => {
+    const haystack = [
+      site.businessName,
+      site.slug,
+      site.contractedService || '',
+      site.serviceTier || '',
+      site.billingEmail || '',
+      site.currency,
+      site.status,
+    ]
+      .join(' ')
+      .toLowerCase();
+
+    return haystack.includes(query.trim().toLowerCase());
+  });
+
+  const totalPages = Math.max(1, Math.ceil(filteredSites.length / pageSize));
+  const safePage = Math.min(currentPage, totalPages);
+  const pagedSites = filteredSites.slice((safePage - 1) * pageSize, safePage * pageSize);
+
+  useEffect(() => {
+    if (currentPage !== safePage) {
+      setCurrentPage(safePage);
+    }
+  }, [currentPage, safePage]);
 
   const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -154,7 +212,7 @@ export default function AdminSubscriptions() {
           <h2 className="text-white font-semibold">Nueva suscripción</h2>
         </div>
 
-        <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-4 gap-3">
           <div className="md:col-span-1">
             <label className="block text-xs text-[#71717A] mb-1">Razón social</label>
             <input
@@ -177,22 +235,34 @@ export default function AdminSubscriptions() {
 
           <div className="md:col-span-1">
             <label className="block text-xs text-[#71717A] mb-1">Servicio contratado</label>
-            <input
+            <select
               value={contractedService}
               onChange={(e) => setContractedService(e.target.value)}
-              placeholder="Ej: Web Corporativa + SEO"
               className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#00D4FF]/40"
-            />
+            >
+              <option value="">Selecciona un servicio</option>
+              {SERVICE_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="md:col-span-1">
             <label className="block text-xs text-[#71717A] mb-1">Plan/Tier</label>
-            <input
+            <select
               value={serviceTier}
               onChange={(e) => setServiceTier(e.target.value)}
-              placeholder="Ej: Growth"
               className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/40"
-            />
+            >
+              <option value="">Selecciona un plan</option>
+              {TIER_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="md:col-span-1">
@@ -210,13 +280,17 @@ export default function AdminSubscriptions() {
 
           <div className="md:col-span-1">
             <label className="block text-xs text-[#71717A] mb-1">Moneda</label>
-            <input
+            <select
               value={currency}
               onChange={(e) => setCurrency(e.target.value.toUpperCase())}
-              maxLength={3}
-              placeholder="PEN"
               className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/40"
-            />
+            >
+              {CURRENCY_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="md:col-span-1">
@@ -253,16 +327,64 @@ export default function AdminSubscriptions() {
         </div>
       )}
 
+      <div className="bg-[#111111] border border-white/10 rounded-lg p-4 space-y-3">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h2 className="text-white font-semibold">Buscar y navegar</h2>
+            <p className="text-xs text-[#71717A] mt-1">
+              Filtra por nombre, slug, servicio, plan, moneda o email de facturación.
+            </p>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-[#71717A]">
+            <span>{filteredSites.length} resultados</span>
+            <span className="text-[#3F3F46]">•</span>
+            <label className="flex items-center gap-2">
+              <span>Página</span>
+              <select
+                value={pageSize}
+                onChange={(e) => setPageSize(Number(e.target.value))}
+                className="rounded-md bg-[#18181B] border border-white/10 px-2 py-1 text-xs text-white"
+              >
+                {PAGE_SIZE_OPTIONS.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div className="grid gap-3 md:grid-cols-[1fr_auto]">
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Buscar por razón social, slug, servicio o email..."
+            className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#00D4FF]/40"
+          />
+          <button
+            type="button"
+            onClick={() => {
+              setQuery('');
+              setCurrentPage(1);
+            }}
+            className="rounded-lg border border-white/10 px-4 py-2 text-sm text-[#A1A1AA] hover:text-white hover:border-white/20 transition-colors"
+          >
+            Limpiar
+          </button>
+        </div>
+      </div>
+
       {loading ? (
         <div className="text-center py-12 text-[#71717A]">Cargando...</div>
-      ) : sites.length === 0 ? (
+      ) : filteredSites.length === 0 ? (
         <div className="text-center py-12 border border-dashed border-white/10 rounded-lg">
-          <p className="text-[#71717A]">No hay suscripciones aún</p>
-          <p className="text-xs text-[#52525B] mt-1">Crea la primera suscripción con el formulario superior</p>
+          <p className="text-[#71717A]">No hay suscripciones para este filtro</p>
+          <p className="text-xs text-[#52525B] mt-1">Prueba con otro término o limpia el buscador</p>
         </div>
       ) : (
         <div className="grid gap-4">
-          {sites.map((site) => {
+          {pagedSites.map((site) => {
             const isActive = site.status === SubscriptionStatus.ACTIVE;
             const endsAt = site.subscriptionEndsAt ? new Date(site.subscriptionEndsAt) : null;
             const isExpiringSoon = endsAt && (endsAt.getTime() - Date.now()) < 30 * 24 * 60 * 60 * 1000;
@@ -356,6 +478,35 @@ export default function AdminSubscriptions() {
               </Link>
             );
           })}
+
+          {filteredSites.length > pageSize && (
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-lg border border-white/10 bg-[#111111] px-4 py-3 text-sm">
+              <p className="text-[#71717A]">
+                Mostrando {Math.min((safePage - 1) * pageSize + 1, filteredSites.length)}-{Math.min(safePage * pageSize, filteredSites.length)} de {filteredSites.length}
+              </p>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setCurrentPage((value) => Math.max(1, value - 1))}
+                  disabled={safePage === 1}
+                  className="rounded-md border border-white/10 px-3 py-1.5 text-xs text-white disabled:opacity-40 disabled:cursor-not-allowed hover:border-white/20 transition-colors"
+                >
+                  Anterior
+                </button>
+                <span className="text-xs text-[#A1A1AA]">
+                  Página {safePage} de {totalPages}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setCurrentPage((value) => Math.min(totalPages, value + 1))}
+                  disabled={safePage === totalPages}
+                  className="rounded-md border border-white/10 px-3 py-1.5 text-xs text-white disabled:opacity-40 disabled:cursor-not-allowed hover:border-white/20 transition-colors"
+                >
+                  Siguiente
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -403,7 +403,9 @@ const SITE_SETTINGS_SEED = [
   { key: 'stats.experience', value: '3+' },
 ];
 
-export async function POST() {
+export async function seedDatabase(options: { revalidate?: boolean } = {}) {
+  const { revalidate = true } = options;
+
   try {
     // Upsert portfolio projects
     for (const p of PORTFOLIO_SEED) {
@@ -438,11 +440,17 @@ export async function POST() {
       });
     }
 
-    revalidatePath('/', 'layout');
+    if (revalidate) {
+      revalidatePath('/', 'layout');
+    }
 
     return NextResponse.json({ ok: true, message: 'Database seeded successfully' });
   } catch (err) {
     console.error('Seed error:', err);
     return NextResponse.json({ error: 'Seed failed', detail: String(err) }, { status: 500 });
   }
+}
+
+export async function POST() {
+  return seedDatabase({ revalidate: true });
 }

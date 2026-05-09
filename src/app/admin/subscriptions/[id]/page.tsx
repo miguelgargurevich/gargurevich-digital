@@ -6,6 +6,29 @@ import { CheckCircle2, AlertCircle, Plus, RotateCcw } from 'lucide-react';
 import { SubscriptionStatus, RenewalPlan } from '@prisma/client';
 import { useAdminAlert } from '@/components/providers/AdminAlertProvider';
 
+const SERVICE_OPTIONS = [
+  'Landing Page',
+  'Sitio Web Corporativo',
+  'E-commerce',
+  'App Web',
+  'Integración IA',
+  'DevOps & Cloud',
+  'Mantenimiento 24/7',
+  'Dominio + Correos',
+  'Proyecto a medida',
+] as const;
+
+const TIER_OPTIONS = [
+  'Starter',
+  'Growth',
+  'Pro',
+  'Business',
+  'Enterprise',
+  'Mantenimiento',
+] as const;
+
+const CURRENCY_OPTIONS = ['PEN', 'USD', 'EUR'] as const;
+
 interface SubscriptionDetail {
   id: string;
   slug: string;
@@ -257,7 +280,8 @@ export default function SubscriptionDetail() {
             <input
               value={businessName}
               onChange={(e) => setBusinessName(e.target.value)}
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#00D4FF]/40"
+              placeholder="Talleres Andinos SAC"
             />
           </div>
           <div>
@@ -265,26 +289,35 @@ export default function SubscriptionDetail() {
             <input
               value={slug}
               onChange={(e) => setSlug(e.target.value)}
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/40"
+              placeholder="talleres-andinos"
             />
           </div>
           <div>
             <label className="block text-xs text-[#71717A] mb-1">Servicio contratado</label>
-            <input
+            <select
               value={contractedService}
               onChange={(e) => setContractedService(e.target.value)}
-              placeholder="Web + SEO + Mantenimiento"
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
-            />
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00D4FF]/40"
+            >
+              <option value="">Selecciona un servicio</option>
+              {SERVICE_OPTIONS.map((option) => (
+                <option key={option} value={option}>{option}</option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="block text-xs text-[#71717A] mb-1">Plan / Tier</label>
-            <input
+            <select
               value={serviceTier}
               onChange={(e) => setServiceTier(e.target.value)}
-              placeholder="Growth"
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
-            />
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/40"
+            >
+              <option value="">Selecciona un plan</option>
+              {TIER_OPTIONS.map((option) => (
+                <option key={option} value={option}>{option}</option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="block text-xs text-[#71717A] mb-1">Setup fee ({currency})</label>
@@ -294,7 +327,8 @@ export default function SubscriptionDetail() {
               step="0.01"
               value={setupFeeAmount}
               onChange={(e) => setSetupFeeAmount(e.target.value)}
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#10B981]/40"
+              placeholder="0.00"
             />
           </div>
           <div>
@@ -305,17 +339,21 @@ export default function SubscriptionDetail() {
               step="0.01"
               value={recurringAmount}
               onChange={(e) => setRecurringAmount(e.target.value)}
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#10B981]/40"
+              placeholder="0.00"
             />
           </div>
           <div>
             <label className="block text-xs text-[#71717A] mb-1">Moneda</label>
-            <input
+            <select
               value={currency}
               onChange={(e) => setCurrency(e.target.value.toUpperCase())}
-              maxLength={3}
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
-            />
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/40"
+            >
+              {CURRENCY_OPTIONS.map((option) => (
+                <option key={option} value={option}>{option}</option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="block text-xs text-[#71717A] mb-1">Email de facturación</label>
@@ -323,7 +361,8 @@ export default function SubscriptionDetail() {
               type="email"
               value={billingEmail}
               onChange={(e) => setBillingEmail(e.target.value)}
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#00D4FF]/40"
+              placeholder="facturacion@cliente.com"
             />
           </div>
           <div>
@@ -331,7 +370,8 @@ export default function SubscriptionDetail() {
             <input
               value={billingContactName}
               onChange={(e) => setBillingContactName(e.target.value)}
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#00D4FF]/40"
+              placeholder="Nombre y apellido"
             />
           </div>
           <div>
@@ -339,7 +379,8 @@ export default function SubscriptionDetail() {
             <input
               value={billingContactPhone}
               onChange={(e) => setBillingContactPhone(e.target.value)}
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#00D4FF]/40"
+              placeholder="+51 999 999 999"
             />
           </div>
           <div className="md:col-span-2">
@@ -348,7 +389,8 @@ export default function SubscriptionDetail() {
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               rows={3}
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/40"
+              placeholder="Detalle operativo, alcance, observaciones o acuerdos comerciales"
             />
           </div>
           <div className="md:col-span-2 flex items-center gap-3">
