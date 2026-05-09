@@ -84,11 +84,11 @@ export default async function Home({
   return (
     <>
       <HeroSection overrides={heroOverrides} />
-      <AuthoritySection />
       <section id="servicios">
         <OffersSection locale={locale} />
       </section>
       <PortfolioSection />
+      <AuthoritySection />
       <TechStackSection />
       <ProcessSection />
       <PeruSection locale={locale} />
