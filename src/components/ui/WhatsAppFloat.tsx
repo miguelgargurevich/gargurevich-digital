@@ -40,11 +40,11 @@ function WhatsAppFloatContent() {
   if (locale === 'es') {
     message = planName
       ? `Hola, vengo de la web. Quiero información del plan ${planName}`
-      : 'Hola, vengo de la web. ¿Cómo puedo ayudarte?';
+      : 'Hola, vengo de la web. Quiero información';
   } else {
     message = planName
       ? `Hi, I came from the website. I want information about the plan ${planName}`
-      : 'Hi, I came from the website. How can I help you?';
+      : 'Hi, I came from the website. I want information';
   }
 
   const encodedMessage = encodeURIComponent(message);
