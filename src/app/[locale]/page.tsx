@@ -85,11 +85,13 @@ export default async function Home({
     <>
       <HeroSection overrides={heroOverrides} />
       <AuthoritySection />
+      <section id="servicios">
+        <OffersSection locale={locale} />
+      </section>
       <PortfolioSection />
       <TechStackSection />
       <ProcessSection />
-        <OffersSection locale={locale} />
-        <PeruSection locale={locale} />
+      <PeruSection locale={locale} />
       <Suspense fallback={null}>
         <ContactSection overrides={contactOverrides} offers={offers} />
       </Suspense>
