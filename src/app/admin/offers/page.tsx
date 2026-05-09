@@ -23,7 +23,7 @@ interface Offer {
   nameEs: string;
   nameEn: string;
   price: string;
-  renewalPrice: string | number;
+  renewalPrice: string | number | null;
   priceNoteEs: string;
   priceNoteEn: string;
   descriptionEs: string;
@@ -108,7 +108,9 @@ function OfferModal({
   onSave: (data: OfferFormData, id?: string) => Promise<void>;
   onClose: () => void;
 }) {
-  const [form, setForm] = useState<OfferFormData>(offer ? { ...offer } : { ...EMPTY_FORM });
+  const [form, setForm] = useState<OfferFormData>(
+    offer ? { ...offer, renewalPrice: offer.renewalPrice ?? 0 } : { ...EMPTY_FORM }
+  );
   const [saving, setSaving] = useState(false);
   const [tab, setTab] = useState<'es' | 'en'>('es');
 
@@ -149,7 +151,7 @@ function OfferModal({
                 type="number"
                 min="0"
                 step="0.01"
-                value={form.renewalPrice}
+                value={form.renewalPrice ?? 0}
                 onChange={e => set('renewalPrice', Number(e.target.value || 0))}
                 placeholder="150"
                 className="w-full bg-background border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#00D4FF]/40"

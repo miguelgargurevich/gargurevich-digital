@@ -97,7 +97,7 @@ model Offer {
   nameEs        String
   nameEn        String
   price         String
-  renewalPrice  Decimal  @db.Decimal(10, 2)
+  renewalPrice  Decimal? @db.Decimal(10, 2)
   priceNoteEs   String
   priceNoteEn   String
   descriptionEs String   @db.Text

@@ -87,12 +87,18 @@ export default function AdminSubscriptions() {
     setCurrentPage(1);
   }, [query, pageSize]);
 
+  const extractPrice = (priceStr: string): number => {
+    const match = priceStr.match(/\d+/);
+    return match ? parseInt(match[0], 10) : 0;
+  };
+
   const applyOfferDefaults = (offerId: string) => {
     setSelectedOfferId(offerId);
     const offer = offers.find((item) => item.id === offerId);
     setContractedService(offer?.nameEs ?? '');
     setServiceTier('Oferta');
-    setRecurringAmount(offer?.renewalPrice != null ? String(offer.renewalPrice) : '');
+    const fallback = offer?.price ? extractPrice(offer.price) : '';
+    setRecurringAmount(offer?.renewalPrice != null ? String(offer.renewalPrice) : String(fallback));
     setCurrency('PEN');
   };
 
