@@ -4,9 +4,28 @@ import { db } from '@/lib/db';
 const DEFAULT_GRACE_MONTHS = 12;
 
 function addMonths(from: Date, months: number): Date {
-  const next = new Date(from);
-  next.setMonth(next.getMonth() + months);
-  return next;
+  // Robust month addition that handles timezone and day-of-month edge cases
+  const year = from.getFullYear();
+  const month = from.getMonth() + months;
+  const day = from.getDate();
+
+  // Calculate target year and month (handle overflow)
+  const targetYear = year + Math.floor(month / 12);
+  const targetMonth = month % 12;
+
+  // Create date in target year/month, then adjust day if needed
+  // (e.g., Jan 31 + 1 month = Feb 28/29, not Mar 3)
+  const result = new Date(targetYear, targetMonth, day);
+
+  // If the day rolled over to next month, go back to last day of target month
+  if (result.getMonth() !== targetMonth) {
+    result.setDate(0); // Last day of previous month
+  }
+
+  // Preserve time components from original date
+  result.setHours(from.getHours(), from.getMinutes(), from.getSeconds(), from.getMilliseconds());
+
+  return result;
 }
 
 function getPlanMonths(plan: RenewalPlan): number {
