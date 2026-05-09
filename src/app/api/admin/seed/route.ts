@@ -242,7 +242,7 @@ const OFFERS_SEED = [
       'Ready to generate clients from day 1',
     ],
     ctaEs: 'Quiero mi presencia digital',
-    ctaEn: 'Chat with me on WhatsApp now',
+    ctaEn: 'I want my digital presence',
     forWhoEs: 'Para negocios locales que necesitan presencia online inmediata sin inversión grande.',
     forWhoEn: 'For local businesses needing immediate online presence without big investment.',
   },

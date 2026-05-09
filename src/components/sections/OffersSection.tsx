@@ -32,12 +32,12 @@ const UI_LABELS = {
     summaryColAnnual: 'Costo anual recurrente',
     summaryColIncludes: 'Qué incluye',
     summaryRows: [
-      { plan: 'Cliente Nuevo en 48h' as const, annual: 'S/ 240 – 260', includes: 'Dominio .pe o .com según prefieras (S/50–130/año) · Hosting (S/100–150/año) · Soporte básico incluido · Si no renuevas: el dominio sigue siendo tuyo' },
-      { plan: 'Máquina de Leads por WhatsApp' as const, annual: 'S/ 240 – 260', includes: 'Dominio .pe o .com según prefieras (S/50–130/año) · Hosting (S/100–150/año) · Soporte básico incluido · Si no renuevas: el dominio sigue siendo tuyo' },
-      { plan: 'Control Total (editable por ti)' as const, annual: 'S/ 240 – 290', includes: 'Dominio .pe o .com según prefieras (S/50–130/año) · Hosting (S/100–150/año) · Soporte y actualizaciones de seguridad · Si no renuevas: el dominio y archivos siguen siendo tuyo' },
-      { plan: 'Negocio Digital Automatizado' as const, annual: 'S/ 290 – 340', includes: 'Dominio .pe o .com según prefieras (S/50–130/año) · Hosting (S/150–200/año) · Backups automáticos · Soporte prioritario · Si no renuevas: el dominio y negocio digital siguen siendo tuyo' },
-      { plan: 'Paz Mental (mantenimiento 24/7)' as const, annual: 'S/ 79/mes (renovable mensual)', includes: 'Puro mantenimiento y seguridad 24/7 · Aplica a un sitio que ya tienes · Dominio y hosting renuevas directamente con tu proveedor o conmigo · Cancelable cuando quieras' },
-      { plan: 'Solo Marca (dominio + correos)' as const, annual: 'S/ 170 – 200', includes: 'Dominio .pe o .com según prefieras (S/50–130/año) · Hasta 5 correos profesionales (S/50–100/año) · Si no renuevas: el dominio sigue siendo tuyo' },
+      { plan: 'Cliente Nuevo en 48h' as const, annual: 'Dominio: S/ 50–130\nHosting: S/ 100–150', includes: 'Soporte básico incluido · Si no renuevas: el dominio sigue siendo tuyo' },
+      { plan: 'Máquina de Leads por WhatsApp' as const, annual: 'Dominio: S/ 50–130\nHosting: S/ 100–150', includes: 'Soporte básico incluido · Si no renuevas: el dominio sigue siendo tuyo' },
+      { plan: 'Control Total (editable por ti)' as const, annual: 'Dominio: S/ 50–130\nHosting: S/ 100–150', includes: 'Soporte y actualizaciones de seguridad · Si no renuevas: el dominio y archivos siguen siendo tuyo' },
+      { plan: 'Negocio Digital Automatizado' as const, annual: 'Dominio: S/ 50–130\nHosting: S/ 150–200', includes: 'Backups automáticos · Soporte prioritario · Si no renuevas: el dominio y negocio digital siguen siendo tuyo' },
+      { plan: 'Paz Mental (mantenimiento 24/7)' as const, annual: 'S/ 79/mes\n(renovable mensual)', includes: 'Puro mantenimiento y seguridad 24/7 · Aplica a un sitio que ya tienes · Dominio y hosting renuevas directamente con tu proveedor o conmigo · Cancelable cuando quieras' },
+      { plan: 'Solo Marca (dominio + correos)' as const, annual: 'Dominio: S/ 50–130\nCorreos: S/ 50–100', includes: 'Si no renuevas: el dominio sigue siendo tuyo' },
     ] as const,
     domainTableTitle: 'Referencia: costo de renovación anual según extensión',
     domainColExt: 'Extensión',
@@ -62,6 +62,7 @@ const UI_LABELS = {
     categoryPeace: { title: 'Peace', description: 'For businesses with existing websites needing protection' },
     popularBadge: 'Most popular',
     priceSubline: 'One-time payment + 1 year included free.',
+    tableHeaderNote: '(Annual renewal costs)',
     guarantee: '15-day guarantee: if you\'re not satisfied, we refund 100% of your payment. No awkward questions.',
     note: 'The domain is yours from day one. I only help register and renew it if you need it.',
     summaryTitle: 'What you would pay after year one, per plan',
@@ -70,12 +71,12 @@ const UI_LABELS = {
     summaryColAnnual: 'Annual recurring cost',
     summaryColIncludes: 'What it covers',
     summaryRows: [
-      { plan: 'New Client in 48h' as const, annual: 'S/ 240 – 260', includes: 'Domain .pe or .com as you prefer (S/50–130/yr) · Hosting (S/100–150/yr) · Basic support included · If you don\'t renew: domain stays yours' },
-      { plan: 'WhatsApp Lead Machine' as const, annual: 'S/ 240 – 260', includes: 'Domain .pe or .com as you prefer (S/50–130/yr) · Hosting (S/100–150/yr) · Basic support included · If you don\'t renew: domain stays yours' },
-      { plan: 'Full Control (editable by you)' as const, annual: 'S/ 240 – 290', includes: 'Domain .pe or .com as you prefer (S/50–130/yr) · Hosting (S/100–150/yr) · Support and security updates · If you don\'t renew: domain and files stay yours' },
-      { plan: 'Automated Digital Business' as const, annual: 'S/ 290 – 340', includes: 'Domain .pe or .com as you prefer (S/50–130/yr) · Hosting (S/150–200/yr) · Automatic backups · Priority support · If you don\'t renew: domain and business stay yours' },
-      { plan: 'Peace of Mind (24/7 maintenance)' as const, annual: 'S/ 79/mo (renewable monthly)', includes: 'Pure maintenance and 24/7 security · Applies to a site you already have · Domain and hosting you renew directly with your provider or with me · Cancel anytime' },
-      { plan: 'Just Brand (domain + emails)' as const, annual: 'S/ 170 – 200', includes: 'Domain .pe or .com as you prefer (S/50–130/yr) · Up to 5 professional emails (S/50–100/yr) · If you don\'t renew: domain stays yours' },
+      { plan: 'New Client in 48h' as const, annual: 'Domain: S/ 50–130\nHosting: S/ 100–150', includes: 'Basic support included · If you don\'t renew: domain stays yours' },
+      { plan: 'WhatsApp Lead Machine' as const, annual: 'Domain: S/ 50–130\nHosting: S/ 100–150', includes: 'Basic support included · If you don\'t renew: domain stays yours' },
+      { plan: 'Full Control (editable by you)' as const, annual: 'Domain: S/ 50–130\nHosting: S/ 100–150', includes: 'Support and security updates · If you don\'t renew: domain and files stay yours' },
+      { plan: 'Automated Digital Business' as const, annual: 'Domain: S/ 50–130\nHosting: S/ 150–200', includes: 'Automatic backups · Priority support · If you don\'t renew: domain and business stay yours' },
+      { plan: 'Peace of Mind (24/7 maintenance)' as const, annual: 'S/ 79/mo\n(renewable monthly)', includes: 'Pure maintenance and 24/7 security · Applies to a site you already have · Domain and hosting you renew directly with your provider or with me · Cancel anytime' },
+      { plan: 'Just Brand (domain + emails)' as const, annual: 'Domain: S/ 50–130\nEmails: S/ 50–100', includes: 'If you don\'t renew: domain stays yours' },
     ] as const,
     domainTableTitle: 'Reference: annual renewal cost by extension',
     domainColExt: 'Extension',
@@ -277,7 +278,7 @@ export default async function OffersSection({ locale }: Props) {
               <thead>
                 <tr>
                   <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{ui.summaryColPlan}</th>
-                  <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{ui.summaryColAnnual}</th>
+                  <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]"><div>{ui.summaryColAnnual}</div><div className="text-[10px] font-normal normal-case tracking-normal text-[#52525B] mt-1">(Annual renewal costs)</div></th>
                   <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{ui.summaryColIncludes}</th>
                 </tr>
               </thead>
@@ -285,7 +286,7 @@ export default async function OffersSection({ locale }: Props) {
                 {ui.summaryRows.map((row, i) => (
                   <tr key={row.plan} className="align-top">
                     <td className={`${i < ui.summaryRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-4 text-sm text-white font-medium`}>{row.plan}</td>
-                    <td className={`${i < ui.summaryRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-4 text-sm font-semibold text-[#00D4FF] whitespace-nowrap`}>{row.annual}</td>
+                    <td className={`${i < ui.summaryRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-4 text-sm font-semibold text-[#00D4FF] whitespace-pre-line`}>{row.annual}</td>
                     <td className={`${i < ui.summaryRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-4 text-sm text-[#A1A1AA]`}>{row.includes}</td>
                   </tr>
                 ))}
