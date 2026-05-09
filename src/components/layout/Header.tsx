@@ -36,7 +36,6 @@ export default function Header({ translations, locale }: HeaderProps) {
   const localizedHome = `/${currentLocale}`;
 
   const navLinks = [
-    { name: t.services, href: `${localizedHome}#servicios` },
     { name: t.portfolio, href: `${localizedHome}#portafolio` },
     { name: t.technologies, href: `${localizedHome}#tech` },
     { name: t.process, href: `${localizedHome}#proceso` },
