@@ -4,6 +4,18 @@ import { activateSetupWithGrace } from '@/lib/subscription';
 
 export const dynamic = 'force-dynamic';
 
+const asOptionalString = (value: unknown) => {
+  if (typeof value !== 'string') return undefined;
+  const v = value.trim();
+  return v.length > 0 ? v : null;
+};
+
+const asOptionalAmount = (value: unknown) => {
+  if (value === null || value === undefined || value === '') return null;
+  const n = Number(value);
+  return Number.isFinite(n) && n >= 0 ? n : undefined;
+};
+
 export async function GET() {
   const rows = await db.clientSite.findMany({
     orderBy: { createdAt: 'desc' },
@@ -32,6 +44,15 @@ export async function POST(req: Request) {
       data: {
         slug,
         businessName,
+        contractedService: asOptionalString(body.contractedService),
+        serviceTier: asOptionalString(body.serviceTier),
+        setupFeeAmount: asOptionalAmount(body.setupFeeAmount),
+        recurringAmount: asOptionalAmount(body.recurringAmount),
+        currency: asOptionalString(body.currency)?.toUpperCase() || 'PEN',
+        billingEmail: asOptionalString(body.billingEmail),
+        billingContactName: asOptionalString(body.billingContactName),
+        billingContactPhone: asOptionalString(body.billingContactPhone),
+        notes: asOptionalString(body.notes),
       },
     });
 

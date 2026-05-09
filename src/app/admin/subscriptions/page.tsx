@@ -4,11 +4,17 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AlertCircle, CheckCircle2, Clock, Plus, RefreshCw } from 'lucide-react';
 import { SubscriptionStatus } from '@prisma/client';
+import { useAdminAlert } from '@/components/providers/AdminAlertProvider';
 
 interface ClientSiteRow {
   id: string;
   slug: string;
   businessName: string;
+  contractedService: string | null;
+  serviceTier: string | null;
+  recurringAmount: number | null;
+  currency: string;
+  billingEmail: string | null;
   status: SubscriptionStatus;
   setupFeePaidAt: string | null;
   subscriptionStartsAt: string | null;
@@ -17,11 +23,17 @@ interface ClientSiteRow {
 }
 
 export default function AdminSubscriptions() {
+  const { push, confirm } = useAdminAlert();
   const [sites, setSites] = useState<ClientSiteRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [businessName, setBusinessName] = useState('');
   const [slug, setSlug] = useState('');
+  const [contractedService, setContractedService] = useState('');
+  const [serviceTier, setServiceTier] = useState('');
+  const [recurringAmount, setRecurringAmount] = useState('');
+  const [currency, setCurrency] = useState('PEN');
+  const [billingEmail, setBillingEmail] = useState('');
   const [creating, setCreating] = useState(false);
   const [createError, setCreateError] = useState('');
 
@@ -34,6 +46,7 @@ export default function AdminSubscriptions() {
     } catch (e) {
       console.error(e);
       setError('Error cargando suscripciones');
+      push({ kind: 'error', title: 'No se pudo cargar', message: 'Error cargando suscripciones' });
     } finally {
       setLoading(false);
     }
@@ -47,6 +60,7 @@ export default function AdminSubscriptions() {
     e.preventDefault();
     if (!businessName.trim() || !slug.trim()) {
       setCreateError('Ingresa razón social y slug');
+      push({ kind: 'warning', title: 'Campos obligatorios', message: 'Ingresa razón social y slug' });
       return;
     }
 
@@ -60,6 +74,11 @@ export default function AdminSubscriptions() {
         body: JSON.stringify({
           businessName: businessName.trim(),
           slug: slug.trim().toLowerCase(),
+          contractedService: contractedService.trim() || undefined,
+          serviceTier: serviceTier.trim() || undefined,
+          recurringAmount: recurringAmount.trim() ? Number(recurringAmount) : undefined,
+          currency: currency.trim() || 'PEN',
+          billingEmail: billingEmail.trim() || undefined,
         }),
       });
 
@@ -70,25 +89,46 @@ export default function AdminSubscriptions() {
 
       setBusinessName('');
       setSlug('');
+      setContractedService('');
+      setServiceTier('');
+      setRecurringAmount('');
+      setCurrency('PEN');
+      setBillingEmail('');
       await loadSites();
+      push({ kind: 'success', title: 'Suscripción creada', message: 'Setup activado por 12 meses' });
     } catch (err) {
       console.error(err);
-      setCreateError(err instanceof Error ? err.message : 'Error creando suscripción');
+      const message = err instanceof Error ? err.message : 'Error creando suscripción';
+      setCreateError(message);
+      push({ kind: 'error', title: 'No se pudo crear', message });
     } finally {
       setCreating(false);
     }
   };
 
   const handleExpire = async () => {
-    if (!confirm('¿Expirar suscripciones vencidas?')) return;
+    const accepted = await confirm({
+      title: 'Expirar suscripciones vencidas',
+      message: 'Esta acción marcará como INACTIVAS las que ya vencieron.',
+      confirmText: 'Expirar ahora',
+      cancelText: 'Cancelar',
+      danger: true,
+    });
+    if (!accepted) return;
+
     try {
       const r = await fetch('/api/admin/subscriptions/expire', { method: 'POST' });
+      if (!r.ok) throw new Error('No se pudo ejecutar expiración masiva');
       const data = await r.json();
-      alert(`${data.deactivated || 0} suscripciones desactivadas`);
-      window.location.reload();
+      push({
+        kind: 'success',
+        title: 'Expiración ejecutada',
+        message: `${data.deactivated || 0} suscripciones desactivadas`,
+      });
+      await loadSites();
     } catch (e) {
       console.error(e);
-      alert('Error al expirar suscripciones');
+      push({ kind: 'error', title: 'Error al expirar', message: 'Inténtalo nuevamente' });
     }
   };
 
@@ -132,6 +172,61 @@ export default function AdminSubscriptions() {
               onChange={(e) => setSlug(e.target.value)}
               placeholder="Ej: talleres-andinos"
               className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/40"
+            />
+          </div>
+
+          <div className="md:col-span-1">
+            <label className="block text-xs text-[#71717A] mb-1">Servicio contratado</label>
+            <input
+              value={contractedService}
+              onChange={(e) => setContractedService(e.target.value)}
+              placeholder="Ej: Web Corporativa + SEO"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#00D4FF]/40"
+            />
+          </div>
+
+          <div className="md:col-span-1">
+            <label className="block text-xs text-[#71717A] mb-1">Plan/Tier</label>
+            <input
+              value={serviceTier}
+              onChange={(e) => setServiceTier(e.target.value)}
+              placeholder="Ej: Growth"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/40"
+            />
+          </div>
+
+          <div className="md:col-span-1">
+            <label className="block text-xs text-[#71717A] mb-1">Monto recurrente</label>
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              value={recurringAmount}
+              onChange={(e) => setRecurringAmount(e.target.value)}
+              placeholder="Ej: 300"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#10B981]/40"
+            />
+          </div>
+
+          <div className="md:col-span-1">
+            <label className="block text-xs text-[#71717A] mb-1">Moneda</label>
+            <input
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value.toUpperCase())}
+              maxLength={3}
+              placeholder="PEN"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/40"
+            />
+          </div>
+
+          <div className="md:col-span-1">
+            <label className="block text-xs text-[#71717A] mb-1">Email de facturación</label>
+            <input
+              type="email"
+              value={billingEmail}
+              onChange={(e) => setBillingEmail(e.target.value)}
+              placeholder="facturacion@cliente.com"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#00D4FF]/40"
             />
           </div>
 
@@ -236,6 +331,23 @@ export default function AdminSubscriptions() {
                         <span className="text-[#52525B]">Último plan:</span>
                         <p className="text-white font-mono text-[11px]">
                           {lastRenewal?.plan || '—'}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                      <div>
+                        <span className="text-[#52525B]">Servicio:</span>
+                        <p className="text-white text-[11px]">{site.contractedService || '—'}</p>
+                      </div>
+                      <div>
+                        <span className="text-[#52525B]">Plan:</span>
+                        <p className="text-white text-[11px]">{site.serviceTier || '—'}</p>
+                      </div>
+                      <div>
+                        <span className="text-[#52525B]">Monto:</span>
+                        <p className="text-white font-mono text-[11px]">
+                          {site.recurringAmount !== null ? `${site.currency} ${site.recurringAmount}` : '—'}
                         </p>
                       </div>
                     </div>

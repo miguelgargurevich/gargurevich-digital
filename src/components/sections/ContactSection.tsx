@@ -84,6 +84,7 @@ export default function ContactSection({
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
@@ -113,6 +114,7 @@ export default function ContactSection({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError('');
     
     try {
       const response = await fetch('/api/contact', {
@@ -142,7 +144,11 @@ export default function ContactSection({
       }, 3000);
     } catch (error) {
       console.error('Submission error:', error);
-      alert('Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+      setSubmitError(
+        locale === 'es'
+          ? 'Hubo un error al enviar el mensaje. Intenta nuevamente.'
+          : 'There was an error sending your message. Please try again.'
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -253,6 +259,12 @@ export default function ContactSection({
             viewport={{ once: true }}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
+              {submitError && (
+                <div className="rounded-xl border border-[#EF444440] bg-[#EF444418] px-4 py-3 text-sm text-[#EF4444]">
+                  {submitError}
+                </div>
+              )}
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Name */}
                 <div>

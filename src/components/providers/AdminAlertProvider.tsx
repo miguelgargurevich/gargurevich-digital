@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 import { AlertTriangle, CheckCircle2, Info, XCircle } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 type AlertKind = 'success' | 'error' | 'warning' | 'info';
 
@@ -113,51 +114,76 @@ export function AdminAlertProvider({ children }: { children: React.ReactNode }) 
       {children}
 
       <div className="fixed top-2 right-2 z-120 space-y-1.5 w-[min(94vw,280px)] sm:top-4 sm:right-4 sm:space-y-2 sm:w-[min(92vw,360px)]">
-        {alerts.map((alert) => {
-          const style = ALERT_STYLES[alert.kind];
-          const Icon = style.icon;
-          return (
-            <div key={alert.id} className={`rounded-lg border ${style.border} ${style.bg} p-2.5 sm:rounded-xl sm:p-3 shadow-[0_8px_24px_rgba(0,0,0,0.35)] backdrop-blur`}>
-              <div className="flex items-start gap-2">
-                <Icon size={14} className={style.text} />
-                <div>
-                  <div className={`text-[11px] sm:text-xs font-semibold ${style.text}`}>{alert.title}</div>
-                  {alert.message && <div className="text-[11px] sm:text-xs text-[#CFCFD4] mt-0.5 leading-tight">{alert.message}</div>}
+        <AnimatePresence initial={false}>
+          {alerts.map((alert) => {
+            const style = ALERT_STYLES[alert.kind];
+            const Icon = style.icon;
+            return (
+              <motion.div
+                key={alert.id}
+                layout
+                initial={{ opacity: 0, y: -10, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -8, scale: 0.98 }}
+                transition={{ type: 'spring', stiffness: 520, damping: 34, mass: 0.8 }}
+                className={`rounded-lg border ${style.border} ${style.bg} p-2.5 sm:rounded-xl sm:p-3 shadow-[0_8px_24px_rgba(0,0,0,0.35)] backdrop-blur`}
+              >
+                <div className="flex items-start gap-2">
+                  <Icon size={14} className={style.text} />
+                  <div>
+                    <div className={`text-[11px] sm:text-xs font-semibold ${style.text}`}>{alert.title}</div>
+                    {alert.message && <div className="text-[11px] sm:text-xs text-[#CFCFD4] mt-0.5 leading-tight">{alert.message}</div>}
+                  </div>
                 </div>
-              </div>
-            </div>
-          );
-        })}
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
       </div>
 
-      {confirmState.open && (
-        <div className="fixed inset-0 z-130 flex items-center justify-center bg-black/65 backdrop-blur-sm px-3 sm:px-4">
-          <div className="w-full max-w-sm sm:max-w-md rounded-xl border border-white/15 bg-[#111111] p-4 sm:p-5">
-            <div className="text-sm font-semibold text-white">{confirmState.title}</div>
-            {confirmState.message && <p className="text-xs text-[#A1A1AA] mt-1">{confirmState.message}</p>}
-            <div className="mt-4 flex items-center justify-end gap-2">
-              <button
-                type="button"
-                onClick={() => closeConfirm(false)}
-                className="rounded-lg border border-white/10 px-3 py-1.5 text-[11px] sm:text-xs text-[#A1A1AA] hover:text-white hover:border-white/20 transition-colors"
-              >
-                {confirmState.cancelText || 'Cancelar'}
-              </button>
-              <button
-                type="button"
-                onClick={() => closeConfirm(true)}
-                className={`rounded-lg px-3 py-1.5 text-[11px] sm:text-xs font-semibold transition-colors ${
-                  confirmState.danger
-                    ? 'bg-[#EF444420] text-[#EF4444] hover:bg-[#EF444430]'
-                    : 'bg-[#00D4FF18] text-[#00D4FF] hover:bg-[#00D4FF2A]'
-                }`}
-              >
-                {confirmState.confirmText || 'Confirmar'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {confirmState.open && (
+          <motion.div
+            key="admin-confirm-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            className="fixed inset-0 z-130 flex items-center justify-center bg-black/65 backdrop-blur-sm px-3 sm:px-4"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 8, scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 36 }}
+              className="w-full max-w-sm sm:max-w-md rounded-xl border border-white/15 bg-[#111111] p-4 sm:p-5"
+            >
+              <div className="text-sm font-semibold text-white">{confirmState.title}</div>
+              {confirmState.message && <p className="text-xs text-[#A1A1AA] mt-1">{confirmState.message}</p>}
+              <div className="mt-4 flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => closeConfirm(false)}
+                  className="rounded-lg border border-white/10 px-3 py-1.5 text-[11px] sm:text-xs text-[#A1A1AA] hover:text-white hover:border-white/20 transition-colors"
+                >
+                  {confirmState.cancelText || 'Cancelar'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => closeConfirm(true)}
+                  className={`rounded-lg px-3 py-1.5 text-[11px] sm:text-xs font-semibold transition-colors ${
+                    confirmState.danger
+                      ? 'bg-[#EF444420] text-[#EF4444] hover:bg-[#EF444430]'
+                      : 'bg-[#00D4FF18] text-[#00D4FF] hover:bg-[#00D4FF2A]'
+                  }`}
+                >
+                  {confirmState.confirmText || 'Confirmar'}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </AdminAlertContext.Provider>
   );
 }

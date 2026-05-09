@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Copy, Trash2, Upload, Check } from 'lucide-react';
+import { useAdminAlert } from '@/components/providers/AdminAlertProvider';
 
 interface MediaFile {
   id: string;
@@ -20,6 +21,7 @@ function fmtSize(bytes: number) {
 }
 
 export default function AdminMediaPage() {
+  const { push, confirm } = useAdminAlert();
   const [files, setFiles] = useState<MediaFile[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
@@ -45,8 +47,11 @@ export default function AdminMediaPage() {
       const res = await fetch('/api/admin/upload', { method: 'POST', body: formData });
       if (!res.ok) throw new Error('Error al subir el archivo');
       await load();
+      push({ kind: 'success', title: 'Archivo subido', message: file.name });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al subir');
+      const message = err instanceof Error ? err.message : 'Error al subir';
+      setError(message);
+      push({ kind: 'error', title: 'Subida fallida', message });
     } finally {
       setUploading(false);
       if (fileRef.current) fileRef.current.value = '';
@@ -54,18 +59,32 @@ export default function AdminMediaPage() {
   };
 
   const handleDelete = async (key: string) => {
-    if (!confirm('¿Eliminar este archivo?')) return;
-    await fetch('/api/admin/media', {
+    const accepted = await confirm({
+      title: 'Eliminar archivo',
+      message: 'Esta acción no se puede deshacer.',
+      confirmText: 'Eliminar',
+      cancelText: 'Cancelar',
+      danger: true,
+    });
+    if (!accepted) return;
+
+    const response = await fetch('/api/admin/media', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ key }),
     });
+    if (!response.ok) {
+      push({ kind: 'error', title: 'No se pudo eliminar', message: 'Inténtalo nuevamente' });
+      return;
+    }
     setFiles((f) => f.filter((x) => x.key !== key));
+    push({ kind: 'success', title: 'Archivo eliminado' });
   };
 
   const handleCopy = (url: string) => {
     navigator.clipboard.writeText(url);
     setCopied(url);
+    push({ kind: 'info', title: 'URL copiada', message: 'Enlace copiado al portapapeles', durationMs: 1600 });
     setTimeout(() => setCopied(null), 2000);
   };
 

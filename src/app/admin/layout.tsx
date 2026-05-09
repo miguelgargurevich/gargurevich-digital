@@ -19,6 +19,7 @@ import {
   Bell,
   ChevronRight,
 } from 'lucide-react';
+import { AdminAlertProvider } from '@/components/providers/AdminAlertProvider';
 
 interface NotificationLead {
   id: string;
@@ -108,7 +109,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="min-h-screen bg-background text-white flex">
+    <AdminAlertProvider>
+      <div className="min-h-screen bg-background text-white flex">
       {/* ── Sidebar ─────────────────────────────────────────────────────── */}
       <aside
         className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#111111] border-r border-white/10 flex flex-col
@@ -283,5 +285,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <main className="flex-1 p-5 md:p-7">{children}</main>
       </div>
     </div>
+    </AdminAlertProvider>
   );
 }

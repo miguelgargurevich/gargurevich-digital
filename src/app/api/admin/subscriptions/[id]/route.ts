@@ -2,6 +2,18 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { activateSetupWithGrace, ensureActiveSubscription, refreshSubscriptionStatus } from '@/lib/subscription';
 
+const asOptionalString = (value: unknown) => {
+  if (typeof value !== 'string') return undefined;
+  const v = value.trim();
+  return v.length > 0 ? v : null;
+};
+
+const asOptionalAmount = (value: unknown) => {
+  if (value === null || value === undefined || value === '') return null;
+  const n = Number(value);
+  return Number.isFinite(n) && n >= 0 ? n : undefined;
+};
+
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
@@ -47,6 +59,33 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     }
     if (typeof body.slug === 'string') {
       data.slug = body.slug.trim();
+    }
+    if (body.contractedService !== undefined) {
+      data.contractedService = asOptionalString(body.contractedService);
+    }
+    if (body.serviceTier !== undefined) {
+      data.serviceTier = asOptionalString(body.serviceTier);
+    }
+    if (body.setupFeeAmount !== undefined) {
+      data.setupFeeAmount = asOptionalAmount(body.setupFeeAmount);
+    }
+    if (body.recurringAmount !== undefined) {
+      data.recurringAmount = asOptionalAmount(body.recurringAmount);
+    }
+    if (body.currency !== undefined) {
+      data.currency = asOptionalString(body.currency)?.toUpperCase() || 'PEN';
+    }
+    if (body.billingEmail !== undefined) {
+      data.billingEmail = asOptionalString(body.billingEmail);
+    }
+    if (body.billingContactName !== undefined) {
+      data.billingContactName = asOptionalString(body.billingContactName);
+    }
+    if (body.billingContactPhone !== undefined) {
+      data.billingContactPhone = asOptionalString(body.billingContactPhone);
+    }
+    if (body.notes !== undefined) {
+      data.notes = asOptionalString(body.notes);
     }
 
     const updated = await db.clientSite.update({

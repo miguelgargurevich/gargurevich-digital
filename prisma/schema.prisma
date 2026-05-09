@@ -126,6 +126,15 @@ model ClientSite {
   id                     String             @id @default(cuid())
   slug                   String             @unique
   businessName           String
+  contractedService      String?
+  serviceTier            String?
+  setupFeeAmount         Decimal?           @db.Decimal(10, 2)
+  recurringAmount        Decimal?           @db.Decimal(10, 2)
+  currency               String             @default("PEN")
+  billingEmail           String?
+  billingContactName     String?
+  billingContactPhone    String?
+  notes                  String?            @db.Text
   status                 SubscriptionStatus @default(ACTIVE)
   setupFeePaidAt         DateTime?
   subscriptionStartsAt   DateTime?

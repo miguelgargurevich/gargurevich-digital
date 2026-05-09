@@ -1,14 +1,24 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { CheckCircle2, AlertCircle, Plus, RotateCcw } from 'lucide-react';
 import { SubscriptionStatus, RenewalPlan } from '@prisma/client';
+import { useAdminAlert } from '@/components/providers/AdminAlertProvider';
 
 interface SubscriptionDetail {
   id: string;
   slug: string;
   businessName: string;
+  contractedService: string | null;
+  serviceTier: string | null;
+  setupFeeAmount: number | null;
+  recurringAmount: number | null;
+  currency: string;
+  billingEmail: string | null;
+  billingContactName: string | null;
+  billingContactPhone: string | null;
+  notes: string | null;
   status: SubscriptionStatus;
   setupFeePaidAt: string | null;
   subscriptionStartsAt: string | null;
@@ -26,28 +36,98 @@ interface SubscriptionDetail {
 }
 
 export default function SubscriptionDetail() {
+  const { push } = useAdminAlert();
   const params = useParams();
-  const router = useRouter();
   const id = params.id as string;
 
   const [sub, setSub] = useState<SubscriptionDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [action, setAction] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState('');
+
+  const [businessName, setBusinessName] = useState('');
+  const [slug, setSlug] = useState('');
+  const [contractedService, setContractedService] = useState('');
+  const [serviceTier, setServiceTier] = useState('');
+  const [setupFeeAmount, setSetupFeeAmount] = useState('');
+  const [recurringAmount, setRecurringAmount] = useState('');
+  const [currency, setCurrency] = useState('PEN');
+  const [billingEmail, setBillingEmail] = useState('');
+  const [billingContactName, setBillingContactName] = useState('');
+  const [billingContactPhone, setBillingContactPhone] = useState('');
+  const [notes, setNotes] = useState('');
+
+  const loadSubscription = async () => {
+    setError('');
+    try {
+      const r = await fetch(`/api/admin/subscriptions/${id}`, { cache: 'no-store' });
+      const data = await r.json();
+      setSub(data);
+      setBusinessName(data.businessName ?? '');
+      setSlug(data.slug ?? '');
+      setContractedService(data.contractedService ?? '');
+      setServiceTier(data.serviceTier ?? '');
+      setSetupFeeAmount(data.setupFeeAmount != null ? String(data.setupFeeAmount) : '');
+      setRecurringAmount(data.recurringAmount != null ? String(data.recurringAmount) : '');
+      setCurrency(data.currency ?? 'PEN');
+      setBillingEmail(data.billingEmail ?? '');
+      setBillingContactName(data.billingContactName ?? '');
+      setBillingContactPhone(data.billingContactPhone ?? '');
+      setNotes(data.notes ?? '');
+    } catch (e) {
+      console.error(e);
+      setError('Error cargando suscripción');
+      push({ kind: 'error', title: 'No se pudo cargar', message: 'Error cargando suscripción' });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    fetch(`/api/admin/subscriptions/${id}`)
-      .then((r) => r.json())
-      .then((data) => {
-        setSub(data);
-        setLoading(false);
-      })
-      .catch((e) => {
-        console.error(e);
-        setError('Error cargando suscripción');
-        setLoading(false);
-      });
+    loadSubscription();
   }, [id]);
+
+  const handleSaveCommercialData = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSaving(true);
+    setSaveMessage('');
+    try {
+      const response = await fetch(`/api/admin/subscriptions/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          businessName: businessName.trim(),
+          slug: slug.trim(),
+          contractedService: contractedService.trim() || null,
+          serviceTier: serviceTier.trim() || null,
+          setupFeeAmount: setupFeeAmount.trim() ? Number(setupFeeAmount) : null,
+          recurringAmount: recurringAmount.trim() ? Number(recurringAmount) : null,
+          currency: currency.trim() || 'PEN',
+          billingEmail: billingEmail.trim() || null,
+          billingContactName: billingContactName.trim() || null,
+          billingContactPhone: billingContactPhone.trim() || null,
+          notes: notes.trim() || null,
+        }),
+      });
+
+      if (!response.ok) {
+        const body = await response.json().catch(() => ({}));
+        throw new Error(body.error || 'No se pudo guardar');
+      }
+
+      setSaveMessage('Datos comerciales guardados');
+      push({ kind: 'success', title: 'Datos guardados', message: 'La ficha comercial fue actualizada' });
+      await loadSubscription();
+    } catch (e) {
+      const message = e instanceof Error ? e.message : 'Error guardando';
+      setSaveMessage(message);
+      push({ kind: 'error', title: 'No se pudo guardar', message });
+    } finally {
+      setSaving(false);
+    }
+  };
 
   const handleRenew = async (plan: RenewalPlan) => {
     setAction(`renew_${plan}`);
@@ -58,10 +138,14 @@ export default function SubscriptionDetail() {
         body: JSON.stringify({ plan }),
       });
       if (!r.ok) throw new Error(await r.text());
-      alert('Renovación procesada');
-      window.location.reload();
+      push({ kind: 'success', title: 'Renovación procesada', message: `Plan aplicado: ${plan}` });
+      await loadSubscription();
     } catch (e) {
-      alert('Error: ' + (e instanceof Error ? e.message : 'desconocido'));
+      push({
+        kind: 'error',
+        title: 'Error de renovación',
+        message: e instanceof Error ? e.message : 'Error desconocido',
+      });
     } finally {
       setAction('');
     }
@@ -76,10 +160,14 @@ export default function SubscriptionDetail() {
         body: JSON.stringify({ action: 'activate_setup' }),
       });
       if (!r.ok) throw new Error(await r.text());
-      alert('Setup re-activado: 12 meses desde hoy');
-      window.location.reload();
+      push({ kind: 'success', title: 'Setup re-activado', message: 'Se renovó por 12 meses desde hoy' });
+      await loadSubscription();
     } catch (e) {
-      alert('Error: ' + (e instanceof Error ? e.message : 'desconocido'));
+      push({
+        kind: 'error',
+        title: 'Error de re-activación',
+        message: e instanceof Error ? e.message : 'Error desconocido',
+      });
     } finally {
       setAction('');
     }
@@ -158,6 +246,122 @@ export default function SubscriptionDetail() {
           <div className="text-xs text-[#52525B] uppercase tracking-wider">Meses de gracia incluidos</div>
           <div className="mt-2 font-mono text-white">{sub.graceIncludedMonths}</div>
         </div>
+      </div>
+
+      {/* Commercial data */}
+      <div className="bg-[#111111] border border-white/10 rounded-lg p-6">
+        <h3 className="font-semibold text-white mb-4">Datos comerciales</h3>
+        <form onSubmit={handleSaveCommercialData} className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label className="block text-xs text-[#71717A] mb-1">Razón social</label>
+            <input
+              value={businessName}
+              onChange={(e) => setBusinessName(e.target.value)}
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+            />
+          </div>
+          <div>
+            <label className="block text-xs text-[#71717A] mb-1">Slug</label>
+            <input
+              value={slug}
+              onChange={(e) => setSlug(e.target.value)}
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+            />
+          </div>
+          <div>
+            <label className="block text-xs text-[#71717A] mb-1">Servicio contratado</label>
+            <input
+              value={contractedService}
+              onChange={(e) => setContractedService(e.target.value)}
+              placeholder="Web + SEO + Mantenimiento"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+            />
+          </div>
+          <div>
+            <label className="block text-xs text-[#71717A] mb-1">Plan / Tier</label>
+            <input
+              value={serviceTier}
+              onChange={(e) => setServiceTier(e.target.value)}
+              placeholder="Growth"
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+            />
+          </div>
+          <div>
+            <label className="block text-xs text-[#71717A] mb-1">Setup fee ({currency})</label>
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              value={setupFeeAmount}
+              onChange={(e) => setSetupFeeAmount(e.target.value)}
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+            />
+          </div>
+          <div>
+            <label className="block text-xs text-[#71717A] mb-1">Monto recurrente ({currency})</label>
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              value={recurringAmount}
+              onChange={(e) => setRecurringAmount(e.target.value)}
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+            />
+          </div>
+          <div>
+            <label className="block text-xs text-[#71717A] mb-1">Moneda</label>
+            <input
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value.toUpperCase())}
+              maxLength={3}
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+            />
+          </div>
+          <div>
+            <label className="block text-xs text-[#71717A] mb-1">Email de facturación</label>
+            <input
+              type="email"
+              value={billingEmail}
+              onChange={(e) => setBillingEmail(e.target.value)}
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+            />
+          </div>
+          <div>
+            <label className="block text-xs text-[#71717A] mb-1">Contacto de facturación</label>
+            <input
+              value={billingContactName}
+              onChange={(e) => setBillingContactName(e.target.value)}
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+            />
+          </div>
+          <div>
+            <label className="block text-xs text-[#71717A] mb-1">Teléfono de facturación</label>
+            <input
+              value={billingContactPhone}
+              onChange={(e) => setBillingContactPhone(e.target.value)}
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+            />
+          </div>
+          <div className="md:col-span-2">
+            <label className="block text-xs text-[#71717A] mb-1">Notas</label>
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              rows={3}
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white"
+            />
+          </div>
+          <div className="md:col-span-2 flex items-center gap-3">
+            <button
+              type="submit"
+              disabled={saving}
+              className="rounded-lg px-4 py-2 bg-[#00D4FF18] text-[#00D4FF] hover:bg-[#00D4FF25] transition-colors text-sm font-medium disabled:opacity-50"
+            >
+              {saving ? 'Guardando...' : 'Guardar datos comerciales'}
+            </button>
+            {saveMessage && <span className="text-xs text-[#A1A1AA]">{saveMessage}</span>}
+          </div>
+        </form>
       </div>
 
       {/* Actions */}
