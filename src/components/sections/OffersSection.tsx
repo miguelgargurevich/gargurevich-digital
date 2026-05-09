@@ -23,6 +23,7 @@ const UI_LABELS = {
     categoryControl: { title: 'Control', description: 'Para negocios que ya venden y quieren escalar' },
     categoryPeace: { title: 'Tranquilidad', description: 'Para negocios con web que necesitan protección' },
     popularBadge: 'Más popular',
+    priceSubline: 'Incluye dominio, hosting y soporte por 12 meses.',
     guarantee: 'Garantía de 15 días: si no estás satisfecho, te devolvemos el 100% de tu pago. Sin preguntas incómodas.',
     note: 'El dominio es tuyo desde el día 1. Yo solo te ayudo a registrarlo y renovarlo si lo necesitas.',
     summaryTitle: 'Lo que pagarías después del primer año, por plan',
@@ -60,6 +61,7 @@ const UI_LABELS = {
     categoryControl: { title: 'Scale', description: 'For businesses already selling who want to grow' },
     categoryPeace: { title: 'Peace', description: 'For businesses with existing websites needing protection' },
     popularBadge: 'Most popular',
+    priceSubline: 'Includes domain, hosting and support for 12 months.',
     guarantee: '15-day guarantee: if you\'re not satisfied, we refund 100% of your payment. No awkward questions.',
     note: 'The domain is yours from day one. I only help register and renew it if you need it.',
     summaryTitle: 'What you would pay after year one, per plan',
@@ -115,6 +117,7 @@ function renderOfferCard(
   const cta = locale === 'es' ? offer.ctaEs : offer.ctaEn;
   const forWho = locale === 'es' ? offer.forWhoEs : offer.forWhoEn;
   const priceNote = locale === 'es' ? offer.priceNoteEs : offer.priceNoteEn;
+  const shouldShowPriceSubline = ['mi-negocio-en-google', 'landing-whatsapp', 'web-que-yo-edito', 'sueno-digital-completo'].includes(offer.planKey);
   const Icon = ICON_MAP[offer.icon] ?? Zap;
 
   return (
@@ -151,6 +154,11 @@ function renderOfferCard(
             {offer.price}
           </p>
           <p className="text-xs text-[#71717A] mt-0.5">{priceNote}</p>
+          {shouldShowPriceSubline && (
+            <p className="mt-1 text-[11px] leading-snug text-[#A1A1AA] max-w-52 ml-auto">
+              {ui.priceSubline}
+            </p>
+          )}
         </div>
       </div>
 
