@@ -32,7 +32,7 @@ ${f.items?.map(item => `  • ${item}`).join('\n')}
 `).join('\n')}
 
 INVERSIÓN: S/ ${exampleQuoteData.price.toLocaleString('es-PE')}
-Pago único - Sin costos ocultos
+Setup + 1 año incluido - Sin costos ocultos
 
 INCLUYE:
 ${exampleQuoteData.includes.map(i => `✓ ${i}`).join('\n')}
@@ -125,7 +125,7 @@ ${exampleQuoteData.notes?.map(n => `• ${n}`).join('\n')}
       'Publicación',
     ],
     notes: [
-      '💰 Pago único - Incluye todo lo mencionado',
+      '💰 Setup + 1 año incluido - Incluye todo lo mencionado',
       '👉 Es una inversión pensada para que tengas una web profesional de largo plazo, sin costos ocultos',
       '🤝 No es una web genérica - Diseñada específicamente para tu negocio',
       '✅ No dependes de terceros para actualizar - Control total',
@@ -282,7 +282,7 @@ ${exampleQuoteData.notes?.map(n => `• ${n}`).join('\n')}
               <div className="text-4xl font-bold mb-2 print:text-3xl">
                 S/ {exampleQuoteData.price.toLocaleString('es-PE')}
               </div>
-              <div className="text-sm opacity-90">Pago único - Sin costos ocultos</div>
+              <div className="text-sm opacity-90">Setup + 1 año incluido - Sin costos ocultos</div>
             </div>
 
             <div className="mb-6 print:mb-4">

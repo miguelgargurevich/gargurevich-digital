@@ -209,7 +209,7 @@ export const PDFQuoteTemplate = ({ data }: PDFQuoteTemplateProps) => {
         <View style={styles.priceSection}>
           <Text style={styles.priceLabel}>💰 Inversión</Text>
           <Text style={styles.priceValue}>{priceFormatted}</Text>
-          <Text style={styles.priceDetails}>Pago único • Tiempo de entrega: {data.deliveryTime}</Text>
+          <Text style={styles.priceDetails}>Setup + 1 año incluido • Tiempo de entrega: {data.deliveryTime}</Text>
         </View>
 
         {/* Includes Section */}
