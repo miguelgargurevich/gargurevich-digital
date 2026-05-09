@@ -222,7 +222,7 @@ const OFFERS_SEED = [
       'Professional emails',
       'Ready to generate clients from day 1',
     ],
-    ctaEs: 'Habla conmigo por WhatsApp ahora',
+    ctaEs: 'Quiero mi presencia digital',
     ctaEn: 'Chat with me on WhatsApp now',
     forWhoEs: 'Para negocios locales que necesitan presencia online inmediata sin inversión grande.',
     forWhoEn: 'For local businesses needing immediate online presence without big investment.',

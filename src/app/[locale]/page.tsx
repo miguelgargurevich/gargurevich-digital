@@ -14,7 +14,7 @@ type HeroWordsVariant = 'aggressive' | 'premium' | 'balanced';
 const HERO_WORDS_ES: Record<HeroWordsVariant, string[]> = {
   aggressive: ['clientes hoy', 'mas leads por WhatsApp', 'ventas cada semana', 'resultados medibles'],
   premium: ['presencia premium', 'marca que inspira confianza', 'autoridad digital', 'crecimiento sostenible'],
-  balanced: ['clientes reales', 'mas mensajes por WhatsApp', 'ventas constantes', 'autoridad digital'],
+  balanced: ['clientes reales', 'ventas constantes', 'autoridad digital'],
 };
 
 // Switch here for quick A/B tests without touching the hero component.
