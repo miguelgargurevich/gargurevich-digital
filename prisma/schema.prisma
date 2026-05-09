@@ -110,3 +110,47 @@ model Offer {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
+
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum RenewalPlan {
+  MONTHLY
+  ANNUAL_10
+  ANNUAL_15
+}
+
+model ClientSite {
+  id                     String             @id @default(cuid())
+  slug                   String             @unique
+  businessName           String
+  status                 SubscriptionStatus @default(ACTIVE)
+  setupFeePaidAt         DateTime?
+  subscriptionStartsAt   DateTime?
+  subscriptionEndsAt     DateTime?
+  graceIncludedMonths    Int                @default(12)
+  deactivatedAt          DateTime?
+  deactivationReason     String?
+  lastRenewalPlan        RenewalPlan?
+  createdAt              DateTime           @default(now())
+  updatedAt              DateTime           @updatedAt
+  renewals               SubscriptionRenewal[]
+
+  @@index([status, subscriptionEndsAt])
+}
+
+model SubscriptionRenewal {
+  id              String      @id @default(cuid())
+  clientSiteId    String
+  clientSite      ClientSite  @relation(fields: [clientSiteId], references: [id], onDelete: Cascade)
+  plan            RenewalPlan
+  discountPercent Int         @default(0)
+  amount          Decimal?    @db.Decimal(10, 2)
+  startsAt        DateTime
+  endsAt          DateTime
+  createdAt       DateTime    @default(now())
+
+  @@index([clientSiteId, startsAt])
+}

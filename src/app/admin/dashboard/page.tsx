@@ -1,12 +1,13 @@
 import { db } from '@/lib/db';
 import Link from 'next/link';
-import { FolderOpen, Wrench, Image, ArrowRight, Zap, Inbox, Tag } from 'lucide-react';
+import { FolderOpen, Wrench, Image, ArrowRight, Zap, Inbox, Tag, CreditCard } from 'lucide-react';
+import { SubscriptionStatus } from '@prisma/client';
 import SeedButton from './_components/SeedButton';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboard() {
-  const [projectCount, serviceCount, mediaCount, leadCount, newLeadCount, offerCount, projects] = await Promise.all([
+  const [projectCount, serviceCount, mediaCount, leadCount, newLeadCount, offerCount, projects, siteCount, activeSiteCount] = await Promise.all([
     db.portfolioProject.count(),
     db.service.count(),
     db.mediaFile.count(),
@@ -14,6 +15,8 @@ export default async function AdminDashboard() {
     db.lead.count({ where: { status: 'NEW' } }),
       db.offer.count({ where: { published: true } }),
     db.portfolioProject.findMany({ orderBy: { order: 'asc' }, take: 4 }),
+    db.clientSite.count(),
+    db.clientSite.count({ where: { status: SubscriptionStatus.ACTIVE } }),
   ]);
 
   const stats = [
@@ -29,6 +32,14 @@ export default async function AdminDashboard() {
       color: '#F59E0B',
     },
     { label: 'Ofertas', value: offerCount, icon: Tag, href: '/admin/offers', color: '#8B5CF6', badge: null },
+    {
+      label: 'Suscripciones',
+      value: activeSiteCount,
+      badge: activeSiteCount < siteCount ? `${siteCount - activeSiteCount} vencida${siteCount - activeSiteCount > 1 ? 's' : ''}` : null,
+      icon: CreditCard,
+      href: '/admin/subscriptions',
+      color: '#00D4FF',
+    },
   ];
 
   return (

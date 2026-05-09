@@ -1,0 +1,163 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { AlertCircle, CheckCircle2, Clock, Plus, RefreshCw } from 'lucide-react';
+import { SubscriptionStatus } from '@prisma/client';
+
+interface ClientSiteRow {
+  id: string;
+  slug: string;
+  businessName: string;
+  status: SubscriptionStatus;
+  setupFeePaidAt: string | null;
+  subscriptionStartsAt: string | null;
+  subscriptionEndsAt: string | null;
+  renewals?: Array<{ plan: string; createdAt: string }>;
+}
+
+export default function AdminSubscriptions() {
+  const [sites, setSites] = useState<ClientSiteRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    fetch('/api/admin/subscriptions')
+      .then((r) => r.json())
+      .then((data) => {
+        setSites(Array.isArray(data) ? data : []);
+        setLoading(false);
+      })
+      .catch((e) => {
+        console.error(e);
+        setError('Error cargando suscripciones');
+        setLoading(false);
+      });
+  }, []);
+
+  const handleExpire = async () => {
+    if (!confirm('¿Expirar suscripciones vencidas?')) return;
+    try {
+      const r = await fetch('/api/admin/subscriptions/expire', { method: 'POST' });
+      const data = await r.json();
+      alert(`${data.deactivated || 0} suscripciones desactivadas`);
+      window.location.reload();
+    } catch (e) {
+      console.error(e);
+      alert('Error al expirar suscripciones');
+    }
+  };
+
+  return (
+    <div className="space-y-8 max-w-6xl">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-white">Suscripciones</h1>
+          <p className="text-[#71717A] text-sm mt-1">Gestiona ciclos de setup, renovación y expiración</p>
+        </div>
+        <button
+          onClick={handleExpire}
+          className="inline-flex items-center gap-2 rounded-lg px-4 py-2 bg-[#F59E0B18] text-[#F59E0B] hover:bg-[#F59E0B25] transition-colors text-sm font-medium"
+        >
+          <RefreshCw size={16} />
+          Expirar vencidas
+        </button>
+      </div>
+
+      {error && (
+        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 text-red-400 text-sm">
+          {error}
+        </div>
+      )}
+
+      {loading ? (
+        <div className="text-center py-12 text-[#71717A]">Cargando...</div>
+      ) : sites.length === 0 ? (
+        <div className="text-center py-12 border border-dashed border-white/10 rounded-lg">
+          <p className="text-[#71717A]">No hay suscripciones aún</p>
+          <p className="text-xs text-[#52525B] mt-1">Crear una nueva suscripción desde la API</p>
+        </div>
+      ) : (
+        <div className="grid gap-4">
+          {sites.map((site) => {
+            const isActive = site.status === SubscriptionStatus.ACTIVE;
+            const endsAt = site.subscriptionEndsAt ? new Date(site.subscriptionEndsAt) : null;
+            const isExpiringSoon = endsAt && (endsAt.getTime() - Date.now()) < 30 * 24 * 60 * 60 * 1000;
+            const lastRenewal = site.renewals?.[0];
+
+            return (
+              <Link
+                key={site.id}
+                href={`/admin/subscriptions/${site.id}`}
+                className="bg-[#111111] border border-white/10 rounded-lg p-5 hover:border-white/20 transition-all group"
+              >
+                <div className="flex items-start gap-4">
+                  <div
+                    className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
+                      isActive
+                        ? 'bg-[#10B98118]'
+                        : 'bg-[#EF444418]'
+                    }`}
+                  >
+                    {isActive ? (
+                      <CheckCircle2 size={20} className="text-[#10B981]" />
+                    ) : (
+                      <AlertCircle size={20} className="text-[#EF4444]" />
+                    )}
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <h3 className="font-semibold text-white truncate">{site.businessName}</h3>
+                        <p className="text-xs text-[#71717A] truncate">{site.slug}</p>
+                      </div>
+                      <span
+                        className={`px-2 py-1 rounded text-xs font-medium shrink-0 ${
+                          isActive
+                            ? 'bg-[#10B98130] text-[#10B981]'
+                            : 'bg-[#EF444430] text-[#EF4444]'
+                        }`}
+                      >
+                        {isActive ? 'ACTIVA' : 'INACTIVA'}
+                      </span>
+                      {isExpiringSoon && (
+                        <span className="px-2 py-1 rounded text-xs font-medium bg-[#F59E0B30] text-[#F59E0B] shrink-0 flex items-center gap-1">
+                          <Clock size={12} />
+                          Vence pronto
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="mt-3 grid grid-cols-3 gap-4 text-xs">
+                      <div>
+                        <span className="text-[#52525B]">Activada:</span>
+                        <p className="text-white font-mono text-[11px]">
+                          {site.subscriptionStartsAt
+                            ? new Date(site.subscriptionStartsAt).toLocaleDateString('es-PE')
+                            : '—'}
+                        </p>
+                      </div>
+                      <div>
+                        <span className="text-[#52525B]">Vence:</span>
+                        <p className="text-white font-mono text-[11px]">
+                          {endsAt ? endsAt.toLocaleDateString('es-PE') : '—'}
+                        </p>
+                      </div>
+                      <div>
+                        <span className="text-[#52525B]">Último plan:</span>
+                        <p className="text-white font-mono text-[11px]">
+                          {lastRenewal?.plan || '—'}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
