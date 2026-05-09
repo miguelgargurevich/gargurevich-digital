@@ -137,6 +137,9 @@ const SERVICES_SEED = [
     descriptionEn: 'High-conversion pages optimized to capture leads and generate sales.',
     featuresEs: ['Diseño responsive', 'Alta conversión', 'SEO optimizado', 'Hosting incluido'],
     featuresEn: ['Responsive design', 'High conversion', 'SEO optimized', 'Hosting included'],
+    serviceTier: 'Starter',
+    recurringAmount: 299,
+    currency: 'PEN',
   },
   {
     slug: 'website',
@@ -148,6 +151,9 @@ const SERVICES_SEED = [
     descriptionEn: 'Professional digital presence for your brand or business with modern design.',
     featuresEs: ['CMS integrado', 'Multi-idioma', 'Blog incorporado', 'Analytics'],
     featuresEn: ['Integrated CMS', 'Multi-language', 'Built-in blog', 'Analytics'],
+    serviceTier: 'Growth',
+    recurringAmount: 300,
+    currency: 'PEN',
   },
   {
     slug: 'ecommerce',
@@ -159,6 +165,9 @@ const SERVICES_SEED = [
     descriptionEn: 'Modern online stores with complete product and payment management.',
     featuresEs: ['Carrito avanzado', 'Pagos seguros', 'Inventario', 'Dashboard'],
     featuresEn: ['Advanced cart', 'Secure payments', 'Inventory', 'Dashboard'],
+    serviceTier: 'Pro',
+    recurringAmount: 599,
+    currency: 'PEN',
   },
   {
     slug: 'webapp',
@@ -170,6 +179,9 @@ const SERVICES_SEED = [
     descriptionEn: 'Enterprise web applications designed for your business.',
     featuresEs: ['PWA ready', 'Tiempo real', 'Multi-plataforma', 'Offline mode'],
     featuresEn: ['PWA ready', 'Real-time', 'Multi-platform', 'Offline mode'],
+    serviceTier: 'Business',
+    recurringAmount: 999,
+    currency: 'PEN',
   },
   {
     slug: 'ai',
@@ -181,6 +193,9 @@ const SERVICES_SEED = [
     descriptionEn: 'Integrated artificial intelligence to automate processes.',
     featuresEs: ['Chatbots IA', 'Automatización', 'APIs LLM', 'ML Models'],
     featuresEn: ['AI Chatbots', 'Automation', 'LLM APIs', 'ML Models'],
+    serviceTier: 'Pro',
+    recurringAmount: 799,
+    currency: 'PEN',
   },
   {
     slug: 'devops',
@@ -192,6 +207,9 @@ const SERVICES_SEED = [
     descriptionEn: 'Scalable infrastructure and deployment automation.',
     featuresEs: ['CI/CD', 'Monitoreo 24/7', 'Escalabilidad', 'Backups'],
     featuresEn: ['CI/CD', '24/7 Monitoring', 'Scalability', 'Backups'],
+    serviceTier: 'Enterprise',
+    recurringAmount: 999,
+    currency: 'PEN',
   },
 ];
 

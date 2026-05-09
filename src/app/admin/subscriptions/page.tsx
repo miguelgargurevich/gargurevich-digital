@@ -6,29 +6,6 @@ import { AlertCircle, CheckCircle2, Clock, Plus, RefreshCw } from 'lucide-react'
 import { SubscriptionStatus } from '@prisma/client';
 import { useAdminAlert } from '@/components/providers/AdminAlertProvider';
 
-const SERVICE_OPTIONS = [
-  'Landing Page',
-  'Sitio Web Corporativo',
-  'E-commerce',
-  'App Web',
-  'Integración IA',
-  'DevOps & Cloud',
-  'Mantenimiento 24/7',
-  'Dominio + Correos',
-  'Proyecto a medida',
-] as const;
-
-const TIER_OPTIONS = [
-  'Starter',
-  'Growth',
-  'Pro',
-  'Business',
-  'Enterprise',
-  'Mantenimiento',
-] as const;
-
-const CURRENCY_OPTIONS = ['PEN', 'USD', 'EUR'] as const;
-
 const PAGE_SIZE_OPTIONS = [6, 9, 12, 24] as const;
 
 interface ClientSiteRow {
@@ -47,13 +24,23 @@ interface ClientSiteRow {
   renewals?: Array<{ plan: string; createdAt: string }>;
 }
 
+interface ServiceOption {
+  id: string;
+  titleEs: string;
+  serviceTier: string | null;
+  recurringAmount: string | number | null;
+  currency: string;
+}
+
 export default function AdminSubscriptions() {
   const { push, confirm } = useAdminAlert();
   const [sites, setSites] = useState<ClientSiteRow[]>([]);
+  const [services, setServices] = useState<ServiceOption[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [businessName, setBusinessName] = useState('');
   const [slug, setSlug] = useState('');
+  const [selectedServiceId, setSelectedServiceId] = useState('');
   const [contractedService, setContractedService] = useState('');
   const [serviceTier, setServiceTier] = useState('');
   const [recurringAmount, setRecurringAmount] = useState('');
@@ -80,13 +67,34 @@ export default function AdminSubscriptions() {
     }
   };
 
+  const loadServices = async () => {
+    try {
+      const response = await fetch('/api/admin/services', { cache: 'no-store' });
+      const data = await response.json();
+      setServices(Array.isArray(data) ? data : []);
+    } catch (e) {
+      console.error(e);
+      push({ kind: 'error', title: 'No se pudieron cargar los servicios', message: 'Revisa el catálogo de servicios' });
+    }
+  };
+
   useEffect(() => {
     loadSites();
+    loadServices();
   }, []);
 
   useEffect(() => {
     setCurrentPage(1);
   }, [query, pageSize]);
+
+  const applyServiceDefaults = (serviceId: string) => {
+    setSelectedServiceId(serviceId);
+    const service = services.find((item) => item.id === serviceId);
+    setContractedService(service?.titleEs ?? '');
+    setServiceTier(service?.serviceTier ?? '');
+    setRecurringAmount(service?.recurringAmount != null ? String(service.recurringAmount) : '');
+    setCurrency(service?.currency ?? 'PEN');
+  };
 
   const filteredSites = sites.filter((site) => {
     const haystack = [
@@ -116,9 +124,9 @@ export default function AdminSubscriptions() {
 
   const handleCreate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!businessName.trim() || !slug.trim()) {
-      setCreateError('Ingresa razón social y slug');
-      push({ kind: 'warning', title: 'Campos obligatorios', message: 'Ingresa razón social y slug' });
+    if (!businessName.trim() || !slug.trim() || !selectedServiceId) {
+      setCreateError('Ingresa razón social, slug y selecciona un servicio');
+      push({ kind: 'warning', title: 'Campos obligatorios', message: 'Ingresa razón social, slug y selecciona un servicio' });
       return;
     }
 
@@ -147,6 +155,7 @@ export default function AdminSubscriptions() {
 
       setBusinessName('');
       setSlug('');
+      setSelectedServiceId('');
       setContractedService('');
       setServiceTier('');
       setRecurringAmount('');
@@ -233,17 +242,17 @@ export default function AdminSubscriptions() {
             />
           </div>
 
-          <div className="md:col-span-1">
+          <div className="md:col-span-2">
             <label className="block text-xs text-[#71717A] mb-1">Servicio contratado</label>
             <select
-              value={contractedService}
-              onChange={(e) => setContractedService(e.target.value)}
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#00D4FF]/40"
+              value={selectedServiceId}
+              onChange={(e) => applyServiceDefaults(e.target.value)}
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-[#00D4FF]/40"
             >
-              <option value="">Selecciona un servicio</option>
-              {SERVICE_OPTIONS.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+              <option value="">Selecciona un servicio del catálogo</option>
+              {services.map((service) => (
+                <option key={service.id} value={service.id}>
+                  {service.titleEs}
                 </option>
               ))}
             </select>
@@ -251,46 +260,29 @@ export default function AdminSubscriptions() {
 
           <div className="md:col-span-1">
             <label className="block text-xs text-[#71717A] mb-1">Plan/Tier</label>
-            <select
+            <input
               value={serviceTier}
-              onChange={(e) => setServiceTier(e.target.value)}
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]/40"
-            >
-              <option value="">Selecciona un plan</option>
-              {TIER_OPTIONS.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+              readOnly
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white/70"
+            />
           </div>
 
           <div className="md:col-span-1">
             <label className="block text-xs text-[#71717A] mb-1">Monto recurrente</label>
             <input
-              type="number"
-              min="0"
-              step="0.01"
               value={recurringAmount}
-              onChange={(e) => setRecurringAmount(e.target.value)}
-              placeholder="Ej: 300"
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#10B981]/40"
+              readOnly
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white/70"
             />
           </div>
 
           <div className="md:col-span-1">
             <label className="block text-xs text-[#71717A] mb-1">Moneda</label>
-            <select
+            <input
               value={currency}
-              onChange={(e) => setCurrency(e.target.value.toUpperCase())}
-              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white placeholder:text-[#52525B] focus:outline-none focus:ring-2 focus:ring-[#F59E0B]/40"
-            >
-              {CURRENCY_OPTIONS.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+              readOnly
+              className="w-full rounded-lg bg-[#18181B] border border-white/10 px-3 py-2 text-sm text-white/70"
+            />
           </div>
 
           <div className="md:col-span-1">

@@ -29,19 +29,22 @@ model PortfolioProject {
 }
 
 model Service {
-  id            String   @id @default(cuid())
-  slug          String   @unique
-  icon          String   @default("code")
-  titleEs       String
-  titleEn       String
-  descriptionEs String   @db.Text
-  descriptionEn String   @db.Text
-  featuresEs    String[]
-  featuresEn    String[]
-  order         Int      @default(0)
-  published     Boolean  @default(true)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id               String    @id @default(cuid())
+  slug             String    @unique
+  icon             String    @default("code")
+  titleEs          String
+  titleEn          String
+  descriptionEs    String    @db.Text
+  descriptionEn    String    @db.Text
+  featuresEs       String[]
+  featuresEn       String[]
+  serviceTier      String?
+  recurringAmount  Decimal?  @db.Decimal(10, 2)
+  currency         String    @default("PEN")
+  order            Int       @default(0)
+  published        Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 }
 
 model SiteSetting {

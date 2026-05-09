@@ -10,6 +10,9 @@ interface ServiceItem {
   titleEs: string;
   titleEn: string;
   featuresEs: string[];
+  serviceTier: string | null;
+  recurringAmount: string | number | null;
+  currency: string;
   order: number;
   published: boolean;
 }
@@ -59,9 +62,15 @@ export default function AdminServicesPage() {
               </div>
               <ArrowRight size={14} className="ml-auto mt-0.5 text-[#52525B] group-hover:text-[#A1A1AA] transition-colors" />
             </div>
-            <div className="mt-3 text-[11px] text-[#71717A] flex items-center justify-between">
-              <span>Orden {s.order}</span>
-              <span className={s.published ? 'text-green-400' : 'text-zinc-500'}>{s.published ? 'Publicado' : 'Oculto'}</span>
+            <div className="mt-3 text-[11px] text-[#71717A] space-y-1.5">
+              <div className="flex items-center justify-between">
+                <span>Orden {s.order}</span>
+                <span className={s.published ? 'text-green-400' : 'text-zinc-500'}>{s.published ? 'Publicado' : 'Oculto'}</span>
+              </div>
+              <div className="flex items-center justify-between gap-3 text-[#A1A1AA]">
+                <span>{s.serviceTier || 'Sin tier'}</span>
+                <span>{s.recurringAmount != null ? `${s.currency} ${s.recurringAmount}` : 'Sin monto'}</span>
+              </div>
             </div>
           </Link>
         ))}

@@ -1,0 +1,4 @@
+ALTER TABLE "Service"
+ADD COLUMN "serviceTier" TEXT,
+ADD COLUMN "recurringAmount" DECIMAL(10,2),
+ADD COLUMN "currency" TEXT NOT NULL DEFAULT 'PEN';

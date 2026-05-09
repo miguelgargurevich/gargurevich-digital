@@ -15,6 +15,9 @@ interface ServiceForm {
   descriptionEn: string;
   featuresEs: string[];
   featuresEn: string[];
+  serviceTier: string | null;
+  recurringAmount: string | number | null;
+  currency: string;
   order: number;
   published: boolean;
 }
@@ -203,6 +206,35 @@ export default function EditServicePage() {
                     {icon}
                   </option>
                 ))}
+              </select>
+            </Field>
+
+            <Field label="Plan/Tier por defecto">
+              <input
+                value={form.serviceTier ?? ''}
+                onChange={(e) => set('serviceTier', e.target.value)}
+                className="cms-input"
+                placeholder="Growth"
+              />
+            </Field>
+
+            <Field label="Monto recurrente por defecto">
+              <input
+                type="number"
+                min={0}
+                step="0.01"
+                value={form.recurringAmount ?? ''}
+                onChange={(e) => set('recurringAmount', e.target.value)}
+                className="cms-input"
+                placeholder="300"
+              />
+            </Field>
+
+            <Field label="Moneda por defecto">
+              <select value={form.currency} onChange={(e) => set('currency', e.target.value)} className="cms-input">
+                <option value="PEN">PEN</option>
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
               </select>
             </Field>
 

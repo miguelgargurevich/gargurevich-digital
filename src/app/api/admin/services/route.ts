@@ -3,6 +3,12 @@ import { db } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
+const asOptionalAmount = (value: unknown) => {
+  if (value === null || value === undefined || value === '') return null;
+  const amount = Number(value);
+  return Number.isFinite(amount) && amount >= 0 ? amount : undefined;
+};
+
 export async function GET() {
   try {
     const services = await db.service.findMany({ orderBy: { order: 'asc' } });
@@ -25,6 +31,9 @@ export async function POST(request: Request) {
         descriptionEn: body.descriptionEn,
         featuresEs: body.featuresEs ?? [],
         featuresEn: body.featuresEn ?? [],
+        serviceTier: body.serviceTier ?? null,
+        recurringAmount: asOptionalAmount(body.recurringAmount),
+        currency: body.currency ?? 'PEN',
         order: body.order ?? 0,
         published: body.published !== false,
       },
