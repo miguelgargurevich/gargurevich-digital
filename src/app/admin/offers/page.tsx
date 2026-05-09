@@ -23,6 +23,7 @@ interface Offer {
   nameEs: string;
   nameEn: string;
   price: string;
+  renewalPrice: string | number;
   priceNoteEs: string;
   priceNoteEn: string;
   descriptionEs: string;
@@ -46,6 +47,7 @@ const EMPTY_FORM: OfferFormData = {
   nameEs: '',
   nameEn: '',
   price: '',
+  renewalPrice: 0,
   priceNoteEs: '',
   priceNoteEn: '',
   descriptionEs: '',
@@ -140,6 +142,18 @@ function OfferModal({
               <label className="text-xs text-[#71717A] mb-1.5 block">Price</label>
               <input value={form.price} onChange={e => set('price', e.target.value)} placeholder="S/ 900 – 1200"
                 className="w-full bg-background border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#00D4FF]/40" />
+            </div>
+            <div>
+              <label className="text-xs text-[#71717A] mb-1.5 block">Renewal Price (PEN)</label>
+              <input
+                type="number"
+                min="0"
+                step="0.01"
+                value={form.renewalPrice}
+                onChange={e => set('renewalPrice', Number(e.target.value || 0))}
+                placeholder="150"
+                className="w-full bg-background border border-white/10 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-[#00D4FF]/40"
+              />
             </div>
           </div>
 
@@ -379,6 +393,7 @@ export default function OffersAdminPage() {
                 </div>
                 <div className="flex items-center gap-3 mt-1.5">
                   <span className="text-[#00D4FF] font-semibold text-sm">{offer.price}</span>
+                  <span className="text-[#71717A] text-xs">Renovación: S/ {offer.renewalPrice}</span>
                   <span className="text-[#52525B] text-xs">·</span>
                   <span className="text-[#71717A] text-xs font-mono">{offer.planKey}</span>
                   <span className="text-[#52525B] text-xs">·</span>

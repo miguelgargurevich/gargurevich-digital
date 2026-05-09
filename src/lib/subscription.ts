@@ -19,6 +19,11 @@ function getDiscountPercent(plan: RenewalPlan): number {
   return 0;
 }
 
+function applyDiscount(amount: number, discountPercent: number): number {
+  const discounted = amount * (1 - discountPercent / 100);
+  return Math.round(discounted * 100) / 100;
+}
+
 export async function activateSetupWithGrace(params: {
   clientSiteId: string;
   activatedAt?: Date;
@@ -58,13 +63,18 @@ export async function renewSubscription(params: {
   const startsAt = baseDate;
   const endsAt = addMonths(baseDate, getPlanMonths(params.plan));
   const discountPercent = getDiscountPercent(params.plan);
+  const fallbackAmount =
+    site.recurringAmount != null
+      ? applyDiscount(Number(site.recurringAmount), discountPercent)
+      : undefined;
+  const resolvedAmount = params.amount ?? fallbackAmount;
 
   await db.subscriptionRenewal.create({
     data: {
       clientSiteId: params.clientSiteId,
       plan: params.plan,
       discountPercent,
-      amount: params.amount,
+      amount: resolvedAmount,
       startsAt,
       endsAt,
     },
