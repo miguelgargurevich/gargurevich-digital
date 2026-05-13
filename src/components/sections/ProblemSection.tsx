@@ -26,7 +26,7 @@ export default function ProblemSection() {
           ¿Qué problema resolvemos?
         </h2>
         <div className="grid gap-8 md:grid-cols-3">
-          {PROBLEM_CARDS.map((card, i) => (
+          {PROBLEM_CARDS.map((card) => (
             <div key={card.title} className="rounded-3xl border border-white/10 bg-[#16181A]/80 p-8 flex flex-col items-center text-center shadow-lg hover:border-[#00D4FF]/40 transition-all duration-200">
               <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-linear-to-br from-[#00D4FF]/20 to-[#10B981]/20 mb-5">
                 <card.icon size={28} className="text-[#00D4FF]" />
