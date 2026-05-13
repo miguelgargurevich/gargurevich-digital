@@ -23,7 +23,7 @@ const UI_LABELS = {
     categoryControl: { title: 'Control', description: 'Para negocios que ya venden y quieren escalar' },
     categoryPeace: { title: 'Tranquilidad', description: 'Para negocios con web que necesitan protección' },
     popularBadge: 'Más popular',
-    priceSubline: 'Pago único + 1 año incluido + renueva si deseas.',
+    priceSubline: 'Pago único + renueva al año.',
     guarantee: 'Garantía de 15 días: si no estás satisfecho, te devolvemos el 100% de tu pago. Sin preguntas incómodas.',
     note: 'El dominio es tuyo desde el día 1. Yo solo te ayudo a registrarlo y renovarlo si lo necesitas.',
     summaryTitle: 'Lo que pagarías después del primer año, por plan',

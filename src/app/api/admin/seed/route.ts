@@ -285,7 +285,7 @@ const OFFERS_SEED = [
     popular: true,
     nameEs: 'Control Total (editable por ti)',
     nameEn: 'Full Control (editable by you)',
-    price: 'S/ 599 único pago',
+    price: 'S/ 599',
     renewalPrice: '270',
     priceNoteEs: '1 año incluido gratis',
     priceNoteEn: '1 year included free',

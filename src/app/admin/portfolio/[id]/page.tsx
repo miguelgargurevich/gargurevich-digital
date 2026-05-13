@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Save, Upload, X, Plus, Trash2 } from 'lucide-react';
+import { ArrowLeft, Check, Save, Upload, X, Plus, Trash2 } from 'lucide-react';
 
 interface ProjectForm {
   id: string;
@@ -21,6 +21,13 @@ interface ProjectForm {
   imageUrl: string;
   order: number;
   published: boolean;
+}
+
+interface MediaFile {
+  id: string;
+  filename: string;
+  url: string;
+  mimeType: string;
 }
 
 const EMPTY: Omit<ProjectForm, 'id' | 'slug'> = {
@@ -49,8 +56,13 @@ export default function EditProjectPage() {
   const [loading, setLoading] = useState(!isNew);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([]);
+  const [loadingMedia, setLoadingMedia] = useState(false);
+  const [showMediaLibrary, setShowMediaLibrary] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  const normalizedImageUrl = form.imageUrl.trim();
 
   useEffect(() => {
     if (!isNew) {
@@ -66,6 +78,94 @@ export default function EditProjectPage() {
 
   const set = <K extends keyof ProjectForm>(key: K, value: ProjectForm[K]) =>
     setForm((f) => ({ ...f, [key]: value }));
+
+  const persistImageUrl = async (imageUrl: string) => {
+    if (isNew) return;
+
+    const patchRes = await fetch(`/api/admin/portfolio/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ imageUrl: imageUrl || null }),
+    });
+
+    if (!patchRes.ok) {
+      throw new Error('No se pudo guardar la imagen en el proyecto');
+    }
+  };
+
+  const applyImageUrl = async (imageUrl: string, newMessage: string, existingMessage: string) => {
+    set('imageUrl', imageUrl);
+    await persistImageUrl(imageUrl);
+    setSuccess(isNew ? newMessage : existingMessage);
+  };
+
+  const loadMediaLibrary = async () => {
+    setLoadingMedia(true);
+    try {
+      const response = await fetch('/api/admin/media');
+      if (!response.ok) throw new Error('No se pudo cargar la biblioteca de media');
+      const data = await response.json();
+      const images = Array.isArray(data)
+        ? data.filter(
+            (file): file is MediaFile =>
+              typeof file?.id === 'string' &&
+              typeof file?.filename === 'string' &&
+              typeof file?.url === 'string' &&
+              typeof file?.mimeType === 'string' &&
+              file.mimeType.startsWith('image/')
+          )
+        : [];
+      setMediaFiles(images);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo cargar la biblioteca de media');
+    } finally {
+      setLoadingMedia(false);
+    }
+  };
+
+  const toggleMediaLibrary = async () => {
+    const nextOpen = !showMediaLibrary;
+    setShowMediaLibrary(nextOpen);
+    if (nextOpen && mediaFiles.length === 0) {
+      setError('');
+      await loadMediaLibrary();
+    }
+  };
+
+  const handleSelectMediaFile = async (url: string) => {
+    setError('');
+    setSuccess('');
+
+    try {
+      await applyImageUrl(url, 'Imagen seleccionada. Guarda el proyecto para persistirla', 'Imagen asociada desde Media');
+      setShowMediaLibrary(false);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo asociar la imagen desde Media');
+    }
+  };
+
+  const handleExternalImageSave = async () => {
+    const nextUrl = form.imageUrl.trim();
+    set('imageUrl', nextUrl);
+    setError('');
+    setSuccess('');
+
+    if (!nextUrl) {
+      setSuccess('URL limpiada. Guarda el proyecto para persistir el cambio');
+      return;
+    }
+
+    if (!/^https?:\/\/\S+$/i.test(nextUrl) && !nextUrl.startsWith('/')) {
+      setError('Ingresa una URL valida que empiece con http(s) o una ruta local como /projects/imagen.png');
+      return;
+    }
+
+    try {
+      await applyImageUrl(nextUrl, 'URL lista. Guarda el proyecto para persistirla', 'URL de imagen guardada');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudo guardar la URL de la imagen');
+    }
+  };
 
   // ── Dynamic list helpers ──
   const addItem = (field: 'featuresEs' | 'featuresEn' | 'tech') =>
@@ -98,20 +198,7 @@ export default function EditProjectPage() {
       if (!res.ok) throw new Error('No se pudo subir la imagen');
       const { publicUrl } = await res.json();
 
-      set('imageUrl', publicUrl);
-
-      // Persist image URL immediately for existing projects.
-      if (!isNew) {
-        const patchRes = await fetch(`/api/admin/portfolio/${id}`, {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ imageUrl: publicUrl }),
-        });
-        if (!patchRes.ok) throw new Error('La imagen se subio, pero no se pudo guardar en el proyecto');
-        setSuccess('Imagen subida y guardada en el proyecto');
-      } else {
-        setSuccess('Imagen subida. Guarda el proyecto para persistirla');
-      }
+      await applyImageUrl(publicUrl, 'Imagen subida. Guarda el proyecto para persistirla', 'Imagen subida y guardada en el proyecto');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al subir imagen');
     } finally {
@@ -319,11 +406,11 @@ export default function EditProjectPage() {
               className="relative w-full aspect-video rounded-xl overflow-hidden mb-3 border border-white/10"
               style={{ background: `linear-gradient(135deg, ${form.color}18, #0d0d0d)` }}
             >
-              {form.imageUrl ? (
+              {normalizedImageUrl ? (
                 <>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={form.imageUrl}
+                    src={normalizedImageUrl}
                     alt="preview"
                     className="w-full h-full object-cover object-top"
                   />
@@ -364,16 +451,80 @@ export default function EditProjectPage() {
               ) : (
                 <>
                   <Upload size={14} />
-                  {form.imageUrl ? 'Cambiar imagen' : 'Subir imagen'}
+                  {normalizedImageUrl ? 'Subir y reemplazar desde R2' : 'Subir imagen a R2'}
                 </>
               )}
             </button>
 
-            {form.imageUrl && (
-              <p className="text-[10px] text-[#52525B] mt-2 truncate" title={form.imageUrl}>
-                {form.imageUrl}
+            <div className="mt-4 space-y-3">
+              <Field label="URL de imagen">
+                <input
+                  value={form.imageUrl}
+                  onChange={(e) => set('imageUrl', e.target.value)}
+                  className="cms-input"
+                  placeholder="https://cdn.ejemplo.com/proyecto.webp o /projects/imagen.png"
+                />
+              </Field>
+
+              <button
+                type="button"
+                onClick={handleExternalImageSave}
+                className="w-full flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-[#A1A1AA] hover:text-white py-2.5 rounded-lg text-sm transition-all"
+              >
+                <Check size={14} />
+                Usar esta URL
+              </button>
+
+              <button
+                type="button"
+                onClick={toggleMediaLibrary}
+                className="w-full flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-[#A1A1AA] hover:text-white py-2.5 rounded-lg text-sm transition-all"
+              >
+                {showMediaLibrary ? 'Ocultar biblioteca de Media' : 'Seleccionar desde Media'}
+              </button>
+
+              {showMediaLibrary && (
+                <div className="rounded-xl border border-white/10 bg-black/20 p-3 space-y-3">
+                  {loadingMedia ? (
+                    <div className="flex items-center justify-center py-6">
+                      <span className="w-5 h-5 border-2 border-[#A1A1AA]/30 border-t-[#A1A1AA] rounded-full animate-spin" />
+                    </div>
+                  ) : mediaFiles.length === 0 ? (
+                    <p className="text-xs text-[#71717A]">No hay imagenes en Media para asociar.</p>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-3 max-h-72 overflow-y-auto pr-1">
+                      {mediaFiles.map((file) => (
+                        <button
+                          key={file.id}
+                          type="button"
+                          onClick={() => handleSelectMediaFile(file.url)}
+                          className={`overflow-hidden rounded-lg border text-left transition-all ${normalizedImageUrl === file.url ? 'border-[#00D4FF] bg-[#00D4FF]/10' : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10'}`}
+                        >
+                          <div className="aspect-video bg-[#0d0d0d]">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={file.url} alt={file.filename} className="w-full h-full object-cover" />
+                          </div>
+                          <div className="p-2">
+                            <p className="text-[11px] text-white truncate" title={file.filename}>{file.filename}</p>
+                            <p className="text-[10px] text-[#71717A] truncate" title={file.url}>{file.url}</p>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <p className="text-[11px] leading-relaxed text-[#71717A]">
+                Puedes pegar una URL externa o elegir una imagen ya subida en Media. Subir a R2 solo hace falta si la imagen aun no existe en tu bucket.
               </p>
-            )}
+
+              {normalizedImageUrl && (
+                <p className="text-[10px] text-[#52525B] truncate" title={normalizedImageUrl}>
+                  {normalizedImageUrl}
+                </p>
+              )}
+            </div>
           </Card>
 
           {/* Meta */}
