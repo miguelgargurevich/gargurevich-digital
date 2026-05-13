@@ -1,4 +1,4 @@
-import { Zap, Bot, BarChart3, Moon, MessageCircleQuestion, FileBarChart2 } from 'lucide-react';
+import { Moon, MessageCircleQuestion, FileBarChart2 } from 'lucide-react';
 
 const PROBLEM_CARDS = [
   {
@@ -20,7 +20,7 @@ const PROBLEM_CARDS = [
 
 export default function ProblemSection() {
   return (
-    <section className="relative py-20 md:py-28 bg-gradient-to-b from-[#0D0D0D] via-[#10151A] to-[#0D0D0D] overflow-hidden">
+    <section className="relative py-20 md:py-28 bg-linear-to-b from-[#0D0D0D] via-[#10151A] to-[#0D0D0D] overflow-hidden">
       <div className="max-w-5xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-12">
           ¿Qué problema resolvemos?
@@ -28,7 +28,7 @@ export default function ProblemSection() {
         <div className="grid gap-8 md:grid-cols-3">
           {PROBLEM_CARDS.map((card, i) => (
             <div key={card.title} className="rounded-3xl border border-white/10 bg-[#16181A]/80 p-8 flex flex-col items-center text-center shadow-lg hover:border-[#00D4FF]/40 transition-all duration-200">
-              <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-gradient-to-br from-[#00D4FF]/20 to-[#10B981]/20 mb-5">
+              <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-linear-to-br from-[#00D4FF]/20 to-[#10B981]/20 mb-5">
                 <card.icon size={28} className="text-[#00D4FF]" />
               </div>
               <h3 className="text-xl font-semibold text-white mb-3">{card.title}</h3>
