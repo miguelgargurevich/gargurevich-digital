@@ -1,0 +1,32 @@
+{
+  "clientId": "cliente-legal-premium",
+  "projectName": "Soluciones Legales Premium",
+  "industry": "Legal",
+  "audience": "Clientes potenciales que necesitan soluciones legales claras y rápidas",
+  "tone": "Premium y confiable",
+  "primaryCTA": "Escribir por WhatsApp",
+  "sections": [
+    "hero",
+    "benefits",
+    "process",
+    "testimonials",
+    "faq",
+    "final_cta"
+  ],
+  "colorDirection": "moderno, contraste alto, acentos cian y verde",
+  "constraints": {
+    "language": "es",
+    "maxWordsPerSection": 120
+  },
+  "limits": {
+    "ai": {
+      "maxGenerationsPerMonth": 120,
+      "maxInputTokensPerMonth": 300000,
+      "maxOutputTokensPerMonth": 500000
+    }
+  },
+  "disclaimer": {
+    "enabled": true,
+    "text": "Este contenido puede incluir texto generado con IA. Recomendamos revision humana antes de publicar. Uso prohibido para fraude, suplantacion, spam o actividades ilegales."
+  }
+}

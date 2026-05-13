@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Estudio Legal - MVP</title>
+    <style>
+      :root {
+        --bg: #0a0c10;
+        --panel: #10131a;
+        --text: #eceff4;
+        --muted: #97a0af;
+        --accent: #66e3ff;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: 'Manrope', 'Sora', system-ui, sans-serif;
+        color: var(--text);
+        background: linear-gradient(120deg, #080b10 0%, #0c1119 35%, #0a0c10 100%);
+      }
+      .layout {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 980px) {
+        .layout { grid-template-columns: 0.95fr 1.25fr; }
+      }
+      .left {
+        padding: 42px 24px;
+        border-right: 1px solid rgba(255,255,255,0.08);
+        background: radial-gradient(circle at 20% 15%, rgba(102,227,255,0.15), transparent 45%);
+      }
+      .left h1 { margin: 8px 0 10px; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.04; }
+      .left p { margin: 0; color: var(--muted); line-height: 1.6; }
+      .left small { color: var(--muted); text-transform: uppercase; letter-spacing: 0.14em; }
+      .nav-links { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+      .nav-links a { color: #c6d0de; text-decoration: none; font-size: 0.9rem; }
+      .meta { margin-top: 16px; font-size: 0.9rem; color: #bac3d1; }
+      .cta {
+        margin-top: 22px;
+        display: inline-block;
+        padding: 12px 18px;
+        background: var(--accent);
+        color: #03141d;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 700;
+      }
+      .right { padding: 42px 24px 60px; }
+      .stack { display: grid; gap: 14px; }
+      .card {
+        padding: 18px;
+        border-radius: 14px;
+        background: linear-gradient(180deg, rgba(16,19,26,0.95), rgba(11,14,20,0.85));
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+      .card h2 { margin: 0 0 8px; font-size: 1.02rem; color: var(--accent); }
+      .card p { margin: 0; color: #d8dee9; line-height: 1.6; }
+      .card ul, .card ol { margin: 0; padding-left: 18px; }
+      .card li { margin: 6px 0; }
+      .mini-grid { display: grid; gap: 10px; grid-template-columns: repeat(1, minmax(0, 1fr)); }
+      .mini-grid article { border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px; }
+      .mini-grid h3 { margin: 0 0 6px; }
+      .mini-grid p { margin: 0; }
+      @media (min-width: 680px) { .mini-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+      .pricing-grid article strong { display: inline-block; margin-top: 8px; color: #7dd3fc; }
+      .faq-list details { border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; }
+      .faq-list summary { cursor: pointer; font-weight: 600; }
+      table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+      th, td { border: 1px solid rgba(255,255,255,0.14); padding: 8px 10px; text-align: left; }
+      .mockup { display: grid; gap: 8px; }
+      .mockup div { height: 16px; border-radius: 8px; background: linear-gradient(90deg, rgba(102,227,255,0.65), rgba(147,197,253,0.35)); }
+      .muted { color: var(--muted); margin-top: 8px; }
+      .disclaimer {
+        margin-top: 18px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(245,158,11,0.4);
+        background: rgba(31,41,55,0.8);
+        color: #fcd34d;
+        font-size: 0.88rem;
+      }
+      .footer { margin-top: 18px; color: var(--muted); font-size: 0.88rem; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+      .wa-float {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 30;
+        background: #22c55e;
+        color: #052e16;
+        text-decoration: none;
+        font-weight: 800;
+        padding: 11px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.5);
+        box-shadow: 0 10px 24px rgba(34,197,94,0.32);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="layout">
+      <section class="left">
+        <small>MVP Site Generator</small>
+        <h1>Estudio Legal</h1>
+        <p>Profesional y confiable. Construido para legal con enfoque en conversion y claridad comercial.</p>
+        <div class="nav-links"><a href="#benefits">Beneficios</a><a href="#services">Servicios</a><a href="#process">Proceso</a><a href="#social_proof">Resultados</a><a href="#pricing">Planes</a><a href="#faq">FAQ</a></div>
+        <p class="meta">Audiencia: Empresas y particulares que buscan asesoramiento jurídico</p>
+        <a class="cta" href="#final_cta">Solicitar asesoramiento</a>
+      </section>
+      <section class="right">
+        <div class="stack">
+      <section class="card" id="benefits">
+        <h2>Beneficios clave</h2>
+        
+        <ul>
+          <li>Mensaje comercial claro para empresas y particulares que buscan asesoramiento jurídico.</li>
+          <li>Menos friccion en el recorrido y mas conversion en el CTA.</li>
+          <li>Entrega visual premium alineada a legal.</li>
+        </ul>
+      </section>
+
+      <section class="card" id="services">
+        <h2>Servicios y capacidades</h2>
+        
+        <div class="mini-grid">
+          <article><h3>Landing estrategica</h3><p>Arquitectura orientada a conversion con copy accionable.</p></article>
+          <article><h3>Implementacion rapida</h3><p>Version publicable en ciclos cortos y mejora continua.</p></article>
+          <article><h3>Optimizacion comercial</h3><p>Bloques pensados para captacion, confianza y cierre.</p></article>
+        </div>
+      </section>
+
+      <section class="card" id="process">
+        <h2>Como funciona</h2>
+        
+        <ol>
+          <li>Nos contactas y alineamos objetivo de negocio.</li>
+          <li>Construimos estructura, copy y experiencia visual.</li>
+          <li>Publicamos, medimos y optimizamos conversion.</li>
+        </ol>
+      </section>
+
+      <section class="card" id="social_proof">
+        <h2>Prueba social</h2>
+        
+        <div class="mini-grid">
+          <article><h3>+37 proyectos</h3><p>Implementaciones para negocios digitales en crecimiento.</p></article>
+          <article><h3>4.9/5 satisfaccion</h3><p>Clientes destacan claridad, velocidad y acompanamiento.</p></article>
+          <article><h3>-28% tiempo operativo</h3><p>Promedio de mejora reportada tras automatizacion inicial.</p></article>
+        </div>
+      </section>
+
+      <section class="card" id="pricing">
+        <h2>Planes y precios</h2>
+        
+        <div class="mini-grid pricing-grid">
+          <article><h3>Base</h3><p>Estructura esencial para publicar rapido.</p><strong>Desde S/ 599</strong></article>
+          <article><h3>Growth</h3><p>Optimizada para escalar captacion con IA.</p><strong>Desde S/ 1299</strong></article>
+          <article><h3>Pro</h3><p>Operacion avanzada con automatizaciones.</p><strong>Desde S/ 2499</strong></article>
+        </div>
+      </section>
+
+      <section class="card" id="faq">
+        <h2>Preguntas frecuentes</h2>
+        
+        <div class="faq-list">
+          <details><summary>Cuanto tarda?</summary><p>Entre 3 y 10 dias segun alcance del proyecto.</p></details>
+          <details><summary>Incluye soporte?</summary><p>Si, con ventanas de ajuste y seguimiento posterior.</p></details>
+          <details><summary>Puedo editar contenido?</summary><p>Si, definimos una estructura facil de mantener.</p></details>
+        </div>
+      </section>
+
+      <section class="card" id="final_cta">
+        <h2>Cierre y accion</h2>
+        <p>Listo para transformar tu presencia digital en resultados concretos? <a href="#contacto">Solicitar asesoramiento</a>.</p>
+      </section></div>
+        <aside class="disclaimer"><strong>Disclaimer IA:</strong> Este contenido puede incluir texto generado con IA. Recomendamos revision humana antes de publicar. Uso prohibido para fraude, suplantacion, spam o actividades ilegales.</aside>
+        <footer class="footer" id="footer"><span>Contacto: hola@estudio-legal-client.com</span><span>Copyright 2026 Estudio Legal</span></footer>
+      </section>
+    </main>
+    <a class="wa-float" href="https://wa.me/51999999999" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">WhatsApp</a>
+  </body>
+</html>

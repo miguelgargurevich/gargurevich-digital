@@ -1,0 +1,31 @@
+{
+  "clientId": "zambo-barber-shop",
+  "projectName": "Zambo Barber Shop",
+  "industry": "Servicios de barberia",
+  "audience": "Hombres y mujeres que buscan un corte de pelo de alta calidad",
+  "tone": "Amigable y profesional",
+  "primaryCTA": "Agendar cita",
+  "sections": [
+    "hero",
+    "benefits",
+    "testimonials",
+    "faq",
+    "final_cta"
+  ],
+  "colorDirection": "moderno, contraste alto, acentos azul y gris",
+  "constraints": {
+    "language": "es",
+    "maxWordsPerSection": 120
+  },
+  "limits": {
+    "ai": {
+      "maxGenerationsPerMonth": 120,
+      "maxInputTokensPerMonth": 300000,
+      "maxOutputTokensPerMonth": 500000
+    }
+  },
+  "disclaimer": {
+    "enabled": true,
+    "text": "Este contenido puede incluir texto generado con IA. Recomendamos revision humana antes de publicar. Uso prohibido para fraude, suplantacion, spam o actividades ilegales."
+  }
+}

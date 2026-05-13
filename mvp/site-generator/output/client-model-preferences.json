@@ -1,0 +1,54 @@
+{
+  "clients": {
+    "cliente-pref-test": {
+      "provider": "groq",
+      "model": "llama-3.3-70b-versatile",
+      "updatedAt": "2026-05-13T20:22:00.044Z"
+    },
+    "clinica-sonrisa-viva": {
+      "provider": "groq",
+      "model": "llama-3.3-70b-versatile",
+      "designVariant": "glass-flow",
+      "updatedAt": "2026-05-13T20:55:44.943Z"
+    },
+    "barberia-zambo": {
+      "provider": "groq",
+      "model": "llama-3.3-70b-versatile",
+      "updatedAt": "2026-05-13T20:25:10.237Z"
+    },
+    "cliente-fino-prompt": {
+      "provider": "groq",
+      "model": "llama-3.3-70b-versatile",
+      "updatedAt": "2026-05-13T20:29:33.870Z"
+    },
+    "zambo-barber-shop": {
+      "provider": "groq",
+      "model": "llama-3.3-70b-versatile",
+      "updatedAt": "2026-05-13T20:32:47.727Z"
+    },
+    "design-test-client": {
+      "provider": "groq",
+      "model": "llama-3.3-70b-versatile",
+      "designVariant": "editorial-split",
+      "updatedAt": "2026-05-13T20:35:14.614Z"
+    },
+    "sections-check-client": {
+      "provider": "groq",
+      "model": "llama-3.3-70b-versatile",
+      "designVariant": "glass-flow",
+      "updatedAt": "2026-05-13T20:48:35.660Z"
+    },
+    "dyn-nav-client": {
+      "provider": "groq",
+      "model": "llama-3.3-70b-versatile",
+      "designVariant": "neo-grid",
+      "updatedAt": "2026-05-13T20:51:18.408Z"
+    },
+    "dyn-nav-client-2": {
+      "provider": "groq",
+      "model": "llama-3.3-70b-versatile",
+      "designVariant": "editorial-split",
+      "updatedAt": "2026-05-13T20:51:42.908Z"
+    }
+  }
+}

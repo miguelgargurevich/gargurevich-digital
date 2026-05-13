@@ -1,12 +1,12 @@
 {
   "nav": {
-    "services": "Services",
+    "services": "Levels",
     "portfolio": "Portfolio",
-    "technologies": "Technologies",
-    "process": "Process",
+    "technologies": "Differentiators",
+    "process": "How it works",
     "contact": "Contact",
     "offers": "Offers",
-    "startProject": "Start Project"
+    "startProject": "Schedule a call"
   },
   "hero": {
     "badge": "Premium Web Development",

@@ -1,0 +1,35 @@
+{
+  "clientId": "dyn-nav-client",
+  "projectName": "Dyn Nav Client",
+  "industry": "Servicios profesionales",
+  "audience": "Empresas y profesionales que buscan soluciones de navegación y automatización",
+  "tone": "Innovador y asistente",
+  "primaryCTA": "Solicitar propuesta personalizada",
+  "sections": [
+    "benefits",
+    "services",
+    "process",
+    "social_proof",
+    "pricing",
+    "faq",
+    "final_cta",
+    "metrics",
+    "whatsapp"
+  ],
+  "colorDirection": "Moderno, tecnológico, con acentos de cian y verde neon",
+  "constraints": {
+    "language": "es",
+    "maxWordsPerSection": 120
+  },
+  "limits": {
+    "ai": {
+      "maxGenerationsPerMonth": 120,
+      "maxInputTokensPerMonth": 300000,
+      "maxOutputTokensPerMonth": 500000
+    }
+  },
+  "disclaimer": {
+    "enabled": true,
+    "text": "Este contenido puede incluir texto generado con IA. Recomendamos revision humana antes de publicar. Uso prohibido para fraude, suplantacion, spam o actividades ilegales."
+  }
+}

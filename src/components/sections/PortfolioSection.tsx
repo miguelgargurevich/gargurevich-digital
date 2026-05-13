@@ -74,6 +74,11 @@ function resolveProjectImages(row: DbProjectRow, locale: string): string[] {
   return [projectPlaceholderDataUri(title, row.color || '#00D4FF')];
 }
 
+function isDbUnavailableError(err: unknown): boolean {
+  if (!(err instanceof Error)) return false;
+  return /Can't reach database server|PrismaClientInitializationError|ECONNREFUSED/i.test(err.message);
+}
+
 async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[] | null> {
   try {
     const rows = await db.portfolioProject.findMany({
@@ -111,7 +116,9 @@ async function getProjectsFromDb(locale: string): Promise<PortfolioProjectItem[]
       };
     });
   } catch (err) {
-    console.error('getProjectsFromDb ERROR:', err);
+    if (!isDbUnavailableError(err)) {
+      console.error('getProjectsFromDb ERROR:', err);
+    }
     return null;
   }
 }

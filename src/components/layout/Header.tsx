@@ -32,15 +32,17 @@ export default function Header({ translations, locale }: HeaderProps) {
   };
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('servicios');
   const currentLocale = locale || 'en';
   const localizedHome = `/${currentLocale}`;
+  const sectionIds = ['servicios', 'proceso', 'tech', 'portafolio', 'contacto'];
 
   const navLinks = [
-    { name: t.services, href: `${localizedHome}#servicios` },
-    { name: t.portfolio, href: `${localizedHome}#portafolio` },
-    { name: t.technologies, href: `${localizedHome}#tech` },
-    { name: t.process, href: `${localizedHome}#proceso` },
-    { name: t.contact, href: `${localizedHome}#contacto` },
+    { name: t.services, href: `${localizedHome}#servicios`, sectionId: 'servicios' },
+    { name: t.process, href: `${localizedHome}#proceso`, sectionId: 'proceso' },
+    { name: t.technologies, href: `${localizedHome}#tech`, sectionId: 'tech' },
+    { name: t.portfolio, href: `${localizedHome}#portafolio`, sectionId: 'portafolio' },
+    { name: t.contact, href: `${localizedHome}#contacto`, sectionId: 'contacto' },
   ];
 
   useEffect(() => {
@@ -51,6 +53,50 @@ export default function Header({ translations, locale }: HeaderProps) {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const isHome = window.location.pathname === localizedHome;
+    if (!isHome) return;
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((node): node is HTMLElement => Boolean(node));
+
+    if (sections.length === 0) return;
+
+    const updateFromHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && sectionIds.includes(hash)) {
+        setActiveSection(hash);
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visible.length > 0) {
+          setActiveSection(visible[0].target.id);
+        }
+      },
+      {
+        root: null,
+        threshold: [0.15, 0.35, 0.6],
+        rootMargin: '-30% 0px -50% 0px',
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    updateFromHash();
+    window.addEventListener('hashchange', updateFromHash);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('hashchange', updateFromHash);
+    };
+  }, [localizedHome]);
 
   return (
     <>
@@ -86,7 +132,9 @@ export default function Header({ translations, locale }: HeaderProps) {
               <Link
                 key={link.name}
                 href={link.href}
-                className="relative text-[#A1A1AA] hover:text-white transition-colors duration-300 text-sm font-medium link-underline"
+                className={`relative transition-colors duration-300 text-sm font-medium link-underline ${activeSection === link.sectionId ? 'text-white' : 'text-[#A1A1AA] hover:text-white'}`}
+                aria-current={activeSection === link.sectionId ? 'page' : undefined}
+                onClick={() => setActiveSection(link.sectionId)}
               >
                 {link.name}
               </Link>
@@ -172,8 +220,12 @@ export default function Header({ translations, locale }: HeaderProps) {
                 >
                   <Link
                     href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-3xl font-semibold text-white hover:gradient-text transition-all duration-300"
+                    onClick={() => {
+                      setActiveSection(link.sectionId);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`text-3xl font-semibold transition-all duration-300 ${activeSection === link.sectionId ? 'gradient-text' : 'text-white hover:gradient-text'}`}
+                    aria-current={activeSection === link.sectionId ? 'page' : undefined}
                   >
                     {link.name}
                   </Link>

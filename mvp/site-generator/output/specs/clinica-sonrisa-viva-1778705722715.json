@@ -1,0 +1,34 @@
+{
+  "clientId": "clinica-sonrisa-viva",
+  "projectName": "Clinica Sonrisa Viva",
+  "industry": "Salud",
+  "audience": "Familias y personas que buscan una clinica dental de confianza en Lima",
+  "tone": "Cálido y profesional",
+  "primaryCTA": "Reservar cita por WhatsApp",
+  "sections": [
+    "benefits",
+    "services",
+    "process",
+    "social_proof",
+    "pricing",
+    "faq",
+    "final_cta",
+    "whatsapp"
+  ],
+  "colorDirection": "Blanco, azul claro y verde mint, con acentos cian para destacar la modernidad y la tecnología",
+  "constraints": {
+    "language": "es",
+    "maxWordsPerSection": 120
+  },
+  "limits": {
+    "ai": {
+      "maxGenerationsPerMonth": 120,
+      "maxInputTokensPerMonth": 300000,
+      "maxOutputTokensPerMonth": 500000
+    }
+  },
+  "disclaimer": {
+    "enabled": true,
+    "text": "Este contenido puede incluir texto generado con IA. Recomendamos revision humana antes de publicar. Uso prohibido para fraude, suplantacion, spam o actividades ilegales."
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "clientId": "barberia-zambo",
+  "projectName": "Zambo Barber Shop",
+  "industry": "Servicios de belleza y peluquería",
+  "audience": "Hombres y mujeres de Lima que buscan una barbería confiable y moderna",
+  "tone": "Amigable, moderno y profesional",
+  "primaryCTA": "Reserva ahora por WhatsApp",
+  "sections": [
+    "hero",
+    "benefits",
+    "process",
+    "testimonials",
+    "faq",
+    "final_cta"
+  ],
+  "colorDirection": "Urbano, estilo callejero con acentos cian y verde",
+  "constraints": {
+    "language": "es",
+    "maxWordsPerSection": 120
+  },
+  "limits": {
+    "ai": {
+      "maxGenerationsPerMonth": 120,
+      "maxInputTokensPerMonth": 300000,
+      "maxOutputTokensPerMonth": 500000
+    }
+  },
+  "disclaimer": {
+    "enabled": true,
+    "text": "Este contenido puede incluir texto generado con IA. Recomendamos revision humana antes de publicar. Uso prohibido para fraude, suplantacion, spam o actividades ilegales."
+  }
+}

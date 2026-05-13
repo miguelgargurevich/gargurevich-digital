@@ -1,0 +1,32 @@
+{
+  "clientId": "saas-legal-premium",
+  "projectName": "Landing SaaS Legal Premium",
+  "industry": "Legal",
+  "audience": "Empresas y profesionales del derecho",
+  "tone": "Confiable y innovador",
+  "primaryCTA": "Solicitar demostración",
+  "sections": [
+    "hero",
+    "benefits",
+    "process",
+    "testimonials",
+    "faq",
+    "final_cta"
+  ],
+  "colorDirection": "Azul oscuro (#212121) y verde claro (#8BC34A) con acentos cian (#03A9F4)",
+  "constraints": {
+    "language": "es",
+    "maxWordsPerSection": 120
+  },
+  "limits": {
+    "ai": {
+      "maxGenerationsPerMonth": 120,
+      "maxInputTokensPerMonth": 300000,
+      "maxOutputTokensPerMonth": 500000
+    }
+  },
+  "disclaimer": {
+    "enabled": true,
+    "text": "Este contenido puede incluir texto generado con IA. Recomendamos revision humana antes de publicar. Uso prohibido para fraude, suplantacion, spam o actividades ilegales."
+  }
+}

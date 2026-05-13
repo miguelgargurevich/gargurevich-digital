@@ -1,12 +1,12 @@
 {
   "nav": {
-    "services": "Servicios",
+    "services": "Niveles",
     "portfolio": "Portafolio",
-    "technologies": "Tecnologías",
-    "process": "Proceso",
+    "technologies": "Diferenciales",
+    "process": "Cómo funciona",
     "contact": "Contacto",
     "offers": "Ofertas",
-    "startProject": "Iniciar Proyecto"
+    "startProject": "Agendar llamada"
   },
   "hero": {
     "badge": "Desarrollo Web Premium",

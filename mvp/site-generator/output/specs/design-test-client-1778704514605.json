@@ -1,0 +1,32 @@
+{
+  "clientId": "design-test-client",
+  "projectName": "Design Test Client",
+  "industry": "Servicios profesionales",
+  "audience": "Emprendedores y pequeñas empresas",
+  "tone": "Claro y profesional",
+  "primaryCTA": "Solicitar propuesta",
+  "sections": [
+    "hero",
+    "benefits",
+    "process",
+    "testimonials",
+    "faq",
+    "final_cta"
+  ],
+  "colorDirection": "Moderno, contraste alto, acentos cian (#03A9F4) y verde (#8BC34A)",
+  "constraints": {
+    "language": "es",
+    "maxWordsPerSection": 120
+  },
+  "limits": {
+    "ai": {
+      "maxGenerationsPerMonth": 120,
+      "maxInputTokensPerMonth": 300000,
+      "maxOutputTokensPerMonth": 500000
+    }
+  },
+  "disclaimer": {
+    "enabled": true,
+    "text": "Este contenido puede incluir texto generado con IA. Recomendamos revision humana antes de publicar. Uso prohibido para fraude, suplantacion, spam o actividades ilegales."
+  }
+}

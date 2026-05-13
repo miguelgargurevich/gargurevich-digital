@@ -215,98 +215,100 @@ const SERVICES_SEED = [
 
 const OFFERS_SEED = [
   {
-    planKey: 'mi-negocio-en-google',
+    planKey: 'presencia-digital-ia',
     icon: 'zap',
     order: 0,
     popular: false,
-    nameEs: 'Cliente Nuevo en 48h',
-    nameEn: 'New Client in 48h',
-    price: 'S/ 299',
-    renewalPrice: '250',
-    priceNoteEs: '1 año incluido gratis',
-    priceNoteEn: '1 year included free',
-    descriptionEs: 'Pago único para poner tu presencia digital a vender. Incluye dominio, hosting y soporte durante 1 año. Después decides si renuevas para seguir activo.',
-    descriptionEn: 'One-time payment to get your digital presence selling. Includes domain, hosting and support for 1 year. After that, you decide whether to renew to stay active.',
+    nameEs: 'Presencia Digital IA',
+    nameEn: 'AI Digital Presence',
+    price: 'Setup: S/300-1,500 | Hosting: S/30-80/mes',
+    renewalPrice: '80',
+    priceNoteEs: 'Dominio propio + SSL + deploy incluido',
+    priceNoteEn: 'Own domain + SSL + deploy included',
+    descriptionEs: 'Tu negocio online listo en 48-72 horas con optimización de conversión asistida por IA.',
+    descriptionEn: 'Your business online in 48-72 hours with AI-assisted conversion optimization.',
     itemsEs: [
-      'Ficha de Google Maps optimizada',
-      'Página de 1 sección profesional',
-      'Dominio .com.pe o .pe incluido',
-      'Correos profesionales',
-      'Listo para generar clientes desde el día 1',
+      'Landing, ecommerce o CMS según necesidad',
+      'Dominio propio (.com, .pe o .com.pe) y SSL',
+      'Hosting administrado + deploy automático',
+      'Panel simple para actualizaciones básicas',
+      'SEO base y estructura para convertir visitas en consultas',
     ],
     itemsEn: [
-      'Optimized Google Maps listing',
-      'Professional single-page website',
-      '.com.pe or .pe domain included',
-      'Professional emails',
-      'Ready to generate clients from day 1',
+      'Landing, ecommerce, or CMS based on your needs',
+      'Own domain (.com, .pe, or .com.pe) and SSL',
+      'Managed hosting + automatic deploy',
+      'Simple panel for basic updates',
+      'Base SEO and conversion-ready structure',
     ],
-    ctaEs: 'Quiero mi presencia digital',
-    ctaEn: 'I want my digital presence',
-    forWhoEs: 'Para negocios locales que necesitan presencia online inmediata sin inversión grande.',
-    forWhoEn: 'For local businesses needing immediate online presence without big investment.',
+    ctaEs: 'Quiero salir online esta semana',
+    ctaEn: 'I want to go live this week',
+    forWhoEs: 'Nivel 1: para negocios que necesitan presencia profesional rápida y clara.',
+    forWhoEn: 'Level 1: for businesses that need a fast, professional digital presence.',
   },
   {
-    planKey: 'landing-whatsapp',
-    icon: 'zap',
-    order: 1,
-    popular: false,
-    nameEs: 'Máquina de Leads por WhatsApp',
-    nameEn: 'WhatsApp Lead Machine',
-    price: 'S/ 399',
-    renewalPrice: '270',
-    priceNoteEs: '1 año incluido gratis',
-    priceNoteEn: '1 year included free',
-    descriptionEs: 'Pago único para convertir cada click de tus anuncios en un cliente real. Incluye dominio, hosting, tracking y soporte durante 1 año. Después decides si renuevas.',
-    descriptionEn: 'One-time payment to turn every ad click into a real customer. Includes domain, hosting, tracking and support for 1 year. After that, you decide whether to renew.',
-    itemsEs: [
-      'Landing page optimizada para conversión',
-      'Botón de WhatsApp flotante inteligente',
-      'Pixel de Facebook para retargeting',
-      'Seguimiento de 30 días (clics, mensajes)',
-      'Correo profesional y dominio',
-    ],
-    itemsEn: [
-      'Conversion-optimized landing page',
-      'Smart floating WhatsApp button',
-      'Facebook Pixel for retargeting',
-      '30-day tracking (clicks, messages)',
-      'Professional email and domain',
-    ],
-    ctaEs: 'Quiero mi web lista para vender',
-    ctaEn: 'I want my web ready to sell',
-    forWhoEs: 'Para dueños que gastan en Facebook/Instagram y quieren maximizar ROI de sus anuncios.',
-    forWhoEn: 'For owners spending on Facebook/Instagram who want to maximize ad ROI.',
-  },
-  {
-    planKey: 'web-que-yo-edito',
+    planKey: 'asistente-ia-experto',
     icon: 'star',
-    order: 2,
+    order: 1,
     popular: true,
-    nameEs: 'Control Total (editable por ti)',
-    nameEn: 'Full Control (editable by you)',
-    price: 'S/ 599',
-    renewalPrice: '270',
-    priceNoteEs: '1 año incluido gratis',
-    priceNoteEn: '1 year included free',
-    descriptionEs: 'Pago único para un negocio digital completo. Incluye web profesional, blog, analítica, dominio, hosting y soporte durante 1 año. Después decides si renuevas.',
-    descriptionEn: 'One-time payment for a complete digital business. Includes professional website, blog, analytics, domain, hosting and support for 1 year. After that, you decide whether to renew.',
+    nameEs: 'Asistente IA para Negocio',
+    nameEn: 'AI Assistant for Business',
+    price: 'Agente IA: S/180-350/mes | Entrenamiento: S/120-200/mes',
+    renewalPrice: '350',
+    priceNoteEs: 'Incluye limite operativo mensual para proteger calidad y costos',
+    priceNoteEn: 'Includes monthly operational limits for quality and cost control',
+    descriptionEs: 'Un empleado virtual que nunca duerme y conoce tu catálogo, conectado a WhatsApp y web 24/7.',
+    descriptionEn: 'A virtual employee that never sleeps, knows your catalog, and works on WhatsApp and web 24/7.',
     itemsEs: [
-      'Tu web lista y funcionando',
-      '1 año completo incluido gratis',
-      'Dominio, hosting, mantenimiento y soporte incluidos',
-      'Después del año: renovación mensual o anual con descuento',
+      'RAG con PDFs, Drive y documentos del negocio',
+      'Integración fuerte con WhatsApp para atención comercial',
+      'Responde precios, horarios, stock y preguntas frecuentes',
+      'Hasta 600 consultas incluidas al mes (ampliable)',
+      'Base para escalar a reservas, cotizaciones y seguimiento',
     ],
     itemsEn: [
-      'Your site ready and running',
-      '1 full year included free',
-      'Domain, hosting, maintenance and support included',
-      'After year one: monthly or annual renewal with discount',
+      'RAG from PDFs, Drive, and business documents',
+      'Strong WhatsApp integration for commercial support',
+      'Answers prices, hours, stock, and FAQs',
+      'Up to 600 monthly queries included (expandable)',
+      'Ready to scale into bookings, quotes, and follow-up',
     ],
-    ctaEs: 'Dame control total',
-    ctaEn: 'Give me full control',
-    forWhoEs: 'Para dueños que quieren manejar su web sin depender de un programador.',
-    forWhoEn: 'For owners who want to manage their site without depending on a programmer.',
+    ctaEs: 'Quiero delegar atencion con IA',
+    ctaEn: 'I want AI customer support',
+    forWhoEs: 'Nivel 2: para negocios que necesitan atención constante sin aumentar planilla.',
+    forWhoEn: 'Level 2: for teams that need constant support without increasing headcount.',
+  },
+  {
+    planKey: 'automatizacion-inteligente',
+    icon: 'sparkles',
+    order: 2,
+    popular: false,
+    nameEs: 'Automatización Inteligente',
+    nameEn: 'Smart Automation',
+    price: 'Desde S/300-900/mes',
+    renewalPrice: '900',
+    priceNoteEs: 'Precio sube segun criticidad y volumen operativo',
+    priceNoteEn: 'Price scales with operational criticality and volume',
+    descriptionEs: 'Conectamos tu software con IA para reducir trabajo manual y tomar decisiones desde chat.',
+    descriptionEn: 'We connect your software with AI to reduce manual work and enable chat-based decisions.',
+    itemsEs: [
+      'Workflows en n8n para tareas repetitivas y aprobaciones',
+      'Integraciones con CRM, ERP, formularios y bases de datos',
+      'Consulta por chat: "Cuanto vendimos ayer?" con datos reales',
+      'ETL y reportes automáticos para operación y gerencia',
+      'Transcripción con Whisper ideal para consultoras y abogados',
+    ],
+    itemsEn: [
+      'n8n workflows for repetitive tasks and approvals',
+      'Integrations with CRM, ERP, forms, and databases',
+      'Chat queries like "How much did we sell yesterday?"',
+      'Automated ETL and reporting for operations and leadership',
+      'Whisper transcription, ideal for consultants and legal teams',
+    ],
+    ctaEs: 'Quiero automatizar mi operación',
+    ctaEn: 'I want to automate operations',
+    forWhoEs: 'Nivel 3: para negocios que buscan eficiencia operativa y visibilidad en tiempo real.',
+    forWhoEn: 'Level 3: for companies targeting operational efficiency and real-time visibility.',
   },
   {
     planKey: 'sueno-digital-completo',
@@ -425,6 +427,26 @@ const SITE_SETTINGS_SEED = [
   { key: 'stats.experience', value: '3+' },
 ];
 
+function sanitizeForDb<T>(value: T): T {
+  if (typeof value === 'string') {
+    return value.replace(/\u0000/g, '') as T;
+  }
+
+  if (Array.isArray(value)) {
+    return value.map((item) => sanitizeForDb(item)) as T;
+  }
+
+  if (value && typeof value === 'object') {
+    const entries = Object.entries(value as Record<string, unknown>).map(([key, nested]) => [
+      key,
+      sanitizeForDb(nested),
+    ]);
+    return Object.fromEntries(entries) as T;
+  }
+
+  return value;
+}
+
 export async function seedDatabase(options: { revalidate?: boolean } = {}) {
   const { revalidate = true } = options;
 
@@ -434,7 +456,7 @@ export async function seedDatabase(options: { revalidate?: boolean } = {}) {
       await db.portfolioProject.upsert({
         where: { slug: p.slug },
         update: {},
-        create: p,
+        create: sanitizeForDb(p),
       });
     }
 
@@ -443,22 +465,22 @@ export async function seedDatabase(options: { revalidate?: boolean } = {}) {
       await db.service.upsert({
         where: { slug: s.slug },
         update: {},
-        create: s,
+        create: sanitizeForDb(s),
       });
     }
 
     // Clear and re-seed offers (ensures old plans are replaced)
     await db.offer.deleteMany({});
     for (const o of OFFERS_SEED) {
-      await db.offer.create({ data: o });
+      await db.offer.create({ data: sanitizeForDb(o) });
     }
 
     // Upsert site settings
     for (const s of SITE_SETTINGS_SEED) {
       await db.siteSetting.upsert({
         where: { key: s.key },
-        update: { value: s.value },
-        create: s,
+        update: sanitizeForDb({ value: s.value }),
+        create: sanitizeForDb(s),
       });
     }
 

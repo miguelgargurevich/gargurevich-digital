@@ -1,0 +1,160 @@
+{
+  "clients": {
+    "clinica-sonrisa-viva": {
+      "month": "2026-05",
+      "generations": 9,
+      "estimatedInputTokens": 2074,
+      "estimatedOutputTokens": 13286,
+      "lastGenerationAt": "2026-05-13T20:55:44.942Z",
+      "limits": {
+        "maxGenerationsPerMonth": 120,
+        "maxInputTokensPerMonth": 300000,
+        "maxOutputTokensPerMonth": 500000
+      }
+    },
+    "estudio-legal-lima": {
+      "month": "2026-05",
+      "generations": 2,
+      "estimatedInputTokens": 453,
+      "estimatedOutputTokens": 2286,
+      "lastGenerationAt": "2026-05-13T20:19:20.912Z",
+      "limits": {
+        "maxGenerationsPerMonth": 120,
+        "maxInputTokensPerMonth": 300000,
+        "maxOutputTokensPerMonth": 500000
+      }
+    },
+    "cliente-legal-premium": {
+      "month": "2026-05",
+      "generations": 1,
+      "estimatedInputTokens": 207,
+      "estimatedOutputTokens": 1142,
+      "lastGenerationAt": "2026-05-13T20:21:57.732Z",
+      "limits": {
+        "maxGenerationsPerMonth": 120,
+        "maxInputTokensPerMonth": 300000,
+        "maxOutputTokensPerMonth": 500000
+      }
+    },
+    "cliente-pref-test": {
+      "month": "2026-05",
+      "generations": 1,
+      "estimatedInputTokens": 199,
+      "estimatedOutputTokens": 1130,
+      "lastGenerationAt": "2026-05-13T20:22:00.043Z",
+      "limits": {
+        "maxGenerationsPerMonth": 120,
+        "maxInputTokensPerMonth": 300000,
+        "maxOutputTokensPerMonth": 500000
+      }
+    },
+    "barberia-zambo": {
+      "month": "2026-05",
+      "generations": 1,
+      "estimatedInputTokens": 243,
+      "estimatedOutputTokens": 1151,
+      "lastGenerationAt": "2026-05-13T20:25:10.236Z",
+      "limits": {
+        "maxGenerationsPerMonth": 120,
+        "maxInputTokensPerMonth": 300000,
+        "maxOutputTokensPerMonth": 500000
+      }
+    },
+    "cliente-fino-prompt": {
+      "month": "2026-05",
+      "generations": 1,
+      "estimatedInputTokens": 214,
+      "estimatedOutputTokens": 1137,
+      "lastGenerationAt": "2026-05-13T20:29:33.869Z",
+      "limits": {
+        "maxGenerationsPerMonth": 120,
+        "maxInputTokensPerMonth": 300000,
+        "maxOutputTokensPerMonth": 500000
+      }
+    },
+    "zambo-barber-shop": {
+      "month": "2026-05",
+      "generations": 4,
+      "estimatedInputTokens": 817,
+      "estimatedOutputTokens": 4355,
+      "lastGenerationAt": "2026-05-13T20:32:32.525Z",
+      "limits": {
+        "maxGenerationsPerMonth": 120,
+        "maxInputTokensPerMonth": 300000,
+        "maxOutputTokensPerMonth": 500000
+      }
+    },
+    "zambobarbershop": {
+      "month": "2026-05",
+      "generations": 1,
+      "estimatedInputTokens": 206,
+      "estimatedOutputTokens": 1134,
+      "lastGenerationAt": "2026-05-13T20:32:47.726Z",
+      "limits": {
+        "maxGenerationsPerMonth": 120,
+        "maxInputTokensPerMonth": 300000,
+        "maxOutputTokensPerMonth": 500000
+      }
+    },
+    "saas-legal-premium": {
+      "month": "2026-05",
+      "generations": 1,
+      "estimatedInputTokens": 203,
+      "estimatedOutputTokens": 1035,
+      "lastGenerationAt": "2026-05-13T20:35:13.925Z",
+      "limits": {
+        "maxGenerationsPerMonth": 120,
+        "maxInputTokensPerMonth": 300000,
+        "maxOutputTokensPerMonth": 500000
+      }
+    },
+    "design-test-client": {
+      "month": "2026-05",
+      "generations": 1,
+      "estimatedInputTokens": 197,
+      "estimatedOutputTokens": 1030,
+      "lastGenerationAt": "2026-05-13T20:35:14.609Z",
+      "limits": {
+        "maxGenerationsPerMonth": 120,
+        "maxInputTokensPerMonth": 300000,
+        "maxOutputTokensPerMonth": 500000
+      }
+    },
+    "ia-saas-client": {
+      "month": "2026-05",
+      "generations": 1,
+      "estimatedInputTokens": 211,
+      "estimatedOutputTokens": 2168,
+      "lastGenerationAt": "2026-05-13T20:48:35.660Z",
+      "limits": {
+        "maxGenerationsPerMonth": 120,
+        "maxInputTokensPerMonth": 300000,
+        "maxOutputTokensPerMonth": 500000
+      }
+    },
+    "dyn-nav-client": {
+      "month": "2026-05",
+      "generations": 1,
+      "estimatedInputTokens": 225,
+      "estimatedOutputTokens": 2812,
+      "lastGenerationAt": "2026-05-13T20:51:18.407Z",
+      "limits": {
+        "maxGenerationsPerMonth": 120,
+        "maxInputTokensPerMonth": 300000,
+        "maxOutputTokensPerMonth": 500000
+      }
+    },
+    "estudio-legal-client": {
+      "month": "2026-05",
+      "generations": 1,
+      "estimatedInputTokens": 214,
+      "estimatedOutputTokens": 2114,
+      "lastGenerationAt": "2026-05-13T20:51:42.907Z",
+      "limits": {
+        "maxGenerationsPerMonth": 120,
+        "maxInputTokensPerMonth": 300000,
+        "maxOutputTokensPerMonth": 500000
+      }
+    }
+  }
+}

@@ -3,11 +3,93 @@ import Link from 'next/link';
 import { FolderOpen, Wrench, Image, ArrowRight, Zap, Inbox, Tag, CreditCard } from 'lucide-react';
 import { SubscriptionStatus } from '@prisma/client';
 import SeedButton from './_components/SeedButton';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 
 export const dynamic = 'force-dynamic';
 
-export default async function AdminDashboard() {
-  const [projectCount, serviceCount, mediaCount, leadCount, newLeadCount, offerCount, projects, siteCount, activeSiteCount] = await Promise.all([
+type UsageLimits = {
+  maxGenerationsPerMonth: number;
+  maxInputTokensPerMonth: number;
+  maxOutputTokensPerMonth: number;
+};
+
+type ClientUsageRecord = {
+  month: string;
+  generations: number;
+  estimatedInputTokens: number;
+  estimatedOutputTokens: number;
+  lastGenerationAt: string | null;
+  limits?: Partial<UsageLimits> | null;
+};
+
+const FALLBACK_LIMITS: UsageLimits = {
+  maxGenerationsPerMonth: 100,
+  maxInputTokensPerMonth: 250000,
+  maxOutputTokensPerMonth: 400000,
+};
+
+function toPercent(value: number, max: number): number {
+  if (!max || max <= 0) return 0;
+  return Math.min(100, Math.round((value / max) * 100));
+}
+
+function maxUsagePercent(record: ClientUsageRecord): number {
+  const limits: UsageLimits = {
+    ...FALLBACK_LIMITS,
+    ...(record.limits || {}),
+  };
+
+  return Math.max(
+    toPercent(record.generations, limits.maxGenerationsPerMonth),
+    toPercent(record.estimatedInputTokens, limits.maxInputTokensPerMonth),
+    toPercent(record.estimatedOutputTokens, limits.maxOutputTokensPerMonth)
+  );
+}
+
+function usageStatus(percent: number): { label: string; className: string } {
+  if (percent >= 95) return { label: 'Critico', className: 'bg-red-500/15 text-red-300 border border-red-500/30' };
+  if (percent >= 80) return { label: 'Alto', className: 'bg-amber-500/15 text-amber-300 border border-amber-500/30' };
+  return { label: 'Normal', className: 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30' };
+}
+
+function usageRiskKey(percent: number): 'normal' | 'alto' | 'critico' {
+  if (percent >= 95) return 'critico';
+  if (percent >= 80) return 'alto';
+  return 'normal';
+}
+
+async function getAiUsageByClient(): Promise<Array<{ clientId: string; record: ClientUsageRecord; percent: number }>> {
+  const usagePath = path.join(process.cwd(), 'mvp', 'site-generator', 'output', 'usage-state.json');
+
+  try {
+    const raw = await readFile(usagePath, 'utf8');
+    const parsed = JSON.parse(raw) as { clients?: Record<string, ClientUsageRecord> };
+    const clients = parsed.clients || {};
+
+    return Object.entries(clients)
+      .map(([clientId, record]) => ({
+        clientId,
+        record,
+        percent: maxUsagePercent(record),
+      }))
+      .sort((a, b) => b.percent - a.percent);
+  } catch {
+    return [];
+  }
+}
+
+export default async function AdminDashboard({
+  searchParams,
+}: {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const resolvedSearchParams = (await searchParams) || {};
+  const monthFilter = String(resolvedSearchParams.month || 'all');
+  const riskFilter = String(resolvedSearchParams.risk || 'all').toLowerCase();
+  const queryFilter = String(resolvedSearchParams.q || '').trim().toLowerCase();
+
+  const [projectCount, serviceCount, mediaCount, leadCount, newLeadCount, offerCount, projects, siteCount, activeSiteCount, aiUsage] = await Promise.all([
     db.portfolioProject.count(),
     db.service.count(),
     db.mediaFile.count(),
@@ -17,6 +99,7 @@ export default async function AdminDashboard() {
     db.portfolioProject.findMany({ orderBy: { order: 'asc' }, take: 4 }),
     db.clientSite.count(),
     db.clientSite.count({ where: { status: SubscriptionStatus.ACTIVE } }),
+      getAiUsageByClient(),
   ]);
 
   const stats = [
@@ -41,6 +124,14 @@ export default async function AdminDashboard() {
       color: '#00D4FF',
     },
   ];
+
+  const availableMonths = Array.from(new Set(aiUsage.map(({ record }) => record.month))).sort((a, b) => b.localeCompare(a));
+  const filteredAiUsage = aiUsage.filter(({ clientId, record, percent }) => {
+    if (monthFilter !== 'all' && record.month !== monthFilter) return false;
+    if (riskFilter !== 'all' && usageRiskKey(percent) !== riskFilter) return false;
+    if (queryFilter && !clientId.toLowerCase().includes(queryFilter)) return false;
+    return true;
+  });
 
   return (
     <div className="space-y-8 max-w-5xl">
@@ -129,9 +220,121 @@ export default async function AdminDashboard() {
           <Link href="/admin/media" className="cms-btn">Subir imágenes</Link>
           <Link href="/admin/content" className="cms-btn">Editar contenido</Link>
           <Link href="/admin/settings" className="cms-btn">Ajustes del sitio</Link>
+          <Link href="/admin/site-generator" className="cms-btn">MVP Builder IA</Link>
           <div className="flex-1" />
           <SeedButton />
         </div>
+      </div>
+
+      {/* AI Usage monitor */}
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm font-semibold text-[#A1A1AA] uppercase tracking-wider">Uso de IA por cliente</h2>
+          <span className="text-xs text-[#71717A]">Fuente: mvp/site-generator/output/usage-state.json</span>
+        </div>
+
+        <form method="get" className="mb-4 grid grid-cols-1 md:grid-cols-4 gap-3">
+          <input
+            type="text"
+            name="q"
+            defaultValue={queryFilter}
+            placeholder="Buscar por clientId"
+            className="w-full rounded-lg border border-white/10 bg-[#0F0F10] px-3 py-2 text-sm text-white placeholder:text-[#71717A] focus:outline-none focus:border-[#00D4FF]/50"
+          />
+          <select
+            name="month"
+            defaultValue={monthFilter}
+            className="w-full rounded-lg border border-white/10 bg-[#0F0F10] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#00D4FF]/50"
+          >
+            <option value="all">Todos los meses</option>
+            {availableMonths.map((month) => (
+              <option key={month} value={month}>{month}</option>
+            ))}
+          </select>
+          <select
+            name="risk"
+            defaultValue={riskFilter}
+            className="w-full rounded-lg border border-white/10 bg-[#0F0F10] px-3 py-2 text-sm text-white focus:outline-none focus:border-[#00D4FF]/50"
+          >
+            <option value="all">Todos los riesgos</option>
+            <option value="normal">Normal</option>
+            <option value="alto">Alto</option>
+            <option value="critico">Critico</option>
+          </select>
+          <div className="flex items-center gap-2">
+            <button
+              type="submit"
+              className="inline-flex items-center justify-center rounded-lg border border-white/12 bg-white/5 px-3 py-2 text-sm text-white hover:border-white/20 transition-colors"
+            >
+              Filtrar
+            </button>
+            <Link
+              href="/admin/dashboard"
+              className="inline-flex items-center justify-center rounded-lg border border-white/12 bg-transparent px-3 py-2 text-sm text-[#A1A1AA] hover:text-white hover:border-white/20 transition-colors"
+            >
+              Limpiar
+            </Link>
+          </div>
+        </form>
+
+        {aiUsage.length === 0 ? (
+          <div className="bg-[#111111] border border-white/10 rounded-xl p-4 text-sm text-[#A1A1AA]">
+            Aun no hay consumo registrado. Genera una pagina en el MVP para empezar a medir uso de IA por cliente.
+          </div>
+        ) : filteredAiUsage.length === 0 ? (
+          <div className="bg-[#111111] border border-white/10 rounded-xl p-4 text-sm text-[#A1A1AA]">
+            No se encontraron resultados con los filtros actuales.
+          </div>
+        ) : (
+          <div className="overflow-x-auto rounded-xl border border-white/10 bg-[#111111]">
+            <table className="w-full min-w-190 text-sm">
+              <thead className="bg-white/5 text-[#A1A1AA]">
+                <tr>
+                  <th className="text-left px-4 py-3 font-medium">Cliente</th>
+                  <th className="text-left px-4 py-3 font-medium">Mes</th>
+                  <th className="text-left px-4 py-3 font-medium">Generaciones</th>
+                  <th className="text-left px-4 py-3 font-medium">Input tokens</th>
+                  <th className="text-left px-4 py-3 font-medium">Output tokens</th>
+                  <th className="text-left px-4 py-3 font-medium">Riesgo</th>
+                  <th className="text-left px-4 py-3 font-medium">Ultima actividad</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredAiUsage.map(({ clientId, record, percent }) => {
+                  const limits: UsageLimits = {
+                    ...FALLBACK_LIMITS,
+                    ...(record.limits || {}),
+                  };
+                  const status = usageStatus(percent);
+
+                  return (
+                    <tr key={clientId} className="border-t border-white/6">
+                      <td className="px-4 py-3 text-white font-medium">{clientId}</td>
+                      <td className="px-4 py-3 text-[#D4D4D8]">{record.month}</td>
+                      <td className="px-4 py-3 text-[#D4D4D8]">
+                        {record.generations}/{limits.maxGenerationsPerMonth}
+                      </td>
+                      <td className="px-4 py-3 text-[#D4D4D8]">
+                        {record.estimatedInputTokens.toLocaleString('es-PE')}/{limits.maxInputTokensPerMonth.toLocaleString('es-PE')}
+                      </td>
+                      <td className="px-4 py-3 text-[#D4D4D8]">
+                        {record.estimatedOutputTokens.toLocaleString('es-PE')}/{limits.maxOutputTokensPerMonth.toLocaleString('es-PE')}
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-semibold ${status.className}`}>
+                          {status.label} ({percent}%)
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-[#A1A1AA]">
+                        {record.lastGenerationAt ? new Date(record.lastGenerationAt).toLocaleString('es-PE') : 'Sin actividad'}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

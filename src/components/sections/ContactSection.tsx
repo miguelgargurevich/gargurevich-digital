@@ -162,7 +162,7 @@ export default function ContactSection({
   };
 
   return (
-    <section id="contacto" className="relative py-20 sm:py-24 md:py-32 lg:py-40 overflow-hidden">
+    <section id="contacto" className="scroll-mt-28 relative py-20 sm:py-24 md:py-32 lg:py-40 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-background">
         <div className="grid-pattern absolute inset-0" />

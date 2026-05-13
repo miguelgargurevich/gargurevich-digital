@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Cliente Pref Test - MVP</title>
+    <style>
+      :root {
+        --bg: #0b1016;
+        --surface: #101a24;
+        --surface-2: #111827;
+        --text: #e5e7eb;
+        --muted: #a1a1aa;
+        --accent: #00d4ff;
+        --accent-2: #10b981;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: 'Plus Jakarta Sans', 'Sora', system-ui, sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at 15% 10%, rgba(0, 212, 255, 0.2), transparent 35%),
+                    radial-gradient(circle at 90% 10%, rgba(16, 185, 129, 0.15), transparent 25%),
+                    linear-gradient(180deg, #090d12 0%, #0b1016 100%);
+      }
+      .wrap { max-width: 1040px; margin: 0 auto; padding: 32px 20px 72px; }
+      .hero {
+        background: linear-gradient(135deg, rgba(0,212,255,0.14), rgba(16,185,129,0.12));
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 20px;
+        padding: 28px;
+      }
+      .hero small { color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+      .hero h1 { margin: 10px 0 8px; font-size: clamp(1.8rem, 4.8vw, 3rem); line-height: 1.1; }
+      .hero p { margin: 0; color: #d4d4d8; max-width: 70ch; }
+      .meta { margin-top: 14px; color: var(--muted); font-size: 0.9rem; }
+      .grid { margin-top: 20px; display: grid; gap: 14px; grid-template-columns: repeat(1, minmax(0, 1fr)); }
+      @media (min-width: 840px) {
+        .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      .card {
+        background: linear-gradient(180deg, rgba(17,24,39,0.9), rgba(17,24,39,0.7));
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 16px;
+        padding: 18px;
+      }
+      .card h2 { margin: 0 0 8px; color: var(--accent); font-size: 1.03rem; }
+      .card p { margin: 0; color: #d4d4d8; line-height: 1.6; }
+      .cta {
+        margin-top: 24px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, var(--accent), #53e6ff);
+        color: #00131a;
+        text-decoration: none;
+        font-weight: 700;
+        padding: 12px 18px;
+        border-radius: 12px;
+      }
+      .disclaimer {
+        margin-top: 18px;
+        border: 1px solid rgba(245, 158, 11, 0.35);
+        background: rgba(31, 41, 55, 0.85);
+        border-radius: 12px;
+        padding: 12px 14px;
+        color: #fcd34d;
+        font-size: 0.88rem;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="hero">
+        <small>MVP Site Generator</small>
+        <h1>Cliente Pref Test</h1>
+        <p>Claro y profesional. Diseñado para servicios profesionales con enfoque en conversion y claridad comercial.</p>
+        <p class="meta">Prompt base: Eres un generador de landing pages para pymes.
+Objetivo: transformar un mensaje de usuario en un brief estruct...</p>
+      </header>
+
+      <div class="grid">
+      <section class="card">
+        <h2>Propuesta de valor</h2>
+        <p>Cliente Pref Test ayuda a emprendedores y pequeñas empresas con una propuesta claro y profesional.</p>
+      </section>
+
+      <section class="card">
+        <h2>Beneficios clave</h2>
+        <p>Implementacion rapida, posicionamiento claro y conversion orientada a resultados medibles.</p>
+      </section>
+
+      <section class="card">
+        <h2>Como funciona</h2>
+        <p>Diagnostico corto, implementacion por etapas y optimizacion continua con datos reales.</p>
+      </section>
+
+      <section class="card">
+        <h2>Prueba social</h2>
+        <p>Casos de clientes que mejoraron su captacion y redujeron tiempos operativos.</p>
+      </section>
+
+      <section class="card">
+        <h2>Preguntas frecuentes</h2>
+        <p>Resolvemos dudas sobre tiempos, costos, alcance y soporte post lanzamiento.</p>
+      </section>
+
+      <section class="card">
+        <h2>Cierre y accion</h2>
+        <p>Siguiente paso: Solicitar propuesta.</p>
+      </section></div>
+
+      <a class="cta" href="#final-cta">Solicitar propuesta</a>
+
+      <aside class="disclaimer"><strong>Disclaimer IA:</strong> Este contenido puede incluir texto generado con IA. Recomendamos revision humana antes de publicar. Uso prohibido para fraude, suplantacion, spam o actividades ilegales.</aside>
+    </main>
+  </body>
+</html>

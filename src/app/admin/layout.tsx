@@ -18,6 +18,7 @@ import {
   Tag,
   Bell,
   ChevronRight,
+  Bot,
 } from 'lucide-react';
 import { AdminAlertProvider } from '@/components/providers/AdminAlertProvider';
 
@@ -30,6 +31,7 @@ interface NotificationLead {
 
 const NAV = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/site-generator', label: 'MVP Builder', icon: Bot },
   { href: '/admin/leads', label: 'Leads', icon: Inbox },
   { href: '/admin/offers', label: 'Ofertas', icon: Tag },
   { href: '/admin/subscriptions', label: 'Suscripciones', icon: CreditCard },

@@ -1,0 +1,31 @@
+{
+  "clientId": "clinica-sonrisa-viva",
+  "projectName": "Clinica Sonrisa Viva",
+  "industry": "Odontologia",
+  "audience": "Familias de Lima",
+  "tone": "Cercano y profesional",
+  "primaryCTA": "Reserva tu cita",
+  "sections": [
+    "hero",
+    "benefits",
+    "testimonials",
+    "faq",
+    "final_cta"
+  ],
+  "colorDirection": "calido y limpio",
+  "constraints": {
+    "language": "es",
+    "maxWordsPerSection": 120
+  },
+  "limits": {
+    "ai": {
+      "maxGenerationsPerMonth": 120,
+      "maxInputTokensPerMonth": 300000,
+      "maxOutputTokensPerMonth": 500000
+    }
+  },
+  "disclaimer": {
+    "enabled": true,
+    "text": "Esta pagina y su contenido pueden incluir texto generado con IA. Recomendamos revision humana antes de publicacion final. Prohibido usar la plataforma para fraude, suplantacion, spam o actividades ilegales."
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "clientId": "cliente-fino-prompt",
+  "projectName": "Cliente Fino Prompt",
+  "industry": "Legal",
+  "audience": "Emprendedores y profesionales que buscan soluciones legales confiables",
+  "tone": "Elegante y asistente",
+  "primaryCTA": "Escribir por WhatsApp",
+  "sections": [
+    "hero",
+    "benefits",
+    "process",
+    "testimonials",
+    "faq",
+    "final_cta"
+  ],
+  "colorDirection": "Cian (#00FFFF) y verde (#34C759) con fondos neutros",
+  "constraints": {
+    "language": "es",
+    "maxWordsPerSection": 120
+  },
+  "limits": {
+    "ai": {
+      "maxGenerationsPerMonth": 120,
+      "maxInputTokensPerMonth": 300000,
+      "maxOutputTokensPerMonth": 500000
+    }
+  },
+  "disclaimer": {
+    "enabled": true,
+    "text": "Este contenido puede incluir texto generado con IA. Recomendamos revision humana antes de publicar. Uso prohibido para fraude, suplantacion, spam o actividades ilegales."
+  }
+}

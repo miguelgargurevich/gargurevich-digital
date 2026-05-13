@@ -1,9 +1,57 @@
 import Link from 'next/link';
-import { ArrowUpRight, CheckCircle2, Sparkles, Star, Zap } from 'lucide-react';
-import { db } from '@/lib/db';
+import { ArrowUpRight, Bot, Globe2, Sparkles, Star, Workflow, Zap } from 'lucide-react';
 
-type OfferRow = Awaited<ReturnType<typeof db.offer.findMany>>[number];
-type UILabels = typeof UI_LABELS[keyof typeof UI_LABELS];
+type OfferCard = {
+  id: string;
+  planKey: string;
+  icon: string;
+  popular: boolean;
+  nameEs: string;
+  nameEn: string;
+  price: string;
+  priceNoteEs: string;
+  priceNoteEn: string;
+  descriptionEs: string;
+  descriptionEn: string;
+  itemsEs: string[];
+  itemsEn: string[];
+  ctaEs: string;
+  ctaEn: string;
+  forWhoEs: string;
+  forWhoEn: string;
+};
+
+interface Props {
+  locale: 'es' | 'en';
+  offers: OfferCard[];
+}
+
+const CONTENT = {
+  es: {
+    badge: 'Oferta por niveles',
+    title: 'No solo construimos sitios, creamos sistemas que trabajan por ti',
+    subtitle:
+      'Cada nivel resuelve una etapa distinta del negocio: existir online hoy, delegar atención con IA y automatizar operación interna.',
+    labels: [
+      'Nivel Inicial: Para quienes necesitan existir en internet hoy.',
+      'Nivel Experto: Para quienes quieren delegar la atención al cliente.',
+      'Nivel Enterprise: Para quienes buscan que la IA gestione su operación interna.',
+    ],
+    annualBundle: 'Pack anual 3 niveles: consulta descuento por contratación conjunta.',
+  },
+  en: {
+    badge: 'Layered offering',
+    title: 'We do not just build websites, we build systems that work for you',
+    subtitle:
+      'Each layer solves a different business stage: get online now, delegate customer support with AI, and automate internal operations.',
+    labels: [
+      'Starter Level: For teams that need to exist online today.',
+      'Expert Level: For teams that want to delegate customer support.',
+      'Enterprise Level: For teams that want AI to run internal operations.',
+    ],
+    annualBundle: '3-layer annual bundle: ask for a combined-contract discount.',
+  },
+} as const;
 
 const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   zap: Zap,
@@ -11,181 +59,55 @@ const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: 
   sparkles: Sparkles,
 };
 
-const UI_LABELS = {
-  es: {
-    badge: 'Mis Servicios',
-    authority: 'Convierte tu presencia digital en clientes.',
-    title: 'Convierte tu presencia digital en clientes',
-    subtitle: 'No te vendemos "desarrollo web". Te ofrecemos sistemas para generar clientes online. Elige el plan que encaja con tu negocio.',
-    packagesTitle: 'Elige tu plan',
-    categoriesHeading: 'Agrupadas por necesidad',
-    categoryArrangements: { title: 'Arranque', description: 'Para negocios que están comenzando' },
-    categoryControl: { title: 'Control', description: 'Para negocios que ya venden y quieren escalar' },
-    categoryPeace: { title: 'Tranquilidad', description: 'Para negocios con web que necesitan protección' },
-    popularBadge: 'Más popular',
-    priceSubline: 'Pago único + renueva al año.',
-    guarantee: 'Garantía de 15 días: si no estás satisfecho, te devolvemos el 100% de tu pago. Sin preguntas incómodas.',
-    note: 'El dominio es tuyo desde el día 1. Yo solo te ayudo a registrarlo y renovarlo si lo necesitas.',
-    summaryTitle: 'Lo que pagarías después del primer año, por plan',
-    summaryOwnerNote: 'El dominio es tuyo desde el día 1. Después del primer año solo renuevas hosting, dominio y correos. El sistema queda tuyo. Si en el futuro quieres llevarte tu web a otro proveedor, no hay problema: te entrego todo.',
-    summaryColPlan: 'Plan',
-    summaryColAnnual: 'Costo anual recurrente',
-    summaryColIncludes: 'Qué incluye',
-    summaryRows: [
-      { plan: 'Cliente Nuevo en 48h' as const, annual: 'Dominio: S/ 50–130\nHosting: S/ 100–150', includes: 'Soporte básico incluido · Si no renuevas: el dominio sigue siendo tuyo' },
-      { plan: 'Máquina de Leads por WhatsApp' as const, annual: 'Dominio: S/ 50–130\nHosting: S/ 100–150', includes: 'Soporte básico incluido · Si no renuevas: el dominio sigue siendo tuyo' },
-      { plan: 'Control Total (editable por ti)' as const, annual: 'Dominio: S/ 50–130\nHosting: S/ 100–150', includes: 'Soporte y actualizaciones de seguridad · Si no renuevas: el dominio y archivos siguen siendo tuyo' },
-      { plan: 'Negocio Digital Automatizado' as const, annual: 'Dominio: S/ 50–130\nHosting: S/ 150–200', includes: 'Backups automáticos · Soporte prioritario · Si no renuevas: el dominio y negocio digital siguen siendo tuyo' },
-      { plan: 'Paz Mental (mantenimiento 24/7)' as const, annual: 'S/ 79/mes\n(renovable mensual)', includes: 'Puro mantenimiento y seguridad 24/7 · Aplica a un sitio que ya tienes · Dominio y hosting renuevas directamente con tu proveedor o conmigo · Cancelable cuando quieras' },
-      { plan: 'Solo Marca (dominio + correos)' as const, annual: 'Dominio: S/ 50–130\nCorreos: S/ 50–100', includes: 'Si no renuevas: el dominio sigue siendo tuyo' },
-    ] as const,
-    domainTableTitle: 'Referencia: costo de renovación anual según extensión',
-    domainColExt: 'Extensión',
-    domainColCost: 'Renovación/año',
-    domainColUse: 'Uso recomendado',
-    domainRows: [
-      { ext: '.com', cost: 'S/ 50 – 80', use: 'Negocios globales / tech' },
-      { ext: '.pe', cost: 'S/ 110 – 130', use: 'Marca local fuerte' },
-      { ext: '.com.pe', cost: 'S/ 90 – 130', use: 'Empresas en Perú' },
-    ] as const,
-    domainNote: 'El dominio queda registrado a tu nombre. Puedo gestionarte la renovación anual o hacerlo tú directo con cualquier proveedor. Los costos mostrados son rangos reales: .com (S/50–80), .pe (S/110–130), .com.pe (S/90–130).',
-  },
-  en: {
-    badge: 'My Services',
-    authority: 'Convert your digital presence into real clients.',
-    title: 'Convert your digital presence into real clients',
-    subtitle: 'We don\'t sell you "web development". We offer systems to generate clients online. Pick the plan that fits your business.',
-    packagesTitle: 'Choose your plan',
-    categoriesHeading: 'Grouped by need',
-    categoryArrangements: { title: 'Startup', description: 'For businesses just starting out' },
-    categoryControl: { title: 'Scale', description: 'For businesses already selling who want to grow' },
-    categoryPeace: { title: 'Peace', description: 'For businesses with existing websites needing protection' },
-    popularBadge: 'Most popular',
-    priceSubline: 'One-time payment + 1 year included free.',
-    tableHeaderNote: '(Annual renewal costs)',
-    guarantee: '15-day guarantee: if you\'re not satisfied, we refund 100% of your payment. No awkward questions.',
-    note: 'The domain is yours from day one. I only help register and renew it if you need it.',
-    summaryTitle: 'What you would pay after year one, per plan',
-    summaryOwnerNote: 'The domain is yours from day one. After year one you only renew hosting, domain, and emails. The system stays yours. If you ever want to move your site to another provider, no problem: I deliver everything.',
-    summaryColPlan: 'Plan',
-    summaryColAnnual: 'Annual recurring cost',
-    summaryColIncludes: 'What it covers',
-    summaryRows: [
-      { plan: 'New Client in 48h' as const, annual: 'Domain: S/ 50–130\nHosting: S/ 100–150', includes: 'Basic support included · If you don\'t renew: domain stays yours' },
-      { plan: 'WhatsApp Lead Machine' as const, annual: 'Domain: S/ 50–130\nHosting: S/ 100–150', includes: 'Basic support included · If you don\'t renew: domain stays yours' },
-      { plan: 'Full Control (editable by you)' as const, annual: 'Domain: S/ 50–130\nHosting: S/ 100–150', includes: 'Support and security updates · If you don\'t renew: domain and files stay yours' },
-      { plan: 'Automated Digital Business' as const, annual: 'Domain: S/ 50–130\nHosting: S/ 150–200', includes: 'Automatic backups · Priority support · If you don\'t renew: domain and business stay yours' },
-      { plan: 'Peace of Mind (24/7 maintenance)' as const, annual: 'S/ 79/mo\n(renewable monthly)', includes: 'Pure maintenance and 24/7 security · Applies to a site you already have · Domain and hosting you renew directly with your provider or with me · Cancel anytime' },
-      { plan: 'Just Brand (domain + emails)' as const, annual: 'Domain: S/ 50–130\nEmails: S/ 50–100', includes: 'If you don\'t renew: domain stays yours' },
-    ] as const,
-    domainTableTitle: 'Reference: annual renewal cost by extension',
-    domainColExt: 'Extension',
-    domainColCost: 'Renewal/year',
-    domainColUse: 'Recommended use',
-    domainRows: [
-      { ext: '.com', cost: 'S/ 50 – 80', use: 'Global / tech businesses' },
-      { ext: '.pe', cost: 'S/ 110 – 130', use: 'Strong local brand' },
-      { ext: '.com.pe', cost: 'S/ 90 – 130', use: 'Companies in Peru' },
-    ] as const,
-    domainNote: 'The domain is registered in your name. I can manage the yearly renewal for you, or you can do it yourself with any registrar. Real costs shown are ranges: .com (S/50–80), .pe (S/110–130), .com.pe (S/90–130).',
-  },
+const ACCENT_BY_PLAN: Record<string, string> = {
+  'presencia-digital-ia': 'from-[#00D4FF] to-[#22D3EE]',
+  'asistente-ia-experto': 'from-[#10B981] to-[#34D399]',
+  'automatizacion-inteligente': 'from-[#F59E0B] to-[#FB923C]',
 };
 
-interface Props {
-  locale: string;
-}
+const FALLBACK_ICONS: Array<React.ComponentType<{ size?: number; className?: string }>> = [Globe2, Bot, Workflow];
 
-async function getPublishedOffers(): Promise<OfferRow[]> {
-  try {
-    return await db.offer.findMany({
-      where: { published: true },
-      orderBy: { order: 'asc' },
-    });
-  } catch {
-    return [];
-  }
-}
-
-function renderOfferCard(
-  offer: OfferRow,
-  locale: string,
-  ui: UILabels,
-  ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>>
-) {
-  const name = locale === 'es' ? offer.nameEs : offer.nameEn;
+function OfferTile({ offer, locale }: { offer: OfferCard; locale: 'es' | 'en' }) {
+  const title = locale === 'es' ? offer.nameEs : offer.nameEn;
   const description = locale === 'es' ? offer.descriptionEs : offer.descriptionEn;
   const items = locale === 'es' ? offer.itemsEs : offer.itemsEn;
   const cta = locale === 'es' ? offer.ctaEs : offer.ctaEn;
   const forWho = locale === 'es' ? offer.forWhoEs : offer.forWhoEn;
   const priceNote = locale === 'es' ? offer.priceNoteEs : offer.priceNoteEn;
-  const shouldShowPriceSubline = ['mi-negocio-en-google', 'landing-whatsapp', 'web-que-yo-edito', 'sueno-digital-completo'].includes(offer.planKey);
-  const Icon = ICON_MAP[offer.icon] ?? Zap;
+
+  const AccentIcon = ICON_MAP[offer.icon];
+  const FallbackIcon = FALLBACK_ICONS[Math.min(2, offer.id.length % 3)];
+  const Icon = AccentIcon ?? FallbackIcon;
+  const accent = ACCENT_BY_PLAN[offer.planKey] ?? 'from-[#00D4FF] to-[#22D3EE]';
 
   return (
-    <article
-      key={offer.id}
-      className={`relative rounded-3xl p-7 flex flex-col gap-5 transition-all duration-300 ${
-        offer.popular
-          ? 'border border-[#00D4FF]/50 bg-linear-to-br from-[#00D4FF]/8 via-[#8B5CF6]/6 to-[#121212] shadow-[0_0_40px_rgba(0,212,255,0.10)]'
-          : 'border border-white/10 bg-[#121212]/90 shadow-[0_0_0_1px_rgba(255,255,255,0.02)]'
-      }`}
-    >
-      {offer.popular && (
-        <div className="absolute -top-3.5 left-7">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-linear-to-r from-[#00D4FF] to-[#8B5CF6] text-background text-xs font-semibold shadow-[0_0_16px_rgba(0,212,255,0.5)]">
-            <Star size={11} className="fill-current" />
-            {ui.popularBadge}
-          </span>
-        </div>
-      )}
-
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <div className={`w-10 h-10 rounded-2xl flex items-center justify-center mb-3 ${
-            offer.popular
-              ? 'bg-linear-to-br from-[#00D4FF]/30 to-[#8B5CF6]/30 border border-[#00D4FF]/30'
-              : 'bg-white/5 border border-white/10'
-          }`}>
-            <Icon size={18} className={offer.popular ? 'text-[#00D4FF]' : 'text-[#A1A1AA]'} />
-          </div>
-          <h4 className="text-xl font-semibold text-white">{name}</h4>
-        </div>
-        <div className="text-right shrink-0">
-          <p className={`text-2xl font-bold ${offer.popular ? 'text-[#00D4FF]' : 'text-white'}`}>
-            {offer.price}
-          </p>
-          <p className="text-xs text-[#71717A] mt-0.5">{priceNote}</p>
-          {shouldShowPriceSubline && (
-            <p className="mt-1 text-[11px] leading-snug text-[#A1A1AA] max-w-52 ml-auto">
-              {ui.priceSubline}
-            </p>
-          )}
-        </div>
+    <article className="relative rounded-3xl border border-white/12 bg-[#111111]/88 backdrop-blur-xl p-7 md:p-8 h-full flex flex-col shadow-[0_0_0_1px_rgba(255,255,255,0.02)] transition-all duration-300 hover:-translate-y-1.5 hover:border-white/20">
+      <div className={`w-11 h-11 rounded-2xl bg-linear-to-br ${accent} flex items-center justify-center mb-5 shadow-[0_10px_24px_rgba(0,0,0,0.3)]`}>
+        <Icon size={20} className="text-background" />
       </div>
 
-      <p className="text-[#A1A1AA] leading-7 text-sm">{description}</p>
+      <h3 className="text-2xl font-semibold text-white leading-tight">{title}</h3>
+      <p className="mt-3 text-sm text-[#A1A1AA] leading-6">{description}</p>
 
-      <ul className="space-y-2 flex-1">
-        {items.map((item) => (
-          <li key={item} className="flex items-start gap-2.5 text-[#D4D4D8] text-sm">
-            <CheckCircle2
-              size={16}
-              className={`mt-0.5 shrink-0 ${offer.popular ? 'text-[#00D4FF]' : 'text-[#52525B]'}`}
-            />
-            <span>{item}</span>
+      <div className="mt-5 space-y-1">
+        <p className="text-base font-semibold text-white">{offer.price}</p>
+        <p className="text-xs text-[#A1A1AA]">{priceNote}</p>
+      </div>
+
+      <ul className="mt-6 space-y-3 flex-1">
+        {items.map((benefit) => (
+          <li key={benefit} className="flex items-start gap-3 text-sm text-[#CFCFD2]">
+            <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#00D4FF] shrink-0" />
+            <span>{benefit}</span>
           </li>
         ))}
       </ul>
 
-      <p className="text-xs text-[#71717A] border-t border-white/6 pt-4">{forWho}</p>
+      <p className="mt-6 rounded-2xl border border-white/8 bg-white/5 px-4 py-3 text-xs text-[#A1A1AA]">{forWho}</p>
 
       <Link
         href={`/${locale}?plan=${offer.planKey}#contacto`}
-        className={`inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 font-medium text-sm transition-all duration-200 ${
-          offer.popular
-            ? 'bg-linear-to-r from-[#00D4FF] to-[#8B5CF6] text-background hover:shadow-[0_0_24px_rgba(0,212,255,0.35)]'
-            : 'border border-white/10 text-white hover:bg-white/5'
-        }`}
+        className="mt-6 inline-flex items-center justify-center gap-2 rounded-2xl border border-white/12 text-white px-5 py-3 text-sm font-medium transition-all duration-200 hover:border-[#00D4FF]/55 hover:bg-[#00D4FF]/10"
       >
         {cta}
         <ArrowUpRight size={15} />
@@ -194,130 +116,48 @@ function renderOfferCard(
   );
 }
 
-export default async function OffersSection({ locale }: Props) {
-  const offers = await getPublishedOffers();
-  if (offers.length === 0) return null;
+export default function OffersSection({ locale, offers }: Props) {
+  if (!offers || offers.length === 0) return null;
 
-  const ui = UI_LABELS[locale as 'es' | 'en'] ?? UI_LABELS.en;
+  const content = locale === 'es' ? CONTENT.es : CONTENT.en;
+  const layerOrder = ['presencia-digital-ia', 'asistente-ia-experto', 'automatizacion-inteligente'];
+  const selectedOffers = layerOrder
+    .map((planKey) => offers.find((offer) => offer.planKey === planKey))
+    .filter((offer): offer is OfferCard => Boolean(offer));
+  const cards = selectedOffers.length > 0 ? selectedOffers : offers.slice(0, 3);
 
   return (
-    <section id="ofertas" className="relative overflow-hidden bg-background py-24 md:py-32">
+    <section id="ofertas" className="relative overflow-hidden bg-background py-24 md:py-30">
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(0,212,255,0.16),transparent_34%),radial-gradient(circle_at_80%_10%,rgba(139,92,246,0.14),transparent_24%),linear-gradient(180deg,#090909_0%,#101010_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_8%,rgba(0,212,255,0.16),transparent_35%),radial-gradient(circle_at_85%_16%,rgba(16,185,129,0.15),transparent_30%),linear-gradient(180deg,#090909_0%,#101010_100%)]" />
         <div className="dot-pattern absolute inset-0 opacity-20" />
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
-        <div className="max-w-3xl mb-14 md:mb-18">
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
+        <div className="max-w-4xl mb-14 md:mb-16">
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm text-[#CFCFD2]">
-            <Sparkles size={14} className="text-[#00D4FF]" />
-            {ui.badge}
+            {content.badge}
           </span>
-          <h2 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-semibold leading-tight text-white">
-            {ui.title}
-          </h2>
-          <p className="mt-3 text-base md:text-lg text-[#00D4FF] font-medium">{ui.authority}</p>
-          <p className="mt-5 text-lg text-[#A1A1AA] leading-8">{ui.subtitle}</p>
-        </div>
+          <h2 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-semibold leading-tight text-white">{content.title}</h2>
+          <p className="mt-5 text-lg text-[#A1A1AA] leading-8">{content.subtitle}</p>
 
-        <div className="rounded-2xl border border-green-500/30 bg-green-500/5 px-6 py-4 mb-14 flex items-center gap-3">
-          <span className="text-lg">✅</span>
-          <p className="text-sm text-[#A1A1AA]">{ui.guarantee}</p>
-        </div>
-
-        <div className="mb-14">
-          <h3 className="text-2xl md:text-3xl font-semibold text-white mb-3">{ui.packagesTitle}</h3>
-          <p className="text-sm text-[#71717A] mb-8">{ui.categoriesHeading}</p>
-
-          {/* Arranque Category */}
-          <div className="mb-14">
-            <div className="mb-6">
-              <h4 className="text-xl font-semibold text-[#10B981] mb-1">{ui.categoryArrangements.title}</h4>
-              <p className="text-sm text-[#A1A1AA]">{ui.categoryArrangements.description}</p>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2">
-              {offers.slice(0, 2).map((offer) => renderOfferCard(offer, locale, ui, ICON_MAP))}
-            </div>
-          </div>
-
-          {/* Control Category */}
-          <div className="mb-14">
-            <div className="mb-6">
-              <h4 className="text-xl font-semibold text-[#00D4FF] mb-1">{ui.categoryControl.title}</h4>
-              <p className="text-sm text-[#A1A1AA]">{ui.categoryControl.description}</p>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2">
-              {offers.slice(2, 4).map((offer) => renderOfferCard(offer, locale, ui, ICON_MAP))}
-            </div>
-          </div>
-
-          {/* Tranquilidad Category */}
-          <div className="mb-14">
-            <div className="mb-6">
-              <h4 className="text-xl font-semibold text-[#8B5CF6] mb-1">{ui.categoryPeace.title}</h4>
-              <p className="text-sm text-[#A1A1AA]">{ui.categoryPeace.description}</p>
-            </div>
-            <div className="grid gap-5 md:grid-cols-2">
-              {offers.slice(4).map((offer) => renderOfferCard(offer, locale, ui, ICON_MAP))}
-            </div>
+          <div className="mt-6 grid gap-2 md:grid-cols-3">
+            {content.labels.map((label) => (
+              <p key={label} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-[#D4D4D8]">
+                {label}
+              </p>
+            ))}
           </div>
         </div>
 
-        <div className="rounded-3xl border border-white/8 bg-white/3 px-6 py-5 text-sm text-[#71717A] mb-10">
-          {ui.note}
+        <div className="grid gap-6 lg:grid-cols-3">
+          {cards.map((offer) => (
+            <OfferTile key={offer.id} offer={offer} locale={locale} />
+          ))}
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-[#121212]/90 p-6 mb-10 overflow-hidden">
-          <div className="max-w-2xl">
-            <h3 className="text-xl font-semibold text-white">{ui.summaryTitle}</h3>
-            <p className="mt-2 text-sm text-[#A1A1AA]">{ui.summaryOwnerNote}</p>
-          </div>
-
-          <div className="mt-6 overflow-x-auto">
-            <table className="w-full min-w-160 border-separate border-spacing-0 text-left">
-              <thead>
-                <tr>
-                  <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{ui.summaryColPlan}</th>
-                  <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]"><div>{ui.summaryColAnnual}</div><div className="text-[10px] font-normal normal-case tracking-normal text-[#52525B] mt-1">(Annual renewal costs)</div></th>
-                  <th className="border-b border-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-[#A1A1AA]">{ui.summaryColIncludes}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ui.summaryRows.map((row, i) => (
-                  <tr key={row.plan} className="align-top">
-                    <td className={`${i < ui.summaryRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-4 text-sm text-white font-medium`}>{row.plan}</td>
-                    <td className={`${i < ui.summaryRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-4 text-sm font-semibold text-[#00D4FF] whitespace-pre-line`}>{row.annual}</td>
-                    <td className={`${i < ui.summaryRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-4 text-sm text-[#A1A1AA]`}>{row.includes}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="mt-8 pt-6 border-t border-white/8">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#71717A] mb-4">{ui.domainTableTitle}</p>
-            <div className="overflow-x-auto">
-              <table className="min-w-120 border-separate border-spacing-0 text-left">
-                <thead>
-                  <tr>
-                    <th className="border-b border-white/8 px-4 py-2 text-xs font-semibold text-[#52525B]">{ui.domainColExt}</th>
-                    <th className="border-b border-white/8 px-4 py-2 text-xs font-semibold text-[#52525B]">{ui.domainColCost}</th>
-                    <th className="border-b border-white/8 px-4 py-2 text-xs font-semibold text-[#52525B]">{ui.domainColUse}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {ui.domainRows.map((row, i) => (
-                    <tr key={row.ext} className="align-middle">
-                      <td className={`${i < ui.domainRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-3 text-sm font-mono font-medium text-[#D4D4D8]`}>{row.ext}</td>
-                      <td className={`${i < ui.domainRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-3 text-sm text-white whitespace-nowrap`}>{row.cost}</td>
-                      <td className={`${i < ui.domainRows.length - 1 ? 'border-b border-white/5' : ''} px-4 py-3 text-sm text-[#71717A]`}>{row.use}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="mt-4 text-xs text-[#52525B]">{ui.domainNote}</p>
-          </div>
+        <div className="mt-8 rounded-2xl border border-[#00D4FF]/25 bg-[#00D4FF]/8 px-5 py-4 text-sm text-[#D6F4FF]">
+          {content.annualBundle}
         </div>
       </div>
     </section>

@@ -1,0 +1,32 @@
+{
+  "clientId": "estudio-legal-lima",
+  "projectName": "Estudio Legal Lima",
+  "industry": "Legal",
+  "audience": "Empresas y particulares en Lima que buscan asesoría legal premium y soluciones efectivas.",
+  "tone": "Premium, confiable, directo y resolutivo",
+  "primaryCTA": "Asesoría por WhatsApp",
+  "sections": [
+    "hero",
+    "benefits",
+    "process",
+    "testimonials",
+    "faq",
+    "final_cta"
+  ],
+  "colorDirection": "Profesional, elegante, con acentos que transmitan seriedad y modernidad (ej. azul marino, gris oscuro con toques dorados o plateados).",
+  "constraints": {
+    "language": "es",
+    "maxWordsPerSection": 120
+  },
+  "limits": {
+    "ai": {
+      "maxGenerationsPerMonth": 120,
+      "maxInputTokensPerMonth": 300000,
+      "maxOutputTokensPerMonth": 500000
+    }
+  },
+  "disclaimer": {
+    "enabled": true,
+    "text": "Este contenido puede incluir texto generado con IA. Recomendamos revision humana antes de publicar. Uso prohibido para fraude, suplantacion, spam o actividades ilegales."
+  }
+}

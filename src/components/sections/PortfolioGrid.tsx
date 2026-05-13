@@ -60,7 +60,7 @@ export default function PortfolioGrid({ projects, labels }: PortfolioGridProps) 
   };
 
   return (
-    <section id="portafolio" className="relative py-20 sm:py-24 md:py-32 lg:py-40 overflow-hidden">
+    <section id="portafolio" className="scroll-mt-28 relative py-20 sm:py-24 md:py-32 lg:py-40 overflow-hidden">
       <div className="absolute inset-0 bg-[#111111]">
         <div className="dot-pattern absolute inset-0 opacity-30" />
       </div>

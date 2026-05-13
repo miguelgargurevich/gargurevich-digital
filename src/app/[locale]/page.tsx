@@ -1,11 +1,11 @@
 import HeroSection from "@/components/sections/HeroSection";
-import AuthoritySection from "@/components/sections/AuthoritySection";
+import ProblemSection from "@/components/sections/ProblemSection";
+import LayersSection from "@/components/sections/LayersSection";
+import TimelineSection from "@/components/sections/TimelineSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
 import TechStackSection from "@/components/sections/TechStackSection";
-import ProcessSection from "@/components/sections/ProcessSection";
 import { Suspense } from 'react';
 import ContactSection from "@/components/sections/ContactSection";
-import OffersSection from "@/components/sections/OffersSection";
 import PeruSection from "@/components/sections/PeruSection";
 import { db } from '@/lib/db';
 
@@ -14,9 +14,9 @@ export const dynamic = 'force-dynamic';
 type HeroWordsVariant = 'aggressive' | 'premium' | 'balanced';
 
 const HERO_WORDS_ES: Record<HeroWordsVariant, string[]> = {
-  aggressive: ['clientes hoy', 'mas leads por WhatsApp', 'ventas cada semana', 'resultados medibles'],
-  premium: ['presencia premium', 'marca que inspira confianza', 'autoridad digital', 'crecimiento sostenible'],
-  balanced: ['clientes reales', 'ventas constantes', 'autoridad digital'],
+  aggressive: ['lanzamiento en 48h', 'asistente IA 24/7', 'operacion automatizada', 'decisiones con datos'],
+  premium: ['presencia digital premium', 'IA para ventas y soporte', 'arquitectura escalable', 'automatizacion operativa'],
+  balanced: ['presencia digital', 'asistente IA', 'automatizaciones'],
 };
 
 // Switch here for quick A/B tests without touching the hero component.
@@ -40,12 +40,23 @@ async function getPublishedOffers() {
       where: { published: true },
       orderBy: { order: 'asc' },
       select: {
+        id: true,
         planKey: true,
+        icon: true,
+        popular: true,
         nameEs: true,
         nameEn: true,
         price: true,
+        priceNoteEs: true,
+        priceNoteEn: true,
         descriptionEs: true,
         descriptionEn: true,
+        itemsEs: true,
+        itemsEn: true,
+        ctaEs: true,
+        ctaEn: true,
+        forWhoEs: true,
+        forWhoEn: true,
       },
     });
   } catch {
@@ -62,15 +73,15 @@ export default async function Home({
   const [settings, offers] = await Promise.all([getSiteSettings(), getPublishedOffers()]);
 
   const heroOverrides = {
-    badge: locale === 'es' ? 'Presencia Digital para Negocios' : (settings['hero.badgeEn'] || settings['hero.badgeEs']),
+    badge: locale === 'es' ? 'Web + IA + Automatizacion' : (settings['hero.badgeEn'] || settings['hero.badgeEs']),
     title: locale === 'es'
-      ? 'Convierte tu presencia digital en'
+      ? 'Web, IA y automatizacion para negocios modernos'
       : (settings['hero.titleEn'] || settings['hero.titleEs']),
     subtitle: locale === 'es'
-      ? 'Landing pages, webs corporativas y automatización de leads. Todo enfocado en que tu cliente te encuentre, te escriba y te compre. Desde S/299. Yape y Plin. Garantía 15 días.'
+      ? 'Creamos presencia digital profesional, asistentes IA y automatizaciones que ayudan a tu negocio a operar mejor.'
       : (settings['hero.subtitleEn'] || settings['hero.subtitleEs']),
     painHook: locale === 'es'
-      ? 'Si tu negocio no aparece en Google, no tiene forma de recibir pedidos por WhatsApp o tu web no convierte… estás perdiendo clientes hoy. Yo resuelvo eso en menos de 48 horas.'
+      ? 'Implementacion por etapas: empezamos con presencia digital, activamos IA para atencion y luego automatizamos la operacion.'
       : undefined,
     rotatingWords: locale === 'es'
       ? HERO_WORDS_ES[HERO_WORDS_VARIANT_ES]
@@ -86,13 +97,11 @@ export default async function Home({
   return (
     <>
       <HeroSection overrides={heroOverrides} />
-      <section id="servicios">
-        <OffersSection locale={locale} />
-      </section>
+      <ProblemSection />
+      <LayersSection />
+      <TimelineSection />
+      <TechStackSection locale={locale} />
       <PortfolioSection />
-      <AuthoritySection />
-      <TechStackSection />
-      <ProcessSection />
       <PeruSection locale={locale} />
       <Suspense fallback={null}>
         <ContactSection overrides={contactOverrides} offers={offers} />
