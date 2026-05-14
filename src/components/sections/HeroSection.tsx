@@ -20,9 +20,6 @@ type Locale = 'es' | 'en';
 const HERO_COPY: Record<Locale, {
   rotatingWords: string[];
   ctas: { solutions: string; call: string; whatsapp: string };
-  maturityHeading: string;
-  maturitySubheading: string;
-  maturity: { label: string; value: string; result: string }[];
 }> = {
   es: {
     rotatingWords: ['presencia digital', 'agente IA', 'automatizacion', 'memoria empresarial'],
@@ -31,14 +28,6 @@ const HERO_COPY: Record<Locale, {
       call: 'Agendar llamada',
       whatsapp: 'Hablar por WhatsApp',
     },
-    maturityHeading: 'Ruta de Madurez Empresarial',
-    maturitySubheading: 'Cada nivel incrementa ventas, velocidad operativa y ventaja competitiva.',
-    maturity: [
-      { label: 'Presencia Digital', value: 'Nivel 1: Fundacion', result: 'Mas visibilidad y demanda inicial' },
-      { label: 'Agente IA para Negocio', value: 'Nivel 2: Atencion 24/7', result: 'Leads atendidos sin friccion' },
-      { label: 'Automatizacion Inteligente', value: 'Nivel 3: Operacion conectada', result: 'Menos carga operativa y mas velocidad' },
-      { label: 'Memoria Empresarial (RAG)', value: 'Nivel 4: Ventaja competitiva', result: 'Decisiones con conocimiento interno' },
-    ],
   },
   en: {
     rotatingWords: ['digital presence', 'AI agent', 'automation', 'enterprise memory'],
@@ -47,14 +36,6 @@ const HERO_COPY: Record<Locale, {
       call: 'Book a call',
       whatsapp: 'Chat on WhatsApp',
     },
-    maturityHeading: 'Business Maturity Roadmap',
-    maturitySubheading: 'Each level increases sales performance, operational speed, and strategic advantage.',
-    maturity: [
-      { label: 'Digital Presence', value: 'Level 1: Foundation', result: 'Higher visibility and initial demand' },
-      { label: 'AI Agent for Business', value: 'Level 2: 24/7 service', result: 'Leads handled without friction' },
-      { label: 'Smart Automation', value: 'Level 3: Connected operations', result: 'Less operational load and faster cycles' },
-      { label: 'Enterprise Memory (RAG)', value: 'Level 4: Competitive edge', result: 'Decisions powered by internal knowledge' },
-    ],
   },
 };
 
@@ -161,51 +142,6 @@ export default function HeroSection({ locale = 'es', overrides }: { locale?: Loc
                 {copy.ctas.whatsapp}
               </MagneticButton>
             </motion.div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="relative mt-12 md:mt-14 rounded-3xl border border-white/12 bg-linear-to-br from-[#0E1114]/90 via-[#12161B]/90 to-[#0B0E12]/90 backdrop-blur-xl p-6 md:p-8 overflow-hidden"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.6 }}
-        >
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(0,212,255,0.12),transparent_35%),radial-gradient(circle_at_80%_100%,rgba(124,58,237,0.12),transparent_32%)]" />
-
-          <div className="mb-6 md:mb-8">
-            <p className="text-xs uppercase tracking-[0.2em] text-[#94A3B8]">{copy.maturityHeading}</p>
-            <p className="mt-2 text-sm md:text-base text-[#A1A1AA]">{copy.maturitySubheading}</p>
-          </div>
-
-          <div className="relative grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            <div className="pointer-events-none hidden xl:block absolute left-[8%] right-[8%] top-5 h-0.5 bg-linear-to-r from-[#00D4FF]/30 via-[#10B981]/35 to-[#7C3AED]/30" />
-            {copy.maturity.map((item, index) => (
-              <motion.div
-                key={item.label}
-                className="group relative rounded-2xl border border-white/10 bg-[#13161B]/80 p-4 md:p-5 overflow-hidden shadow-[0_14px_32px_rgba(0,0,0,0.25)]"
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 + index * 0.08, duration: 0.45 }}
-              >
-                <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-[#00D4FF] via-[#10B981] to-[#7C3AED] opacity-85" />
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="relative h-9 w-9 shrink-0 rounded-full border border-[#00D4FF]/45 bg-[#00D4FF]/12 flex items-center justify-center text-sm font-semibold text-[#D5F4FF]">
-                    {index + 1}
-                    <div className="absolute -inset-1.25 rounded-full border border-[#00D4FF]/25" />
-                  </div>
-                  <p className="text-[11px] uppercase tracking-[0.18em] text-[#94A3B8]">{locale === 'es' ? `Etapa ${index + 1}` : `Stage ${index + 1}`}</p>
-                </div>
-                <p className="text-white font-semibold leading-snug">{item.label}</p>
-                <p className="mt-2 text-sm text-[#D4D4D8]">{item.value}</p>
-                <p className="mt-3 text-xs text-[#9CA3AF] leading-5">{item.result}</p>
-                <div className="mt-4 h-1.5 rounded-full bg-white/10 overflow-hidden">
-                  <div
-                    className="h-full rounded-full bg-linear-to-r from-[#00D4FF] to-[#10B981]"
-                    style={{ width: `${(index + 1) * 25}%` }}
-                  />
-                </div>
-              </motion.div>
-            ))}
           </div>
         </motion.div>
 

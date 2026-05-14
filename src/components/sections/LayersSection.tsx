@@ -12,6 +12,7 @@ const ICON_MAP: Record<string, typeof Zap> = {
 };
 
 interface Offer {
+  planKey: string;
   id: string;
   icon: string;
   nameEs: string;
@@ -29,9 +30,40 @@ interface Offer {
 }
 
 const HEADINGS: Record<Locale, string> = {
-  es: '4 Capas de Crecimiento',
-  en: '4 Growth Layers',
+  es: '4 Niveles de Madurez',
+  en: '4 Maturity Levels',
 };
+
+function getTierTitle(planKey: string, locale: Locale, fallback: string): string {
+  const titles: Record<string, { es: string; en: string }> = {
+    'capa-1-presencia-digital': {
+      es: 'Starter — Presencia Digital',
+      en: 'Starter — Digital Presence',
+    },
+    'capa-2-agente-ia': {
+      es: 'Growth — Agente IA',
+      en: 'Growth — AI Agent',
+    },
+    'capa-3-automatizacion': {
+      es: 'Scale — Automatizacion Inteligente',
+      en: 'Scale — Smart Automation',
+    },
+       'capa-4-memoria-empresarial': {
+         es: 'Signature — Memoria Empresarial',
+         en: 'Signature — Enterprise Memory',
+    },
+  };
+
+  return titles[planKey]?.[locale] ?? fallback;
+}
+
+function splitTierTitle(title: string): { tier: string; name: string } {
+  const [tier, name] = title.split('—').map((part) => part.trim());
+  return {
+    tier: tier ?? title,
+    name: name ?? '',
+  };
+}
 
 export default function LayersSection({ locale = 'es' }: { locale?: Locale }) {
   const [offers, setOffers] = useState<Offer[]>([]);
@@ -66,7 +98,9 @@ export default function LayersSection({ locale = 'es' }: { locale?: Locale }) {
         <div className={`grid gap-8 ${offers.length >= 4 ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'}`}>
           {offers.slice(0, 4).map((offer) => {
             const Icon = ICON_MAP[offer.icon] || Zap;
-            const name = locale === 'es' ? offer.nameEs : offer.nameEn;
+            const fallbackName = locale === 'es' ? offer.nameEs : offer.nameEn;
+            const name = getTierTitle(offer.planKey, locale, fallbackName);
+            const tierParts = splitTierTitle(name);
             const description = locale === 'es' ? offer.descriptionEs : offer.descriptionEn;
             const items = locale === 'es' ? offer.itemsEs : offer.itemsEn;
             const cta = locale === 'es' ? offer.ctaEs : offer.ctaEn;
@@ -79,7 +113,12 @@ export default function LayersSection({ locale = 'es' }: { locale?: Locale }) {
                 <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-linear-to-br from-[#00D4FF]/20 to-[#10B981]/20 mb-5">
                   <Icon size={28} className="text-[#00D4FF]" />
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">{name}</h3>
+                <h3 className="text-xl font-semibold mb-3">
+                  <span className="inline-block px-2.5 py-1 rounded-full border border-[#00D4FF]/35 bg-[#00D4FF]/10 text-[#67E8F9] text-xs tracking-[0.12em] uppercase align-middle mr-2">
+                    {tierParts.tier}
+                  </span>
+                  <span className="text-white align-middle">{tierParts.name}</span>
+                </h3>
                 <p className="text-[#A1A1AA] text-sm mb-6">{description}</p>
                 <ul className="text-[#A1A1AA] text-sm mb-6 space-y-2 text-left max-w-xs mx-auto">
                   {items.slice(0, 4).map((item, i) => (

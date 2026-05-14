@@ -73,8 +73,41 @@ const ACCENT_BY_PLAN: Record<string, string> = {
 
 const FALLBACK_ICONS: Array<React.ComponentType<{ size?: number; className?: string }>> = [Globe2, Bot, Workflow];
 
+function getTierTitle(planKey: string, locale: 'es' | 'en', fallback: string): string {
+  const titles: Record<string, { es: string; en: string }> = {
+    'capa-1-presencia-digital': {
+      es: 'Starter — Presencia Digital',
+      en: 'Starter — Digital Presence',
+    },
+    'capa-2-agente-ia': {
+      es: 'Growth — Agente IA',
+      en: 'Growth — AI Agent',
+    },
+    'capa-3-automatizacion': {
+      es: 'Scale — Automatizacion Inteligente',
+      en: 'Scale — Smart Automation',
+    },
+    'capa-4-memoria-empresarial': {
+      es: 'Signature — Memoria Empresarial',
+      en: 'Signature — Enterprise Memory',
+    },
+  };
+
+  return titles[planKey]?.[locale] ?? fallback;
+}
+
+function splitTierTitle(title: string): { tier: string; name: string } {
+  const [tier, name] = title.split('—').map((part) => part.trim());
+  return {
+    tier: tier ?? title,
+    name: name ?? '',
+  };
+}
+
 function OfferTile({ offer, locale }: { offer: OfferCard; locale: 'es' | 'en' }) {
-  const title = locale === 'es' ? offer.nameEs : offer.nameEn;
+  const fallbackTitle = locale === 'es' ? offer.nameEs : offer.nameEn;
+  const title = getTierTitle(offer.planKey, locale, fallbackTitle);
+  const tierParts = splitTierTitle(title);
   const description = locale === 'es' ? offer.descriptionEs : offer.descriptionEn;
   const items = locale === 'es' ? offer.itemsEs : offer.itemsEn;
   const cta = locale === 'es' ? offer.ctaEs : offer.ctaEn;
@@ -92,7 +125,12 @@ function OfferTile({ offer, locale }: { offer: OfferCard; locale: 'es' | 'en' })
         <Icon size={20} className="text-background" />
       </div>
 
-      <h3 className="text-2xl font-semibold text-white leading-tight">{title}</h3>
+      <h3 className="text-2xl font-semibold leading-tight">
+        <span className="inline-block px-2.5 py-1 rounded-full border border-[#00D4FF]/35 bg-[#00D4FF]/10 text-[#67E8F9] text-[11px] tracking-[0.12em] uppercase align-middle mr-2">
+          {tierParts.tier}
+        </span>
+        <span className="text-white align-middle">{tierParts.name}</span>
+      </h3>
       <p className="mt-3 text-sm text-[#A1A1AA] leading-6">{description}</p>
 
       <div className="mt-5 space-y-1">

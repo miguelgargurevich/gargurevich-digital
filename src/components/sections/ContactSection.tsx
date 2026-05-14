@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations, useLocale } from 'next-intl';
@@ -30,6 +30,51 @@ interface ContactOfferOption {
   descriptionEn: string;
 }
 
+function normalizePlanKey(plan: string): string {
+  const value = plan.trim().toLowerCase();
+
+  const aliases: Record<string, string> = {
+    'presencia-digital-ia': 'capa-1-presencia-digital',
+    'asistente-ia-experto': 'capa-2-agente-ia',
+    'automatizacion-inteligente': 'capa-3-automatizacion',
+    'sueno-digital-completo': 'capa-4-memoria-empresarial',
+  };
+
+  return aliases[value] ?? value;
+}
+
+function getTierLabel(planKey: string, locale: string, fallback: string): string {
+  const labels: Record<string, { es: string; en: string }> = {
+    'capa-1-presencia-digital': {
+      es: 'Starter — Presencia Digital',
+      en: 'Starter — Digital Presence',
+    },
+    'capa-2-agente-ia': {
+      es: 'Growth — Agente IA',
+      en: 'Growth — AI Agent',
+    },
+    'capa-3-automatizacion': {
+      es: 'Scale — Automatizacion Inteligente',
+      en: 'Scale — Smart Automation',
+    },
+    'capa-4-memoria-empresarial': {
+      es: 'Signature — Memoria Empresarial',
+      en: 'Signature — Enterprise Memory',
+    },
+  };
+
+  const lang = locale === 'es' ? 'es' : 'en';
+  return labels[planKey]?.[lang] ?? fallback;
+}
+
+function splitTierLabel(label: string): { tier: string; name: string } {
+  const [tier, name] = label.split('—').map((part) => part.trim());
+  return {
+    tier: tier ?? label,
+    name: name ?? '',
+  };
+}
+
 export default function ContactSection({
   overrides,
   offers = [],
@@ -43,19 +88,19 @@ export default function ContactSection({
   const whatsappValue = overrides?.whatsapp || t('info.whatsapp.value');
   const locationValue = overrides?.location || t('info.location.value');
 
-  const projectTypes = [
+  const projectTypes = useMemo(() => ([
     ...offers
       .filter((offer) => offer.planKey.startsWith('capa-'))
       .map((offer) => ({
-      value: offer.planKey,
-      label: locale === 'es' ? offer.nameEs : offer.nameEn,
-      price: offer.price,
-      description: locale === 'es' ? offer.descriptionEs : offer.descriptionEn,
-    })),
+        value: offer.planKey,
+        label: getTierLabel(offer.planKey, locale, locale === 'es' ? offer.nameEs : offer.nameEn),
+        price: offer.price,
+        description: locale === 'es' ? offer.descriptionEs : offer.descriptionEn,
+      })),
     locale === 'es'
       ? { value: 'otro', label: 'Otro / No lo tengo claro aún', price: null, description: '' }
       : { value: 'other', label: 'Other / Not sure yet', price: null, description: '' },
-  ];
+  ]), [offers, locale]);
   
   const contactInfo = [
     {
@@ -90,12 +135,23 @@ export default function ContactSection({
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
+  const planQuery = searchParams.get('plan');
+  const selectedProjectType = projectTypes.find((p) => p.value === formData.projectType);
+  const selectedTierParts = selectedProjectType ? splitTierLabel(selectedProjectType.label) : null;
 
   // Pre-fill plan from URL query param — reactive to URL changes within same page
   useEffect(() => {
-    const plan = searchParams.get('plan');
-    if (plan) setFormData(prev => ({ ...prev, projectType: plan }));
-  }, [searchParams]);
+    if (!planQuery) return;
+
+    const normalizedPlan = normalizePlanKey(planQuery);
+    const exists = projectTypes.some((option) => option.value === normalizedPlan);
+    if (!exists) return;
+
+    setFormData((prev) => ({
+      ...prev,
+      projectType: prev.projectType === normalizedPlan ? prev.projectType : normalizedPlan,
+    }));
+  }, [planQuery, projectTypes]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -336,12 +392,19 @@ export default function ContactSection({
                     >
                       {formData.projectType ? (
                         <div className="flex items-center justify-between flex-1 gap-2 min-w-0">
-                          <span className="text-white text-sm truncate">
-                            {projectTypes.find(p => p.value === formData.projectType)?.label}
+                          <span className="text-sm truncate">
+                            {selectedTierParts ? (
+                              <>
+                                <span className="inline-block px-2 py-0.5 rounded-full border border-[#00D4FF]/35 bg-[#00D4FF]/10 text-[#67E8F9] text-[10px] tracking-[0.12em] uppercase align-middle mr-2">
+                                  {selectedTierParts.tier}
+                                </span>
+                                <span className="text-white align-middle">{selectedTierParts.name}</span>
+                              </>
+                            ) : selectedProjectType?.label}
                           </span>
-                          {projectTypes.find(p => p.value === formData.projectType)?.price && (
+                          {selectedProjectType?.price && (
                             <span className="text-[#00D4FF] text-xs font-medium shrink-0">
-                              {projectTypes.find(p => p.value === formData.projectType)?.price}
+                              {selectedProjectType.price}
                             </span>
                           )}
                         </div>
@@ -369,6 +432,7 @@ export default function ContactSection({
                         >
                           {projectTypes.map((option, i) => {
                             const isSelected = formData.projectType === option.value;
+                            const tierParts = splitTierLabel(option.label);
                             return (
                               <li key={option.value}>
                                 <button
@@ -386,7 +450,10 @@ export default function ContactSection({
                                     <p className={`text-sm font-medium leading-tight ${
                                       isSelected ? 'text-[#00D4FF]' : 'text-white'
                                     }`}>
-                                      {option.label}
+                                      <span className="inline-block px-2 py-0.5 rounded-full border border-[#00D4FF]/35 bg-[#00D4FF]/10 text-[#67E8F9] text-[10px] tracking-[0.12em] uppercase align-middle mr-2">
+                                        {tierParts.tier}
+                                      </span>
+                                      <span className="align-middle">{tierParts.name}</span>
                                     </p>
                                     {option.description && (
                                       <p className="text-xs text-[#71717A] mt-0.5">{option.description}</p>
