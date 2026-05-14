@@ -452,6 +452,30 @@ function sanitizeForDb<T>(value: T): T {
   return value;
 }
 
+function sanitizeAsciiForDb<T>(value: T): T {
+  if (typeof value === 'string') {
+    return value
+      .normalize('NFKD')
+      .replace(/[^\x20-\x7E]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim() as T;
+  }
+
+  if (Array.isArray(value)) {
+    return value.map((item) => sanitizeAsciiForDb(item)) as T;
+  }
+
+  if (value && typeof value === 'object') {
+    const entries = Object.entries(value as Record<string, unknown>).map(([key, nested]) => [
+      key,
+      sanitizeAsciiForDb(nested),
+    ]);
+    return Object.fromEntries(entries) as T;
+  }
+
+  return value;
+}
+
 export async function seedDatabase(options: { revalidate?: boolean } = {}) {
   const { revalidate = true } = options;
 
@@ -480,7 +504,19 @@ export async function seedDatabase(options: { revalidate?: boolean } = {}) {
       try {
         await db.offer.create({ data: sanitizeForDb(o) });
       } catch (offerError) {
-        throw new Error(`Offer seed failed for ${o.planKey}: ${String(offerError)}`);
+        const message = String(offerError);
+        const isUtf8SequenceError = message.includes('code: "22021"') || message.includes('invalid byte sequence for encoding');
+
+        if (!isUtf8SequenceError) {
+          throw new Error(`Offer seed failed for ${o.planKey}: ${message}`);
+        }
+
+        // Fallback for environments with strict/fragile text decoding paths.
+        try {
+          await db.offer.create({ data: sanitizeAsciiForDb(sanitizeForDb(o)) });
+        } catch (asciiOfferError) {
+          throw new Error(`Offer seed failed for ${o.planKey} after ASCII fallback: ${String(asciiOfferError)}`);
+        }
       }
     }
 
