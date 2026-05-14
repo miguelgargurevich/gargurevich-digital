@@ -9,6 +9,8 @@ const DIFFERENTIATORS = {
     title: 'Capacidad tecnica con foco comercial',
     subtitle:
       'Cada implementacion se diseña para operar estable, escalar por etapas y sostener resultados en el tiempo.',
+    poweredBy: 'Powered by',
+    technologies: 'OpenAI • n8n • Docker • RAG • Cloud • Automation',
     items: [
       { title: 'Deploy rapido', description: 'Iteraciones cortas y publicacion continua sin depender de procesos manuales.' },
       { title: 'IA integrada', description: 'Asistentes conectados a informacion real de tu negocio, no respuestas genericas.' },
@@ -23,6 +25,8 @@ const DIFFERENTIATORS = {
   en: {
     badge: 'Differentiators',
     title: 'Technical capability with business focus',
+    poweredBy: 'Powered by',
+    technologies: 'OpenAI • n8n • Docker • RAG • Cloud • Automation',
     subtitle:
       'Each implementation is designed for stability, stage-based growth, and sustained outcomes over time.',
     items: [
@@ -79,6 +83,17 @@ export default function TechStackSection({ locale = 'es' }: { locale?: string })
                 <p className="mt-2 text-sm text-[#A1A1AA] leading-6">{item.description}</p>
               </motion.article>
             );
+
+        <motion.div
+          className="mt-16 pt-12 border-t border-white/10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ delay: 0.3 }}
+        >
+          <p className="text-xs uppercase tracking-[0.2em] text-[#94A3B8]">{content.poweredBy}</p>
+          <p className="mt-3 text-lg text-[#CFCFD2] font-medium">{content.technologies}</p>
+        </motion.div>
           })}
         </div>
       </div>
