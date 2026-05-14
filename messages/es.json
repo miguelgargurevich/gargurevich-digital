@@ -223,7 +223,7 @@
       "projectType": "Tipo de Proyecto",
       "projectTypePlaceholder": "Selecciona un tipo",
       "message": "Cuéntanos sobre tu proyecto",
-      "messagePlaceholder": "Describe tu idea, objetivos y requerimientos específicos...",
+      "messagePlaceholder": "Hablemos de tu nivel actual. ¿Atiendes clientes de noche? ¿Recibes las mismas preguntas siempre?",
       "submit": "Enviar Mensaje",
       "sending": "Enviando...",
       "success": "¡Mensaje enviado exitosamente!"

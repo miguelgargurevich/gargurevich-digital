@@ -223,7 +223,7 @@
       "projectType": "Project Type",
       "projectTypePlaceholder": "Select a type",
       "message": "Tell us about your project",
-      "messagePlaceholder": "Describe your idea, goals, and specific requirements...",
+      "messagePlaceholder": "Let's talk about your current level. Do you serve clients at night? Do you get the same questions over and over?",
       "submit": "Send Message",
       "sending": "Sending...",
       "success": "Message sent successfully!"
