@@ -391,23 +391,9 @@ export default function ContactSection({
                       }`}
                     >
                       {formData.projectType ? (
-                        <div className="flex items-center justify-between flex-1 gap-2 min-w-0">
-                          <span className="text-sm truncate">
-                            {selectedTierParts ? (
-                              <>
-                                <span className="inline-block px-2 py-0.5 rounded-full border border-[#00D4FF]/35 bg-[#00D4FF]/10 text-[#67E8F9] text-[10px] tracking-[0.12em] uppercase align-middle mr-2">
-                                  {selectedTierParts.tier}
-                                </span>
-                                <span className="text-white align-middle">{selectedTierParts.name}</span>
-                              </>
-                            ) : selectedProjectType?.label}
-                          </span>
-                          {selectedProjectType?.price && (
-                            <span className="text-[#00D4FF] text-xs font-medium shrink-0">
-                              {selectedProjectType.price}
-                            </span>
-                          )}
-                        </div>
+                        <span className="text-sm text-white">
+                          {selectedTierParts?.tier || selectedProjectType?.label}
+                        </span>
                       ) : (
                         <span className="text-[#71717A] text-sm">{t('form.projectTypePlaceholder')}</span>
                       )}
@@ -452,36 +438,34 @@ export default function ContactSection({
                                     }`}>
                                       <span className="inline-block px-2 py-0.5 rounded-full border border-[#00D4FF]/35 bg-[#00D4FF]/10 text-[#67E8F9] text-[10px] tracking-[0.12em] uppercase align-middle mr-2">
                                         {tierParts.tier}
+                                      </span>3 flex flex-col gap-2 text-left transition-colors duration-150 ${
+                                    i !== 0 ? 'border-t border-white/6' : ''
+                                  } ${
+                                    isSelected
+                                      ? 'bg-[#00D4FF]/10'
+                                      : 'hover:bg-white/5'
+                                  }`}
+                                >
+                                  <div className="flex items-center justify-between gap-3">
+                                    <p className={`text-sm font-medium ${
+                                      isSelected ? 'text-[#00D4FF]' : 'text-white'
+                                    }`}>
+                                      <span className="inline-block px-2 py-0.5 rounded-full border border-[#00D4FF]/35 bg-[#00D4FF]/10 text-[#67E8F9] text-[10px] tracking-[0.12em] uppercase align-middle mr-2">
+                                        {tierParts.tier}
                                       </span>
                                       <span className="align-middle">{tierParts.name}</span>
                                     </p>
-                                  </div>
-                                  <div className="flex items-center gap-2 shrink-0">
-                                    {option.price && (
-                                      <span className={`text-xs font-semibold whitespace-nowrap ${
-                                        isSelected ? 'text-[#00D4FF]' : 'text-[#A1A1AA]'
-                                      }`}>
-                                        {option.price}
-                                      </span>
-                                    )}
                                     {isSelected && (
-                                      <CheckCircle size={14} className="text-[#00D4FF]" />
+                                      <CheckCircle size={14} className="text-[#00D4FF] shrink-0" />
                                     )}
                                   </div>
-                                </button>
-                              </li>
-                            );
-                          })}
-                        </motion.ul>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </div>
-              </div>
-
-
-              {/* Message */}
-              <div>
+                                  {option.price && (
+                                    <span className={`text-xs font-semibold ${
+                                      isSelected ? 'text-[#00D4FF]' : 'text-[#A1A1AA]'
+                                    }`}>
+                                      {option.price}
+                                    </span>
+                                  )}
                 <label className="block text-sm text-[#A1A1AA] mb-2">
                   {t('form.message')} *
                 </label>
