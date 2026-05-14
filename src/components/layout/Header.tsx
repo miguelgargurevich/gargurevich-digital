@@ -35,10 +35,11 @@ export default function Header({ translations, locale }: HeaderProps) {
   const [activeSection, setActiveSection] = useState<string>('servicios');
   const currentLocale = locale || 'en';
   const localizedHome = `/${currentLocale}`;
-  const sectionIds = ['servicios', 'proceso', 'tech', 'portafolio', 'contacto'];
+  const sectionIds = ['servicios', 'ofertas', 'proceso', 'tech', 'portafolio', 'contacto'];
 
   const navLinks = [
     { name: t.services, href: `${localizedHome}#servicios`, sectionId: 'servicios' },
+    { name: t.offers, href: `${localizedHome}#ofertas`, sectionId: 'ofertas' },
     { name: t.process, href: `${localizedHome}#proceso`, sectionId: 'proceso' },
     { name: t.technologies, href: `${localizedHome}#tech`, sectionId: 'tech' },
     { name: t.portfolio, href: `${localizedHome}#portafolio`, sectionId: 'portafolio' },
@@ -57,12 +58,6 @@ export default function Header({ translations, locale }: HeaderProps) {
   useEffect(() => {
     const isHome = window.location.pathname === localizedHome;
     if (!isHome) return;
-
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter((node): node is HTMLElement => Boolean(node));
-
-    if (sections.length === 0) return;
 
     const updateFromHash = () => {
       const hash = window.location.hash.replace('#', '');
@@ -88,11 +83,34 @@ export default function Header({ translations, locale }: HeaderProps) {
       }
     );
 
-    sections.forEach((section) => observer.observe(section));
+    const observedIds = new Set<string>();
+
+    const observeAvailableSections = () => {
+      sectionIds.forEach((id) => {
+        if (observedIds.has(id)) return;
+        const section = document.getElementById(id);
+        if (!section) return;
+        observer.observe(section);
+        observedIds.add(id);
+      });
+    };
+
+    observeAvailableSections();
+
+    const mutationObserver = new MutationObserver(() => {
+      observeAvailableSections();
+    });
+
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
     updateFromHash();
     window.addEventListener('hashchange', updateFromHash);
 
     return () => {
+      mutationObserver.disconnect();
       observer.disconnect();
       window.removeEventListener('hashchange', updateFromHash);
     };
