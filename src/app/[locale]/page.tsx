@@ -1,6 +1,7 @@
 import HeroSection from "@/components/sections/HeroSection";
 import ProblemSection from "@/components/sections/ProblemSection";
 import LayersSection from "@/components/sections/LayersSection";
+import OffersSection from "@/components/sections/OffersSection";
 import TimelineSection from "@/components/sections/TimelineSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
 import TechStackSection from "@/components/sections/TechStackSection";
@@ -14,9 +15,15 @@ export const dynamic = 'force-dynamic';
 type HeroWordsVariant = 'aggressive' | 'premium' | 'balanced';
 
 const HERO_WORDS_ES: Record<HeroWordsVariant, string[]> = {
-  aggressive: ['lanzamiento en 48h', 'asistente IA 24/7', 'operacion automatizada', 'decisiones con datos'],
-  premium: ['presencia digital premium', 'IA para ventas y soporte', 'arquitectura escalable', 'automatizacion operativa'],
-  balanced: ['presencia digital', 'asistente IA', 'automatizaciones'],
+  aggressive: ['presencia que convierte', 'agente IA 24/7', 'operacion automatizada', 'memoria empresarial'],
+  premium: ['presencia digital premium', 'IA para ventas y soporte', 'automatizacion operativa', 'inteligencia con contexto'],
+  balanced: ['presencia digital', 'agente IA', 'automatizacion', 'memoria empresarial'],
+};
+
+const HERO_WORDS_EN: Record<HeroWordsVariant, string[]> = {
+  aggressive: ['conversion-ready presence', '24/7 AI agent', 'automated operations', 'enterprise memory'],
+  premium: ['premium digital presence', 'AI for sales and support', 'operational automation', 'context-aware intelligence'],
+  balanced: ['digital presence', 'AI agent', 'automation', 'enterprise memory'],
 };
 
 // Switch here for quick A/B tests without touching the hero component.
@@ -37,7 +44,12 @@ async function getSiteSettings() {
 async function getPublishedOffers() {
   try {
     return await db.offer.findMany({
-      where: { published: true },
+      where: {
+        published: true,
+        planKey: {
+          startsWith: 'capa-',
+        },
+      },
       orderBy: { order: 'asc' },
       select: {
         id: true,
@@ -73,19 +85,19 @@ export default async function Home({
   const [settings, offers] = await Promise.all([getSiteSettings(), getPublishedOffers()]);
 
   const heroOverrides = {
-    badge: locale === 'es' ? 'Web + IA + Automatizacion' : (settings['hero.badgeEn'] || settings['hero.badgeEs']),
+    badge: locale === 'es' ? 'Crecimiento por madurez tecnologica' : 'Growth by technology maturity',
     title: locale === 'es'
-      ? 'Web, IA y automatizacion para negocios modernos'
-      : (settings['hero.titleEn'] || settings['hero.titleEs']),
+      ? 'Convierte tu presencia digital en clientes reales'
+      : 'Turn your digital presence into real clients',
     subtitle: locale === 'es'
-      ? 'Creamos presencia digital profesional, asistentes IA y automatizaciones que ayudan a tu negocio a operar mejor.'
-      : (settings['hero.subtitleEn'] || settings['hero.subtitleEs']),
+      ? 'Landing pages, web corporativa y automatizacion comercial para que te encuentren, te escriban y te compren.'
+      : 'Landing pages, corporate websites, and lead automation designed to get you discovered, messaged, and bought.',
     painHook: locale === 'es'
-      ? 'Implementacion por etapas: empezamos con presencia digital, activamos IA para atencion y luego automatizamos la operacion.'
-      : undefined,
+      ? 'Escalamos en 4 niveles: Presencia Digital, Agente IA, Automatizacion y Memoria Empresarial.'
+      : 'Scale in 4 layers: Digital Presence, AI Agent, Automation, and Enterprise Memory.',
     rotatingWords: locale === 'es'
       ? HERO_WORDS_ES[HERO_WORDS_VARIANT_ES]
-      : undefined,
+      : HERO_WORDS_EN[HERO_WORDS_VARIANT_ES],
   };
 
   const contactOverrides = {
@@ -96,10 +108,11 @@ export default async function Home({
 
   return (
     <>
-      <HeroSection overrides={heroOverrides} />
-      <ProblemSection />
-      <LayersSection />
-      <TimelineSection />
+      <HeroSection locale={locale} overrides={heroOverrides} />
+      <ProblemSection locale={locale} />
+      <LayersSection locale={locale} />
+      <OffersSection locale={locale} offers={offers} />
+      <TimelineSection locale={locale} />
       <TechStackSection locale={locale} />
       <PortfolioSection />
       <PeruSection locale={locale} />

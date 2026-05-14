@@ -1,32 +1,61 @@
 import { Moon, MessageCircleQuestion, FileBarChart2 } from 'lucide-react';
 
-const PROBLEM_CARDS = [
-  {
-    icon: Moon,
-    title: '¿Pierdes ventas de noche?',
-    description: 'Un agente IA responde WhatsApp a las 2am, nunca pierdas un lead por horario.'
-  },
-  {
-    icon: MessageCircleQuestion,
-    title: '¿Clientes preguntan lo mismo siempre?',
-    description: 'El bot responde FAQs y dudas frecuentes al instante, sin cansancio ni errores.'
-  },
-  {
-    icon: FileBarChart2,
-    title: '¿Pasas horas en reportes?',
-    description: 'La IA genera insights y reportes automáticos, ahorra tiempo y toma mejores decisiones.'
-  }
-];
+type Locale = 'es' | 'en';
 
-export default function ProblemSection() {
+const PROBLEM_CONTENT: Record<Locale, { title: string; cards: Array<{ icon: typeof Moon; title: string; description: string }> }> = {
+  es: {
+    title: '¿Qué problema resolvemos?',
+    cards: [
+      {
+        icon: Moon,
+        title: '¿Pierdes ventas de noche?',
+        description: 'Un agente IA responde WhatsApp a las 2am, nunca pierdas un lead por horario.',
+      },
+      {
+        icon: MessageCircleQuestion,
+        title: '¿Clientes preguntan lo mismo siempre?',
+        description: 'El bot responde FAQs y dudas frecuentes al instante, sin cansancio ni errores.',
+      },
+      {
+        icon: FileBarChart2,
+        title: '¿Pasas horas en reportes?',
+        description: 'La IA genera insights y reportes automáticos, ahorra tiempo y toma mejores decisiones.',
+      },
+    ],
+  },
+  en: {
+    title: 'What problem do we solve?',
+    cards: [
+      {
+        icon: Moon,
+        title: 'Losing leads at night?',
+        description: 'An AI agent answers WhatsApp at 2am, so you never lose a lead because of schedule.',
+      },
+      {
+        icon: MessageCircleQuestion,
+        title: 'Same questions every day?',
+        description: 'The bot handles FAQs instantly with consistent answers and no fatigue.',
+      },
+      {
+        icon: FileBarChart2,
+        title: 'Spending hours on reports?',
+        description: 'AI generates automatic insights and reports so you save time and decide faster.',
+      },
+    ],
+  },
+};
+
+export default function ProblemSection({ locale = 'es' }: { locale?: Locale }) {
+  const content = PROBLEM_CONTENT[locale];
+
   return (
     <section className="relative py-20 md:py-28 bg-linear-to-b from-[#0D0D0D] via-[#10151A] to-[#0D0D0D] overflow-hidden">
       <div className="max-w-5xl mx-auto px-6 sm:px-8 md:px-12 lg:px-16">
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-12">
-          ¿Qué problema resolvemos?
+          {content.title}
         </h2>
         <div className="grid gap-8 md:grid-cols-3">
-          {PROBLEM_CARDS.map((card) => (
+          {content.cards.map((card) => (
             <div key={card.title} className="rounded-3xl border border-white/10 bg-[#16181A]/80 p-8 flex flex-col items-center text-center shadow-lg hover:border-[#00D4FF]/40 transition-all duration-200">
               <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-linear-to-br from-[#00D4FF]/20 to-[#10B981]/20 mb-5">
                 <card.icon size={28} className="text-[#00D4FF]" />

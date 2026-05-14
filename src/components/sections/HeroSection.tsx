@@ -15,13 +15,71 @@ interface HeroSectionOverrides {
   painHook?: string;
 }
 
-export default function HeroSection({ overrides }: { overrides?: HeroSectionOverrides }) {
-  const rotatingWords = overrides?.rotatingWords ?? ['presencia digital', 'asistente IA', 'automatizaciones'];
-  const trustPoints = [
-    { icon: Bot, title: 'IA aplicada al negocio', description: 'Agentes entrenados con tu información real.' },
-    { icon: Calendar, title: 'Implementación rápida', description: 'Despliegues ágiles sin procesos complejos.' },
-    { icon: MessageCircle, title: 'Operación conectada', description: 'WhatsApp, CRM y procesos en un solo flujo.' },
-  ];
+type Locale = 'es' | 'en';
+
+const HERO_COPY: Record<Locale, {
+  rotatingWords: string[];
+  trustPoints: { icon: typeof Bot; title: string; description: string }[];
+  ctas: { solutions: string; call: string; whatsapp: string };
+  stats: { deployLabel: string; deployValue: string; modeLabel: string; modeValue: string };
+  maturity: { label: string; value: string }[];
+}> = {
+  es: {
+    rotatingWords: ['presencia digital', 'agente IA', 'automatizacion', 'memoria empresarial'],
+    trustPoints: [
+      { icon: Bot, title: 'IA aplicada al negocio', description: 'Agentes entrenados con tu informacion real.' },
+      { icon: Calendar, title: 'Implementacion rapida', description: 'Despliegues agiles sin procesos complejos.' },
+      { icon: MessageCircle, title: 'Operacion conectada', description: 'WhatsApp, CRM y procesos en un solo flujo.' },
+    ],
+    ctas: {
+      solutions: 'Ver soluciones',
+      call: 'Agendar llamada',
+      whatsapp: 'Hablar por WhatsApp',
+    },
+    stats: {
+      deployLabel: 'Deploy inicial',
+      deployValue: '48h',
+      modeLabel: 'Modalidad',
+      modeValue: '4 niveles',
+    },
+    maturity: [
+      { label: 'Presencia Digital', value: 'Nivel 1: Fundacion' },
+      { label: 'Agente IA para Negocio', value: 'Nivel 2: Atencion 24/7' },
+      { label: 'Automatizacion Inteligente', value: 'Nivel 3: Operacion conectada' },
+      { label: 'Memoria Empresarial (RAG)', value: 'Nivel 4: Ventaja competitiva' },
+    ],
+  },
+  en: {
+    rotatingWords: ['digital presence', 'AI agent', 'automation', 'enterprise memory'],
+    trustPoints: [
+      { icon: Bot, title: 'AI for business operations', description: 'Agents trained on your real company data.' },
+      { icon: Calendar, title: 'Fast implementation', description: 'Agile deployment without heavy processes.' },
+      { icon: MessageCircle, title: 'Connected operations', description: 'WhatsApp, CRM, and workflows in one system.' },
+    ],
+    ctas: {
+      solutions: 'View solutions',
+      call: 'Book a call',
+      whatsapp: 'Chat on WhatsApp',
+    },
+    stats: {
+      deployLabel: 'Initial deployment',
+      deployValue: '48h',
+      modeLabel: 'Model',
+      modeValue: '4 levels',
+    },
+    maturity: [
+      { label: 'Digital Presence', value: 'Level 1: Foundation' },
+      { label: 'AI Agent for Business', value: 'Level 2: 24/7 service' },
+      { label: 'Smart Automation', value: 'Level 3: Connected operations' },
+      { label: 'Enterprise Memory (RAG)', value: 'Level 4: Competitive edge' },
+    ],
+  },
+};
+
+export default function HeroSection({ locale = 'es', overrides }: { locale?: Locale; overrides?: HeroSectionOverrides }) {
+  const copy = HERO_COPY[locale];
+  const rotatingWords = overrides?.rotatingWords ?? copy.rotatingWords;
+  const trustPoints = copy.trustPoints;
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -101,7 +159,7 @@ export default function HeroSection({ overrides }: { overrides?: HeroSectionOver
                 size="lg"
                 icon={<ArrowRight size={18} />}
               >
-                Ver soluciones
+                {copy.ctas.solutions}
               </MagneticButton>
 
               <MagneticButton
@@ -110,7 +168,7 @@ export default function HeroSection({ overrides }: { overrides?: HeroSectionOver
                 size="lg"
                 icon={<Calendar size={18} />}
               >
-                Agendar llamada
+                {copy.ctas.call}
               </MagneticButton>
 
               <MagneticButton
@@ -119,7 +177,7 @@ export default function HeroSection({ overrides }: { overrides?: HeroSectionOver
                 size="lg"
                 icon={<MessageCircle size={18} />}
               >
-                Hablar por WhatsApp
+                {copy.ctas.whatsapp}
               </MagneticButton>
             </motion.div>
           </div>
@@ -136,12 +194,12 @@ export default function HeroSection({ overrides }: { overrides?: HeroSectionOver
             <div className="relative rounded-3xl border border-white/12 bg-[#111111]/80 backdrop-blur-xl p-6 md:p-7 shadow-[0_0_60px_rgba(0,0,0,0.35)]">
               <div className="grid grid-cols-2 gap-3 mb-5">
                 <div className="rounded-2xl border border-[#00D4FF]/30 bg-[#00D4FF]/8 p-4">
-                  <p className="text-xs text-[#A1A1AA] mb-1">Deploy inicial</p>
-                  <p className="text-2xl font-semibold text-white">48h</p>
+                  <p className="text-xs text-[#A1A1AA] mb-1">{copy.stats.deployLabel}</p>
+                  <p className="text-2xl font-semibold text-white">{copy.stats.deployValue}</p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs text-[#A1A1AA] mb-1">Modalidad</p>
-                  <p className="text-2xl font-semibold text-white">3 niveles</p>
+                  <p className="text-xs text-[#A1A1AA] mb-1">{copy.stats.modeLabel}</p>
+                  <p className="text-2xl font-semibold text-white">{copy.stats.modeValue}</p>
                 </div>
               </div>
 
@@ -176,12 +234,7 @@ export default function HeroSection({ overrides }: { overrides?: HeroSectionOver
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.6 }}
         >
-          {[
-            { label: 'Presencia Digital IA', value: 'Nivel 1' },
-            { label: 'Asistente IA para Negocio', value: 'Nivel 2' },
-            { label: 'Automatización Inteligente', value: 'Nivel 3' },
-            { label: 'Soporte y evolución', value: 'Mensual' },
-          ].map((item) => (
+          {copy.maturity.map((item) => (
             <div key={item.label} className="rounded-2xl border border-white/10 bg-white/4 p-4">
               <p className="text-xs text-[#71717A]">{item.label}</p>
               <p className="mt-1 text-base md:text-lg text-white font-semibold">{item.value}</p>

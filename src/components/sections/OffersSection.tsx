@@ -31,25 +31,27 @@ const CONTENT = {
     badge: 'Oferta por niveles',
     title: 'No solo construimos sitios, creamos sistemas que trabajan por ti',
     subtitle:
-      'Cada nivel resuelve una etapa distinta del negocio: existir online hoy, delegar atención con IA y automatizar operación interna.',
+      'Cada nivel impulsa una etapa de madurez tecnologica: presencia, atencion con IA, automatizacion y memoria empresarial.',
     labels: [
-      'Nivel Inicial: Para quienes necesitan existir en internet hoy.',
-      'Nivel Experto: Para quienes quieren delegar la atención al cliente.',
-      'Nivel Enterprise: Para quienes buscan que la IA gestione su operación interna.',
+      'Nivel 1: Presencia Digital para captar y convertir.',
+      'Nivel 2: Agente IA para ventas y soporte 24/7.',
+      'Nivel 3: Automatizacion para escalar operacion.',
+      'Nivel 4: Memoria Empresarial para ventaja competitiva.',
     ],
-    annualBundle: 'Pack anual 3 niveles: consulta descuento por contratación conjunta.',
+    annualBundle: 'Pack anual 4 niveles: consulta descuento por contratacion conjunta.',
   },
   en: {
     badge: 'Layered offering',
     title: 'We do not just build websites, we build systems that work for you',
     subtitle:
-      'Each layer solves a different business stage: get online now, delegate customer support with AI, and automate internal operations.',
+      'Each layer advances your technology maturity: presence, AI service, automation, and enterprise memory.',
     labels: [
-      'Starter Level: For teams that need to exist online today.',
-      'Expert Level: For teams that want to delegate customer support.',
-      'Enterprise Level: For teams that want AI to run internal operations.',
+      'Level 1: Digital Presence to attract and convert.',
+      'Level 2: AI Agent for 24/7 sales and support.',
+      'Level 3: Automation to scale operations.',
+      'Level 4: Enterprise Memory for competitive advantage.',
     ],
-    annualBundle: '3-layer annual bundle: ask for a combined-contract discount.',
+    annualBundle: '4-layer annual bundle: ask for a combined-contract discount.',
   },
 } as const;
 
@@ -60,6 +62,10 @@ const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: 
 };
 
 const ACCENT_BY_PLAN: Record<string, string> = {
+  'capa-1-presencia-digital': 'from-[#00D4FF] to-[#22D3EE]',
+  'capa-2-agente-ia': 'from-[#10B981] to-[#34D399]',
+  'capa-3-automatizacion': 'from-[#F59E0B] to-[#FB923C]',
+  'capa-4-memoria-empresarial': 'from-[#7C3AED] to-[#A78BFA]',
   'presencia-digital-ia': 'from-[#00D4FF] to-[#22D3EE]',
   'asistente-ia-experto': 'from-[#10B981] to-[#34D399]',
   'automatizacion-inteligente': 'from-[#F59E0B] to-[#FB923C]',
@@ -120,11 +126,18 @@ export default function OffersSection({ locale, offers }: Props) {
   if (!offers || offers.length === 0) return null;
 
   const content = locale === 'es' ? CONTENT.es : CONTENT.en;
-  const layerOrder = ['presencia-digital-ia', 'asistente-ia-experto', 'automatizacion-inteligente'];
+  const layerOrder = [
+    'capa-1-presencia-digital',
+    'capa-2-agente-ia',
+    'capa-3-automatizacion',
+    'capa-4-memoria-empresarial',
+  ];
   const selectedOffers = layerOrder
     .map((planKey) => offers.find((offer) => offer.planKey === planKey))
     .filter((offer): offer is OfferCard => Boolean(offer));
-  const cards = selectedOffers.length > 0 ? selectedOffers : offers.slice(0, 3);
+  const cards = selectedOffers.length > 0
+    ? selectedOffers
+    : offers.filter((offer) => offer.planKey.startsWith('capa-')).slice(0, 4);
 
   return (
     <section id="ofertas" className="relative overflow-hidden bg-background py-24 md:py-30">
@@ -150,7 +163,7 @@ export default function OffersSection({ locale, offers }: Props) {
           </div>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {cards.map((offer) => (
             <OfferTile key={offer.id} offer={offer} locale={locale} />
           ))}

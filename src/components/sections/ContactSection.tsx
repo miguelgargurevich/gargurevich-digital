@@ -44,7 +44,9 @@ export default function ContactSection({
   const locationValue = overrides?.location || t('info.location.value');
 
   const projectTypes = [
-    ...offers.map((offer) => ({
+    ...offers
+      .filter((offer) => offer.planKey.startsWith('capa-'))
+      .map((offer) => ({
       value: offer.planKey,
       label: locale === 'es' ? offer.nameEs : offer.nameEn,
       price: offer.price,
