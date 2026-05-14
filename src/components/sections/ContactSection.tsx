@@ -428,7 +428,7 @@ export default function ContactSection({
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: -6, scale: 0.98 }}
                           transition={{ duration: 0.15 }}
-                          className="absolute z-30 top-full mt-2 w-full rounded-xl bg-[#1C1C1C] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden"
+                          className="absolute z-30 top-full mt-2 w-full rounded-xl bg-[#1C1C1C] border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] overflow-hidden max-h-72 overflow-y-auto"
                         >
                           {projectTypes.map((option, i) => {
                             const isSelected = formData.projectType === option.value;
@@ -438,7 +438,7 @@ export default function ContactSection({
                                 <button
                                   type="button"
                                   onClick={() => handleSelectOption(option.value)}
-                                  className={`w-full px-4 py-3 flex items-center justify-between gap-3 text-left transition-colors duration-150 ${
+                                  className={`w-full px-4 py-2.5 flex items-center justify-between gap-3 text-left transition-colors duration-150 ${
                                     i !== 0 ? 'border-t border-white/6' : ''
                                   } ${
                                     isSelected
@@ -446,7 +446,7 @@ export default function ContactSection({
                                       : 'hover:bg-white/5'
                                   }`}
                                 >
-                                  <div className="min-w-0">
+                                  <div className="min-w-0 flex-1">
                                     <p className={`text-sm font-medium leading-tight ${
                                       isSelected ? 'text-[#00D4FF]' : 'text-white'
                                     }`}>
@@ -455,13 +455,10 @@ export default function ContactSection({
                                       </span>
                                       <span className="align-middle">{tierParts.name}</span>
                                     </p>
-                                    {option.description && (
-                                      <p className="text-xs text-[#71717A] mt-0.5">{option.description}</p>
-                                    )}
                                   </div>
                                   <div className="flex items-center gap-2 shrink-0">
                                     {option.price && (
-                                      <span className={`text-xs font-semibold ${
+                                      <span className={`text-xs font-semibold whitespace-nowrap ${
                                         isSelected ? 'text-[#00D4FF]' : 'text-[#A1A1AA]'
                                       }`}>
                                         {option.price}
