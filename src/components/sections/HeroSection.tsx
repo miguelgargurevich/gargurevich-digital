@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Bot, Calendar, MessageCircle, Sparkles } from 'lucide-react';
+import { ArrowRight, Calendar, MessageCircle, Sparkles } from 'lucide-react';
 import ParticleBackground, { GradientMesh } from '../ui/ParticleBackground';
 import { WordRotate } from '../ui/Typewriter';
 import MagneticButton from '../ui/MagneticButton';
@@ -19,59 +19,41 @@ type Locale = 'es' | 'en';
 
 const HERO_COPY: Record<Locale, {
   rotatingWords: string[];
-  trustPoints: { icon: typeof Bot; title: string; description: string }[];
   ctas: { solutions: string; call: string; whatsapp: string };
-  stats: { deployLabel: string; deployValue: string; modeLabel: string; modeValue: string };
-  maturity: { label: string; value: string }[];
+  maturityHeading: string;
+  maturitySubheading: string;
+  maturity: { label: string; value: string; result: string }[];
 }> = {
   es: {
     rotatingWords: ['presencia digital', 'agente IA', 'automatizacion', 'memoria empresarial'],
-    trustPoints: [
-      { icon: Bot, title: 'IA aplicada al negocio', description: 'Agentes entrenados con tu informacion real.' },
-      { icon: Calendar, title: 'Implementacion rapida', description: 'Despliegues agiles sin procesos complejos.' },
-      { icon: MessageCircle, title: 'Operacion conectada', description: 'WhatsApp, CRM y procesos en un solo flujo.' },
-    ],
     ctas: {
       solutions: 'Ver soluciones',
       call: 'Agendar llamada',
       whatsapp: 'Hablar por WhatsApp',
     },
-    stats: {
-      deployLabel: 'Deploy inicial',
-      deployValue: '48h',
-      modeLabel: 'Modalidad',
-      modeValue: '4 niveles',
-    },
+    maturityHeading: 'Ruta de Madurez Empresarial',
+    maturitySubheading: 'Cada nivel incrementa ventas, velocidad operativa y ventaja competitiva.',
     maturity: [
-      { label: 'Presencia Digital', value: 'Nivel 1: Fundacion' },
-      { label: 'Agente IA para Negocio', value: 'Nivel 2: Atencion 24/7' },
-      { label: 'Automatizacion Inteligente', value: 'Nivel 3: Operacion conectada' },
-      { label: 'Memoria Empresarial (RAG)', value: 'Nivel 4: Ventaja competitiva' },
+      { label: 'Presencia Digital', value: 'Nivel 1: Fundacion', result: 'Mas visibilidad y demanda inicial' },
+      { label: 'Agente IA para Negocio', value: 'Nivel 2: Atencion 24/7', result: 'Leads atendidos sin friccion' },
+      { label: 'Automatizacion Inteligente', value: 'Nivel 3: Operacion conectada', result: 'Menos carga operativa y mas velocidad' },
+      { label: 'Memoria Empresarial (RAG)', value: 'Nivel 4: Ventaja competitiva', result: 'Decisiones con conocimiento interno' },
     ],
   },
   en: {
     rotatingWords: ['digital presence', 'AI agent', 'automation', 'enterprise memory'],
-    trustPoints: [
-      { icon: Bot, title: 'AI for business operations', description: 'Agents trained on your real company data.' },
-      { icon: Calendar, title: 'Fast implementation', description: 'Agile deployment without heavy processes.' },
-      { icon: MessageCircle, title: 'Connected operations', description: 'WhatsApp, CRM, and workflows in one system.' },
-    ],
     ctas: {
       solutions: 'View solutions',
       call: 'Book a call',
       whatsapp: 'Chat on WhatsApp',
     },
-    stats: {
-      deployLabel: 'Initial deployment',
-      deployValue: '48h',
-      modeLabel: 'Model',
-      modeValue: '4 levels',
-    },
+    maturityHeading: 'Business Maturity Roadmap',
+    maturitySubheading: 'Each level increases sales performance, operational speed, and strategic advantage.',
     maturity: [
-      { label: 'Digital Presence', value: 'Level 1: Foundation' },
-      { label: 'AI Agent for Business', value: 'Level 2: 24/7 service' },
-      { label: 'Smart Automation', value: 'Level 3: Connected operations' },
-      { label: 'Enterprise Memory (RAG)', value: 'Level 4: Competitive edge' },
+      { label: 'Digital Presence', value: 'Level 1: Foundation', result: 'Higher visibility and initial demand' },
+      { label: 'AI Agent for Business', value: 'Level 2: 24/7 service', result: 'Leads handled without friction' },
+      { label: 'Smart Automation', value: 'Level 3: Connected operations', result: 'Less operational load and faster cycles' },
+      { label: 'Enterprise Memory (RAG)', value: 'Level 4: Competitive edge', result: 'Decisions powered by internal knowledge' },
     ],
   },
 };
@@ -79,7 +61,6 @@ const HERO_COPY: Record<Locale, {
 export default function HeroSection({ locale = 'es', overrides }: { locale?: Locale; overrides?: HeroSectionOverrides }) {
   const copy = HERO_COPY[locale];
   const rotatingWords = overrides?.rotatingWords ?? copy.rotatingWords;
-  const trustPoints = copy.trustPoints;
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -96,12 +77,12 @@ export default function HeroSection({ locale = 'es', overrides }: { locale?: Loc
       {/* Content */}
       <div className="relative z-10 max-w-350 mx-auto px-6 sm:px-8 md:px-12 lg:px-16 pt-32 pb-24 md:pt-40 md:pb-28">
         <motion.div
-          className="grid gap-12 lg:grid-cols-[1.1fr,0.9fr] items-center"
+          className="grid gap-10 lg:grid-cols-1"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
         >
-          <div>
+          <div className="max-w-5xl">
             <motion.p
               className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-white/10 bg-white/5"
               initial={{ opacity: 0, y: 20 }}
@@ -181,65 +162,51 @@ export default function HeroSection({ locale = 'es', overrides }: { locale?: Loc
               </MagneticButton>
             </motion.div>
           </div>
-
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.7 }}
-          >
-            <div className="absolute -top-8 -right-8 w-38 h-38 rounded-full bg-[#00D4FF]/20 blur-3xl" />
-            <div className="absolute -bottom-12 -left-8 w-38 h-38 rounded-full bg-[#10B981]/15 blur-3xl" />
-
-            <div className="relative rounded-3xl border border-white/12 bg-[#111111]/80 backdrop-blur-xl p-6 md:p-7 shadow-[0_0_60px_rgba(0,0,0,0.35)]">
-              <div className="grid grid-cols-2 gap-3 mb-5">
-                <div className="rounded-2xl border border-[#00D4FF]/30 bg-[#00D4FF]/8 p-4">
-                  <p className="text-xs text-[#A1A1AA] mb-1">{copy.stats.deployLabel}</p>
-                  <p className="text-2xl font-semibold text-white">{copy.stats.deployValue}</p>
-                </div>
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs text-[#A1A1AA] mb-1">{copy.stats.modeLabel}</p>
-                  <p className="text-2xl font-semibold text-white">{copy.stats.modeValue}</p>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                {trustPoints.map((point, index) => (
-                  <motion.div
-                    key={point.title}
-                    className="rounded-2xl border border-white/10 bg-white/4 p-4"
-                    initial={{ opacity: 0, x: 16 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.7 + index * 0.08 }}
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className="w-9 h-9 shrink-0 rounded-xl bg-linear-to-br from-[#00D4FF]/20 to-[#10B981]/20 border border-white/10 flex items-center justify-center">
-                        <point.icon size={17} className="text-[#00D4FF]" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-white">{point.title}</p>
-                        <p className="text-xs text-[#A1A1AA] mt-1">{point.description}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 md:mt-14"
+          className="relative mt-12 md:mt-14 rounded-3xl border border-white/12 bg-linear-to-br from-[#0E1114]/90 via-[#12161B]/90 to-[#0B0E12]/90 backdrop-blur-xl p-6 md:p-8 overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.6 }}
         >
-          {copy.maturity.map((item) => (
-            <div key={item.label} className="rounded-2xl border border-white/10 bg-white/4 p-4">
-              <p className="text-xs text-[#71717A]">{item.label}</p>
-              <p className="mt-1 text-base md:text-lg text-white font-semibold">{item.value}</p>
-            </div>
-          ))}
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(0,212,255,0.12),transparent_35%),radial-gradient(circle_at_80%_100%,rgba(124,58,237,0.12),transparent_32%)]" />
+
+          <div className="mb-6 md:mb-8">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#94A3B8]">{copy.maturityHeading}</p>
+            <p className="mt-2 text-sm md:text-base text-[#A1A1AA]">{copy.maturitySubheading}</p>
+          </div>
+
+          <div className="relative grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <div className="pointer-events-none hidden xl:block absolute left-[8%] right-[8%] top-5 h-0.5 bg-linear-to-r from-[#00D4FF]/30 via-[#10B981]/35 to-[#7C3AED]/30" />
+            {copy.maturity.map((item, index) => (
+              <motion.div
+                key={item.label}
+                className="group relative rounded-2xl border border-white/10 bg-[#13161B]/80 p-4 md:p-5 overflow-hidden shadow-[0_14px_32px_rgba(0,0,0,0.25)]"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1 + index * 0.08, duration: 0.45 }}
+              >
+                <div className="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-[#00D4FF] via-[#10B981] to-[#7C3AED] opacity-85" />
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="relative h-9 w-9 shrink-0 rounded-full border border-[#00D4FF]/45 bg-[#00D4FF]/12 flex items-center justify-center text-sm font-semibold text-[#D5F4FF]">
+                    {index + 1}
+                    <div className="absolute -inset-1.25 rounded-full border border-[#00D4FF]/25" />
+                  </div>
+                  <p className="text-[11px] uppercase tracking-[0.18em] text-[#94A3B8]">{locale === 'es' ? `Etapa ${index + 1}` : `Stage ${index + 1}`}</p>
+                </div>
+                <p className="text-white font-semibold leading-snug">{item.label}</p>
+                <p className="mt-2 text-sm text-[#D4D4D8]">{item.value}</p>
+                <p className="mt-3 text-xs text-[#9CA3AF] leading-5">{item.result}</p>
+                <div className="mt-4 h-1.5 rounded-full bg-white/10 overflow-hidden">
+                  <div
+                    className="h-full rounded-full bg-linear-to-r from-[#00D4FF] to-[#10B981]"
+                    style={{ width: `${(index + 1) * 25}%` }}
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
 
       </div>

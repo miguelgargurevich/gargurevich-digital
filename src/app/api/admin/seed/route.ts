@@ -425,7 +425,7 @@ const SITE_SETTINGS_SEED = [
 
 function sanitizeForDb<T>(value: T): T {
   if (typeof value === 'string') {
-    return value.replace(/\u0000/g, '') as T;
+    return value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '') as T;
   }
 
   if (Array.isArray(value)) {
@@ -468,7 +468,11 @@ export async function seedDatabase(options: { revalidate?: boolean } = {}) {
     // Clear and re-seed offers (ensures old plans are replaced)
     await db.offer.deleteMany({});
     for (const o of OFFERS_SEED) {
-      await db.offer.create({ data: sanitizeForDb(o) });
+      try {
+        await db.offer.create({ data: sanitizeForDb(o) });
+      } catch (offerError) {
+        throw new Error(`Offer seed failed for ${o.planKey}: ${String(offerError)}`);
+      }
     }
 
     // Upsert site settings
