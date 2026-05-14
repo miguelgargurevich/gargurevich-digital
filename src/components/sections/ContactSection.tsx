@@ -424,21 +424,7 @@ export default function ContactSection({
                                 <button
                                   type="button"
                                   onClick={() => handleSelectOption(option.value)}
-                                  className={`w-full px-4 py-2.5 flex items-center justify-between gap-3 text-left transition-colors duration-150 ${
-                                    i !== 0 ? 'border-t border-white/6' : ''
-                                  } ${
-                                    isSelected
-                                      ? 'bg-[#00D4FF]/10'
-                                      : 'hover:bg-white/5'
-                                  }`}
-                                >
-                                  <div className="min-w-0 flex-1">
-                                    <p className={`text-sm font-medium leading-tight ${
-                                      isSelected ? 'text-[#00D4FF]' : 'text-white'
-                                    }`}>
-                                      <span className="inline-block px-2 py-0.5 rounded-full border border-[#00D4FF]/35 bg-[#00D4FF]/10 text-[#67E8F9] text-[10px] tracking-[0.12em] uppercase align-middle mr-2">
-                                        {tierParts.tier}
-                                      </span>3 flex flex-col gap-2 text-left transition-colors duration-150 ${
+                                  className={`w-full px-4 py-3 flex flex-col gap-2 text-left transition-colors duration-150 ${
                                     i !== 0 ? 'border-t border-white/6' : ''
                                   } ${
                                     isSelected
@@ -466,9 +452,16 @@ export default function ContactSection({
                                       {option.price}
                                     </span>
                                   )}
-                <label className="block text-sm text-[#A1A1AA] mb-2">
-                  {t('form.message')} *
-                </label>
+                                </button>
+                              </li>
+                            );
+                          })}
+                        </motion.ul>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+              </div>
                 <textarea
                   name="message"
                   value={formData.message}
