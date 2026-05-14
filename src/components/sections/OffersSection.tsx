@@ -33,10 +33,10 @@ const CONTENT = {
     subtitle:
       'Cada nivel impulsa una etapa de madurez tecnologica: presencia, atencion con IA, automatizacion y memoria empresarial.',
     labels: [
-      'Nivel 1: Presencia Digital para captar y convertir.',
-      'Nivel 2: Agente IA para ventas y soporte 24/7.',
-      'Nivel 3: Automatizacion para escalar operacion.',
-      'Nivel 4: Memoria Empresarial para ventaja competitiva.',
+      'Starter: Presencia Digital para captar y convertir.',
+      'Growth: Agente IA para ventas y soporte 24/7.',
+      'Scale: Automatizacion para escalar operacion.',
+      'Signature: Memoria Empresarial para ventaja competitiva.',
     ],
     annualBundle: 'Pack anual 4 niveles: consulta descuento por contratacion conjunta.',
   },
@@ -46,10 +46,10 @@ const CONTENT = {
     subtitle:
       'Each layer advances your technology maturity: presence, AI service, automation, and enterprise memory.',
     labels: [
-      'Level 1: Digital Presence to attract and convert.',
-      'Level 2: AI Agent for 24/7 sales and support.',
-      'Level 3: Automation to scale operations.',
-      'Level 4: Enterprise Memory for competitive advantage.',
+      'Starter: Digital Presence to attract and convert.',
+      'Growth: AI Agent for 24/7 sales and support.',
+      'Scale: Automation to scale operations.',
+      'Signature: Enterprise Memory for competitive advantage.',
     ],
     annualBundle: '4-layer annual bundle: ask for a combined-contract discount.',
   },
@@ -108,6 +108,7 @@ function OfferTile({ offer, locale }: { offer: OfferCard; locale: 'es' | 'en' })
   const fallbackTitle = locale === 'es' ? offer.nameEs : offer.nameEn;
   const title = getTierTitle(offer.planKey, locale, fallbackTitle);
   const tierParts = splitTierTitle(title);
+  const serviceName = tierParts.name || fallbackTitle;
   const description = locale === 'es' ? offer.descriptionEs : offer.descriptionEn;
   const items = locale === 'es' ? offer.itemsEs : offer.itemsEn;
   const cta = locale === 'es' ? offer.ctaEs : offer.ctaEn;
@@ -121,16 +122,16 @@ function OfferTile({ offer, locale }: { offer: OfferCard; locale: 'es' | 'en' })
 
   return (
     <article className="relative rounded-3xl border border-white/12 bg-[#111111]/88 backdrop-blur-xl p-7 md:p-8 h-full flex flex-col shadow-[0_0_0_1px_rgba(255,255,255,0.02)] transition-all duration-300 hover:-translate-y-1.5 hover:border-white/20">
-      <div className={`w-11 h-11 rounded-2xl bg-linear-to-br ${accent} flex items-center justify-center mb-5 shadow-[0_10px_24px_rgba(0,0,0,0.3)]`}>
-        <Icon size={20} className="text-background" />
-      </div>
-
-      <h3 className="text-2xl font-semibold leading-tight">
-        <span className="inline-block px-2.5 py-1 rounded-full border border-[#00D4FF]/35 bg-[#00D4FF]/10 text-[#67E8F9] text-[11px] tracking-[0.12em] uppercase align-middle mr-2">
+      <div className="mb-5 flex items-center gap-3">
+        <div className={`w-11 h-11 rounded-2xl bg-linear-to-br ${accent} flex items-center justify-center shadow-[0_10px_24px_rgba(0,0,0,0.3)]`}>
+          <Icon size={20} className="text-background" />
+        </div>
+        <span className="inline-block px-2.5 py-1 rounded-full border border-[#00D4FF]/35 bg-[#00D4FF]/10 text-[#67E8F9] text-[11px] tracking-[0.12em] uppercase">
           {tierParts.tier}
         </span>
-        <span className="text-white align-middle">{tierParts.name}</span>
-      </h3>
+      </div>
+
+      <h3 className="text-2xl font-semibold leading-tight text-white">{serviceName}</h3>
       <p className="mt-3 text-sm text-[#A1A1AA] leading-6">{description}</p>
 
       <div className="mt-5 space-y-1">
@@ -192,7 +193,7 @@ export default function OffersSection({ locale, offers }: Props) {
           <h2 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-semibold leading-tight text-white">{content.title}</h2>
           <p className="mt-5 text-lg text-[#A1A1AA] leading-8">{content.subtitle}</p>
 
-          <div className="mt-6 grid gap-2 md:grid-cols-3">
+          <div className="mt-6 grid gap-2 md:grid-cols-2 xl:grid-cols-4">
             {content.labels.map((label) => (
               <p key={label} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-[#D4D4D8]">
                 {label}

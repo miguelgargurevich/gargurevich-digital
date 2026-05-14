@@ -1,6 +1,5 @@
 import HeroSection from "@/components/sections/HeroSection";
 import ProblemSection from "@/components/sections/ProblemSection";
-import LayersSection from "@/components/sections/LayersSection";
 import OffersSection from "@/components/sections/OffersSection";
 import TimelineSection from "@/components/sections/TimelineSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
@@ -110,7 +109,6 @@ export default async function Home({
     <>
       <HeroSection locale={locale} overrides={heroOverrides} />
       <ProblemSection locale={locale} />
-      <LayersSection locale={locale} />
       <OffersSection locale={locale} offers={offers} />
       <TimelineSection locale={locale} />
       <TechStackSection locale={locale} />
