@@ -425,7 +425,16 @@ const SITE_SETTINGS_SEED = [
 
 function sanitizeForDb<T>(value: T): T {
   if (typeof value === 'string') {
-    return value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '') as T;
+    const cleaned = value
+      .replace(/\\u0000/gi, '')
+      .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '');
+
+    // Defensive byte-level cleanup in case malformed input reaches runtime.
+    const safe = Buffer.from(
+      Buffer.from(cleaned, 'utf8').filter((byte) => byte !== 0),
+    ).toString('utf8');
+
+    return safe as T;
   }
 
   if (Array.isArray(value)) {
