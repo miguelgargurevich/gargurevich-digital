@@ -462,6 +462,12 @@ export default function ContactSection({
                   </div>
                 </div>
               </div>
+
+              {/* Message */}
+              <div>
+                <label className="block text-sm text-[#A1A1AA] mb-2">
+                  {t('form.message')} *
+                </label>
                 <textarea
                   name="message"
                   value={formData.message}
