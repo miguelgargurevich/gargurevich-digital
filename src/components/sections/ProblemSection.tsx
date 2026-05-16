@@ -4,42 +4,42 @@ type Locale = 'es' | 'en';
 
 const PROBLEM_CONTENT: Record<Locale, { title: string; cards: Array<{ icon: typeof Moon; title: string; description: string }> }> = {
   es: {
-    title: '¿Qué problema resolvemos?',
+    title: 'Resultados que tu negocio necesita hoy',
     cards: [
       {
         icon: Moon,
-        title: '¿Pierdes ventas de noche?',
-        description: 'Un agente IA responde WhatsApp a las 2am, nunca pierdas un lead por horario.',
+        title: '¿Pierdes oportunidades fuera de horario?',
+        description: 'Tu agente IA responde en minutos por WhatsApp y web para que no se enfrie ningun lead.',
       },
       {
         icon: MessageCircleQuestion,
-        title: '¿Clientes preguntan lo mismo siempre?',
-        description: 'El bot responde FAQs y dudas frecuentes al instante, sin cansancio ni errores.',
+        title: '¿Tu equipo repite respuestas todo el dia?',
+        description: 'Automatiza preguntas frecuentes con respuestas claras y consistentes, sin saturar a tu personal.',
       },
       {
         icon: FileBarChart2,
-        title: '¿Pasas horas en reportes?',
-        description: 'La IA genera insights y reportes automáticos, ahorra tiempo y toma mejores decisiones.',
+        title: '¿La operacion te quita tiempo para vender?',
+        description: 'Con automatizacion e indicadores clave, recuperas horas y tomas decisiones con mejor informacion.',
       },
     ],
   },
   en: {
-    title: 'What problem do we solve?',
+    title: 'Outcomes your business needs now',
     cards: [
       {
         icon: Moon,
-        title: 'Losing leads at night?',
-        description: 'An AI agent answers WhatsApp at 2am, so you never lose a lead because of schedule.',
+        title: 'Losing opportunities after hours?',
+        description: 'Your AI agent replies on WhatsApp and web in minutes, so no lead goes cold.',
       },
       {
         icon: MessageCircleQuestion,
-        title: 'Same questions every day?',
-        description: 'The bot handles FAQs instantly with consistent answers and no fatigue.',
+        title: 'Is your team repeating the same answers all day?',
+        description: 'Automate recurring questions with clear, consistent responses without burning out your staff.',
       },
       {
         icon: FileBarChart2,
-        title: 'Spending hours on reports?',
-        description: 'AI generates automatic insights and reports so you save time and decide faster.',
+        title: 'Is operations stealing time from sales?',
+        description: 'With automation and actionable metrics, you regain hours and make better decisions faster.',
       },
     ],
   },

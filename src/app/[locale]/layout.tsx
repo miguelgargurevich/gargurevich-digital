@@ -36,14 +36,14 @@ export async function generateMetadata({
   return {
     metadataBase: new URL("https://gargurevich.digital"),
     title: isEnglish 
-      ? "Gargurevich Digital | Premium Web Development"
-      : "Gargurevich Digital | Desarrollo Web Premium",
+      ? "Gargurevich Digital | AI Automation Platform for SMBs"
+      : "Gargurevich Digital | Plataforma de IA y Automatización para Negocios",
     description: isEnglish
-      ? "We transform ideas into high-impact digital solutions. Modern web development with React, Next.js, AI and the latest technologies. Landing pages, web apps, e-commerce and more."
-      : "Transformamos ideas en soluciones digitales de alto impacto. Desarrollo web moderno con React, Next.js, IA y las últimas tecnologías. Landing pages, apps web, e-commerce y más.",
+      ? "We build intelligent systems that help SMBs sell more, automate customer service, and streamline operations with AI, web infrastructure, and scalable workflows."
+      : "Creamos sistemas inteligentes para que negocios vendan más, automaticen su atención y operen mejor con IA, infraestructura web y automatización escalable.",
     keywords: isEnglish
-      ? ["web development", "next.js", "react", "typescript", "landing page", "e-commerce", "web app", "AI", "Lima", "Peru"]
-      : ["desarrollo web", "next.js", "react", "typescript", "landing page", "e-commerce", "app web", "IA", "Lima", "Perú"],
+      ? ["AI automation for SMB", "AI agent for WhatsApp", "business process automation", "digital transformation for small business", "sales automation", "customer support automation", "Lima", "Peru"]
+      : ["automatización con IA para negocios", "agente IA para WhatsApp", "automatización de procesos empresariales", "transformación digital para pymes", "automatización comercial", "atención al cliente automatizada", "Lima", "Perú"],
     authors: [{ name: "Miguel Gargurevich" }],
     creator: "Gargurevich Digital",
     openGraph: {
@@ -52,30 +52,30 @@ export async function generateMetadata({
       url: "https://gargurevich.digital",
       siteName: "Gargurevich Digital",
       title: isEnglish 
-        ? "Gargurevich Digital | Premium Web Development"
-        : "Gargurevich Digital | Desarrollo Web Premium",
+        ? "Gargurevich Digital | AI Automation Platform for SMBs"
+        : "Gargurevich Digital | Plataforma de IA y Automatización para Negocios",
       description: isEnglish
-        ? "We transform ideas into high-impact digital solutions. Modern web development with React, Next.js, AI and the latest technologies."
-        : "Transformamos ideas en soluciones digitales de alto impacto. Desarrollo web moderno con React, Next.js, IA y las últimas tecnologías.",
+        ? "AI-powered digital systems for sales, customer service, and operations in growing businesses."
+        : "Sistemas digitales con IA para ventas, atención al cliente y operación en empresas en crecimiento.",
       images: [
         {
           url: "/og-image.png",
           width: 1200,
           height: 630,
           alt: isEnglish 
-            ? "Gargurevich Digital - Premium Web Development"
-            : "Gargurevich Digital - Desarrollo Web Premium",
+            ? "Gargurevich Digital - AI Automation Platform"
+            : "Gargurevich Digital - Plataforma de IA y Automatización",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
       title: isEnglish 
-        ? "Gargurevich Digital | Premium Web Development"
-        : "Gargurevich Digital | Desarrollo Web Premium",
+        ? "Gargurevich Digital | AI Automation Platform for SMBs"
+        : "Gargurevich Digital | Plataforma de IA y Automatización para Negocios",
       description: isEnglish
-        ? "We transform ideas into high-impact digital solutions."
-        : "Transformamos ideas en soluciones digitales de alto impacto.",
+        ? "Intelligent systems for sales, support, and business operations."
+        : "Sistemas inteligentes para ventas, atención y operación empresarial.",
       images: ["/og-image.png"],
       creator: "@miguelgargurev",
     },

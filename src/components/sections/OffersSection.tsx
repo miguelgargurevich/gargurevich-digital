@@ -28,30 +28,30 @@ interface Props {
 
 const CONTENT = {
   es: {
-    badge: 'Oferta por niveles',
-    title: 'No solo construimos sitios, creamos sistemas que trabajan por ti',
+    badge: 'Arquitectura comercial por capas',
+    title: 'No vendemos paginas web: implementamos sistemas que hacen avanzar tu negocio',
     subtitle:
-      'Cada nivel impulsa una etapa de madurez tecnologica: presencia, atencion con IA, automatizacion y memoria empresarial.',
+      'Empieza donde estas hoy y escala por capas: visibilidad, atencion automatica, operacion eficiente y conocimiento empresarial centralizado.',
     labels: [
-      'Starter: Presencia Digital para captar y convertir.',
-      'Growth: Agente IA para ventas y soporte 24/7.',
-      'Scale: Automatizacion para escalar operacion.',
-      'Signature: Memoria Empresarial para ventaja competitiva.',
+      'Starter: Presencia Digital IA para captar oportunidades.',
+      'Growth: Agente IA Experto para atender y vender 24/7.',
+      'Scale: Automatizacion Inteligente para operar con eficiencia.',
+      'Signature: Memoria Empresarial para escalar con consistencia.',
     ],
-    annualBundle: 'Pack anual 4 niveles: consulta descuento por contratacion conjunta.',
+    annualBundle: 'Plan integral de 4 capas disponible con condiciones preferenciales para implementacion conjunta.',
   },
   en: {
-    badge: 'Layered offering',
-    title: 'We do not just build websites, we build systems that work for you',
+    badge: 'Layered business architecture',
+    title: 'We do not sell websites: we implement systems that move your business forward',
     subtitle:
-      'Each layer advances your technology maturity: presence, AI service, automation, and enterprise memory.',
+      'Start at your current stage and scale layer by layer: visibility, automated service, efficient operations, and centralized business knowledge.',
     labels: [
-      'Starter: Digital Presence to attract and convert.',
-      'Growth: AI Agent for 24/7 sales and support.',
-      'Scale: Automation to scale operations.',
-      'Signature: Enterprise Memory for competitive advantage.',
+      'Starter: AI Digital Presence to capture demand.',
+      'Growth: Expert AI Agent for 24/7 sales and support.',
+      'Scale: Smart Automation to run with efficiency.',
+      'Signature: Enterprise Memory to scale with consistency.',
     ],
-    annualBundle: '4-layer annual bundle: ask for a combined-contract discount.',
+    annualBundle: 'Full 4-layer rollout available with preferred terms for combined implementation.',
   },
 } as const;
 

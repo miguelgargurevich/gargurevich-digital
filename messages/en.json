@@ -1,26 +1,26 @@
 {
   "nav": {
-    "services": "Levels",
+    "services": "AI Layers",
     "portfolio": "Portfolio",
     "technologies": "Differentiators",
     "process": "How it works",
     "contact": "Contact",
     "offers": "Offers",
-    "startProject": "Schedule a call"
+    "startProject": "Request assessment"
   },
   "hero": {
-    "badge": "Premium Web Development",
-    "title": "We Create",
-    "subtitle": "We are specialists in modern web development. From high-conversion landing pages to enterprise applications with integrated AI.",
+    "badge": "AI Platform for LATAM SMBs",
+    "title": "Intelligent systems to sell, serve, and operate better",
+    "subtitle": "We implement digital presence, AI agents, and automation so your business can respond faster, close more deals, and run with less friction.",
     "cta": {
-      "primary": "Start Project",
-      "secondary": "View Portfolio"
+      "primary": "Request assessment",
+      "secondary": "View case studies"
     },
     "rotatingWords": [
-      "Digital Experiences",
-      "Modern Web Apps",
-      "AI Solutions",
-      "Scalable Products"
+      "Conversion-ready presence",
+      "24/7 automated support",
+      "More efficient operations",
+      "Scalable growth"
     ],
     "stats": {
       "projects": {
@@ -195,10 +195,10 @@
     }
   },
   "contact": {
-    "badge": "Get in Touch",
-    "title": "Let's Start Your",
-    "titleHighlight": "Digital Project",
-    "subtitle": "We're ready to transform your ideas into reality. Tell us about your project.",
+    "badge": "Let's Talk",
+    "title": "Activate Your",
+    "titleHighlight": "AI Infrastructure",
+    "subtitle": "Share your business goal and we will recommend the right layer to start with measurable impact.",
     "info": {
       "email": {
         "label": "Email",
@@ -222,22 +222,22 @@
       "companyPlaceholder": "Your Company (optional)",
       "projectType": "Project Type",
       "projectTypePlaceholder": "Select a type",
-      "message": "Tell us about your project",
-      "messagePlaceholder": "Let's talk about your current level. Do you serve clients at night? Do you get the same questions over and over?",
-      "submit": "Send Message",
+      "message": "What do you want to improve first?",
+      "messagePlaceholder": "Hi, I want to know if I should start with Digital Presence or if I already need the AI Agent. Do I serve clients at night? Do I get repetitive questions?",
+      "submit": "Request proposal",
       "sending": "Sending...",
-      "success": "Message sent successfully!"
+      "success": "Done. We received your request."
     }
   },
   "footer": {
-    "description": "We transform ideas into exceptional digital experiences. Your trusted partner for cutting-edge web development.",
+    "description": "We build intelligent systems that help companies sell, serve, and operate better.",
     "sections": {
       "services": "Services",
       "company": "Company"
     },
     "newsletter": {
-      "title": "Newsletter",
-      "description": "Subscribe to receive updates on web development trends and exclusive offers.",
+      "title": "AI Insights for Business",
+      "description": "Get practical playbooks on automation, sales operations, and customer service for growing companies.",
       "placeholder": "your@email.com",
       "button": "Subscribe"
     },
@@ -245,17 +245,17 @@
     "madeIn": "Made with ❤️",
     "links": {
       "services": [
-        { "name": "Landing Pages", "href": "#services" },
-        { "name": "Websites", "href": "#services" },
-        { "name": "E-commerce", "href": "#services" },
-        { "name": "Web Apps", "href": "#services" },
-        { "name": "AI Integration", "href": "#services" }
+        { "name": "Layer 1: AI Digital Presence", "href": "#ofertas" },
+        { "name": "Layer 2: Expert AI Agent", "href": "#ofertas" },
+        { "name": "Layer 3: Smart Automation", "href": "#ofertas" },
+        { "name": "Layer 4: Enterprise Memory", "href": "#ofertas" },
+        { "name": "3-step implementation", "href": "#proceso" }
       ],
       "company": [
-        { "name": "About Us", "href": "#" },
-        { "name": "Portfolio", "href": "#portfolio" },
-        { "name": "Process", "href": "#process" },
-        { "name": "Contact", "href": "#contact" }
+        { "name": "Why Gargurevich Digital", "href": "#" },
+        { "name": "Portfolio", "href": "#portafolio" },
+        { "name": "How it works", "href": "#proceso" },
+        { "name": "Talk to a specialist", "href": "#contacto" }
       ],
       "legal": [
         { "name": "Privacy Policy", "href": "/privacy" },

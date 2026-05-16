@@ -219,128 +219,128 @@ const OFFERS_SEED = [
     icon: 'zap',
     order: 0,
     popular: false,
-    nameEs: 'Nivel 1 Starter — Presencia Digital',
-    nameEn: 'Level 1 Starter — Digital Presence',
-    price: 'Mensualidad: S/29 (hosting + SSL + dominio + backups) | Setup: S/300-1,500',
+    nameEs: 'Nivel 1 Starter - Presencia Digital IA',
+    nameEn: 'Level 1 Starter - AI Digital Presence',
+        price: 'Monthly: S/29 (hosting + SSL + domain + backups + panel) | One-time setup: S/300-1,500',
     renewalPrice: '29',
-    priceNoteEs: 'Landing, web o CMS + dominio + SSL',
-    priceNoteEn: 'Landing, website or CMS + domain + SSL',
-    descriptionEs: 'Tu negocio online en 48-72 horas. Landing, ecommerce o CMS con IA, SEO base y estructura para convertir.',
-    descriptionEn: 'Your business online in 48-72 hours. AI-generated landing, ecommerce or CMS with base SEO and conversion structure.',
+    priceNoteEs: 'Presencia profesional lista para vender',
+    priceNoteEn: 'Professional presence ready to convert',
+    descriptionEs: 'Lanza una presencia profesional en dias para que te encuentren, te escriban y te compren sin friccion.',
+    descriptionEn: 'Launch a professional presence in days so customers can find you, message you, and buy with less friction.',
     itemsEs: [
-      'Landing, ecommerce o CMS generado por IA',
-      'Dominio propio + SSL + hosting administrado',
-      'Deploy automático y panel simple',
-      'SEO básico y optimización de conversión',
-      'Actualizaciones de contenido fáciles',
+      'Landing o web corporativa enfocada en conversion',
+      'Dominio propio, SSL y hosting administrado',
+      'Formulario y CTA listos para captar leads',
+      'SEO local base para aparecer en busquedas clave',
+      'Edicion de contenido simple para tu equipo',
     ],
     itemsEn: [
-      'AI-generated landing, ecommerce or CMS',
-      'Own domain + SSL + managed hosting',
-      'Automatic deploy and simple panel',
-      'Base SEO and conversion optimization',
-      'Easy content updates',
+      'Conversion-focused landing page or corporate site',
+      'Custom domain, SSL, and managed hosting',
+      'Lead capture form and CTAs ready to perform',
+      'Baseline local SEO for high-intent searches',
+      'Simple content editing for your internal team',
     ],
-    ctaEs: 'Empezar Presencia',
-    ctaEn: 'Start Presence',
-    forWhoEs: 'Para negocios que necesitan presencia profesional online rápida.',
-    forWhoEn: 'For businesses needing fast professional online presence.',
+    ctaEs: 'Quiero mi Presencia IA',
+    ctaEn: 'Build my AI Presence',
+    forWhoEs: 'Para negocios que necesitan verse serios y captar oportunidades desde esta semana.',
+    forWhoEn: 'For businesses that need to look professional and capture opportunities this week.',
   },
   {
     planKey: 'capa-2-agente-ia',
     icon: 'star',
     order: 1,
     popular: true,
-    nameEs: 'Nivel 2 Growth — Agente IA',
-    nameEn: 'Level 2 Growth — AI Agent',
+    nameEs: 'Nivel 2 Growth - Agente IA Experto',
+    nameEn: 'Level 2 Growth - Expert AI Agent',
     price: 'Setup: S/150-300 | Agente: S/180-350/mes',
     renewalPrice: '350',
-    priceNoteEs: 'Chat 24/7, RAG, WhatsApp, FAQs',
-    priceNoteEn: '24/7 chat, RAG, WhatsApp, FAQs',
-    descriptionEs: 'Un empleado virtual que entiende tu negocio. Responde 24/7 en WhatsApp y web, con documentos y catálogo internalizados.',
-    descriptionEn: 'A virtual employee that understands your business. Responds 24/7 on WhatsApp and web with internalized docs and catalog.',
+    priceNoteEs: 'Atencion automatica en WhatsApp y web',
+    priceNoteEn: 'Automated support on WhatsApp and web',
+    descriptionEs: 'Activa un agente IA que responde 24/7 con el contexto de tu negocio para atender mejor y vender mas.',
+    descriptionEn: 'Activate an AI agent that responds 24/7 with your business context to improve service and increase sales.',
     itemsEs: [
-      'RAG con PDFs, documentos y catálogo',
-      'Integración WhatsApp para atención 24/7',
-      'Responde precios, horarios, stock y FAQs',
-      'Límite operativo mensual (600+ consultas)',
-      'Escalable a citas, cotizaciones y seguimiento',
+      'Respuestas instantaneas en WhatsApp y web 24/7',
+      'Entrenado con tus productos, servicios y politicas',
+      'Resuelve FAQs, precios, horarios y dudas frecuentes',
+      'Escalable a citas, cotizaciones y seguimiento comercial',
+      'Derivacion inteligente cuando se requiere un humano',
     ],
     itemsEn: [
-      'RAG with PDFs, docs and catalog',
-      '24/7 WhatsApp integration',
-      'Answers prices, hours, stock and FAQs',
-      'Monthly operational limit (600+ queries)',
-      'Scalable to bookings, quotes and follow-up',
+      'Instant 24/7 responses on WhatsApp and web',
+      'Trained with your products, services, and policies',
+      'Handles FAQs, pricing, hours, and common questions',
+      'Scales to bookings, quotes, and sales follow-up',
+      'Smart handoff to a human when needed',
     ],
-    ctaEs: 'Activar Agente IA',
-    ctaEn: 'Activate AI Agent',
-    forWhoEs: 'Para negocios que necesitan atención constante sin aumentar equipo.',
-    forWhoEn: 'For businesses needing constant support without growing staff.',
+    ctaEs: 'Activar Agente 24/7',
+    ctaEn: 'Activate 24/7 Agent',
+    forWhoEs: 'Para negocios con alta demanda de consultas que quieren escalar atencion sin crecer planilla.',
+    forWhoEn: 'For businesses with heavy inbound demand that need to scale support without adding headcount.',
   },
   {
     planKey: 'capa-3-automatizacion',
     icon: 'sparkles',
     order: 2,
     popular: false,
-    nameEs: 'Nivel 3 Scale — Automatización',
-    nameEn: 'Level 3 Scale — Automation',
+    nameEs: 'Nivel 3 Scale - Automatizacion Inteligente',
+    nameEn: 'Level 3 Scale - Smart Automation',
     price: 'Setup: S/300-500 | Operación: S/300-900/mes',
     renewalPrice: '900',
-    priceNoteEs: 'n8n workflows, integraciones, ETL',
-    priceNoteEn: 'n8n workflows, integrations, ETL',
-    descriptionEs: 'Conecta tu software con IA. Workflows automáticos, reportes en tiempo real y decisiones desde chat.',
-    descriptionEn: 'Connect your software with AI. Automated workflows, real-time reports and chat-based decisions.',
+    priceNoteEs: 'Menos tareas manuales, mas foco en crecer',
+    priceNoteEn: 'Fewer manual tasks, more focus on growth',
+    descriptionEs: 'Automatiza tareas repetitivas y conecta tus canales para operar con velocidad, orden y visibilidad en tiempo real.',
+    descriptionEn: 'Automate repetitive work and connect your channels to operate faster, cleaner, and with real-time visibility.',
     itemsEs: [
-      'Workflows n8n para tareas repetitivas',
-      'Integraciones CRM, ERP, formularios, BD',
-      'Consultas por chat con datos reales',
-      'ETL y reportes automáticos',
-      'Transcripción Whisper para reuniones',
+      'Flujos automáticos para ventas, seguimiento y soporte',
+      'Integracion entre formularios, CRM, hojas y correo',
+      'Alertas y reportes automaticos para decisiones rapidas',
+      'Menos retrabajo y menos errores operativos',
+      'Trazabilidad clara de cada paso del proceso',
     ],
     itemsEn: [
-      'n8n workflows for repetitive tasks',
-      'CRM, ERP, forms, database integrations',
-      'Chat queries with real-time data',
-      'Automated ETL and reporting',
-      'Whisper transcription for meetings',
+      'Automated flows for sales, follow-up, and support',
+      'Integration across forms, CRM, spreadsheets, and email',
+      'Automatic alerts and reports for faster decisions',
+      'Less rework and fewer operational errors',
+      'Clear traceability for each process step',
     ],
-    ctaEs: 'Automatizar Operación',
-    ctaEn: 'Automate Operations',
-    forWhoEs: 'Para empresas que buscan eficiencia operativa y visibilidad en tiempo real.',
-    forWhoEn: 'For companies seeking operational efficiency and real-time visibility.',
+    ctaEs: 'Automatizar mi operacion',
+    ctaEn: 'Automate my operations',
+    forWhoEs: 'Para empresas que ya venden y ahora necesitan escalar sin perder control.',
+    forWhoEn: 'For companies already selling that need to scale without losing control.',
   },
   {
     planKey: 'capa-4-memoria-empresarial',
     icon: 'sparkles',
     order: 3,
     popular: false,
-    nameEs: 'Nivel 4 Enterprise — Memoria Empresarial',
-    nameEn: 'Level 4 Enterprise — Enterprise Memory',
+    nameEs: 'Nivel 4 Signature - Memoria Empresarial',
+    nameEn: 'Level 4 Signature - Enterprise Memory',
     price: 'Setup: S/500-1,000 | Acceso: S/500-1,500/mes',
     renewalPrice: '1500',
-    priceNoteEs: 'RAG + embeddings + vector DB',
-    priceNoteEn: 'RAG + embeddings + vector DB',
-    descriptionEs: 'Tu conocimiento empresarial convertido en ventaja competitiva. Sistema inteligente que responde basado en procedimientos, documentos y contexto histórico.',
-    descriptionEn: 'Your enterprise knowledge as competitive advantage. Intelligent system answering based on procedures, docs and historical context.',
+    priceNoteEs: 'Tu conocimiento trabajando para todo el equipo',
+    priceNoteEn: 'Your knowledge working for the entire team',
+    descriptionEs: 'Centraliza procesos, respuestas y criterios del negocio para que tu equipo y tus agentes IA operen con consistencia.',
+    descriptionEn: 'Centralize business processes, answers, and decision criteria so your team and AI agents can operate consistently.',
     itemsEs: [
-      'Vector DB con embeddings de documentos',
-      'RAG avanzado para consultas contextuales',
-      'Procedimientos y políticas internalizadas',
-      'Agents ejecutan decisiones basadas en KB',
-      'Integración con sistemas legacy empresariales',
+      'Base de conocimiento unificada de ventas y operacion',
+      'Respuestas consistentes segun tus politicas internas',
+      'Onboarding mas rapido para nuevos colaboradores',
+      'Menor dependencia de una sola persona clave',
+      'Escalable a multiples sedes, equipos y canales',
     ],
     itemsEn: [
-      'Vector DB with document embeddings',
-      'Advanced RAG for contextual queries',
-      'Internalized procedures and policies',
-      'Agents execute KB-based decisions',
-      'Integration with enterprise legacy systems',
+      'Unified knowledge base for sales and operations',
+      'Consistent answers aligned with internal policies',
+      'Faster onboarding for new team members',
+      'Less dependency on a single key person',
+      'Scales across multiple branches, teams, and channels',
     ],
-    ctaEs: 'Implementar Memoria',
-    ctaEn: 'Implement Memory',
-    forWhoEs: 'Para empresas que necesitan ventaja inteligente basada en su conocimiento único.',
-    forWhoEn: 'For enterprises needing intelligent advantage based on unique knowledge.',
+    ctaEs: 'Implementar Memoria IA',
+    ctaEn: 'Deploy AI Memory',
+    forWhoEs: 'Para empresas que quieren estandarizar su know-how y convertirlo en ventaja escalable.',
+    forWhoEn: 'For companies that want to standardize their know-how and turn it into scalable advantage.',
   },
   {
     planKey: 'mantenimiento-web',
@@ -409,12 +409,12 @@ const OFFERS_SEED = [
 ];
 
 const SITE_SETTINGS_SEED = [
-  { key: 'hero.badgeEs', value: 'Presencia Digital para Negocios' },
-  { key: 'hero.badgeEn', value: 'Premium Web Development' },
-  { key: 'hero.titleEs', value: 'Convierte tu presencia digital en' },
-  { key: 'hero.titleEn', value: 'Convert your digital presence into real clients.' },
-  { key: 'hero.subtitleEs', value: 'Landing pages, webs corporativas y automatización de leads. Todo enfocado en que tu cliente te encuentre, te escriba y te compre. Desde S/299. Yape y Plin. Garantía 15 días.' },
-  { key: 'hero.subtitleEn', value: 'Landing pages, corporate websites, and lead automation. Focused on making your client find you, message you, and buy from you.' },
+  { key: 'hero.badgeEs', value: 'Plataforma IA para SMB LATAM' },
+  { key: 'hero.badgeEn', value: 'AI Platform for LATAM SMBs' },
+  { key: 'hero.titleEs', value: 'Creamos sistemas inteligentes para vender, atender y operar mejor' },
+  { key: 'hero.titleEn', value: 'We build intelligent systems to sell, serve, and operate better' },
+  { key: 'hero.subtitleEs', value: 'Integramos presencia digital, agentes IA y automatizacion para que tu empresa responda mas rapido, ahorre tiempo y crezca con orden.' },
+  { key: 'hero.subtitleEn', value: 'We combine digital presence, AI agents, and automation so your company can respond faster, save time, and scale with structure.' },
   { key: 'contact.email', value: 'contacto@gargurevichdigital.com' },
   { key: 'contact.whatsapp', value: '+51 966 918 363' },
   { key: 'contact.location', value: 'Lima, Peru' },
@@ -426,6 +426,7 @@ const SITE_SETTINGS_SEED = [
 function sanitizeForDb<T>(value: T): T {
   if (typeof value === 'string') {
     const cleaned = value
+      .replace(/\0/g, '')
       .replace(/\\u0000/gi, '')
       .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '');
 
@@ -455,6 +456,7 @@ function sanitizeForDb<T>(value: T): T {
 function sanitizeAsciiForDb<T>(value: T): T {
   if (typeof value === 'string') {
     return value
+      .replace(/\0/g, '')
       .normalize('NFKD')
       .replace(/[^\x20-\x7E]/g, ' ')
       .replace(/\s+/g, ' ')
@@ -474,6 +476,82 @@ function sanitizeAsciiForDb<T>(value: T): T {
   }
 
   return value;
+}
+
+function toSqlLiteral(value: string): string {
+  return `'${value.replace(/'/g, "''")}'`;
+}
+
+function toSqlTextArray(values: string[]): string {
+  return `ARRAY[${values.map((item) => toSqlLiteral(item)).join(', ')}]`;
+}
+
+function isUtf8SequenceError(message: string): boolean {
+  const lower = message.toLowerCase();
+  return (
+    message.includes('22021')
+    || lower.includes('invalid byte sequence for encoding')
+    || (lower.includes('utf8') && lower.includes('0x00'))
+  );
+}
+
+async function upsertOfferViaSql(rawOffer: (typeof OFFERS_SEED)[number]) {
+  const offer = sanitizeAsciiForDb(sanitizeForDb(rawOffer));
+  const idValue = `${offer.planKey}-${Date.now()}`;
+  const renewalPrice = offer.renewalPrice ? toSqlLiteral(String(offer.renewalPrice)) : 'NULL';
+
+  const sql = `
+    INSERT INTO "Offer" (
+      id, "planKey", icon, "nameEs", "nameEn", price, "renewalPrice", "priceNoteEs", "priceNoteEn",
+      "descriptionEs", "descriptionEn", "itemsEs", "itemsEn", "ctaEs", "ctaEn", "forWhoEs", "forWhoEn",
+      popular, "order", published, "createdAt", "updatedAt"
+    ) VALUES (
+      ${toSqlLiteral(idValue)},
+      ${toSqlLiteral(offer.planKey)},
+      ${toSqlLiteral(offer.icon)},
+      ${toSqlLiteral(offer.nameEs)},
+      ${toSqlLiteral(offer.nameEn)},
+      ${toSqlLiteral(offer.price)},
+      ${renewalPrice},
+      ${toSqlLiteral(offer.priceNoteEs)},
+      ${toSqlLiteral(offer.priceNoteEn)},
+      ${toSqlLiteral(offer.descriptionEs)},
+      ${toSqlLiteral(offer.descriptionEn)},
+      ${toSqlTextArray(offer.itemsEs)},
+      ${toSqlTextArray(offer.itemsEn)},
+      ${toSqlLiteral(offer.ctaEs)},
+      ${toSqlLiteral(offer.ctaEn)},
+      ${toSqlLiteral(offer.forWhoEs)},
+      ${toSqlLiteral(offer.forWhoEn)},
+      ${offer.popular ? 'true' : 'false'},
+      ${offer.order},
+      true,
+      NOW(),
+      NOW()
+    )
+    ON CONFLICT ("planKey") DO UPDATE SET
+      icon = EXCLUDED.icon,
+      "nameEs" = EXCLUDED."nameEs",
+      "nameEn" = EXCLUDED."nameEn",
+      price = EXCLUDED.price,
+      "renewalPrice" = EXCLUDED."renewalPrice",
+      "priceNoteEs" = EXCLUDED."priceNoteEs",
+      "priceNoteEn" = EXCLUDED."priceNoteEn",
+      "descriptionEs" = EXCLUDED."descriptionEs",
+      "descriptionEn" = EXCLUDED."descriptionEn",
+      "itemsEs" = EXCLUDED."itemsEs",
+      "itemsEn" = EXCLUDED."itemsEn",
+      "ctaEs" = EXCLUDED."ctaEs",
+      "ctaEn" = EXCLUDED."ctaEn",
+      "forWhoEs" = EXCLUDED."forWhoEs",
+      "forWhoEn" = EXCLUDED."forWhoEn",
+      popular = EXCLUDED.popular,
+      "order" = EXCLUDED."order",
+      published = EXCLUDED.published,
+      "updatedAt" = NOW();
+  `;
+
+  await db.$executeRawUnsafe(sql);
 }
 
 export async function seedDatabase(options: { revalidate?: boolean } = {}) {
@@ -505,9 +583,9 @@ export async function seedDatabase(options: { revalidate?: boolean } = {}) {
         await db.offer.create({ data: sanitizeForDb(o) });
       } catch (offerError) {
         const message = String(offerError);
-        const isUtf8SequenceError = message.includes('code: "22021"') || message.includes('invalid byte sequence for encoding');
+        const hasUtf8SequenceError = isUtf8SequenceError(message);
 
-        if (!isUtf8SequenceError) {
+        if (!hasUtf8SequenceError) {
           throw new Error(`Offer seed failed for ${o.planKey}: ${message}`);
         }
 
@@ -515,7 +593,18 @@ export async function seedDatabase(options: { revalidate?: boolean } = {}) {
         try {
           await db.offer.create({ data: sanitizeAsciiForDb(sanitizeForDb(o)) });
         } catch (asciiOfferError) {
-          throw new Error(`Offer seed failed for ${o.planKey} after ASCII fallback: ${String(asciiOfferError)}`);
+          const asciiMessage = String(asciiOfferError);
+          const asciiUtf8Error = isUtf8SequenceError(asciiMessage);
+
+          if (!asciiUtf8Error) {
+            throw new Error(`Offer seed failed for ${o.planKey} after ASCII fallback: ${asciiMessage}`);
+          }
+
+          try {
+            await upsertOfferViaSql(o);
+          } catch (sqlOfferError) {
+            throw new Error(`Offer seed failed for ${o.planKey} after SQL fallback: ${String(sqlOfferError)}`);
+          }
         }
       }
     }

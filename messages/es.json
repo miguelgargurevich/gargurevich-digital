@@ -1,26 +1,26 @@
 {
   "nav": {
-    "services": "Niveles",
+    "services": "Capas IA",
     "portfolio": "Portafolio",
     "technologies": "Diferenciales",
     "process": "Cómo funciona",
     "contact": "Contacto",
     "offers": "Ofertas",
-    "startProject": "Agendar llamada"
+    "startProject": "Solicitar diagnóstico"
   },
   "hero": {
-    "badge": "Desarrollo Web Premium",
-    "title": "Creamos",
-    "subtitle": "Somos especialistas en desarrollo web moderno. Desde landing pages de alta conversión hasta aplicaciones empresariales con IA integrada.",
+    "badge": "Plataforma IA para SMB LATAM",
+    "title": "Sistemas inteligentes para vender, atender y operar mejor",
+    "subtitle": "Implementamos presencia digital, agentes IA y automatización para que tu negocio responda más rápido, cierre más ventas y opere con más orden.",
     "cta": {
-      "primary": "Iniciar Proyecto",
-      "secondary": "Ver Portafolio"
+      "primary": "Solicitar diagnóstico",
+      "secondary": "Ver casos reales"
     },
     "rotatingWords": [
-      "Experiencias Digitales",
-      "Apps Web Modernas",
-      "Soluciones con IA",
-      "Productos Escalables"
+      "Presencia que convierte",
+      "Atención automática 24/7",
+      "Operación más eficiente",
+      "Crecimiento escalable"
     ],
     "stats": {
       "projects": {
@@ -195,10 +195,10 @@
     }
   },
   "contact": {
-    "badge": "Contáctanos",
-    "title": "Iniciemos Tu",
-    "titleHighlight": "Proyecto Digital",
-    "subtitle": "Estamos listos para transformar tus ideas en realidad. Cuéntanos sobre tu proyecto.",
+    "badge": "Conversemos",
+    "title": "Activa tu",
+    "titleHighlight": "Infraestructura IA",
+    "subtitle": "Cuéntanos tu objetivo comercial y te recomendaremos la capa ideal para empezar con impacto real.",
     "info": {
       "email": {
         "label": "Email",
@@ -222,22 +222,22 @@
       "companyPlaceholder": "Tu Empresa (opcional)",
       "projectType": "Tipo de Proyecto",
       "projectTypePlaceholder": "Selecciona un tipo",
-      "message": "Cuéntanos sobre tu proyecto",
-      "messagePlaceholder": "Hablemos de tu nivel actual. ¿Atiendes clientes de noche? ¿Recibes las mismas preguntas siempre?",
-      "submit": "Enviar Mensaje",
+      "message": "¿Qué quieres mejorar primero?",
+      "messagePlaceholder": "Hola, quiero saber si empiezo con Presencia Digital o necesito ya el Agente IA. ¿Atiendo clientes de noche? ¿Recibo preguntas repetitivas?",
+      "submit": "Solicitar propuesta",
       "sending": "Enviando...",
-      "success": "¡Mensaje enviado exitosamente!"
+      "success": "¡Listo! Recibimos tu solicitud."
     }
   },
   "footer": {
-    "description": "Transformamos ideas en experiencias digitales excepcionales. Tu socio de confianza para desarrollo web de vanguardia.",
+    "description": "Creamos sistemas inteligentes que ayudan a empresas a vender, atender y operar mejor.",
     "sections": {
       "services": "Servicios",
       "company": "Empresa"
     },
     "newsletter": {
-      "title": "Newsletter",
-      "description": "Suscríbete para recibir actualizaciones sobre tendencias en desarrollo web y ofertas exclusivas.",
+      "title": "Insights IA para negocios",
+      "description": "Recibe tácticas prácticas de automatización, ventas y operación para empresas en crecimiento.",
       "placeholder": "tu@email.com",
       "button": "Suscribirse"
     },
@@ -245,17 +245,17 @@
     "madeIn": "Gargurevich Digital 2026",
     "links": {
       "services": [
-        { "name": "Landing Pages", "href": "#services" },
-        { "name": "Sitios Web", "href": "#services" },
-        { "name": "E-commerce", "href": "#services" },
-        { "name": "Aplicaciones Web", "href": "#services" },
-        { "name": "Integración de IA", "href": "#services" }
+        { "name": "Capa 1: Presencia Digital IA", "href": "#ofertas" },
+        { "name": "Capa 2: Agente IA Experto", "href": "#ofertas" },
+        { "name": "Capa 3: Automatización Inteligente", "href": "#ofertas" },
+        { "name": "Capa 4: Memoria Empresarial", "href": "#ofertas" },
+        { "name": "Implementación en 3 pasos", "href": "#proceso" }
       ],
       "company": [
-        { "name": "Nosotros", "href": "#" },
-        { "name": "Portafolio", "href": "#portfolio" },
-        { "name": "Proceso", "href": "#process" },
-        { "name": "Contacto", "href": "#contact" }
+        { "name": "Por qué Gargurevich Digital", "href": "#" },
+        { "name": "Portafolio", "href": "#portafolio" },
+        { "name": "Cómo funciona", "href": "#proceso" },
+        { "name": "Hablar con un especialista", "href": "#contacto" }
       ],
       "legal": [
         { "name": "Política de Privacidad", "href": "/privacy" },

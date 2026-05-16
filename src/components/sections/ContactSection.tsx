@@ -269,7 +269,7 @@ export default function ContactSection({
           >
             <div>
               <h3 className="text-xl font-semibold text-white mb-6">
-                Información de Contacto
+                {locale === 'es' ? 'Canales directos' : 'Direct channels'}
               </h3>
               
               <div className="space-y-4">
@@ -298,13 +298,13 @@ export default function ContactSection({
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-3 h-3 rounded-full bg-[#10B981] animate-pulse" />
                 <span className="text-sm font-medium text-white">
-                  {locale === 'es' ? 'Respuesta rápida por WhatsApp' : 'Fast WhatsApp response'}
+                  {locale === 'es' ? 'Respuesta ejecutiva por WhatsApp' : 'Fast executive WhatsApp response'}
                 </span>
               </div>
               <p className="text-sm text-[#A1A1AA]">
                 {locale === 'es'
-                  ? 'Te orientamos sobre el mejor plan para tu negocio en pocos minutos.'
-                  : 'We help you choose the best plan for your business in minutes.'}
+                  ? 'Te recomendamos la capa ideal segun tu etapa de negocio y objetivo comercial.'
+                  : 'We recommend the right layer based on your business stage and growth goals.'}
               </p>
             </div>
           </motion.div>

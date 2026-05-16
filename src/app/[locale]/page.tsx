@@ -1,6 +1,8 @@
 import HeroSection from "@/components/sections/HeroSection";
 import ProblemSection from "@/components/sections/ProblemSection";
 import OffersSection from "@/components/sections/OffersSection";
+import GuaranteeSection from "@/components/sections/GuaranteeSection";
+import ResultsByLevelSection from "@/components/sections/ResultsByLevelSection";
 import TimelineSection from "@/components/sections/TimelineSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
 import TechStackSection from "@/components/sections/TechStackSection";
@@ -83,17 +85,23 @@ export default async function Home({
   const { locale } = await params;
   const [settings, offers] = await Promise.all([getSiteSettings(), getPublishedOffers()]);
 
+  const heroBadge = locale === 'es'
+    ? (settings['hero.badgeEs'] || 'Plataforma IA para SMB LATAM')
+    : (settings['hero.badgeEn'] || 'AI Platform for LATAM SMBs');
+  const heroTitle = locale === 'es'
+    ? (settings['hero.titleEs'] || 'Creamos sistemas inteligentes para vender, atender y operar mejor')
+    : (settings['hero.titleEn'] || 'We build intelligent systems to sell, serve, and operate better');
+  const heroSubtitle = locale === 'es'
+    ? (settings['hero.subtitleEs'] || 'Integramos presencia digital, agentes IA y automatizacion para que tu empresa responda mas rapido, ahorre tiempo y crezca con orden.')
+    : (settings['hero.subtitleEn'] || 'We combine digital presence, AI agents, and automation so your company can respond faster, save time, and scale with structure.');
+
   const heroOverrides = {
-    badge: locale === 'es' ? 'Crecimiento por madurez tecnologica' : 'Growth by technology maturity',
-    title: locale === 'es'
-      ? 'Convierte tu presencia digital en clientes reales'
-      : 'Turn your digital presence into real clients',
-    subtitle: locale === 'es'
-      ? 'Landing pages, web corporativa y automatizacion comercial para que te encuentren, te escriban y te compren.'
-      : 'Landing pages, corporate websites, and lead automation designed to get you discovered, messaged, and bought.',
+    badge: heroBadge,
+    title: heroTitle,
+    subtitle: heroSubtitle,
     painHook: locale === 'es'
-      ? 'Escalamos en 4 niveles: Presencia Digital, Agente IA, Automatizacion y Memoria Empresarial.'
-      : 'Scale in 4 layers: Digital Presence, AI Agent, Automation, and Enterprise Memory.',
+      ? 'Avanzas por 4 capas de madurez: Presencia Digital IA, Agente IA Experto, Automatizacion Inteligente y Memoria Empresarial.'
+      : 'Scale through 4 maturity layers: AI Digital Presence, Expert AI Agent, Smart Automation, and Enterprise Memory.',
     rotatingWords: locale === 'es'
       ? HERO_WORDS_ES[HERO_WORDS_VARIANT_ES]
       : HERO_WORDS_EN[HERO_WORDS_VARIANT_ES],
@@ -110,6 +118,8 @@ export default async function Home({
       <HeroSection locale={locale} overrides={heroOverrides} />
       <ProblemSection locale={locale} />
       <OffersSection locale={locale} offers={offers} />
+      <GuaranteeSection />
+      <ResultsByLevelSection />
       <TimelineSection locale={locale} />
       <TechStackSection locale={locale} />
       <PortfolioSection />
