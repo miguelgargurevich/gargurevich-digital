@@ -1,36 +1,96 @@
-export default function ResultsByLevelSection() {
-  const stories = [
+type Locale = 'es' | 'en';
+
+type Story = {
+  business: string;
+  problem: string;
+  solution: string;
+  result: string;
+};
+
+const STORIES: Record<Locale, Story[]> = {
+  es: [
     {
-      business: "Taller mecánico: 'El Turbo'",
+      business: "Taller mecanico: 'El Turbo'",
       problem: 'Pocos clientes fuera de horario',
       solution: 'Agente IA agenda citas nocturnas',
       result: '+40% citas fuera de horario',
     },
     {
-      business: "Clínica dental: 'Sonrisa'",
+      business: "Clinica dental: 'Sonrisa'",
       problem: 'Recepcionista saturada de consultas',
       solution: 'Bot responde precios 24/7',
-      result: 'Recepcionista liberada 3h/día',
+      result: 'Recepcionista liberada 3h/dia',
     },
     {
-      business: "Consultoría: 'G&A'",
+      business: "Consultoria: 'G&A'",
       problem: 'Mucho tiempo en transcribir llamadas',
       solution: 'Whisper transcribe llamadas',
       result: 'Ahorro S/2,000/mes en administrativo',
     },
-  ];
+  ],
+  en: [
+    {
+      business: "Auto shop: 'El Turbo'",
+      problem: 'Low booking volume after hours',
+      solution: 'AI Agent schedules night appointments',
+      result: '+40% after-hours bookings',
+    },
+    {
+      business: "Dental clinic: 'Sonrisa'",
+      problem: 'Front desk overloaded with repetitive questions',
+      solution: 'Bot answers pricing questions 24/7',
+      result: 'Front desk freed up 3h/day',
+    },
+    {
+      business: "Consulting: 'G&A'",
+      problem: 'Too much time spent transcribing calls',
+      solution: 'Whisper transcribes calls automatically',
+      result: 'Savings of S/2,000 per month in admin work',
+    },
+  ],
+};
+
+const LABELS: Record<Locale, { title: string; problem: string; solution: string }> = {
+  es: {
+    title: 'Resultados reales por nivel',
+    problem: 'Problema',
+    solution: 'Solucion IA',
+  },
+  en: {
+    title: 'Real outcomes by level',
+    problem: 'Problem',
+    solution: 'AI solution',
+  },
+};
+
+export default function ResultsByLevelSection({ locale = 'es' }: { locale?: Locale }) {
+  const stories = STORIES[locale];
+  const labels = LABELS[locale];
+
   return (
-    <section className="relative py-10 md:py-14 px-4 md:px-8 bg-white rounded-md shadow-sm mt-8 mb-8">
-      <h3 className="text-xl md:text-2xl font-bold mb-6 text-gray-900">Resultados reales por nivel</h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <section className="relative overflow-hidden bg-background py-10 md:py-14">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_0%,rgba(0,212,255,0.08),transparent_40%),radial-gradient(circle_at_80%_90%,rgba(16,185,129,0.07),transparent_40%)]" />
+
+      <div className="relative mx-auto max-w-7xl px-6 sm:px-8 md:px-12 lg:px-16">
+        <div className="mb-8 md:mb-10">
+          <h3 className="text-3xl md:text-4xl font-semibold text-white">{labels.title}</h3>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {stories.map((s, i) => (
-          <div key={i} className="bg-gray-50 border-l-4 border-blue-500 p-4 rounded-md flex flex-col gap-2 shadow">
-            <div className="font-semibold text-blue-700">{s.business}</div>
-            <div className="text-gray-700 text-sm"><span className="font-medium">Problema:</span> {s.problem}</div>
-            <div className="text-gray-700 text-sm"><span className="font-medium">Solución IA:</span> {s.solution}</div>
-            <div className="text-green-700 font-bold text-base mt-2">{s.result}</div>
-          </div>
+          <article
+            key={i}
+            className="rounded-3xl border border-white/12 bg-[#111111]/88 p-5 md:p-6 shadow-[0_16px_48px_rgba(0,0,0,0.35)] backdrop-blur-xl"
+          >
+            <p className="text-sm font-semibold text-[#67E8F9]">{s.business}</p>
+            <p className="mt-4 text-sm leading-6 text-[#D4D4D8]"><span className="text-white font-medium">{labels.problem}:</span> {s.problem}</p>
+            <p className="mt-2 text-sm leading-6 text-[#D4D4D8]"><span className="text-white font-medium">{labels.solution}:</span> {s.solution}</p>
+            <p className="mt-5 inline-flex rounded-full border border-[#22C55E]/35 bg-[#22C55E]/10 px-3 py-1.5 text-sm font-semibold text-[#86EFAC]">
+              {s.result}
+            </p>
+          </article>
         ))}
+        </div>
       </div>
     </section>
   );

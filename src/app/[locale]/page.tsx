@@ -4,6 +4,7 @@ import OffersSection from "@/components/sections/OffersSection";
 import GuaranteeSection from "@/components/sections/GuaranteeSection";
 import ResultsByLevelSection from "@/components/sections/ResultsByLevelSection";
 import TimelineSection from "@/components/sections/TimelineSection";
+import PlatformSection from "@/components/sections/PlatformSection";
 import PortfolioSection from "@/components/sections/PortfolioSection";
 import TechStackSection from "@/components/sections/TechStackSection";
 import { Suspense } from 'react';
@@ -118,9 +119,10 @@ export default async function Home({
       <HeroSection locale={locale} overrides={heroOverrides} />
       <ProblemSection locale={locale} />
       <OffersSection locale={locale} offers={offers} />
-      <GuaranteeSection />
-      <ResultsByLevelSection />
+      <GuaranteeSection locale={locale} />
+      <ResultsByLevelSection locale={locale} />
       <TimelineSection locale={locale} />
+      <PlatformSection locale={locale} />
       <TechStackSection locale={locale} />
       <PortfolioSection />
       <PeruSection locale={locale} />

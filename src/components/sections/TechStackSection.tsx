@@ -8,41 +8,41 @@ const DIFFERENTIATORS = {
     badge: 'Diferenciadores',
     title: 'Capacidad tecnica con foco comercial',
     subtitle:
-      'Cada implementacion se diseña para operar estable, escalar por etapas y sostener resultados en el tiempo.',
-    poweredBy: 'Powered by',
-    technologies: 'OpenAI • n8n • Docker • RAG • Cloud • Automation',
+      'Cada implementacion corre sobre infraestructura propia, escala por etapas y sostiene resultados en el tiempo.',
+    poweredBy: 'Construido sobre',
+    technologies: 'Next.js • n8n • Docker • Traefik • PostgreSQL • WhatsApp API • Groq · OpenAI · Gemini • RAG • Grafana',
     items: [
-      { title: 'Deploy rapido', description: 'Iteraciones cortas y publicacion continua sin depender de procesos manuales.' },
-      { title: 'IA integrada', description: 'Asistentes conectados a informacion real de tu negocio, no respuestas genericas.' },
-      { title: 'Hosting incluido', description: 'Infraestructura gestionada para salir a produccion con SSL y monitoreo base.' },
-      { title: 'Automatizaciones reales', description: 'Flujos operativos con n8n, eventos y acciones que eliminan tareas repetitivas.' },
-      { title: 'Escalable', description: 'Arquitectura modular para crecer de landing a sistema completo sin rehacer todo.' },
+      { title: 'Agente IA multicanal', description: 'Asistentes en WhatsApp y Telegram conectados a la informacion real de tu negocio, con cadena de modelos de respaldo para no caerse nunca.' },
+      { title: 'Provisioning automatico', description: 'Damos de alta un cliente nuevo con su landing premium, su agente IA y sus flujos n8n en minutos, no semanas.' },
+      { title: 'Infra self-hosted gestionada', description: 'Servidor propio con SSL automatico, backups y aislamiento por cliente. Sin costos sorpresa de terceros.' },
+      { title: 'Automatizaciones reales', description: 'Flujos operativos con n8n: eventos, webhooks y acciones que eliminan tareas repetitivas.' },
+      { title: 'Monitoreo proactivo', description: 'El sistema se vigila solo: limpia, se autorepara y avisa por Telegram antes de que algo falle.' },
+      { title: 'Memoria empresarial', description: 'Dashboard con RAG: notas, contactos, reuniones y documentos consultables por el agente IA.' },
+      { title: 'Escalable por capas', description: 'Arquitectura modular para crecer de una landing a un sistema completo sin rehacer nada.' },
       { title: 'Atencion personalizada', description: 'Acompañamiento cercano para decisiones de producto, datos y operacion.' },
-      { title: 'Arquitectura moderna', description: 'Stack actual con buenas practicas de rendimiento, seguridad y mantenibilidad.' },
-      { title: 'Integraciones', description: 'Conexiones con WhatsApp, CRMs, formularios, bases de datos y servicios externos.' },
     ],
   },
   en: {
     badge: 'Differentiators',
     title: 'Technical capability with business focus',
-    poweredBy: 'Powered by',
-    technologies: 'OpenAI • n8n • Docker • RAG • Cloud • Automation',
     subtitle:
-      'Each implementation is designed for stability, stage-based growth, and sustained outcomes over time.',
+      'Every implementation runs on our own infrastructure, scales in stages, and sustains outcomes over time.',
+    poweredBy: 'Built on',
+    technologies: 'Next.js • n8n • Docker • Traefik • PostgreSQL • WhatsApp API • Groq · OpenAI · Gemini • RAG • Grafana',
     items: [
-      { title: 'Fast deployment', description: 'Short iterations and continuous releases without manual-heavy workflows.' },
-      { title: 'Built-in AI', description: 'Assistants connected to real business data, not generic scripted answers.' },
-      { title: 'Hosting included', description: 'Managed infrastructure with SSL and baseline monitoring from day one.' },
-      { title: 'Real automations', description: 'Operational workflows with n8n, event-driven actions, and less repetitive work.' },
-      { title: 'Scalable', description: 'Modular architecture to grow from landing page to full system without rebuilds.' },
+      { title: 'Multichannel AI agent', description: 'Assistants on WhatsApp and Telegram wired to your real business data, with a model fallback chain so they never go down.' },
+      { title: 'Automated provisioning', description: 'We onboard a new client with their premium landing, AI agent, and n8n flows in minutes, not weeks.' },
+      { title: 'Managed self-hosted infra', description: 'Our own server with automatic SSL, backups, and per-client isolation. No surprise third-party costs.' },
+      { title: 'Real automations', description: 'Operational workflows with n8n: events, webhooks, and actions that remove repetitive work.' },
+      { title: 'Proactive monitoring', description: 'The system watches itself: it cleans up, self-heals, and alerts via Telegram before anything breaks.' },
+      { title: 'Enterprise memory', description: 'Dashboard with RAG: notes, contacts, meetings, and documents the AI agent can query.' },
+      { title: 'Scalable by layers', description: 'Modular architecture to grow from a landing page to a full system without rebuilds.' },
       { title: 'Personalized support', description: 'Hands-on guidance for product, data, and operations decisions.' },
-      { title: 'Modern architecture', description: 'Current stack with strong performance, security, and maintainability standards.' },
-      { title: 'Integrations', description: 'Connections with WhatsApp, CRMs, forms, databases, and external services.' },
     ],
   },
 } as const;
 
-const ICONS = [Rocket, CircuitBoard, Cloud, Waypoints, Layers3, Handshake, ShieldCheck, Gauge];
+const ICONS = [CircuitBoard, Rocket, Cloud, Waypoints, ShieldCheck, Layers3, Gauge, Handshake];
 
 export default function TechStackSection({ locale = 'es' }: { locale?: string }) {
   const content = locale === 'es' ? DIFFERENTIATORS.es : DIFFERENTIATORS.en;
@@ -83,6 +83,8 @@ export default function TechStackSection({ locale = 'es' }: { locale?: string })
                 <p className="mt-2 text-sm text-[#A1A1AA] leading-6">{item.description}</p>
               </motion.article>
             );
+          })}
+        </div>
 
         <motion.div
           className="mt-16 pt-12 border-t border-white/10"
@@ -94,8 +96,6 @@ export default function TechStackSection({ locale = 'es' }: { locale?: string })
           <p className="text-xs uppercase tracking-[0.2em] text-[#94A3B8]">{content.poweredBy}</p>
           <p className="mt-3 text-lg text-[#CFCFD2] font-medium">{content.technologies}</p>
         </motion.div>
-          })}
-        </div>
       </div>
     </section>
   );
